@@ -9,7 +9,7 @@ With UML7 you can view and create UML classes diagrams. You can also save your w
 6 fist-year students of IT & Networks course at [N7](http://www.enseeiht.fr/en/index.html)
 
 ## Licence
-UML7 is under GPLv3 licence. See [LICENCE](LICENCE)
+UML7 is under GPLv3 license. See [LICENSE](LICENSE)
 
 ---
 
@@ -24,4 +24,4 @@ UML7 permet de visualiser et de créer des diagrammes de classes UML. Il permet 
 6 étudiants 1A de la filière apprentissage Info&Réseaux de l'[N7](http://www.enseeiht.fr/fr/formation/formation-ingenieur-par-l-apprentissage/sn.html)
 
 ## Licence
-UML7 est sous licence GPLv3. Voir [LICENSE](LICENCE)
+UML7 est sous licence GPLv3. Voir [LICENSE](LICENSE)
