@@ -1,23 +1,69 @@
 @startuml
 
+enum Visibility {
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    PACKAGE_PRIVATE
+}
+
 class UML_Diagram {
-
+    -String titre
+    +getTitre()
+    +setTitre(String titre)
 }
 
-Interface UML_Element {
-
+interface UML_Element {
 }
 
-Interface UML_Class_Diagram_Element {
 
+Abstract class UML_Class_Diagram_Element {
+    -String label
+    +getLabel()
+    +setLabel(String label)
 }
 
-Interface UML_Object {
-
+Abstract class UML_Object {
+    +addMethod(UML_Method method) {abstract}
+    +addAttribute(UML_Attribute attr) {abstract}
 }
 
 class UML_Class {
+}
 
+class UML_Method {
+    -boolean static
+    -boolean final
+    -boolean synchronized
+    -boolean abstract
+    -params
+    -return
+}
+
+abstract class UML_Attribute {
+    -String valeur
+    +getType() : UML_Type
+    +toString() : String
+}
+
+
+class UML_BasicAttribute {
+}
+abstract class UML_DecoratorAttribute {
+    +getAttribute() : UML_Attribute
+}
+
+class UML_FinalAttribute {
+    +UML_FinalAttribute(UML_Attribute attr)
+}
+class UML_StaticAttribute {
+    +UML_StaticAttribute(UML_Attribute attr)
+}
+class UML_TransientAttribute {
+    +UML_TransientAttribute(UML_Attribute attr)
+}
+class UML_VolatileAttribute {
+    +UML_VolatileAttribute(UML_Attribute attr)
 }
 
 class UML_Abstract_Class{
@@ -25,19 +71,24 @@ class UML_Abstract_Class{
 }
 
 class UML_Enum {
+    -String valeur
+}
 
+class UML_Package {
+    
 }
 
 class UML_Interface {
 
 }
 
-Interface UML_Type {
-
+Abstract class UML_Type {
+    
 }
 
+
 Interface UML_Relationship {
-    getRelationType() : Relationship_Type
+    +getRelationType() : Relationship_Type
 }
 
 Enum Relationship_Type{
@@ -49,18 +100,42 @@ Enum Relationship_Type{
     DEPENDS
 }
 
-UML_Diagram "*" o- "*" UML_Element
-UML_Diagram "*" *- "*" UML_Relationship
+UML_Diagram "1" *- "*" UML_Element
+UML_Diagram "1" *- "*" UML_Relationship
 UML_Relationship "*" o-- "2..*" UML_Element
 
-UML_Element <|-- UML_Class_Diagram_Element
-
-UML_Class_Diagram_Element <|-- UML_Object
-UML_Class_Diagram_Element <|-- UML_Type
-UML_Object <|.. UML_Class
+UML_Element <|.. UML_Class_Diagram_Element
+UML_Object <|-- UML_Class
 UML_Class <|-- UML_Abstract_Class
-UML_Object <|.. UML_Interface
-UML_Type <|.. UML_Enum
+UML_Class <|-- UML_Final_Class
+UML_Object <|-- UML_Interface
+UML_Type <|-- UML_Enum
+
+UML_Type <|-- UML_Object
+UML_Type <|-- UML_PrimitiveType
+UML_Class_Diagram_Element <|-- UML_Type
+UML_Class_Diagram_Element <|-- UML_Method
+UML_Class_Diagram_Element <|-- UML_Attribute
+UML_Attribute <|-- UML_BasicAttribute
+UML_Attribute <|-- UML_DecoratorAttribute
+UML_DecoratorAttribute <|-- UML_FinalAttribute
+UML_DecoratorAttribute <|-- UML_StaticAttribute
+UML_DecoratorAttribute <|-- UML_TransientAttribute
+UML_DecoratorAttribute <|-- UML_VolatileAttribute
+UML_DecoratorAttribute "1" *-- "attribute" UML_Attribute
+UML_Type "type" <- UML_Attribute
+
+
+UML_Class_Diagram_Element <|-- UML_Package
+UML_Class_Diagram_Element "*" <- "1" UML_Package
+
+Visibility "visibility" <- UML_Type
+Visibility "visibility" <- UML_Attribute
+
+UML_Class "1" *-- "*" UML_Method
+UML_Interface "1" *-- "*" UML_Method
+UML_Class "1" *-- "*" UML_Attribute
+ 
 
 UML_HierachyLink -[hidden]-> UML_UsageLink
 
