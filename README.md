@@ -6,7 +6,7 @@ This tool is part of JAVA school project developped with agile SCRUM method.
 With UML7 you can view and create UML classes diagrams. You can also save your work by saving and importing your diagrams. Then this tool can generate JAVA code from an UML diagram and vice versa.
 
 ## Authors
-6 fist-year students of IT & Networks course at [N7](http://www.enseeiht.fr/en/index.html)
+6 first-year students of IT & Networks course at [N7](http://www.enseeiht.fr/en/index.html)
 
 ## Licence
 UML7 is under GPLv3 license. See [LICENSE](LICENSE)
