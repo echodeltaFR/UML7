@@ -4,90 +4,78 @@ enum Visibility {
     PRIVATE
     PROTECTED
     PUBLIC
-    PACKAGE_PRIVATE
 }
 
-class UML_Diagram {
+enum Modifier {
+    FINAL
+    STATIC
+    ABSTRACT
+    VOLATILE
+    TRANSIENT
+    SYNCHRONIZED
+    
+    getFullName() : String
+}
+
+class UmlDiagram {
     -String titre
     +getTitre()
     +setTitre(String titre)
 }
 
-interface UML_Element {
+interface UmlElement {
 }
 
 
-Abstract class UML_Class_Diagram_Element {
+Abstract class UmlEntity {
+    +addModifier(m : Modifier)
+    +clearModifiers()
+    +removeModifier(m : Modifier)
+    +getVisibility()
+    +setVisibility()
+}
+
+Abstract class UmlLabeled_Element {
     -String label
     +getLabel()
     +setLabel(String label)
 }
 
-Abstract class UML_Object {
-    +addMethod(UML_Method method) {abstract}
-    +addAttribute(UML_Attribute attr) {abstract}
+class UmlClass {
 }
 
-class UML_Class {
-}
-
-class UML_Method {
-    -boolean static
-    -boolean final
-    -boolean synchronized
-    -boolean abstract
+class UmlMethod {
     -params
     -return
 }
 
-abstract class UML_Attribute {
+class UmlAttribute {
     -String valeur
-    +getType() : UML_Type
+    +getType() : UmlComponent
     +toString() : String
 }
 
 
-class UML_BasicAttribute {
-}
-abstract class UML_DecoratorAttribute {
-    +getAttribute() : UML_Attribute
-}
-
-class UML_FinalAttribute {
-    +UML_FinalAttribute(UML_Attribute attr)
-}
-class UML_StaticAttribute {
-    +UML_StaticAttribute(UML_Attribute attr)
-}
-class UML_TransientAttribute {
-    +UML_TransientAttribute(UML_Attribute attr)
-}
-class UML_VolatileAttribute {
-    +UML_VolatileAttribute(UML_Attribute attr)
-}
-
-class UML_Abstract_Class{
-
-}
-
-class UML_Enum {
+class UmlEnum {
     -String valeur
 }
 
-class UML_Package {
+class UmlPackage {
     
 }
 
-class UML_Interface {
+class UmlInterface {
 
 }
 
-Abstract class UML_Type {
-    
+Abstract class UmlComponent {
+    +addMethod(UmlMethod method) {abstract}
+    +addAttribute(UmlAttribute attr) {abstract}
+
 }
 
 
-Interface UML_Relationship {
+Interface UmlRelationship {
     +getRelationType() : Relationship_Type
 }
 
@@ -100,49 +88,39 @@ Enum Relationship_Type{
     DEPENDS
 }
 
-UML_Diagram "1" *- "*" UML_Element
-UML_Diagram "1" *- "*" UML_Relationship
-UML_Relationship "*" o-- "2..*" UML_Element
+UmlDiagram "1" *- "*" UmlElement
+UmlDiagram "1" *- "*" UmlRelationship
+UmlRelationship "*" o-- "2..*" UmlElement
 
-UML_Element <|.. UML_Class_Diagram_Element
-UML_Object <|-- UML_Class
-UML_Class <|-- UML_Abstract_Class
-UML_Class <|-- UML_Final_Class
-UML_Object <|-- UML_Interface
-UML_Type <|-- UML_Enum
-
-UML_Type <|-- UML_Object
-UML_Type <|-- UML_PrimitiveType
-UML_Class_Diagram_Element <|-- UML_Type
-UML_Class_Diagram_Element <|-- UML_Method
-UML_Class_Diagram_Element <|-- UML_Attribute
-UML_Attribute <|-- UML_BasicAttribute
-UML_Attribute <|-- UML_DecoratorAttribute
-UML_DecoratorAttribute <|-- UML_FinalAttribute
-UML_DecoratorAttribute <|-- UML_StaticAttribute
-UML_DecoratorAttribute <|-- UML_TransientAttribute
-UML_DecoratorAttribute <|-- UML_VolatileAttribute
-UML_DecoratorAttribute "1" *-- "attribute" UML_Attribute
-UML_Type "type" <- UML_Attribute
+UmlElement <|.. UmlLabeled_Element
+UmlLabeled_Element <|-- UmlEntity
 
 
-UML_Class_Diagram_Element <|-- UML_Package
-UML_Class_Diagram_Element "*" <- "1" UML_Package
+UmlComponent <|-- UmlClass
+UmlComponent <|-- UmlInterface
+UmlComponent <|-- UmlEnum
 
-Visibility "visibility" <- UML_Type
-Visibility "visibility" <- UML_Attribute
+UmlEntity <|-- UmlComponent
 
-UML_Class "1" *-- "*" UML_Method
-UML_Interface "1" *-- "*" UML_Method
-UML_Class "1" *-- "*" UML_Attribute
+UmlEntity <|-- UmlMethod
+UmlEntity <|-- UmlAttribute
+
+UmlLabeled_Element <|-- UmlPackage
+UmlLabeled_Element "*" <- "1" UmlPackage
+
+UmlEntity  -> "visibility" Visibility
+Modifier "modifier" <- UmlEntity
+
+UmlComponent "1" *-- "*" UmlMethod
+UmlComponent "1" *-- "*" UmlAttribute
  
 
-UML_HierachyLink -[hidden]-> UML_UsageLink
+UmlHierachyLink -[hidden]-> UmlUsageLink
 
-UML_Relationship <|. UML_HierachyLink
-UML_Relationship <|. UML_UsageLink
+UmlRelationship <|. UmlHierachyLink
+UmlRelationship <|. UmlUsageLink
 
-UML_HierachyLink -> Relationship_Type
-UML_UsageLink -> Relationship_Type
+UmlHierachyLink -> Relationship_Type
+UmlUsageLink -> Relationship_Type
 
 @enduml
