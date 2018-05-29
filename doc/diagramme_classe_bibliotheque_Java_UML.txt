@@ -10,9 +10,9 @@ class Generator.FContent {
 Interface Generator.CodeGenerator {
     +generateCode(UmlDiagram, Boolean strict) : FContent[]
     +generateCode(folder : File, UML_Diagram) : void
-    +generateCode(Classe) : FContent[]
-    +generateCode(Interface) : FContent[]
-    +generateCode(Enum) : FContent[]
+    +generateCode(UmlClasse) : FContent[]
+    +generateCode(UmlInterface) : FContent[]
+    +generateCode(UmlEnum) : FContent[]
 }
 
 Interface Generator.DiagramGenerator {
