@@ -91,6 +91,39 @@ abstract class UmlComponent extends UmlEntity {
 	}
 	
 	/**
+	 * Getter list of methods
+	 * @return ArrayList<UmlMethod> list of methods
+	 */
+	public ArrayList<UmlMethod> getMethodsList() {
+		return methodsList;
+	}
+	
+	/**
+	 * Setter list of methods
+	 * @param methodsList list of methods
+	 */
+	public void setMethodsList(ArrayList<UmlMethod> methodsList) {
+		this.methodsList = methodsList;
+	}
+
+	/**
+	 * Getter list of attributes
+	 * @return ArrayList<UmlAttribute> list of attributes
+	 */
+	public ArrayList<UmlAttribute> getAttributesList() {
+		return attributesList;
+	}
+
+	/**
+	 * Setter list of attributes
+	 * @param attributesList list of attributes
+	 */
+	public void setAttributesList(ArrayList<UmlAttribute> attributesList) {
+		this.attributesList = attributesList;
+	}
+
+	
+	/**
 	 * Add a method to the methods list
 	 * @param method of a component
 	 */
