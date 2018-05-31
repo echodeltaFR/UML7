@@ -7,13 +7,16 @@ public class UmlMethod {
 	private ArrayList<String> params;
 	private String returnType;
 	private String name;
+	private Visibility visibility;
 	
 	public UmlMethod(ArrayList<String> params,  
 			String returnValue,
-			String name) {
+			String name,
+			Visibility visibility) {
 		this.returnType = returnValue;
 		this.params = params;
 		this.name = name;
+		this.visibility = visibility;
 	}
 	
 	public void addAllParams(ArrayList<String> params) {
@@ -46,6 +49,14 @@ public class UmlMethod {
 	
 	public void removeParams(ArrayList<String> params) {
 		this.params.removeAll(params);
+	}
+	
+	public void setVisibility(Visibility visibility) {
+		this.visibility = visibility;
+	}
+	
+	public Visibility getVisibility() {
+		return this.visibility;
 	}
 	
 }
