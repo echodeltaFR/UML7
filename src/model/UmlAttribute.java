@@ -5,7 +5,7 @@ package model;
  * @author echodeltaFR
  * @version 1.2
  */
-public class UmlAttribute {
+public class UmlAttribute extends UmlEntity{
 
     /** Name of the attribute. */
     private String name;
