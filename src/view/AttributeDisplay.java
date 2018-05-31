@@ -1,7 +1,5 @@
 package view;
 import javax.swing.JLabel;
-
-import model.Modifier;
 import model.UmlAttribute;
 
 /**
@@ -30,15 +28,7 @@ public class AttributeDisplay extends JLabel {
      * and you want the display to refresh.
      */
     public void updateLabel() {
-    	String str = attribute.getVisibility()+attribute.getName() + ": " + attribute.getType();
-        if (attribute.getModifier().size()!=0) {
-        	str+=" {";
-        	for (Modifier m : attribute.getModifier()) {
-        		str+=m.toString()+",";
-        	}
-        	str=str.substring(0,str.length()-1)+"}";
-        }
-    	this.setText(str);
+        this.setText(attribute.getName() + ": " + attribute.getType());
     }
 
 }

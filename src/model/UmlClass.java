@@ -12,11 +12,9 @@ public class UmlClass {
 	 * @param name le Nom de class
 	 */
 	public UmlClass(String name) {
-
 		className = name;
 	}
 	public void setName(String name) {
-
 		className = name;
 	}
 	public String getName() {
