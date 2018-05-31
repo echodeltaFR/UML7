@@ -14,7 +14,7 @@ public abstract class UmlEntity{
 	// Attributes
 	
 	/**
-	 * Visibility of an element
+	 * Visibility of an element.
 	 */
 	private Visibility visibility;
 
@@ -26,7 +26,7 @@ public abstract class UmlEntity{
 	// Constructor
 	
 	/**
-	 * Constructor of an element with visibility and modifier(s)
+	 * Constructor of an element with visibility and modifier(s).
 	 * @param visibility the visibility
 	 * @param modifier the method modifier(s)
 	 */
@@ -36,7 +36,7 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Constructor of an element with visibility
+	 * Constructor of an element with visibility.
 	 * @param visibility the visibility
 	 */
 	public UmlEntity(Visibility visibility) {
@@ -45,7 +45,7 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Constructor of an element by default
+	 * Constructor of an element by default.
 	 */
 	public UmlEntity() {
 		this.visibility = Visibility.PUBLIC;
@@ -55,7 +55,7 @@ public abstract class UmlEntity{
 	// Methods
 	
 	/**
-	 * Add a modifier to the modifiers set
+	 * Add a modifier to the modifiers set.
 	 * @param modifier a modifier of the entity
 	 */
 	public void addModifier(Modifier modifier) {
@@ -63,14 +63,14 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Clear the modifiers set
+	 * Clear the modifiers set.
 	 */
 	public void clearModifiers() {
 		this.modifiers.clear();
 	}
 	
 	/**
-	 * Remove a modifier from the modifiers list
+	 * Remove a modifier from the modifiers list.
 	 * @param modifier the modifier to remove
 	 */
 	public void removeModifier(Modifier modifier) {
@@ -78,7 +78,7 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Getter visibility
+	 * Getter visibility.
 	 * @return visibility the visibility
 	 */
 	public Visibility getVisibility() {
@@ -86,7 +86,7 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Setter visibility
+	 * Setter visibility.
 	 * @param visibility the visibility
 	 */
 	public void setVisibility(Visibility visibility) {
@@ -94,7 +94,7 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Getter set of modifiers
+	 * Getter set of modifiers.
 	 * @return Set<Modifier> the set of modifiers
 	 */
 	public Set<Modifier> getModifier() {
@@ -102,7 +102,7 @@ public abstract class UmlEntity{
 	}
 	
 	/**
-	 * Setter set of modifiers
+	 * Setter set of modifiers.
 	 * @param modifiers a collection of modifiers
 	 */
 	public void setModifiers(Collection<Modifier> modifiers) {

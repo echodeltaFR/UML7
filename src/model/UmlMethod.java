@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * La classe permettant de créer une méthode.
+ * Class which allow to create a method
  * @author fmeslet
  * @version 1.0
  */
@@ -14,32 +14,32 @@ public class UmlMethod extends UmlEntity{
 	/**
 	 * Method parameters.
 	 */
-	private ArrayList<String> params;
+	private ArrayList<UmlParams> params;
 	/**
 	 * Method return type.
 	 */
-	private String returnType;
+	private UmlComponent returnType;
 	/**
 	 * Method name.
 	 */
 	private String name;
 	
 	/**
-	 * Construire une méthode de classe.
-	 * @param params paramètre de la méthode
-	 * @param returnValue type de retour de la méthode
-	 * @param name nom de la méthode
-	 * @param visibility visibilité de la méthode
-	 * @param modifier modifieur(s) de la méthode
+	 * Build a class method.
+	 * @param params method parameter
+	 * @param returnType method return type
+	 * @param name method name
+	 * @param visibility method visibility
+	 * @param modifier method modifiers
 	 */
-	public UmlMethod(List<String> params,  
-			String returnValue,
+	public UmlMethod(List<UmlParams> params,  
+			UmlComponent returnType,
 			String name,
 			Visibility visibility,
 			HashSet<Modifier> modifier) {
 		super(visibility, modifier);
-		this.returnType = returnValue;
-		this.params = new ArrayList<String>(params);
+		this.returnType = returnType;
+		this.params = new ArrayList<UmlParams>(params);
 		this.name = name;
 	}
 	
@@ -47,11 +47,11 @@ public class UmlMethod extends UmlEntity{
 	 * Ajouter tous les paramètres de la méthodes.
 	 * @param params le paramètre de la méthode à ajouter.
 	 */
-	public void addAllParams(List<String> params) {
+	public void addAllParams(List<UmlParams> params) {
 		this.params.addAll(params);
 	}
 	
-	public void addParams(String param) {
+	public void addParams(UmlParams param) {
 		this.params.add(param);
 	}
 	
@@ -59,7 +59,7 @@ public class UmlMethod extends UmlEntity{
 	 * Ajouter des types de retour.
 	 * @param returnType
 	 */
-	public void setReturn(String returnType) {
+	public void setReturn(UmlComponent returnType) {
 		this.returnType = returnType;
 	}
 	
@@ -74,7 +74,7 @@ public class UmlMethod extends UmlEntity{
 	 * Obtenir les types de retour.
 	 * @return Chaine de caractère
 	 */
-	public String getReturnType() {
+	public UmlComponent getReturnType() {
 		return this.returnType;
 	}
 	
@@ -90,7 +90,7 @@ public class UmlMethod extends UmlEntity{
 	 * Obtenir le(s) paramètre(s) de la méthodes.
 	 * @return le(s) parametre(s) de la méthode
 	 */
-	public List<String> getParams(){
+	public List<UmlParams> getParams(){
 		return this.params;
 	}
 	
