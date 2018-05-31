@@ -1,15 +1,43 @@
 package model;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+/**
+ * La classe permettant de créer une méthode.
+ * @author fmeslet
+ * @version 1.0
+ */
 public class UmlMethod extends UmlEntity{
 
+	/**
+	 * Paramètre de la méthode.
+	 */
 	private ArrayList<String> params;
+	/**
+	 * Type de retour de la méthode.
+	 */
 	private String returnType;
+	/**
+	 * Nom de la méthode.
+	 */
 	private String name;
+	/**
+	 * Visibilité de la méthode.
+	 */
 	private Visibility visibility;
+	/**
+	 * Le(s) modifieur(s) de la méthode.
+	 */
 	private ArrayList<Modifier> modifier;
 	
+	/**
+	 * Construire une méthode de classe.
+	 * @param params paramètre de la méthode
+	 * @param returnValue type de retour de la méthode
+	 * @param name nom de la méthode
+	 * @param visibility visibilité de la méthode
+	 * @param modifier modifieur(s) de la méthode
+	 */
 	public UmlMethod(ArrayList<String> params,  
 			String returnValue,
 			String name,
@@ -23,7 +51,11 @@ public class UmlMethod extends UmlEntity{
 		this.modifier = modifier;
 	}
 	
-	public void addAllParams(ArrayList<String> params) {
+	/**
+	 * 
+	 * @param params le paramètre de la méthode à ajouter.
+	 */
+	public void addAllParams(Collections<String> params) {
 		this.params.addAll(params);
 	}
 	
