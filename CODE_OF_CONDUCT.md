@@ -94,7 +94,7 @@ When in doubt, ask for a second opinion. Perceived conflicts of interest are imp
 
 This Code is not exhaustive or complete. It is not a rulebook; it serves to distil our common understanding of a collaborative, shared environment and goals. We expect it to be followed in spirit as much as in the letter.
 
-*The [https://www.ubuntu.com/community/code-of-conduct](Ubuntu Code of Conduct) is licensed under the [http://creativecommons.org/licenses/by-sa/3.0/](Creative Commons Attribution-Share Alike 3.0 license). You may re-use it for your own project, and modify it as you wish, just please allow others to use your modifications and give credit to the Ubuntu Project!*
+*The [Ubuntu Code of Conduct](https://www.ubuntu.com/community/code-of-conduct) is licensed under the [Creative Commons Attribution-Share Alike 3.0 license](http://creativecommons.org/licenses/by-sa/3.0/). You may re-use it for your own project, and modify it as you wish, just please allow others to use your modifications and give credit to the Ubuntu Project!*
 
 ---
 
@@ -194,8 +194,8 @@ En cas de doute, demander un second avis. Il est important d’alerter quant aux
 
 Ce code n’est ni exhaustif ni complet. Ce n’est pas un règlement ; il permet de condenser l’idée que nous partageons communément et telle que nous la comprenons d’un environnement collaboratif et partagé. Nous attendons qu’il soit suivi spirituellement autant qu’à la lettre.
 
-*Le Code de Conduite Ubuntu est sous licence [https://creativecommons.org/licenses/by-sa/3.0/](Creative Commons Attribution-Share Alike 3.0) (CC BY-SA 3.0). Vous pouvez le réutiliser pour votre propre projet, et le modifier comme bon vous semble, s’il vous plaît permettez juste aux autres d’utiliser vos modifications et accorder le crédit au projet Ubuntu !*
+*Le Code de Conduite Ubuntu est sous licence [Creative Commons Attribution-Share Alike 3.0](https://creativecommons.org/licenses/by-sa/3.0/) (CC BY-SA 3.0). Vous pouvez le réutiliser pour votre propre projet, et le modifier comme bon vous semble, s’il vous plaît permettez juste aux autres d’utiliser vos modifications et accorder le crédit au projet Ubuntu !*
 
-*Traduction proposée par Édouard LUMET, sous licence [https://creativecommons.org/licenses/by-sa/3.0/](CC BY-SA 3.0).
-Translated by Édouard LUMET, licensed under [https://creativecommons.org/licenses/by-sa/3.0/](CC BY-SA 3.0) license.
-Version originale : [https://www.ubuntu.com/community/code-of-conduct](Ubuntu Code of Conduct v2.0).*
+*Traduction proposée par Édouard LUMET, sous licence [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+Translated by Édouard LUMET, licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license.
+Version originale : [Ubuntu Code of Conduct v2.0](https://www.ubuntu.com/community/code-of-conduct).*
