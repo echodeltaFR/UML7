@@ -1,7 +1,5 @@
 package model;
 
-import javafx.scene.input.KeyCombination.Modifier;
-
 public class UmlClass {
 	/**
 	 *le Nom de class
