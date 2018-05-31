@@ -83,7 +83,7 @@ public class UmlEnum {
 	 * @param methods
 	 * @param attributes
 	 */
-	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods, ArrayList<String> attributes) {
+	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes) {
 		this.name = name;
 		valuesList = new ArrayList<String>(values);
 		methodsList = new ArrayList<UmlMethod>(methods);
