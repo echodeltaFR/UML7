@@ -1,5 +1,6 @@
-package model;
+package view;
 import javax.swing.JLabel;
+import model.UmlAttribute;
 
 /**
  * Diplay attributes into the GUI.
