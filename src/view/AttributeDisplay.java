@@ -28,7 +28,7 @@ public class AttributeDisplay extends JLabel {
      * and you want the display to refresh.
      */
     public void updateLabel() {
-        System.out.print(attribute.getName() + ": " + attribute.getType());
+        this.setText(attribute.getName() + ": " + attribute.getType());
     }
 
 }
