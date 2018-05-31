@@ -1,3 +1,4 @@
+package model;
 /**
  * Rerpesentation of attributes in
  * a UML classes diagram.
