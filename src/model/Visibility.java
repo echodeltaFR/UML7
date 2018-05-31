@@ -8,7 +8,7 @@ public enum Visibility {
 	
 	private String symbol;
 	
-	Visibility(String name) {
+	Visibility(String symbol) {
 		this.symbol = symbol;
 	}
 	
