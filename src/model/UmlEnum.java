@@ -1,4 +1,4 @@
-package projet_long;
+package model;
 
 import java.util.ArrayList;
 /**
@@ -23,12 +23,12 @@ public class UmlEnum {
 	/**
 	 * List of Enum methods
 	 */
-	private ArrayList<String> methodsList;
+	private ArrayList<UmlMethod> methodsList;
 	
 	/**
 	 * List of Enum attributes
 	 */
-	private ArrayList<String> attributesList;
+	private ArrayList<UmlAttribute> attributesList;
 	
 	/**
 	 * List of Enum modifiers
@@ -44,8 +44,8 @@ public class UmlEnum {
 	public UmlEnum(String name) {
 		this.name = name;
 		valuesList = new ArrayList<String>();
-		methodsList = new ArrayList<String>();
-		attributesList = new ArrayList<String>();
+		methodsList = new ArrayList<UmlMethod>();
+		attributesList = new ArrayList<UmlAttribute>();
 		modifiersList = new ArrayList<String>();
 	}
 	
@@ -57,8 +57,8 @@ public class UmlEnum {
 	public UmlEnum(String name, ArrayList<String> values) {
 		this.name = name;
 		valuesList = new ArrayList<String>(values);
-		methodsList = new ArrayList<String>();
-		attributesList = new ArrayList<String>();
+		methodsList = new ArrayList<UmlMethod>();
+		attributesList = new ArrayList<UmlAttribute>();
 		modifiersList = new ArrayList<String>();
 	}
 	
@@ -68,11 +68,11 @@ public class UmlEnum {
 	 * @param values
 	 * @param methods
 	 */
-	public UmlEnum(String name, ArrayList<String> values, ArrayList<String> methods) {
+	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods) {
 		this.name = name;
 		valuesList = new ArrayList<String>(values);
-		methodsList = new ArrayList<String>(methods);
-		attributesList = new ArrayList<String>();
+		methodsList = new ArrayList<UmlMethod>(methods);
+		attributesList = new ArrayList<UmlAttribute>();
 		modifiersList = new ArrayList<String>();
 	}
 	
@@ -83,11 +83,11 @@ public class UmlEnum {
 	 * @param methods
 	 * @param attributes
 	 */
-	public UmlEnum(String name, ArrayList<String> values, ArrayList<String> methods, ArrayList<String> attributes) {
+	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods, ArrayList<String> attributes) {
 		this.name = name;
 		valuesList = new ArrayList<String>(values);
-		methodsList = new ArrayList<String>(methods);
-		attributesList = new ArrayList<String>(attributes);
+		methodsList = new ArrayList<UmlMethod>(methods);
+		attributesList = new ArrayList<UmlAttribute>(attributes);
 		modifiersList = new ArrayList<String>();
 	}
 	
@@ -99,11 +99,11 @@ public class UmlEnum {
 	 * @param attributes
 	 * @param modifiers
 	 */
-	public UmlEnum(String name, ArrayList<String> values, ArrayList<String> methods, ArrayList<String> attributes, ArrayList<String> modifiers) {
+	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes, ArrayList<String> modifiers) {
 		this.name = name;
 		valuesList = new ArrayList<String>(values);
-		methodsList = new ArrayList<String>(methods);
-		attributesList = new ArrayList<String>(attributes);
+		methodsList = new ArrayList<UmlMethod>(methods);
+		attributesList = new ArrayList<UmlAttribute>(attributes);
 		modifiersList = new ArrayList<String>(modifiers);
 	}
 	
@@ -138,7 +138,7 @@ public class UmlEnum {
 	 * Add a method to the methods list
 	 * @param method
 	 */
-	public void addMethod(String method) {
+	public void addMethod(UmlMethod method) {
 		this.methodsList.add(method);
 	}
 	
@@ -146,7 +146,7 @@ public class UmlEnum {
 	 * Add an attribute to the attributes list 
 	 * @param attribute
 	 */
-	public void addAttribute(String attribute) {
+	public void addAttribute(UmlAttribute attribute) {
 		this.attributesList.add(attribute);
 	}
 	
@@ -170,7 +170,7 @@ public class UmlEnum {
 	 * Remove a method from the methods list
 	 * @param method
 	 */
-	public void removeMethod(String method) {
+	public void removeMethod(UmlMethod method) {
 		this.methodsList.remove(method);
 	}
 	
@@ -178,7 +178,7 @@ public class UmlEnum {
 	 * Remove an attribute from the attributes list 
 	 * @param attribute
 	 */
-	public void removeAttribute(String attribute) {
+	public void removeAttribute(UmlAttribute attribute) {
 		this.attributesList.remove(attribute);
 	}
 	

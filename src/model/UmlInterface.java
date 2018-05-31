@@ -1,4 +1,4 @@
-package projet_long;
+package model;
 
 import java.util.ArrayList;
 
@@ -19,17 +19,17 @@ public class UmlInterface {
 	/**
 	 * List of Interface methods
 	 */
-	private ArrayList<String> methodsList = new ArrayList<String>();
+	private ArrayList<UmlMethod> methodsList = new ArrayList<UmlMethod>();
 	
 	// Constructor
 	public UmlInterface(String name) {
 		this.setName(name);
-		 methodsList = new ArrayList<String>();
+		 methodsList = new ArrayList<UmlMethod>();
 	}
 	
-	public UmlInterface(String name, ArrayList<String> methods) {
+	public UmlInterface(String name, ArrayList<UmlMethod> methods) {
 		this.setName(name);
-		 methodsList = new ArrayList<String>(methods); 
+		 methodsList = new ArrayList<UmlMethod>(methods); 
 	}
 	
 	// Methods
@@ -38,7 +38,7 @@ public class UmlInterface {
 	 * Add a method to the methods list
 	 * @param method
 	 */
-	public void addMethod(String method) {
+	public void addMethod(UmlMethod method) {
 		this.methodsList.add(method);
 	}
 	
@@ -46,7 +46,7 @@ public class UmlInterface {
 	 * Remove a method from the methods list
 	 * @param method
 	 */
-	public void removeMethod(String method) {
+	public void removeMethod(UmlMethod method) {
 		this.methodsList.remove(method);
 	}
 	
