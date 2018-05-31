@@ -11,17 +11,17 @@ public class UmlEnum {
 	// Attributes
 	
 	/**
-	 * Enum name
+	 * Enum name.
 	 */
 	private String name;
 	
 	/**
-	 * List of Enum values
+	 * List of Enum values.
 	 */
 	private ArrayList<String> valuesList;
 	
 	/**
-	 * List of Enum methods
+	 * List of Enum methods.
 	 */
 	private ArrayList<UmlMethod> methodsList;
 	
@@ -51,8 +51,8 @@ public class UmlEnum {
 	
 	/**
 	 * Constructor with a name, a list of values
-	 * @param name
-	 * @param values
+	 * @param name name of enum element
+	 * @param values values of enum element
 	 */
 	public UmlEnum(String name, ArrayList<String> values) {
 		this.name = name;

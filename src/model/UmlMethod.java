@@ -10,25 +10,25 @@ import java.util.List;
 public class UmlMethod extends UmlEntity{
 
 	/**
-	 * Paramètre de la méthode.
+	 * Method parameters.
 	 */
-	private ArrayList<String> params;
+	private List<String> params;
 	/**
-	 * Type de retour de la méthode.
+	 * Method return type.
 	 */
 	private String returnType;
 	/**
-	 * Nom de la méthode.
+	 * Method name.
 	 */
 	private String name;
 	/**
-	 * Visibilité de la méthode.
+	 * Method Visibility.
 	 */
 	private Visibility visibility;
 	/**
 	 * Le(s) modifieur(s) de la méthode.
 	 */
-	private ArrayList<Modifier> modifier;
+	private Collections<Modifier> modifier;
 	
 	/**
 	 * Construire une méthode de classe.
@@ -38,7 +38,7 @@ public class UmlMethod extends UmlEntity{
 	 * @param visibility visibilité de la méthode
 	 * @param modifier modifieur(s) de la méthode
 	 */
-	public UmlMethod(ArrayList<String> params,  
+	public UmlMethod(Collections<String> params,  
 			String returnValue,
 			String name,
 			Visibility visibility,
@@ -52,7 +52,7 @@ public class UmlMethod extends UmlEntity{
 	}
 	
 	/**
-	 * 
+	 * Ajouter tous les paramètres de la méthodes.
 	 * @param params le paramètre de la méthode à ajouter.
 	 */
 	public void addAllParams(Collections<String> params) {
@@ -63,27 +63,59 @@ public class UmlMethod extends UmlEntity{
 		this.params.add(param);
 	}
 	
+	/**
+	 * Ajouter des types de retour.
+	 * @param returnType
+	 */
 	public void setReturn(String returnType) {
 		this.returnType = returnType;
 	}
 	
+	/**
+	 * Supprimer les types de retour.
+	 */
 	public void removeReturn() {
 		this.returnType = null;
 	}
 	
+	/**
+	 * Obtenir les types de retour.
+	 * @return Chaine de caractère
+	 */
 	public String getReturnType() {
 		return this.returnType;
 	}
 	
+	/**
+	 * Obtenir le nom de la méthode.
+	 * @return le nom de la méthode.
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * Obtenir le(s) paramètre(s) de la méthodes.
+	 * @return le(s) parametre(s) de la méthode
+	 */
 	public List<String> getParams(){
 		return this.params;
 	}
 	
-	public void removeParams(ArrayList<String> params) {
+	/**
+	 * Supprimer le paramètre de la méthode.
+	 * @param params paramtre de la méthode
+	 */
+	public void removeParams(String params) {
+		this.params.remove(params);
+	}
+	
+	/**
+	 * Supprimer les paramètres de la méthode.
+	 * @param params les paramètres de la méhodes à
+	 * supprimer
+	 */
+	public void removeAllParams(List<String> params) {
 		this.params.removeAll(params);
 	}
 	

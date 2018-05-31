@@ -15,7 +15,7 @@ public abstract class UmlEntity{
 	 * Element modifier.
 	 */
 	private HashSet<Modifier> modifiers;
-		
+	
 	/**
 	 * Construire un élément avec une visibilité et
 	 * des modifieurs
