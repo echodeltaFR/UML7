@@ -1,4 +1,4 @@
-package Agile;
+package model;
 
 public enum Visibility {
 	
@@ -6,14 +6,14 @@ public enum Visibility {
 	PUBLIC("+"),
 	PROTECTED("#");
 	
-	private String name;
+	private String symbol;
 	
 	Visibility(String name) {
-		this.name = name;
+		this.symbol = symbol;
 	}
 	
-	public String getUmlName() {
-		return this.name();
+	public String toString() {
+		return this.symbol;
 	}
 	
 }

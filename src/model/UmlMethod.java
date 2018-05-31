@@ -2,21 +2,25 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UmlMethod {
+public class UmlMethod extends UmlEntity{
 
 	private ArrayList<String> params;
 	private String returnType;
 	private String name;
 	private Visibility visibility;
+	private ArrayList<Modifier> modifier;
 	
 	public UmlMethod(ArrayList<String> params,  
 			String returnValue,
 			String name,
-			Visibility visibility) {
+			Visibility visibility,
+			ArrayList<Modifier> modifier) {
+		super(visibility, modifier);
 		this.returnType = returnValue;
 		this.params = params;
 		this.name = name;
 		this.visibility = visibility;
+		this.modifier = modifier;
 	}
 	
 	public void addAllParams(ArrayList<String> params) {
@@ -49,14 +53,6 @@ public class UmlMethod {
 	
 	public void removeParams(ArrayList<String> params) {
 		this.params.removeAll(params);
-	}
-	
-	public void setVisibility(Visibility visibility) {
-		this.visibility = visibility;
-	}
-	
-	public Visibility getVisibility() {
-		return this.visibility;
 	}
 	
 }
