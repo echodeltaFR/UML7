@@ -1,68 +1,47 @@
 package model;
 
 import java.util.ArrayList;
+//import java.util.Collection;
 
 /**
- * class representing Interface type in UML
+ * Class representing Interface type in UML, extends UmlComponent
+ * @see UmlComponent
  * @author bastien
  *
  */
-public class UmlInterface {
-	
-	// Attributes
-	
-	/**
-	 * Name of the Interface
-	 */
-	private String name;
-	
-	/**
-	 * List of Interface methods
-	 */
-	private ArrayList<UmlMethod> methodsList = new ArrayList<UmlMethod>();
+public class UmlInterface extends UmlComponent {
 	
 	// Constructor
+	
+	/**
+	 * Constructor of an interface with a name
+	 * @param name name of the interface
+	 */
 	public UmlInterface(String name) {
+		super(name);
 		this.setName(name);
-		 methodsList = new ArrayList<UmlMethod>();
 	}
 	
+	/**
+	 * Constructor of an interface with a name and a list of methods
+	 * @param name name of the interface
+	 * @param methods of the interface
+	 */
 	public UmlInterface(String name, ArrayList<UmlMethod> methods) {
-		this.setName(name);
-		 methodsList = new ArrayList<UmlMethod>(methods); 
-	}
-	
-	// Methods
-	
-	/**
-	 * Add a method to the methods list
-	 * @param method
-	 */
-	public void addMethod(UmlMethod method) {
-		this.methodsList.add(method);
+		super(name, methods);
 	}
 	
 	/**
-	 * Remove a method from the methods list
-	 * @param method
+	 * Constructor of an interface with a name, a list of methods and a list of attributes
+	 * @param name of the interface
+	 * @param methods of the interface
+	 * @param attributes of the interface
 	 */
-	public void removeMethod(UmlMethod method) {
-		this.methodsList.remove(method);
+	public UmlInterface(String name, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes) {
+		super(name, methods, attributes);
 	}
 	
 	/**
-	 * Getter name
-	 * @return name
+	 *  TODO add needed constructors with visibility and modifiers
 	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Setter name
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 }
