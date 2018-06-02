@@ -35,6 +35,7 @@ public enum Visibility {
 	 * Returns the symbol of a visibility
 	 * @return String symbol of a visibility
 	 */
+	@Override
 	public String toString() {
 		return this.symbol;
 	}

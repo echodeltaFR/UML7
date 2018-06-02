@@ -36,6 +36,7 @@ public enum Modifier {
 	 * Returns the name of the modifier
 	 * @return String name of the modifier
 	 */
+	@Override
 	public String toString() {
 		return this.name;
 	}	

@@ -1,26 +1,27 @@
 package view;
-import model.UmlAttribute;
+
 import model.UmlClass;
-import model.UmlMethod;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
+
 public class ClassDisplay extends JPanel {
-	private final static int high = 20;
-	private UmlClass umlclass;
+	
+	private static final int HIGH = 20;
+	private transient UmlClass umlclass;
 	private JLabel classname;
-	private ArrayList<AttributeDisplay> attributes;
-	private ArrayList<MethodDisplay> methods;
+	private List<AttributeDisplay> attributes;
+	private List<MethodDisplay> methods;
 	private int displayweight;
 	private int displayhigh;
+	
 	public ClassDisplay(UmlClass umlclass) {
 		this.umlclass = umlclass;
-		attributes = new ArrayList<AttributeDisplay>();
-		methods = new ArrayList<MethodDisplay>();
+		attributes = new ArrayList<>();
+		methods = new ArrayList<>();
 		classname = new JLabel(this.umlclass.getName());
 		this.setBackground(Color.white);
 		this.setLayout(null);
@@ -28,6 +29,7 @@ public class ClassDisplay extends JPanel {
 		this.add(classname);
 		update();
 	}
+	
 	/**
 	 * update the information for display
 	 */
@@ -60,13 +62,14 @@ public class ClassDisplay extends JPanel {
         this.repaint();  
     }  
 	
+	@Override
 	public void paint(Graphics g)  
     {  
         super.paint(g);  
-        int count = 1 + umlclass.getAttributesList().size() + umlclass.getMethodsList().size();
+        //int count = 1 + umlclass.getAttributesList().size() + umlclass.getMethodsList().size();
         g.drawRect(1, this.displayhigh, this.displayweight, this.displayhigh);
         g.drawLine(1, 20, 40, 20);
-        g.drawLine(1, 1 + umlclass.getAttributesList().size() * this.high, 40, 1 + umlclass.getAttributesList().size() * this.high);
+        g.drawLine(1, 1 + umlclass.getAttributesList().size() * HIGH, 40, 1 + umlclass.getAttributesList().size() * HIGH);
         
     } 
 }

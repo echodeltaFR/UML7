@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -97,9 +96,9 @@ public class UmlMethod extends UmlEntity{
 	
 	/**
 	 * Supprimer le paramètre de la méthode.
-	 * @param params paramtre de la méthode
+	 * @param params parametre de la méthode
 	 */
-	public void removeParams(String params) {
+	public void removeParams(UmlParams params) {
 		this.params.remove(params);
 	}
 	
