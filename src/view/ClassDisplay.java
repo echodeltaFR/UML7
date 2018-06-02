@@ -52,12 +52,12 @@ public class ClassDisplay extends JPanel {
 		this.displayweight = count * 20;
 		this.displayhigh = 20 * (this.umlclass.getAttributesList().size() 
 				+ this.umlclass.getAttributesList().size() + 1);
-		display();
+		//display();
 	}
 	
 	public void display()  
     {  
-        this.repaint();  
+        //this.repaint();  
     }  
 	
 	public void paint(Graphics g)  
@@ -67,6 +67,7 @@ public class ClassDisplay extends JPanel {
         g.drawRect(1, this.displayhigh, this.displayweight, this.displayhigh);
         g.drawLine(1, 20, 40, 20);
         g.drawLine(1, 1 + umlclass.getAttributesList().size() * this.high, 40, 1 + umlclass.getAttributesList().size() * this.high);
-        
+        System.out.println(this.displayweight);
+        System.out.println(this.displayhigh);
     } 
 }
