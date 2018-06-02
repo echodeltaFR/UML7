@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class UmlClass extends UmlComponent{
@@ -16,7 +16,7 @@ public class UmlClass extends UmlComponent{
 	 * @param name the name of the UmlClass
 	 * @param methods all of methods of the UmlClass
 	 */
-	public UmlClass(String name, ArrayList<UmlMethod> methods) {
+	public UmlClass(String name, List<UmlMethod> methods) {
 		super(name, methods);
 	}
 	/**
@@ -25,7 +25,7 @@ public class UmlClass extends UmlComponent{
 	 * @param methods all of methods of the UmlClass
 	 * @param attributes all of attributes of the UmlClass
 	 */
-	public UmlClass(String name, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes) {
+	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super(name, methods, attributes);
 	}
 }

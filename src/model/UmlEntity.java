@@ -1,8 +1,8 @@
 package model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * Abstract class, an UML entity, parent of UmlComponent
  * @see UmlComponent
@@ -21,7 +21,7 @@ public abstract class UmlEntity{
 	/**
 	 * Element modifier.
 	 */
-	private HashSet<Modifier> modifiers;
+	private Set<Modifier> modifiers;
 	
 	// Constructor
 	
@@ -30,9 +30,9 @@ public abstract class UmlEntity{
 	 * @param visibility the visibility
 	 * @param modifier the method modifier(s)
 	 */
-	public UmlEntity(Visibility visibility, Collection<Modifier> modifier) {
+	public UmlEntity(Visibility visibility, Set<Modifier> modifier) {
 		this.visibility = visibility;
-		this.modifiers = new HashSet<Modifier>(modifier);
+		this.modifiers = new HashSet<>(modifier);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public abstract class UmlEntity{
 	 */
 	public UmlEntity(Visibility visibility) {
 		this.visibility = visibility;
-		this.modifiers = new HashSet<Modifier>();
+		this.modifiers = new HashSet<>();
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public abstract class UmlEntity{
 	 */
 	public UmlEntity() {
 		this.visibility = Visibility.PUBLIC;
-		this.modifiers = new HashSet<Modifier>();
+		this.modifiers = new HashSet<>();
 	}
 	
 	// Methods
@@ -105,8 +105,8 @@ public abstract class UmlEntity{
 	 * Setter set of modifiers.
 	 * @param modifiers a collection of modifiers
 	 */
-	public void setModifiers(Collection<Modifier> modifiers) {
-		this.modifiers = new HashSet<Modifier>(modifiers);
+	public void setModifiers(Set<Modifier> modifiers) {
+		this.modifiers = new HashSet<>(modifiers);
 	}
 }
 

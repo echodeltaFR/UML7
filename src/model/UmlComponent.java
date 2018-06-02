@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract class, an UML component, parent of types classes ( UmlClass, UmlEnum, UmlInterface, ...), extends UmlEntity
@@ -23,12 +24,12 @@ abstract class UmlComponent extends UmlEntity {
 	/**
 	 * List of the component methods
 	 */
-	private ArrayList<UmlMethod> methodsList;
+	private List<UmlMethod> methodsList;
 	
 	/**
 	 * List of the component attributes
 	 */
-	private ArrayList<UmlAttribute> attributesList;
+	private List<UmlAttribute> attributesList;
 	
 	// Constructor
 	
@@ -39,8 +40,8 @@ abstract class UmlComponent extends UmlEntity {
 	public UmlComponent(String name) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<UmlMethod>();
-		attributesList = new ArrayList<UmlAttribute>();
+		methodsList = new ArrayList<>();
+		attributesList = new ArrayList<>();
 	}
 	
 	/**
@@ -48,11 +49,11 @@ abstract class UmlComponent extends UmlEntity {
 	 * @param name name of the component
 	 * @param methods methods of the component
 	 */
-	public UmlComponent(String name, ArrayList<UmlMethod> methods) {
+	public UmlComponent(String name, List<UmlMethod> methods) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<UmlMethod>(methods);
-		attributesList = new ArrayList<UmlAttribute>();
+		methodsList = new ArrayList<>(methods);
+		attributesList = new ArrayList<>();
 	}
 	
 	/**
@@ -61,11 +62,11 @@ abstract class UmlComponent extends UmlEntity {
 	 * @param methods methods of the component
 	 * @param attributes attributes of the component
 	 */
-	public UmlComponent(String name, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes) {
+	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<UmlMethod>(methods);
-		attributesList = new ArrayList<UmlAttribute>(attributes);
+		methodsList = new ArrayList<>(methods);
+		attributesList = new ArrayList<>(attributes);
 	}
 	
 	/**
@@ -94,7 +95,7 @@ abstract class UmlComponent extends UmlEntity {
 	 * Getter list of methods
 	 * @return ArrayList<UmlMethod> list of methods
 	 */
-	public ArrayList<UmlMethod> getMethodsList() {
+	public List<UmlMethod> getMethodsList() {
 		return methodsList;
 	}
 	
@@ -102,7 +103,7 @@ abstract class UmlComponent extends UmlEntity {
 	 * Setter list of methods
 	 * @param methodsList list of methods
 	 */
-	public void setMethodsList(ArrayList<UmlMethod> methodsList) {
+	public void setMethodsList(List<UmlMethod> methodsList) {
 		this.methodsList = methodsList;
 	}
 
@@ -110,7 +111,7 @@ abstract class UmlComponent extends UmlEntity {
 	 * Getter list of attributes
 	 * @return ArrayList<UmlAttribute> list of attributes
 	 */
-	public ArrayList<UmlAttribute> getAttributesList() {
+	public List<UmlAttribute> getAttributesList() {
 		return attributesList;
 	}
 
@@ -118,7 +119,7 @@ abstract class UmlComponent extends UmlEntity {
 	 * Setter list of attributes
 	 * @param attributesList list of attributes
 	 */
-	public void setAttributesList(ArrayList<UmlAttribute> attributesList) {
+	public void setAttributesList(List<UmlAttribute> attributesList) {
 		this.attributesList = attributesList;
 	}
 

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class which allow to create a method
@@ -14,7 +15,7 @@ public class UmlMethod extends UmlEntity{
 	/**
 	 * Method parameters.
 	 */
-	private ArrayList<UmlParams> params;
+	private List<UmlParams> params;
 	/**
 	 * Method return type.
 	 */
@@ -36,10 +37,10 @@ public class UmlMethod extends UmlEntity{
 			UmlComponent returnType,
 			String name,
 			Visibility visibility,
-			HashSet<Modifier> modifier) {
+			Set<Modifier> modifier) {
 		super(visibility, modifier);
 		this.returnType = returnType;
-		this.params = new ArrayList<UmlParams>(params);
+		this.params = new ArrayList<>(params);
 		this.name = name;
 	}
 	
