@@ -12,7 +12,7 @@ import java.util.List;
  * @author bastien
  *
  */
-abstract class UmlComponent extends UmlEntity {
+abstract class UmlComponent extends UmlEntity implements UmlType{
 
 	// Attributes
 	
