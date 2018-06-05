@@ -1,7 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-//import java.util.Collection;
+import java.util.List;
 
 /**
  * Class representing Interface type in UML, extends UmlComponent
@@ -27,7 +26,7 @@ public class UmlInterface extends UmlComponent {
 	 * @param name name of the interface
 	 * @param methods of the interface
 	 */
-	public UmlInterface(String name, ArrayList<UmlMethod> methods) {
+	public UmlInterface(String name, List<UmlMethod> methods) {
 		super(name, methods);
 	}
 	
@@ -37,7 +36,7 @@ public class UmlInterface extends UmlComponent {
 	 * @param methods of the interface
 	 * @param attributes of the interface
 	 */
-	public UmlInterface(String name, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes) {
+	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super(name, methods, attributes);
 	}
 	

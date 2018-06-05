@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 
 import model.Modifier;
 import model.UmlMethod;
+import model.UmlParams;
 
 public class MethodDisplay extends JLabel{
 
@@ -16,28 +17,38 @@ public class MethodDisplay extends JLabel{
 	}
 	
 	public void updateLabel() {
-		String str = method.getName()+"(";
-		if (method.getParams().size()!=0) {
-			for (String attr : method.getParams()) {
-				str+=attr+",";
+		StringBuilder str = new StringBuilder();
+		
+		str.append(method.getName()+"(");
+		if (!method.getParams().isEmpty()) {
+			for (UmlParams attr : method.getParams()) {
+				str.append(attr.getName() + ":" + attr.getType() + ",");
 			}
-			str=str.substring(0, str.length()-1);
+
+			String tmp = str.substring(0, str.length()-1);
+			str.setLength(0);
+			str.append(tmp);
 		}
-		str+=") : ";
+		
+		str.append(") : ");
 		
 		if (method.getReturnType() == null) {
-			str+="void";
+			str.append("void");
 		} else {
-			str+=method.getReturnType();
+			str.append(method.getReturnType());
 		}
-		if (method.getModifier().size()!=0) {
-			str+=" {";
+		
+		if (!method.getModifier().isEmpty()) {
+			str.append(" {");
 			for (Modifier m : method.getModifier()) {
-				str+=m.toString()+",";
+				str.append(m.toString() + ",");
 			}
-			str=str.substring(0,str.length()-1)+"}";
+			String tmp = str.substring(0,str.length()-1)+"}";
+			str.setLength(0);
+			str.append(tmp);
 		}
-		this.setText(str);
+		
+		this.setText(str.toString());
 	}
 	
 }

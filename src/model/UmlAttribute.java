@@ -9,8 +9,9 @@ public class UmlAttribute extends UmlEntity{
 
     /** Name of the attribute. */
     private String name;
+    
     /** Type of the attribute. */
-    private String type;
+    private UmlType type;
 
     /**
      * Constructor. Creates an attribute in a
@@ -18,7 +19,7 @@ public class UmlAttribute extends UmlEntity{
      * @param attrName Name of the attribute to create
      * @param attrType Type of the attribute to create
      */
-    public UmlAttribute(String attrName, String attrType) {
+    public UmlAttribute(String attrName, UmlType attrType) {
         this.name = attrName;
         this.type = attrType;
     }
@@ -35,7 +36,7 @@ public class UmlAttribute extends UmlEntity{
      * Gets attribute's type.
      * @return The Type of the attribute
      */
-    public String getType() {
+    public UmlType getType() {
         return type;
     }
 
@@ -51,7 +52,7 @@ public class UmlAttribute extends UmlEntity{
      * Sets attribute's type.
      * @param attrType Given type for the attribute
      */
-    public void setType(String attrType) {
+    public void setType(UmlType attrType) {
         this.type = attrType;
     }
 

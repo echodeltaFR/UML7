@@ -1,4 +1,4 @@
-package controleur;
+package controller;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -8,13 +8,13 @@ import javax.swing.JMenuItem;
 public class Launcher {
 	
 	public static final String APPLICATION_NAME = "UML7";
-	public static final int default_width = 500;
-	public static final int default_height = 300;
+	public static final int DEFAULT_WIDTH = 500;
+	public static final int DEFAULT_HEIGHT = 300;
 	
 	public static void main(String[] argv) {
 		
 		JFrame application = new JFrame(APPLICATION_NAME);
-		application.setSize(default_width, default_height);
+		application.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		application.setJMenuBar(buildApplicationMenuBar(application));
 		application.setVisible(true);
 	}
@@ -24,9 +24,9 @@ public class Launcher {
 		
 		JMenuItem exit = new JMenuItem("Exit");
 		
-		exit.addActionListener(e -> {
-			f.dispose();
-		});
+		exit.addActionListener(e ->
+			f.dispose()
+		);
 		
 		file.add(exit);
 		

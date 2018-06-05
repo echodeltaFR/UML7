@@ -1,25 +1,31 @@
 package model;
 
-import javafx.scene.input.KeyCombination.Modifier;
+import java.util.List;
 
-public class UmlClass {
+
+public class UmlClass extends UmlComponent{
 	/**
-	 *le Nom de class
-	 */
-	private String className;
-	/**
-	 * le stractu
-	 * @param name le Nom de class
+	 * Constructor with a name
+	 * @param name the name of the UmlClass
 	 */
 	public UmlClass(String name) {
-
-		className = name;
+		super(name);
 	}
-	public void setName(String name) {
-
-		className = name;
+	/**
+	 * Constructor with a name and a list of methods
+	 * @param name the name of the UmlClass
+	 * @param methods all of methods of the UmlClass
+	 */
+	public UmlClass(String name, List<UmlMethod> methods) {
+		super(name, methods);
 	}
-	public String getName() {
-		return className;
+	/**
+	 * Constructor with a name, a list of methods and a list of attributes
+	 * @param name the name of the component
+	 * @param methods all of methods of the UmlClass
+	 * @param attributes all of attributes of the UmlClass
+	 */
+	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
+		super(name, methods, attributes);
 	}
 }

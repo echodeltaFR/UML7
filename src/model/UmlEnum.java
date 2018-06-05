@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Class representing Enum type in UML, extends UmlComponent
  * @see UmlComponent
@@ -15,7 +16,7 @@ public class UmlEnum extends UmlComponent {
 	/**
 	 * List of Enum values
 	 */
-	private ArrayList<String> valuesList;
+	private List<String> valuesList;
 	
 	// Constructors
 	
@@ -25,7 +26,7 @@ public class UmlEnum extends UmlComponent {
 	 */
 	public UmlEnum(String name) {
 		super(name);
-		valuesList = new ArrayList<String>();
+		valuesList = new ArrayList<>();
 	}
 	
 	/**
@@ -33,9 +34,9 @@ public class UmlEnum extends UmlComponent {
 	 * @param name name of the Enum
 	 * @param values values of the Enum
 	 */
-	public UmlEnum(String name, ArrayList<String> values) {
+	public UmlEnum(String name, List<String> values) {
 		super(name);
-		valuesList = new ArrayList<String>(values);
+		valuesList = new ArrayList<>(values);
 	}
 	
 	/**
@@ -44,9 +45,9 @@ public class UmlEnum extends UmlComponent {
 	 * @param values values of the Enum
 	 * @param methods methods of the Enum
 	 */
-	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods) {
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods) {
 		super(name, methods);
-		valuesList = new ArrayList<String>(values);
+		valuesList = new ArrayList<>(values);
 	}
 	
 	/**
@@ -56,9 +57,9 @@ public class UmlEnum extends UmlComponent {
 	 * @param methods methods of the Enum
 	 * @param attributes attributes of the ENum
 	 */
-	public UmlEnum(String name, ArrayList<String> values, ArrayList<UmlMethod> methods, ArrayList<UmlAttribute> attributes) {
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super(name, methods, attributes);
-		valuesList = new ArrayList<String>(values);
+		valuesList = new ArrayList<>(values);
 	}
 	
 	/**

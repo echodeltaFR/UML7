@@ -1,11 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
- * La classe permettant de créer une méthode.
+ * Class which allow to create a method
  * @author fmeslet
  * @version 1.0
  */
@@ -14,98 +14,105 @@ public class UmlMethod extends UmlEntity{
 	/**
 	 * Method parameters.
 	 */
-	private ArrayList<String> params;
+	private List<UmlParams> params;
 	/**
 	 * Method return type.
 	 */
-	private String returnType;
+	private UmlType returnType;
 	/**
 	 * Method name.
 	 */
 	private String name;
 	
 	/**
-	 * Construire une méthode de classe.
-	 * @param params paramètre de la méthode
-	 * @param returnValue type de retour de la méthode
-	 * @param name nom de la méthode
-	 * @param visibility visibilité de la méthode
-	 * @param modifier modifieur(s) de la méthode
+	 * Build a class method.
+	 * @param params method parameter
+	 * @param returnType method return type
+	 * @param name method name
+	 * @param visibility method visibility
+	 * @param modifier method modifiers
 	 */
-	public UmlMethod(List<String> params,  
-			String returnValue,
+	public UmlMethod(List<UmlParams> params,  
+			UmlType returnType,
 			String name,
 			Visibility visibility,
-			HashSet<Modifier> modifier) {
+			Set<Modifier> modifier) {
 		super(visibility, modifier);
-		this.returnType = returnValue;
-		this.params = new ArrayList<String>(params);
+		this.returnType = returnType;
+		if (params != null) {
+			this.params = new ArrayList<UmlParams>(params);
+		} else {
+			this.params = new ArrayList<UmlParams>();
+		}
 		this.name = name;
 	}
 	
 	/**
-	 * Ajouter tous les paramètres de la méthodes.
-	 * @param params le paramètre de la méthode à ajouter.
+	 * Add all the method parameters.
+	 * @param params the method parameters to add
 	 */
-	public void addAllParams(List<String> params) {
+	public void addAllParams(List<UmlParams> params) {
 		this.params.addAll(params);
 	}
 	
-	public void addParams(String param) {
+	/**
+	 * Add a method parameter.
+	 * @param param the method parameters to add
+	 */
+	public void addParams(UmlParams param) {
 		this.params.add(param);
 	}
 	
 	/**
-	 * Ajouter des types de retour.
-	 * @param returnType
+	 * Add return type.
+	 * @param returnType return type
 	 */
-	public void setReturn(String returnType) {
+	public void setReturnType(UmlType returnType) {
 		this.returnType = returnType;
 	}
 	
 	/**
-	 * Supprimer les types de retour.
+	 * Delete return type.
 	 */
-	public void removeReturn() {
+	public void removeReturnType() {
 		this.returnType = null;
 	}
 	
 	/**
-	 * Obtenir les types de retour.
-	 * @return Chaine de caractère
+	 * Get return type.
+	 * @return returnType return type
 	 */
-	public String getReturnType() {
+	public UmlType getReturnType() {
 		return this.returnType;
 	}
 	
 	/**
-	 * Obtenir le nom de la méthode.
-	 * @return le nom de la méthode.
+	 * Get method name.
+	 * @return the method name.
 	 */
 	public String getName() {
 		return this.name;
 	}
 	
 	/**
-	 * Obtenir le(s) paramètre(s) de la méthodes.
-	 * @return le(s) parametre(s) de la méthode
+	 * Get the method parameter(s).
+	 * @return method parameter(s)
 	 */
-	public List<String> getParams(){
+	public List<UmlParams> getParams(){
 		return this.params;
 	}
 	
 	/**
-	 * Supprimer le paramètre de la méthode.
-	 * @param params paramtre de la méthode
+	 * Delete the method parameter.
+	 * @param params method parameter
 	 */
-	public void removeParams(String params) {
+	public void removeParams(UmlParams params) {
 		this.params.remove(params);
 	}
 	
 	/**
-	 * Supprimer les paramètres de la méthode.
-	 * @param params les paramètres de la méhodes à
-	 * supprimer
+	 * Delete the method parameters.
+	 * @param params the method parameters to delete
 	 */
 	public void removeAllParams(List<String> params) {
 		this.params.removeAll(params);
