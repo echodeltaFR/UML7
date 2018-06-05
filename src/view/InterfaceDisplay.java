@@ -1,6 +1,6 @@
 package view;
 import model.UmlAttribute;
-import model.UmlClass;
+import model.UmlInterface;
 import model.UmlMethod;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -9,52 +9,47 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
-public class ClassDisplay extends JPanel {
+public class InterfaceDisplay extends JPanel {
 	private final static int high = 20;
-	private UmlClass umlclass;
-	private JLabel classname;
+	private UmlInterface umlinterface;
+	private JLabel interfacename;
 	private ArrayList<AttributeDisplay> attributes;
 	private ArrayList<MethodDisplay> methods;
 	private int displayweight;
 	private int displayhigh;
-	public ClassDisplay(UmlClass umlclass) {
-		this.umlclass = umlclass;
+	
+	public InterfaceDisplay(UmlInterface umlinterface ) {
+		this.umlinterface = umlinterface;
 		attributes = new ArrayList<AttributeDisplay>();
 		methods = new ArrayList<MethodDisplay>();
-		classname = new JLabel(this.umlclass.getName());
+		interfacename = new JLabel(this.umlinterface.getName());
 		this.setBackground(Color.white);
 		this.setLayout(null);
-		classname.setBounds(1, 0, 100, 20);
-		this.add(classname);
+		interfacename.setBounds(1, 0, 100, 20);
+		this.add(interfacename);
 		update();
 	}
-	/**
-	 * update the information for display
-	 */
 	private void update() {
 		attributes.clear();
 		methods.clear();
 		//Nombre total de caractères
-		int count = this.umlclass.getName().length();
-		for(int i = 0; i < this.umlclass.getAttributesList().size();i++) {
-			
-			AttributeDisplay ad = new AttributeDisplay(this.umlclass.getAttributesList().get(i));
+		int count = this.umlinterface.getName().length();
+		for(int i = 0; i < this.umlinterface.getAttributesList().size();i++) {
+			AttributeDisplay ad = new AttributeDisplay(this.umlinterface.getAttributesList().get(i));
 			count = ad.getText().length() > count ? ad.getText().length() : count;
 			ad.setBounds(1, 20 * (1 + i), 100, 20);
 			//ad.setLocation(1, 20 * (1 + i));
 			this.add(ad);
 		}
-		for(int i = 0; i<this.umlclass.getMethodsList().size();i++) {
-			
-			MethodDisplay ad = new MethodDisplay(this.umlclass.getMethodsList().get(i));
+		for(int i = 0; i<this.umlinterface.getMethodsList().size();i++) {
+			MethodDisplay ad = new MethodDisplay(this.umlinterface.getMethodsList().get(i));
 			count = ad.getText().length() > count ? ad.getText().length() : count;
-			ad.setBounds(1, 20 * (i + this.umlclass.getAttributesList().size() + 1), 100, 20);
+			ad.setBounds(1, 20 * (i + this.umlinterface.getAttributesList().size() + 1), 100, 20);
 			this.add(ad);
 		}
 		this.displayweight = count * 10;
-		//System.out.println(displayweight);
-		this.displayhigh = 20 * (this.umlclass.getAttributesList().size() 
-				+ this.umlclass.getAttributesList().size() + 1);
+		this.displayhigh = 20 * (this.umlinterface.getAttributesList().size() 
+				+ this.umlinterface.getAttributesList().size() + 1);
 		//display();
 	}
 	
@@ -67,14 +62,13 @@ public class ClassDisplay extends JPanel {
     {  
         super.paint(g);  
         //Quantité totale de attribute et methode
-        int count = 1 + umlclass.getAttributesList().size() + umlclass.getMethodsList().size();
+        int count = 1 + umlinterface.getAttributesList().size() + umlinterface.getMethodsList().size();
         //Frontière de diagramme de classe
         g.drawRect(1, 1, this.displayweight, this.displayhigh);
         
         g.drawLine(1, 20, this.displayweight, 20);
-        g.drawLine(1, (1 + umlclass.getAttributesList().size()) * this.high, this.displayweight, (1 + umlclass.getAttributesList().size()) * this.high);
-        //Pourquoi a-t-il joué 2 fois
-//        System.out.println(this.displayweight);
-//       System.out.println(this.displayhigh);
+        g.drawLine(1, (1 + this.umlinterface.getAttributesList().size()) * this.high, this.displayweight,
+        		(1 + umlinterface.getAttributesList().size()) * this.high);
+
     } 
 }
