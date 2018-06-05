@@ -32,7 +32,11 @@ public abstract class UmlEntity{
 	 */
 	public UmlEntity(Visibility visibility, Set<Modifier> modifier) {
 		this.visibility = visibility;
-		this.modifiers = new HashSet<>(modifier);
+		if (modifier == null) {
+			this.modifiers = new HashSet<Modifier>();
+		} else {
+			this.modifiers = new HashSet<Modifier>(modifier);
+		}
 	}
 	
 	/**
@@ -40,8 +44,7 @@ public abstract class UmlEntity{
 	 * @param visibility the visibility
 	 */
 	public UmlEntity(Visibility visibility) {
-		this.visibility = visibility;
-		this.modifiers = new HashSet<>();
+		this(visibility,null);
 	}
 	
 	/**
