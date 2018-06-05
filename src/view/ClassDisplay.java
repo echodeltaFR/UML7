@@ -1,26 +1,27 @@
 package view;
-import model.UmlAttribute;
+
 import model.UmlClass;
-import model.UmlMethod;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
+
 public class ClassDisplay extends JPanel {
-	private final static int high = 20;
-	private UmlClass umlclass;
+	
+	private static final int HIGH = 20;
+	private transient UmlClass umlclass;
 	private JLabel classname;
-	private ArrayList<AttributeDisplay> attributes;
-	private ArrayList<MethodDisplay> methods;
+	private List<AttributeDisplay> attributes;
+	private List<MethodDisplay> methods;
 	private int displayweight;
 	private int displayhigh;
+	
 	public ClassDisplay(UmlClass umlclass) {
 		this.umlclass = umlclass;
-		attributes = new ArrayList<AttributeDisplay>();
-		methods = new ArrayList<MethodDisplay>();
+		attributes = new ArrayList<>();
+		methods = new ArrayList<>();
 		classname = new JLabel(this.umlclass.getName());
 		this.setBackground(Color.white);
 		this.setLayout(null);
@@ -28,6 +29,7 @@ public class ClassDisplay extends JPanel {
 		this.add(classname);
 		update();
 	}
+	
 	/**
 	 * update the information for display
 	 */
@@ -63,6 +65,7 @@ public class ClassDisplay extends JPanel {
         //this.repaint();  
     }  
 	
+	@Override
 	public void paint(Graphics g)  
     {  
         super.paint(g);  
@@ -70,9 +73,10 @@ public class ClassDisplay extends JPanel {
         int count = 1 + umlclass.getAttributesList().size() + umlclass.getMethodsList().size();
         //Frontière de diagramme de classe
         g.drawRect(1, 1, this.displayweight, this.displayhigh);
+
         
         g.drawLine(1, 20, this.displayweight, 20);
-        g.drawLine(1, (1 + umlclass.getAttributesList().size()) * this.high, this.displayweight, (1 + umlclass.getAttributesList().size()) * this.high);
+        g.drawLine(1, (1 + umlclass.getAttributesList().size()) * this.HIGH, this.displayweight, (1 + umlclass.getAttributesList().size()) * this.HIGH);
         //Pourquoi a-t-il joué 2 fois
 //        System.out.println(this.displayweight);
 //       System.out.println(this.displayhigh);

@@ -1,12 +1,11 @@
 package model;
 
-// LEs types primitifs en JAVA comment le liéer prprement à UMLMethod et UMLPramas ?
 /**
- * Primitive type in Java
+ * Primitive type in Java.
  * @author fmeslet
  * @version 1.0
  */
-public enum UmlEnumPrimitiveType {
+public enum PrimitiveType implements UmlType{
 	INT("int"),
 	DOUBLE("double"),
 	FLOAT("float"),
@@ -17,13 +16,24 @@ public enum UmlEnumPrimitiveType {
 	SHORT("short"),
 	LONG("long");
 	
+	/**
+	 * Primitive type name.
+	 */
 	private String name;
 	
-	UmlEnumPrimitiveType(String name) {
+	/**
+	 * Build a primitive type.
+	 * @param name primitive type name
+	 */
+	PrimitiveType(String name) {
 		this.name = name;
 	}
 	
 	@Override
+	/**
+	 * Get the string name of the primitive type.
+	 * @return the primitive type name
+	 */
 	public String toString() {
 		return this.name;
 	}

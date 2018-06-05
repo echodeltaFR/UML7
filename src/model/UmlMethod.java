@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ public class UmlMethod extends UmlEntity{
 	/**
 	 * Method return type.
 	 */
-	private UmlComponent returnType;
+	private UmlType returnType;
 	/**
 	 * Method name.
 	 */
@@ -34,7 +33,7 @@ public class UmlMethod extends UmlEntity{
 	 * @param modifier method modifiers
 	 */
 	public UmlMethod(List<UmlParams> params,  
-			UmlComponent returnType,
+			UmlType returnType,
 			String name,
 			Visibility visibility,
 			Set<Modifier> modifier) {
@@ -45,68 +44,71 @@ public class UmlMethod extends UmlEntity{
 	}
 	
 	/**
-	 * Ajouter tous les paramètres de la méthodes.
-	 * @param params le paramètre de la méthode à ajouter.
+	 * Add all the method parameters.
+	 * @param params the method parameters to add
 	 */
 	public void addAllParams(List<UmlParams> params) {
 		this.params.addAll(params);
 	}
 	
+	/**
+	 * Add a method parameter.
+	 * @param param the method parameters to add
+	 */
 	public void addParams(UmlParams param) {
 		this.params.add(param);
 	}
 	
 	/**
-	 * Ajouter des types de retour.
-	 * @param returnType
+	 * Add return type.
+	 * @param returnType return type
 	 */
-	public void setReturn(UmlComponent returnType) {
+	public void setReturnType(UmlType returnType) {
 		this.returnType = returnType;
 	}
 	
 	/**
-	 * Supprimer les types de retour.
+	 * Delete return type.
 	 */
-	public void removeReturn() {
+	public void removeReturnType() {
 		this.returnType = null;
 	}
 	
 	/**
-	 * Obtenir les types de retour.
-	 * @return Chaine de caractère
+	 * Get return type.
+	 * @return returnType return type
 	 */
-	public UmlComponent getReturnType() {
+	public UmlType getReturnType() {
 		return this.returnType;
 	}
 	
 	/**
-	 * Obtenir le nom de la méthode.
-	 * @return le nom de la méthode.
+	 * Get method name.
+	 * @return the method name.
 	 */
 	public String getName() {
 		return this.name;
 	}
 	
 	/**
-	 * Obtenir le(s) paramètre(s) de la méthodes.
-	 * @return le(s) parametre(s) de la méthode
+	 * Get the method parameter(s).
+	 * @return method parameter(s)
 	 */
 	public List<UmlParams> getParams(){
 		return this.params;
 	}
 	
 	/**
-	 * Supprimer le paramètre de la méthode.
-	 * @param params paramtre de la méthode
+	 * Delete the method parameter.
+	 * @param params method parameter
 	 */
-	public void removeParams(String params) {
+	public void removeParams(UmlParams params) {
 		this.params.remove(params);
 	}
 	
 	/**
-	 * Supprimer les paramètres de la méthode.
-	 * @param params les paramètres de la méhodes à
-	 * supprimer
+	 * Delete the method parameters.
+	 * @param params the method parameters to delete
 	 */
 	public void removeAllParams(List<String> params) {
 		this.params.removeAll(params);
