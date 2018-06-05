@@ -17,5 +17,8 @@
 
 ---
 
-### Class diagram of generator
+### Class diagram of generator : May, 26th 2018
 [Edit](https://bit.ly/2JeBSsf) / [See](UML_generator.png)
+
+### Class diagram of generator : June, 5th 2018
+[Edit](https://bit.ly/2M1ttXN) / [See](UML_gen_2018-06_05.png)
