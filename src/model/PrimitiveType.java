@@ -29,14 +29,11 @@ public enum PrimitiveType implements UmlType{
 		this.name = name;
 	}
 	
-<<<<<<< HEAD:src/model/UmlEnumPrimitiveType.java
 	@Override
-=======
 	/**
 	 * Get the string name of the primitive type.
 	 * @return the primitive type name
 	 */
->>>>>>> Ajout des types et des types primitifs:src/model/PrimitiveType.java
 	public String toString() {
 		return this.name;
 	}
