@@ -39,7 +39,11 @@ public class UmlMethod extends UmlEntity{
 			Set<Modifier> modifier) {
 		super(visibility, modifier);
 		this.returnType = returnType;
-		this.params = new ArrayList<>(params);
+		if (params != null) {
+			this.params = new ArrayList<UmlParams>(params);
+		} else {
+			this.params = new ArrayList<UmlParams>();
+		}
 		this.name = name;
 	}
 	
