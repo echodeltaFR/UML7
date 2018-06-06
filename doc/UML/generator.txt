@@ -1,0 +1,74 @@
+@startuml
+
+interface Generator.DiagramElementVisitor {
+    +visit(Class class)
+    +visit(Interface interface)
+    +visitEnum(Enum enum)
+    +visitDiagram(Diagram diagram)
+}
+
+class UmlEntity {
+    +void accept(DiagramElementVisitor visitor)
+}
+
+class Generator.JavaGenerator {
+
+}
+
+class Generator.DiagramElement {
+    -Element : UmlEntity[]
+    +getElement() : UmlEntity[]
+    +addElement(UmlEntity element) : void
+}
+
+class Generator.PlantUmlGenerator {
+
+}
+
+class Generator.DiagramElementDoVisitor {
+    +visit(Class class) : void
+    +visit(Interface interface) : void
+    +visit(Enum enum) : void
+    +visitDiagram(DiagramElement diagram) : void
+}
+
+namespace Generator #FFFFFF { 
+    
+}
+
+class InvalidDiagramException << (E,red) >> {
+
+}
+
+class IncompleteDiagramException << (E,red) >> {
+
+}
+
+class InvalidElementException << (E,red) >> {
+
+}
+
+class InvalidDiagramInputFileException << (E,red) >> {
+
+}
+
+class UmlClass {
+    +void accept(DiagramElementVisitor visitor)
+}
+
+class UmlEnum {
+    +void accept(DiagramElementVisitor visitor)
+}
+
+
+Generator.DiagramElementVisitor <|-- Generator.JavaGenerator
+Generator.DiagramElementVisitor <|-- Generator.PlantUmlGenerator
+
+Generator.DiagramElementVisitor <|-- Generator.DiagramElementDoVisitor
+UmlEntity <|-- UmlClass
+UmlEntity <|-- UmlEnum
+
+UmlEntity <- Generator.DiagramElementVisitor
+
+
+@enduml
