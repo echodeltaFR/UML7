@@ -13,7 +13,7 @@
 
 ### Objectifs
 
-* Visualiser
+* Montrer une génération de code
 
 ### État itération
 
