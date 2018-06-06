@@ -1,0 +1,197 @@
+@startuml
+
+enum Visibility {
+    __ Attributes __
+    -symbol : String
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    __ Method __
+    +toString() : String
+    __ Constructor __
+    Visibility(String symbol)
+}
+
+enum Modifier {
+    __ Attributes __
+    -name : String
+    FINAL
+    STATIC
+    ABSTRACT
+    VOLATILE
+    TRANSIENT
+    SYNCHRONIZED
+    __ Methods __
+    +toString() : String
+    __ Constructor __
+    Modifier(String name)
+}
+
+class UmlDiagram {
+    -String titre
+    +getTitre()
+    +setTitre(String titre)
+}
+
+interface UmlElement {
+}
+
+interface UmlType {
+}
+
+class UmlParams {
+    __ Attributes __
+    -type : UmlType
+    -name : String
+    __ Methods __
+    +getType() : UmlType
+    +setType() : void
+    +getName() : String
+    +setName() : void
+    __ Constructors __
+    UmlParams(UmlType type, String name)
+    
+}
+
+enum PrimitiveType {
+    __ Attributes __
+    -symbol : String
+    INT
+    DOUBLE
+    FLOAT
+    BYTE
+    CHAR
+    STRING
+    SHORT
+    LONG
+    BOOLEAN
+    __ Method __
+    +toString() : String
+    __ Constructor __
+    PrimitiveType(String name)
+}
+
+
+Abstract class UmlEntity {
+    __ Attributes __
+    -visibility : Visibility
+    -modifiers : HashSet<Modifier>
+    __ Methods __
+    +addModifier(m : Modifier)
+    +clearModifiers()
+    +removeModifier(m : Modifier)
+    +getVisibility()
+    +setVisibility()
+    __ Constructor __
+    UmlEntity(Visibility visibility, Collection<Modifier> modifier)
+}
+
+Abstract class UmlLabeled_Element {
+    -String label
+    +getLabel()
+    +setLabel(String label)
+}
+
+class UmlClass {
+}
+
+class UmlMethod {
+    __ Attributes __
+    -params : ArrayList<UmlParams>
+    -returnType : UmlType
+    -name : String
+    -visibility : Visibility
+    -modifier : HashSet<Modifier>
+    __ Methods __
+    +addAllParams(List<UmlParams> params) : void
+    +addParams(UmlParams params) : void
+    +setReturnType() : UmlType
+    +removeReturnType() : void
+    +getReturnType() : UmlType
+    +getName() : String
+    +getParams() : List<UmlParams>
+    +removeParams(UmlParams params) : void
+    +removeAllParams(List<String> params) : void
+    __ Constructors __
+    UmlParams(UmlType type, String name)
+}
+
+class UmlAttribute {
+    -valeur : UmlType
+    +getType() : UmlType
+    +toString() : String
+}
+
+
+class UmlEnum {
+    -String valeur
+}
+
+class UmlPackage {
+    
+}
+
+class UmlInterface {
+
+}
+
+Abstract class UmlComponent {
+    +addMethod(UmlMethod method) {abstract}
+    +addAttribute(UmlAttribute attr) {abstract}
+
+}
+
+
+Interface UmlRelationship {
+    +getRelationType() : Relationship_Type
+}
+
+Enum Relationship_Type{
+    AGGREGATION
+    COMPOSITION
+    IMPLEMENTS
+    EXTENDS
+    USE
+    DEPENDS
+}
+
+UmlDiagram "1" *- "*" UmlElement
+UmlDiagram "1" *- "*" UmlRelationship
+UmlRelationship "*" o-- "2..*" UmlElement
+
+UmlElement <|.. UmlLabeled_Element
+UmlLabeled_Element <|-- UmlEntity
+
+
+UmlComponent <|-- UmlClass
+UmlComponent <|-- UmlInterface
+UmlComponent <|-- UmlEnum
+
+UmlEntity <|-- UmlComponent
+
+UmlEntity <|-- UmlMethod
+UmlEntity <|-- UmlAttribute
+
+UmlLabeled_Element <|-- UmlPackage
+UmlLabeled_Element "*" <- "1" UmlPackage
+
+UmlEntity  -> "visibility" Visibility
+Modifier "modifier" <- UmlEntity
+
+UmlType "1" *-- "*" UmlMethod
+UmlType "1" *-- "*" UmlAttribute
+UmlParams "*" *-- "1" UmlType
+UmlMethod "*" *-- "*" UmlParams
+ 
+
+UmlHierachyLink -[hidden]-> UmlUsageLink
+
+UmlRelationship <|. UmlHierachyLink
+UmlRelationship <|. UmlUsageLink
+UmlType <|. UmlComponent
+UmlType <|. PrimitiveType
+
+UmlHierachyLink -> Relationship_Type
+UmlUsageLink -> Relationship_Type
+
+@enduml
