@@ -14,6 +14,9 @@
 ### Objectifs
 
 * Montrer une génération de code
+* Visualiser un diagramme de classe contenant :
+  * deux classes avec méthodes et attributs,
+  * une relation.
 
 ### État itération
 
