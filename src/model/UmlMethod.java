@@ -6,15 +6,15 @@ import java.util.Set;
 
 /**
  * Class which allow to create a method
- * @author fmeslet
- * @version 1.0
+ * @author fmeslet, echodeltaFR
+ * @version 1.1
  */
-public class UmlMethod extends UmlEntity{
+public class UmlMethod extends UmlEntity {
 
 	/**
 	 * Method parameters.
 	 */
-	private List<UmlParams> params;
+	private Set<UmlParams> params;
 	/**
 	 * Method return type.
 	 */
@@ -23,30 +23,100 @@ public class UmlMethod extends UmlEntity{
 	 * Method name.
 	 */
 	private String name;
-	
+
+	// Constructors
+
 	/**
-	 * Build a class method.
-	 * @param params method parameter
-	 * @param returnType method return type
+	 * Constructor. Creates a method with name.
 	 * @param name method name
-	 * @param visibility method visibility
-	 * @param modifier method modifiers
 	 */
-	public UmlMethod(List<UmlParams> params,  
-			UmlType returnType,
-			String name,
-			Visibility visibility,
-			Set<Modifier> modifier) {
-		super(visibility, modifier);
-		this.returnType = returnType;
-		if (params != null) {
-			this.params = new ArrayList<UmlParams>(params);
-		} else {
-			this.params = new ArrayList<UmlParams>();
-		}
+	public UmlMethod(String name) {
+		super();
 		this.name = name;
+		this.params = new HashSet<UmlParams>();
+		this.returnType = null;
 	}
-	
+
+	/** Constructor. Creates a method with one parameter
+	 * and one modifier.
+	 * @param name method name
+	 * @param param method parameter
+	 * @param returnType method return type
+	 * @param visibility method visibility
+	 * @param modifier method modifier
+	 */
+	public UmlMethod(String name,
+			UmlParams param,
+			UmlType returnType,
+			Visibility visibility,
+			Modifier modifier) {
+		super(visibility, modifier);
+		this.name = name;
+		this.params = new HashSet<UmlParams>();
+		this.params.add(param);
+		this.returnType = returnType;
+	}
+
+	/** Constructor. Creates a method with one parameter
+	 * and several modifiers.
+	 * @param name method name
+	 * @param param method parameter
+	 * @param returnType method return type
+	 * @param visibility method visibility
+	 * @param modifiers method modifiers
+	 */
+	public UmlMethod(String name,
+			UmlParams param,
+			UmlType returnType,
+			Visibility visibility,
+			Set<Modifier> modifiers) {
+		super(visibility, modifiers);
+		this.name = name;
+		this.params = new HashSet<UmlParams>();
+		this.params.add(param);
+		this.returnType = returnType;
+	}
+
+	/** Constructor. Creates a method with several parameters
+	 * and one modifier.
+	 * @param name method name
+	 * @param params method parameters
+	 * @param returnType method return type
+	 * @param visibility method visibility
+	 * @param modifier method modifier
+	 */
+	public UmlMethod(String name,
+			Set<UmlParams> params,
+			UmlType returnType,
+			Visibility visibility,
+			Modifier modifier) {
+		super(visibility, modifier);
+		this.name = name;
+		this.params = new HashSet<UmlParams>(params);
+		this.returnType = returnType;
+	}
+
+	/** Constructor. Creates a method with several parameters
+	 * and several modifiers.
+	 * @param name method name
+	 * @param params method parameters
+	 * @param returnType method return type
+	 * @param visibility method visibility
+	 * @param modifiers method modifiers
+	 */
+	public UmlMethod(String name,
+			Set<UmlParams> params,
+			UmlType returnType,
+			Visibility visibility,
+			Set<Modifier> modifiers) {
+		super(visibility, modifiers);
+		this.name = name;
+		this.params = new HashSet<UmlParams>(params);
+		this.returnType = returnType;
+	}
+
+	// Methods
+
 	/**
 	 * Add all the method parameters.
 	 * @param params the method parameters to add
