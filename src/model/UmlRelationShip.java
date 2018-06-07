@@ -23,8 +23,11 @@ public abstract class UmlRelationShip {
 
 
 	protected UmlRelationShip(UmlClass elementA, UmlClass elementB) {
+		assert elementA != null && elementB != null;
 		this.classA = elementA;
 		this.classB = elementB;
+		this.roleA = "";
+		this.roleB = "";
 	}
 	
 	public String getRoleA() {
@@ -56,6 +59,7 @@ public abstract class UmlRelationShip {
 	}
 
 	public void setRelationName(String relationName) {
+		assert relationName != null;
 		this.relationName = relationName;
 	}
 

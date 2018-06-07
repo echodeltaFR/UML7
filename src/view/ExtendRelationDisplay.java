@@ -2,20 +2,20 @@ package view;
 
 import java.awt.Graphics;
 
-import model.UmlExtendsLink;
+import model.UmlExtendLink;
 
 /**
  * Class that represents extend relationship
  * @author Charly Courilleau
  *
  */
-public class ExtendsRelationDisplay extends RelationDisplay {
+public class ExtendRelationDisplay extends RelationDisplay {
 	
 	/**
 	 * Constructor
 	 * @param umlRelation the extend relationship
 	 */
-	public ExtendsRelationDisplay(UmlExtendsLink umlRelation) {
+	public ExtendRelationDisplay(UmlExtendLink umlRelation) {
 		super(umlRelation);
 	}
 	
