@@ -6,21 +6,39 @@ import model.Modifier;
 import model.UmlMethod;
 import model.UmlParams;
 
-public class MethodDisplay extends JLabel{
+/**
+ * Display method into the GUI.
+ * @author Christian, Charly, echodeltaFR
+ * @version 1.1
+ */
+public class MethodDisplay extends JLabel {
 
+	/** Method to display. */
 	private UmlMethod method;
-	
+
+	/** Constructor.
+	 * @param method The method to display
+	 */
 	public MethodDisplay(UmlMethod method) {
 		super();
 		if (method == null) throw new IllegalArgumentException("Method can't be null");
 		this.method = method;
 		updateLabel();
 	}
-	
+
+	/**
+	 * Get the represented method.
+	 * @return the method that is displayed
+	 */
 	public UmlMethod getMethod() {
 		return this.method;
 	}
-	
+
+	/**
+     * Update the display of the method.
+     * Call this method when you modify the method
+     * and you want the display to be refreshed.
+     */
 	public void updateLabel() {
 		StringBuilder str = new StringBuilder();
 		
