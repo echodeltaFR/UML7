@@ -89,9 +89,9 @@ public class UmlAttribute extends UmlEntity {
      * @param attrName Name of the attribute to create
      * @param attrType Type of the attribute to create
      * @param attrVisi Visibility of the attribute to create
-     * @param attrModifs Modifier of the attribute to create
+     * @param attrModifs Modifiers of the attribute to create
      */
-    public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Modifier attrModifs) {
+    public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Set<Modifier> attrModifs) {
         super(attrVisi, attrModifs);
         this.name = attrName;
         this.type = attrType;
