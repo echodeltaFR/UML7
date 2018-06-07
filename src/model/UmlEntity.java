@@ -9,6 +9,7 @@ import generator.DiagramElementVisitor;
  * Abstract class, an UML entity, parent of UmlComponent
  * @see UmlComponent
  * @author christian, fabien, bastien, echodeltaFR
+ * @version 1.2
  *
  */
 public abstract class UmlEntity {
@@ -25,7 +26,7 @@ public abstract class UmlEntity {
 	 */
 	private Set<Modifier> modifiers;
 	
-	// Constructor
+	// Constructors
 	
 	/**
 	 * Constructor of an element with visibility and modifiers.
@@ -46,36 +47,11 @@ public abstract class UmlEntity {
 	}
 
 	/**
-	 * Constructor of an element with visibility and modifier.
-	 * @param visibility the visibility
-	 * @param modifier the modifier
-	 */
-	public UmlEntity(Visibility visibility, Modifier modifier) {
-		if (visibility == null) {
-			this.visibility = Visibility.PUBLIC;
-		} else {
-			this.visibility = visibility;
-		}
-		this.modifiers = new HashSet<Modifier>();
-		if (modifier != null) {
-			this.modifiers.add(modifier);
-		}
-	}
-
-	/**
 	 * Constructor of an element with modifiers.
 	 * @param modifiers the modifiers
 	 */
 	public UmlEntity(Set<Modifier> modifiers) {
 		this(null, new HashSet<Modifier>(modifiers));
-	}
-
-	/**
-	 * Constructor of an element with modifier.
-	 * @param modifier The modifier
-	 */
-	public UmlEntity(Modifier modifier) {
-		this(null, modifier);
 	}
 	
 	/**
@@ -83,9 +59,7 @@ public abstract class UmlEntity {
 	 * @param visibility the visibility
 	 */
 	public UmlEntity(Visibility visibility) {
-		/* HashSet instead of null enforces use of one of
-		the two visibility and modifier(s) constructors. */
-		this(visibility, new HashSet<Modifier>());
+		this(visibility, null);
 	}
 	
 	/**
@@ -93,7 +67,7 @@ public abstract class UmlEntity {
 	 */
 	public UmlEntity() {
 		this.visibility = Visibility.PUBLIC;
-		this.modifiers = new HashSet<>();
+		this.modifiers = new HashSet<Modifier>();
 	}
 	
 	// Methods
@@ -154,4 +128,3 @@ public abstract class UmlEntity {
 	}
 
 }
-
