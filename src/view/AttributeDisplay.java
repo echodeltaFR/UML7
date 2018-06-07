@@ -1,11 +1,14 @@
 package view;
 import javax.swing.JLabel;
+
+import model.Modifier;
 import model.UmlAttribute;
+import model.Visibility;
 
 /**
  * Diplay attributes into the GUI.
  * @author echodeltaFR
- * @version 1.0
+ * @version 1.1
  */
 public class AttributeDisplay extends JLabel {
 
@@ -23,7 +26,7 @@ public class AttributeDisplay extends JLabel {
     }
 
     /**
-     * Get the represented attribute
+     * Gets the represented attribute
      * @return the attribute that is displayed
      */
     public UmlAttribute getAttribute() {
@@ -36,7 +39,23 @@ public class AttributeDisplay extends JLabel {
      * and you want the display to refresh.
      */
     public void updateLabel() {
-        this.setText(attribute.getName() + ": " + attribute.getType());
+        StringBuilder str = new StringBuilder();
+        if (attribute.getVisibility() == Visibility.PUBLIC) {
+            str.append("+");
+        } else if (attribute.getVisibility() == Visibility.PRIVATE) {
+            str.append("-");
+        } else if (attribute.getVisibility() == Visibility.PROTECTED) {
+            str.append("#");
+        } else {
+            str.append("Exception");
+        }
+        if (!attribute.getModifier().isEmpty()) {
+            for (Modifier m : attribute.getModifier()) {
+                str.append(m.toString() + " ");
+            }
+        }
+        str.append(attribute.getName() + ": " + attribute.getType());
+        this.setText(str.toString());
     }
 
 }
