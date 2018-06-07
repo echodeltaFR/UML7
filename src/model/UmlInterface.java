@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import generator.DiagramElementVisitor;
+
 /**
  * Class representing Interface type in UML, extends UmlComponent
  * @see UmlComponent
@@ -43,4 +45,8 @@ public class UmlInterface extends UmlComponent {
 	/**
 	 *  TODO add needed constructors with visibility and modifiers
 	 */
+	@Override
+	public void accept(DiagramElementVisitor visitor) {
+		visitor.visit(this);
+	}
 }

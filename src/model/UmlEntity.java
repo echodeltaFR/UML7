@@ -3,6 +3,8 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
+import generator.DiagramElementVisitor;
+
 /**
  * Abstract class, an UML entity, parent of UmlComponent
  * @see UmlComponent
@@ -111,5 +113,6 @@ public abstract class UmlEntity{
 	public void setModifiers(Set<Modifier> modifiers) {
 		this.modifiers = new HashSet<>(modifiers);
 	}
+
 }
 

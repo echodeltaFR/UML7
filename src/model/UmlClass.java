@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import generator.DiagramElementVisitor;
+
 
 public class UmlClass extends UmlComponent{
 	/**
@@ -27,5 +29,10 @@ public class UmlClass extends UmlComponent{
 	 */
 	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super(name, methods, attributes);
+	}
+	
+	@Override
+	public void accept(DiagramElementVisitor visitor) {
+		visitor.visit(this);
 	}
 }

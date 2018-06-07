@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import generator.DiagramElementVisitor;
+
 /**
  * Abstract class, an UML component, parent of types classes ( UmlClass, UmlEnum, UmlInterface, ...), extends UmlEntity
  * @see UmlEnum
@@ -12,7 +14,7 @@ import java.util.List;
  * @author bastien
  *
  */
-abstract class UmlComponent extends UmlEntity implements UmlType{
+public abstract class UmlComponent extends UmlEntity implements UmlType{
 
 	// Attributes
 	
@@ -155,5 +157,12 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	public void removeAttribute(UmlAttribute attribute) {
 		this.attributesList.remove(attribute);
 	}
+	
+	/**
+	 * Visit accept by the element. 
+	 * @param visitor the visitor of the element
+	 */
+	abstract public void accept(DiagramElementVisitor visitor);
+	
 }
 

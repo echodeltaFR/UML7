@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import generator.DiagramElementVisitor;
 /**
  * Class representing Enum type in UML, extends UmlComponent
  * @see UmlComponent
@@ -11,7 +13,6 @@ import java.util.List;
 public class UmlEnum extends UmlComponent {
 	
 	// Attributes
-	
 	
 	/**
 	 * List of Enum values
@@ -84,4 +85,11 @@ public class UmlEnum extends UmlComponent {
 	public void removeValue(String value) {
 		this.valuesList.remove(value);
 	}
+	
+	
+	@Override
+	public void accept(DiagramElementVisitor visitor) {
+		visitor.visit(this);
+	}
+
 }
