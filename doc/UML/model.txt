@@ -9,7 +9,7 @@ enum Visibility {
     __ Method __
     +toString() : String
     __ Constructor __
-    Visibility(String symbol)
+    +Visibility(String symbol)
 }
 
 enum Modifier {
@@ -49,13 +49,13 @@ class UmlParams {
     +getName() : String
     +setName() : void
     __ Constructors __
-    UmlParams(UmlType type, String name)
+    +UmlParams(UmlType type, String name)
     
 }
 
 enum PrimitiveType {
     __ Attributes __
-    -symbol : String
+    -name : String
     INT
     DOUBLE
     FLOAT
@@ -75,15 +75,20 @@ enum PrimitiveType {
 Abstract class UmlEntity {
     __ Attributes __
     -visibility : Visibility
-    -modifiers : HashSet<Modifier>
+    -modifiers : Set<Modifier>
     __ Methods __
-    +addModifier(m : Modifier)
-    +clearModifiers()
-    +removeModifier(m : Modifier)
-    +getVisibility()
-    +setVisibility()
+    +addModifier(Modifier modifier) : void
+    +clearModifiers() : void
+    +removeModifier(Modifier modifier) : void
+    +getVisibility() : Visibility
+    +setVisibility(Visibility visibility) : void
+    +getModifier() : Set<Modifier>
+    +setModifiers(Set<Modifier> modifiers) : void
     __ Constructor __
-    UmlEntity(Visibility visibility, Collection<Modifier> modifier)
+    +UmlEntity()
+    +UmlEntity(Visibility visibility)
+    +UmlEntity(Visibility visibility, Set<Modifier> modifier)
+    
 }
 
 Abstract class UmlLabeled_Element {
@@ -93,6 +98,10 @@ Abstract class UmlLabeled_Element {
 }
 
 class UmlClass {
+    __ Constructor __
+    +UmlClass(String name)
+    +UmlClass(String name, List<UmlMethod> methods)
+    +UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes)
 }
 
 class UmlMethod {
@@ -117,14 +126,28 @@ class UmlMethod {
 }
 
 class UmlAttribute {
-    -valeur : UmlType
+    __ Attributes __
+    -type : UmlType
+    -name : String
+    __ Methods __
     +getType() : UmlType
     +toString() : String
+    __ Contsructors__
+    +UmlAttribute(String attrName, UmlType attrType)
 }
 
 
 class UmlEnum {
-    -String valeur
+    __ Attributes __
+    -valuesList : List<String>
+    __ Methods __
+    +addValue(String value) : void
+    +removeValue(String value) : void
+    __ Constructors __
+    +UmlEnum(String name) 
+    +UmlEnum(String name, List<String> values)
+    +UmlEnum(String name, List<String> values, List<UmlMethod> methods)
+    +UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes)
 }
 
 class UmlPackage {
@@ -132,18 +155,53 @@ class UmlPackage {
 }
 
 class UmlInterface {
-
+    +UmlInterface(String name)
+    +UmlInterface(String name, List<UmlMethod> methods)
+    +UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes)
 }
 
 Abstract class UmlComponent {
-    +addMethod(UmlMethod method) {abstract}
-    +addAttribute(UmlAttribute attr) {abstract}
-
+    __ Attributes __
+    -name ： String
+    -methodsListz : List<UmlMethod>
+    -attributesList : List<UmlAttribute>
+    __ Methods __
+    +getName() : String
+    +setName(String name) : void
+    +getMethodsList() : List<UmlMethod>
+    +setMethodsList(List<UmlMethod> methodsList) : void
+    +getAttributesList() : List<UmlAttribute>
+    +setAttributesList(List<UmlAttribute> attributesList) : void
+    +addMethod(UmlMethod method) : void
+    +addAttribute(UmlAttribute attribute) : void
+    +removeMethod(UmlMethod method) : void
+    +removeAttribute(UmlAttribute attribute) void
+    __ Constructors __
+    +UmlComponent(String name)
+    +UmlComponent(String name, List<UmlMethod> methods)
+    +UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes)
 }
 
 
 Interface UmlRelationship {
-    +getRelationType() : Relationship_Type
+    __Attributes__
+    -classA : UmlClass
+    -classB : UmlClass
+    -roleA : String
+    -roleB : String
+    -relationName : String
+    __Methods__
+    +setRoleA(String roleA) : void
+    +getRoleA() : String
+    +setRoleB(String roleB) : void
+    +getRoleB() : String
+    +getClassA() : UmlClass
+    +getClassB() : UmlClass
+    +getRelationName() : String
+    +setRelationName(String relationName ) : void
+    
+    __Constructors__
+    #UmlRelationShip(UmlClass elementA, UmlClass elementB)
 }
 
 Enum Relationship_Type{
