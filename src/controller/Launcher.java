@@ -1,14 +1,14 @@
 package controller;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,6 +24,7 @@ import model.UmlMethod;
 import model.UmlParams;
 import model.Visibility;
 import view.UMLObjectDisplay;
+import view.GridPanel;
 
 public class Launcher {
 	
@@ -32,12 +33,26 @@ public class Launcher {
 	public static final int DEFAULT_HEIGHT = 300;
 	
 	public static void main(String[] argv) {
+		GridBagLayout layout = new GridBagLayout(); 
+		GridBagConstraints gc = new GridBagConstraints();
+		
 		
 		JFrame application = new JFrame(APPLICATION_NAME);
+		gc.weightx = 20;
+		gc.weighty = 20;
+		
+		JPanel editingArea = new JPanel(layout);
+		editingArea.setBackground(Color.WHITE);
+		gc.ipady = gc.anchor = GridBagConstraints.CENTER;
+
+		application.setContentPane(editingArea);
 		application.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		application.setLocationRelativeTo(null);
 		application.setJMenuBar(buildApplicationMenuBar(application));
 		buildDebugDiagram(application);
 		application.setVisible(true);
+		
+		
 	}
 
 	private static JMenuBar buildApplicationMenuBar(JFrame f) {
