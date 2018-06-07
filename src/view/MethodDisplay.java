@@ -27,7 +27,9 @@ public class MethodDisplay extends JLabel{
 		str.append(method.getName()+"(");
 		if (!method.getParams().isEmpty()) {
 			for (UmlParams attr : method.getParams()) {
-				str.append(attr.getName() + ":" + attr.getType() + ",");
+				str.append(
+						attr.getName() + ":" + 
+						attr.getType().getTypeName() + ",");
 			}
 
 			String tmp = str.substring(0, str.length()-1);
@@ -40,7 +42,7 @@ public class MethodDisplay extends JLabel{
 		if (method.getReturnType() == null) {
 			str.append("void");
 		} else {
-			str.append(method.getReturnType());
+			str.append(method.getReturnType().getTypeName());
 		}
 		
 		if (!method.getModifier().isEmpty()) {

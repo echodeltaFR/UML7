@@ -37,4 +37,9 @@ public enum PrimitiveType implements UmlType {
 	public String toString() {
 		return this.name;
 	}
+
+	@Override
+	public String getTypeName() {
+		return this.name;
+	}
 }

@@ -186,6 +186,11 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 		this.attributesList.remove(attribute);
 	}
 	
+	@Override
+	public String getTypeName() {
+		return this.name;
+	}
+	
 	/**
 	 * Visit accept by the element. 
 	 * @param visitor the visitor of the element
