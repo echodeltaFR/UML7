@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,6 @@ public class UmlInterface extends UmlComponent {
 	 */
 	public UmlInterface(String name) {
 		super(name);
-		this.setName(name);
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class UmlInterface extends UmlComponent {
 	 * @param modifier modifier of the interface
 	 */
 	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier) {
-		super(name, methods, attributes);
+		super(name, methods, attributes, visibility, modifier);
 	}
 	
 	/**
@@ -64,9 +64,20 @@ public class UmlInterface extends UmlComponent {
 	 * @param modifiers a set of modifiers of the interface
 	 */
 	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
-		super(name, methods, attributes);
+		super(name, methods, attributes, visibility, modifiers);
 	}
 	
+	private Boolean checkattribute() {
+		for(int i=0;i < this.getAttributesList().size(); i++) {
+			if(this.getAttributesList().get(i).getModifier().size()==2 && 
+				this.getAttributesList().get(i).getModifier().contains(Modifier.FINAL) &&
+				this.getAttributesList().get(i).getModifier().contains(Modifier.STATIC)) {
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	@Override
 	public void accept(DiagramElementVisitor visitor) {

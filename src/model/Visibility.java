@@ -29,7 +29,7 @@ public enum Visibility {
 	 * Constructor of a visibility with a symbol
 	 * @param symbol symbol of a visibility
 	 */
-	Visibility(String symbol){
+	public Visibility(String symbol){
 		this.symbol = symbol;
 	}
 	
