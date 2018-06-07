@@ -1,6 +1,9 @@
 package model;
+
+import java.util.Set;
+
 /**
- * Rerpesentation of attributes in
+ * Representation of attributes in
  * a UML classes diagram.
  * @author echodeltaFR
  * @version 1.3
@@ -86,7 +89,7 @@ public class UmlAttribute extends UmlEntity {
      * @param attrName Name of the attribute to create
      * @param attrType Type of the attribute to create
      * @param attrVisi Visibility of the attribute to create
-     * @param attrModifs Modifier of the attrbiute to create
+     * @param attrModifs Modifier of the attribute to create
      */
     public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Modifier attrModifs) {
         super(attrVisi, attrModifs);

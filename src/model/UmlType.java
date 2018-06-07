@@ -6,5 +6,5 @@ package model;
  * @version 1.0
  */
 public interface UmlType {
-
+	
 }

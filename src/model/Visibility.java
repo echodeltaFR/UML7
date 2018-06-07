@@ -10,7 +10,8 @@ public enum Visibility {
 	
 	PRIVATE("-"),
 	PUBLIC("+"),
-	PROTECTED("#");
+	PROTECTED("#"),
+	PACKAGE("");
 	
 	// Attributes
 	

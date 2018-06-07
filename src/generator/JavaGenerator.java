@@ -2,15 +2,15 @@ package generator;
 
 import java.util.List;
 
-import javax.lang.model.element.Modifier;
-
 import java.util.ArrayList;
 
 import model.UmlClass;
 import model.UmlInterface;
+import model.UmlMethod;
+import model.UmlParams;
 import model.UmlEnum;
 import model.UmlDiagram;
-
+import model.UmlEntity;
 import model.UmlComponent;
 
 /**
@@ -24,6 +24,8 @@ public class JavaGenerator implements DiagramElementVisitor {
 		
 		System.out.println("Test : Visited diagram\n");
 		List<UmlComponent> list = new ArrayList<UmlComponent>();
+		UmlInterface umlInterface = new UmlInterface("Mon Interface");
+		umlInterface.addMethod(new UmlMethod());
 		list.add(new UmlEnum("MonEnum"));
 		list.add(new UmlInterface("MonInterface"));
 		
@@ -35,7 +37,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 	public JavaGenerator() {
 	}
 	
-	private String convertVisibility(UmlComponent component) {
+	private String convertVisibility(UmlEntity component) {
 		String visibility = null;
 		
 		switch(component.getVisibility().toString()) {
@@ -49,7 +51,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 			visibility = "protected";
 			break;
 		default:
-			visibility = "public";
+			visibility = "";
 		}
 		return visibility;
 	}
@@ -82,12 +84,25 @@ public class JavaGenerator implements DiagramElementVisitor {
 
 	@Override
 	public void visit(UmlInterface UmlInterface) {
+		// Print the interface name with the visibility
 		System.out.print(this.convertVisibility(UmlInterface)
 				+ " "
-				// + UmlInterface.getModifier()
 				+ UmlInterface.getName() 
 				+ "{");
-		System.out.println("\n}");	
+		for(UmlMethod methods : UmlInterface.getMethodsList()) {
+			System.out.println(this.convertVisibility(methods)
+					+ methods.getVisibility()
+					+ methods.getName()
+					+ "(");
+			for(UmlParams params : methods.getParams()) {
+				System.out.print(params.getType()
+						+ params.getName()
+						+ params);
+			}
+					
+			System.out.println("");
+		}
+		System.out.println("\n}");
 	}
 	
 }
