@@ -19,6 +19,8 @@
 
 ### Velocité
 
+84 points éstimés
+
 ### Nombre de valeur métier
 
 ### Vérification des critères d'acceptation (User Stories)
