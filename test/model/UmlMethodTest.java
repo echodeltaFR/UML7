@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 /**
  * Test class for {@link UmlMethod}
  * @author echodeltaFR
- * @version 1.0
+ * @version 1.1
  */
 public class UmlMethodTest {
 
@@ -23,11 +23,13 @@ public class UmlMethodTest {
     private UmlMethod methodTest3;
     private UmlParams paramTest1;
     private UmlParams paramTest2;
+    private Set<Params> paramTest1Set;
     private Set<UmlParams> params;
     private Set<Modifier> modifiers;
 
     @Before public void setUp() {
         paramTest1 = new UmlParams(PrimitiveType.INT, "Paramètre 1");
+        paramTest1Set = new HashSet<Params>(paramTest1);
         paramTest2 = new UmlParams(PrimitiveType.BOOLEAN, "Paramètre 2");
         params = new HashSet<UmlParams>(paramTest1, paramTest2);
         modifiers = new HashSet<Modifier>(Modifier.ABSTRACT);
@@ -62,12 +64,32 @@ public class UmlMethodTest {
 
     @Test public void testSetName() {
         methodTest3.setName("MethodTest33");
-        assertEquals("Check the name", "MethodTest33", methodTest3.getName());
+        assertEquals("Check the name setter", "MethodTest33", methodTest3.getName());
     }
 
-    @Test public void testReturnType() {
+    @Test public void testSetReturnType() {
         methodTest3.setReturnType(PrimitiveType.LONG);
-        assertEquals("Check the return type", PrimitiveType.LONG, methodTest3.getReturnType());
+        assertEquals("Check the return type setter", PrimitiveType.LONG, methodTest3.getReturnType());
+    }
+
+    @Test public void testAddParam() {
+        methodTest1.addParam(paramTest1);
+        assertTrue("Check the param adding", paramTest1Set.equals(methodTest1.getParams()));
+    }
+
+    @Test public void testRemoveParam() {
+        methodTest1.removeParam(paramTest1);
+        assertTrue("Check the param removing", methodTest1.getParams().isEmpty());
+    }
+
+    @Test public void testAddParams() {
+        methodTest1.addParams(params);
+        assertTrue("Check the params adding", params.equals(methodTest1.getParams()));
+    }
+
+    @Test public void testRemoveParams() {
+        methodTest1.removeParams(params);
+        assertTrue("Check the params removing", methodTest1.getParams().isEmpty());
     }
 
 }

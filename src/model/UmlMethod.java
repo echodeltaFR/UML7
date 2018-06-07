@@ -6,7 +6,7 @@ import java.util.HashSet;
 /**
  * Class which allow to create a method
  * @author fmeslet, echodeltaFR
- * @version 1.1
+ * @version 1.2
  */
 public class UmlMethod extends UmlEntity {
 
