@@ -3,8 +3,7 @@ package model;
 import java.util.Set;
 
 /**
- * Representation of attributes in
- * a UML classes diagram.
+ * Representation of attributes in a UML classes diagram.
  * @author echodeltaFR
  * @version 1.3
  */
@@ -19,66 +18,12 @@ public class UmlAttribute extends UmlEntity {
     // Constructors
 
     /**
-     * Constructor. Creates an attribute in a
-     * UML diagram.
+     * Constructor. Creates an attribute in a UML diagram.
      * @param attrName Name of the attribute to create
      * @param attrType Type of the attribute to create
      */
     public UmlAttribute(String attrName, UmlType attrType) {
         super();
-        this.name = attrName;
-        this.type = attrType;
-    }
-
-    /**
-     * Constructor. Creates an attribute in a UML diagram
-     * with visibility.
-     * @param attrName Name of the attribute to create
-     * @param attrType Type of the attribute to create
-     * @param attrVisi Visibility of the attribute to create
-     */
-    public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi) {
-        super(attrVisi);
-        this.name = attrName;
-        this.type = attrType;
-    }
-
-    /**
-     * Constructor. Creates an attribute in a UML diagram
-     * with modifier.
-     * @param attrName Name of the attribute to create
-     * @param attrType Type of the attribute to create
-     * @param attrModif Modifier of the attrbiute to create
-     */
-    public UmlAttribute(String attrName, UmlType attrType, Modifier attrModif) {
-        super(attrModif);
-        this.name = attrName;
-        this.type = attrType;
-    }
-
-    /**
-     * Constructor. Creates an attribute in a UML diagram
-     * with modifiers.
-     * @param attrName Name of the attribute to create
-     * @param attrType Type of the attribute to create
-     * @param attrModifs Modifiers of the attrbiute to create
-     */
-    public UmlAttribute(String attrName, UmlType attrType, Set<Modifier> attrModifs) {
-        super(attrModifs);
-        this.name = attrName;
-        this.type = attrType;
-    }
-
-    /**
-     * Constructor. Creates an attribute in a UML diagram
-     * with visibility and modifier.
-     * @param attrName Name of the attribute to create
-     * @param attrType Type of the attribute to create
-     * @param attrVisi Visibility of the attribute to create
-     * @param attrModif Modifier of the attrbiute to create
-     */
-    public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Modifier attrModif) {
-        super(attrVisi, attrModif);
         this.name = attrName;
         this.type = attrType;
     }
