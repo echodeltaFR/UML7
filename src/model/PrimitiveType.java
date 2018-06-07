@@ -5,7 +5,7 @@ package model;
  * @author fmeslet
  * @version 1.0
  */
-public enum PrimitiveType implements UmlType{
+public enum PrimitiveType implements UmlType {
 	INT("int"),
 	DOUBLE("double"),
 	FLOAT("float"),
