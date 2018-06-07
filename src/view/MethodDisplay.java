@@ -9,7 +9,7 @@ import model.UmlParams;
 /**
  * Display method into the GUI.
  * @author Christian, Charly, echodeltaFR
- * @version 1.1
+ * @version 1.2
  */
 public class MethodDisplay extends JLabel {
 
@@ -41,7 +41,16 @@ public class MethodDisplay extends JLabel {
      */
 	public void updateLabel() {
 		StringBuilder str = new StringBuilder();
-		
+
+		if (attribute.getVisibility() == Visibility.PUBLIC) {
+            str.append("+");
+        } else if (attribute.getVisibility() == Visibility.PRIVATE) {
+            str.append("-");
+        } else if (attribute.getVisibility() == Visibility.PROTECTED) {
+            str.append("#");
+        } else {
+            str.append("Exception");
+        }
 		str.append(method.getName()+"(");
 		if (!method.getParams().isEmpty()) {
 			for (UmlParams attr : method.getParams()) {
