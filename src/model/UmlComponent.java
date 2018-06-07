@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import generator.DiagramElementVisitor;
 
@@ -42,8 +43,8 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	public UmlComponent(String name) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<>();
-		attributesList = new ArrayList<>();
+		methodsList = new ArrayList<UmlMethod>();
+		attributesList = new ArrayList<UmlAttribute>();
 	}
 	
 	/**
@@ -54,8 +55,8 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	public UmlComponent(String name, List<UmlMethod> methods) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<>(methods);
-		attributesList = new ArrayList<>();
+		methodsList = methods;
+		attributesList = new ArrayList<UmlAttribute>();
 	}
 	
 	/**
@@ -67,13 +68,40 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<>(methods);
-		attributesList = new ArrayList<>(attributes);
+		methodsList = methods;
+		attributesList = attributes;
 	}
 	
 	/**
-	 * TODO add needed constructors with visibility and modifiers
+	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a modifier
+	 * @param name name of the component
+	 * @param methods methods of the component
+	 * @param attributes attributes of the component
+	 * @param visibility visibility of the component
+	 * @param modifier modifier of the component
 	 */
+	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier) {
+		super(visibility, modifier);
+		this.name = name;
+		methodsList = methods;
+		attributesList = attributes;
+	}
+	
+	/**
+	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers
+	 * @param name name of the component
+	 * @param methods methods of the component
+	 * @param attributes attributes of the component
+	 * @param visibility visibility of the component
+	 * @param modifiers modifiers of the component
+	 */
+	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+		super(visibility, modifiers);
+		this.name = name;
+		methodsList = methods;
+		attributesList = attributes;
+	}
+	
 	
 	// Methods
 	
