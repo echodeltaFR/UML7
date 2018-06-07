@@ -109,12 +109,10 @@ class UmlMethod {
     -params : ArrayList<UmlParams>
     -returnType : UmlType
     -name : String
-    -visibility : Visibility
-    -modifier : HashSet<Modifier>
     __ Methods __
     +addAllParams(List<UmlParams> params) : void
     +addParams(UmlParams params) : void
-    +setReturnType() : UmlType
+    +setReturnType(UmlType returnType) : UmlType
     +removeReturnType() : void
     +getReturnType() : UmlType
     +getName() : String
@@ -122,7 +120,7 @@ class UmlMethod {
     +removeParams(UmlParams params) : void
     +removeAllParams(List<String> params) : void
     __ Constructors __
-    UmlParams(UmlType type, String name)
+    +UmlMethod(List<UmlParams> params, UmlType returnType, String name, Visibility visibility, Set<Modifier> modifier)
 }
 
 class UmlAttribute {
@@ -183,7 +181,7 @@ Abstract class UmlComponent {
 }
 
 
-Interface UmlRelationship {
+Abstract class UmlRelationship {
     __Attributes__
     -classA : UmlClass
     -classB : UmlClass
