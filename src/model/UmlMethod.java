@@ -57,7 +57,7 @@ public class UmlMethod extends UmlEntity {
 	// Methods
 
 	/**
-	 * Add all the method parameters.
+	 * Add a method parameter.
 	 * @param param the method parameter to add
 	 */
 	public void addParam(UmlParams param) {
@@ -65,7 +65,7 @@ public class UmlMethod extends UmlEntity {
 	}
 
 	/**
-	 * Add all the method parameters.
+	 * Add method parameters.
 	 * @param params the method parameters to add
 	 */
 	public void addParams(Set<UmlParams> params) {
@@ -73,26 +73,18 @@ public class UmlMethod extends UmlEntity {
 	}
 
 	/**
-	 * Delete the method parameters.
+	 * Delete a method parameter.
+	 * @param param the method parameter to remove
+	 */
+	public void removeParam(UmlParams param) {
+		this.params.remove(param);
+	}
+	/**
+	 * Delete method parameters.
 	 * @param params the method parameters to delete
 	 */
 	public void removeParams(Set<UmlParams> params) {
 		this.params.removeAll(params);
-	}
-
-	/**
-	 * Add return type.
-	 * @param returnType return type
-	 */
-	public void setReturnType(UmlType returnType) {
-		this.returnType = returnType;
-	}
-
-	/**
-	 * Delete return type.
-	 */
-	public void removeReturnType() {
-		this.returnType = null;
 	}
 
 	// Getters & Setters
@@ -114,8 +106,8 @@ public class UmlMethod extends UmlEntity {
 	}
 
 	/**
-	 * Get the method parameter(s).
-	 * @return method parameter(s)
+	 * Get the method parameters.
+	 * @return The method parameters
 	 */
 	public Set<UmlParams> getParams(){
 		return this.params;
@@ -133,7 +125,7 @@ public class UmlMethod extends UmlEntity {
 	 * Set the method return type.
 	 * @param returnType The return type
 	 */
-	public void setReturnType(PrimitiveType returnType) {
+	public void setReturnType(UmlType returnType) {
 		this.returnType = returnType;
 	}
 
