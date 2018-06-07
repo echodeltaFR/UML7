@@ -4,8 +4,17 @@ import java.awt.Graphics;
 
 import model.UmlExtendsLink;
 
+/**
+ * Class that represents extend relationship
+ * @author Charly Courilleau
+ *
+ */
 public class ExtendsRelationDisplay extends RelationDisplay {
-
+	
+	/**
+	 * Constructor
+	 * @param umlRelation the extend relationship
+	 */
 	public ExtendsRelationDisplay(UmlExtendsLink umlRelation) {
 		super(umlRelation);
 	}
@@ -16,51 +25,30 @@ public class ExtendsRelationDisplay extends RelationDisplay {
 		
 		
 		final int HEIGHT_TRIANGLE = 20;
-		int xBWithoutArrow = this.getElemB().getX() - HEIGHT_TRIANGLE;
+		int xBWithoutArrow = this.getEnd().getX() - HEIGHT_TRIANGLE;
 	
 		// Draw the vertical line
 		g.drawLine(xBWithoutArrow, 
-				this.getElemB().getY() - 10, 
+				this.getEnd().getY() - 10, 
 				xBWithoutArrow, 
-				this.getElemB().getY() + 10);
+				this.getEnd().getY() + 10);
 		
 	    // Draw triangle's side
 	    g.drawLine(xBWithoutArrow, 
-	    		this.getElemB().getY()-10, 
-	    		this.getElemB().getX(), 
-	    		this.getElemB().getY());
+	    		this.getEnd().getY()-10, 
+	    		this.getEnd().getX(), 
+	    		this.getEnd().getY());
 	    
 	    g.drawLine(xBWithoutArrow, 
-	    		this.getElemB().getY()+10, 
-	    		this.getElemB().getX(), 
-	    		this.getElemB().getY());
+	    		this.getEnd().getY()+10, 
+	    		this.getEnd().getX(), 
+	    		this.getEnd().getY());
 
 		// Draw horizontal line from start point
-	    g.drawLine(this.getElemA().getX(), 
-	    		this.getElemA().getY(), 
-	    		this.getElemA().getX(), 
-	    		this.getElemA().getY());
-
-	    
-	    
-		/** Right point
-	    int xFinal = this.getxRelation()+200;
-	    int yFinal = this.getyRelation();
-	    
-	    final int HEIGHT_TRIANGLE = 20;
-	    xFinal -= HEIGHT_TRIANGLE;
-	    
-	    // Draw vertical line
-	    g.drawLine(xFinal, yFinal-10, xFinal, yFinal+10);
-
-	    // Draw triangle's side
-	    g.drawLine(xFinal, yFinal-10, xFinal+HEIGHT_TRIANGLE, yFinal);
-	    g.drawLine(xFinal, yFinal+10, xFinal+HEIGHT_TRIANGLE, yFinal);
-
-		// Draw horizontal line from start point
-	    g.drawLine(this.getxRelation(), this.getyRelation(), xFinal, yFinal);
-	    **/
-
+	    g.drawLine(this.getStart().getX(), 
+	    		this.getStart().getY(), 
+	    		this.getStart().getX(), 
+	    		this.getStart().getY());
     }
 
 }

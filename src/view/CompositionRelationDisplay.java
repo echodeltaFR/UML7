@@ -6,8 +6,17 @@ import java.awt.Polygon;
 
 import model.UmlCompositionLink;
 
+/**
+ * Class that represents composition relationship
+ * @author Charly Courilleau
+ *
+ */
 public class CompositionRelationDisplay extends RelationDisplay {
 
+		/**
+		 * Constructor
+		 * @param umlRelation the composition relationship
+		 */
 		public CompositionRelationDisplay(UmlCompositionLink umlRelation) {
 			super(umlRelation);
 		}
@@ -17,17 +26,17 @@ public class CompositionRelationDisplay extends RelationDisplay {
 			super.paintComponent(g);
 
 			// Extremité gauche (losange)
-	        int xPoly[] = {this.getElemA().getX(),
-	        				(int) (this.getElemA().getX() + HEIGHT_TRIANGLE),
-	        				(int)(this.getElemA().getX() + (2*HEIGHT_TRIANGLE)), 
-	        				(int) (this.getElemA().getX() + HEIGHT_TRIANGLE),
-	        				this.getElemA().getX()
+	        int xPoly[] = {this.getStart().getX(),
+	        				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
+	        				(int)(this.getStart().getX() + (2*HEIGHT_TRIANGLE)), 
+	        				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
+	        				this.getStart().getX()
 	        };
-	        int yPoly[] = {this.getElemA().getY(),
-	        				(int) (this.getElemA().getY() + (BASE_TRIANGLE/2)),		
-	        				this.getElemA().getY(), 
-	        				(int) (this.getElemA().getY() - (BASE_TRIANGLE/2)), 
-	        				this.getElemA().getY()
+	        int yPoly[] = {this.getStart().getY(),
+	        				(int) (this.getStart().getY() + (BASE_TRIANGLE/2)),		
+	        				this.getStart().getY(), 
+	        				(int) (this.getStart().getY() - (BASE_TRIANGLE/2)), 
+	        				this.getStart().getY()
 	        };
 	        
 		    Polygon losange = new Polygon(xPoly, yPoly, xPoly.length);
@@ -36,11 +45,11 @@ public class CompositionRelationDisplay extends RelationDisplay {
 		    g.fillPolygon(losange);
 
 			// Draw the line
-		    g.drawLine(this.getElemA().getX(), this.getElemA().getY(), this.getElemB().getX(), this.getElemB().getY());
+		    g.drawLine(this.getStart().getX(), this.getStart().getY(), this.getEnd().getX(), this.getEnd().getY());
 
 		    // Draw the arrow
-		    g.drawLine(this.getElemB().getX(), this.getElemB().getY(), this.getElemB().getX()-10, this.getElemB().getY()+5);
-		    g.drawLine(this.getElemB().getX(), this.getElemB().getY(), this.getElemB().getX()-10, this.getElemB().getY()-5);
+		    g.drawLine(this.getEnd().getX(), this.getEnd().getY(), this.getEnd().getX()-10, this.getEnd().getY()+5);
+		    g.drawLine(this.getEnd().getX(), this.getEnd().getY(), this.getEnd().getX()-10, this.getEnd().getY()-5);
 
 	    }
 

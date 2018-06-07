@@ -4,16 +4,30 @@ import java.awt.Graphics;
 
 import model.UmlAssociationLink;
 
+/**
+ * Class that represents association relationship
+ * @author Charly Courilleau
+ *
+ */
 public class AssociationRelationDisplay extends RelationDisplay {
 
-		/** Arrow or not **/
+		/** Boolean that characterizes an unidirectional relationship **/
 		private boolean unidirectional;
 	
+		/**
+		 * Constructor
+		 * @param umlRelation the association relationship
+		 */
 		public AssociationRelationDisplay(UmlAssociationLink umlRelation) {
 			super(umlRelation);
 			this.unidirectional = false;
 		}
 		
+		/**
+		 * Constructor with option (unidirectonal or not)
+		 * @param umlRelation the association relationship
+		 * @param unidirectional boolean that permits to know if the relationship is unidirectional
+		 */
 		public AssociationRelationDisplay(UmlAssociationLink umlRelation, boolean unidirectional) {
 			super(umlRelation);
 			this.unidirectional = unidirectional;
@@ -24,22 +38,22 @@ public class AssociationRelationDisplay extends RelationDisplay {
 			super.paintComponent(g);
 			
 		    // Draw the line
-		    g.drawLine(this.getElemA().getX(), 
-		    		this.getElemA().getY(), 
-		    		this.getElemB().getX(), 
-		    		this.getElemB().getY());
+		    g.drawLine(this.getStart().getX(), 
+		    		this.getStart().getY(), 
+		    		this.getEnd().getX(), 
+		    		this.getEnd().getY());
 		    
 		    // Draw the arrow if unidirectional is enabled
 		    if (this.unidirectional) {
-			    g.drawLine(this.getElemB().getX(), 
-			    		this.getElemB().getY(), 
-			    		this.getElemB().getX()-10, 
-			    		this.getElemB().getY()+5);
+			    g.drawLine(this.getEnd().getX(), 
+			    		this.getEnd().getY(), 
+			    		this.getEnd().getX()-10, 
+			    		this.getEnd().getY()+5);
 			    
-			    g.drawLine(this.getElemB().getX(), 
-			    		this.getElemB().getY(), 
-			    		this.getElemB().getX()-10, 
-			    		this.getElemB().getY()-5);
+			    g.drawLine(this.getEnd().getX(), 
+			    		this.getEnd().getY(), 
+			    		this.getEnd().getX()-10, 
+			    		this.getEnd().getY()-5);
 			    
 		    }
 	    }
