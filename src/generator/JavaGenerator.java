@@ -1,9 +1,9 @@
 package generator;
 
-import java.util.List;
+import java.util.HashMap;
 
-import java.util.ArrayList;
-
+import model.Modifier;
+import model.UmlAttribute;
 import model.UmlClass;
 import model.UmlInterface;
 import model.UmlMethod;
@@ -20,21 +20,18 @@ import model.UmlComponent;
  */
 public class JavaGenerator implements DiagramElementVisitor {
 	
-	public static void main(String ars[]) {
-		
-		System.out.println("Test : Visited diagram\n");
-		List<UmlComponent> list = new ArrayList<UmlComponent>();
-		UmlInterface umlInterface = new UmlInterface("Mon Interface");
-		umlInterface.addMethod(new UmlMethod());
-		list.add(new UmlEnum("MonEnum"));
-		list.add(new UmlInterface("MonInterface"));
-		
-		JavaGenerator generateur = new JavaGenerator();
-		
-		generateur.visitDiagram(new UmlDiagram("test", list));
+	private HashMap<String, String> code;
+	
+	private UmlDiagram diagram;
+	
+	public JavaGenerator(UmlDiagram diagram) {
+		this.diagram = diagram;
+		this.code = new HashMap<String, String>();
 	}
 	
 	public JavaGenerator() {
+		this.diagram = null;
+		this.code = new HashMap<String, String>();
 	}
 	
 	private String convertVisibility(UmlEntity component) {
@@ -56,53 +53,114 @@ public class JavaGenerator implements DiagramElementVisitor {
 		return visibility;
 	}
 	
-	public void visit(UmlEnum UmlEnum) {
-		System.out.print(this.convertVisibility(UmlEnum)
-				+ " "
-				+ UmlEnum.getName()
-				+ "{");
-		System.out.println("\n}");
-	}
-	
-	@Override
-	public void visitDiagram(UmlDiagram diagram) {
+	public void generateCode(){
+		// for each components in the diagram
 		for(UmlComponent element : diagram.getUmlElements()) {
             element.accept(this);
         }
 	}
-
-	@Override
-	public void visit(UmlClass UmlClass) {
-		System.out.print(this.convertVisibility(UmlClass)
-				+ " "
-				+ UmlClass.getModifier()
-				+ UmlClass.getName() 
-				+ "{");
-		System.out.println("\n}");
+	
+	private String generateAttribute(UmlComponent component) {
+		String attributeCode = "";
 		
+		// Add the attributes
+		for(UmlAttribute attribut : component.getAttributesList()) {
+			attributeCode =  "\n" + this.convertVisibility(attribut) + " ";
+			
+			// Add the attribute modifier
+			if(!attribut.getModifier().isEmpty()) {
+				for(Modifier modifier : attribut.getModifier()) {
+					attributeCode = attributeCode + modifier.toString() + " ";
+				}
+			}
+			
+			// Add type and name
+			attributeCode = attributeCode
+							+ attribut.getType() + " "
+							+ attribut.getName() + " "
+							+ ";\n";
+		}
+		return attributeCode;
+	}
+	
+	private String generateMethod(UmlComponent component) {
+		String methodCode = "";
+		
+		// Print the class method
+		for(UmlMethod method : component.getMethodsList()) {
+			methodCode = "\n" + this.convertVisibility(method) + " ";
+			
+			// Add the method modifier
+			if(!method.getModifier().isEmpty()) {
+				for(Modifier modifier : method.getModifier()) {
+					methodCode = methodCode + modifier.toString() + " ";
+				}
+			}
+			
+			// Add the method name and return type
+			methodCode = methodCode 
+					+ method.getReturnType().getTypeName() + " "
+					+ method.getName()
+					+ "(";
+			
+			// Add the method parameters
+			for(UmlParams params : method.getParams()) {
+				methodCode = methodCode 
+						+ params.getType() + " "
+						+ params.getName(); // Problème affichage de la virgule
+			}
+			methodCode = methodCode + ");";
+		}
+		return methodCode;
+	}
+	
+	public void visit(UmlEnum umlEnum) {
+		this.internal(umlEnum);
+	}
+	
+//	@Override // Methode A supprimer
+//	public void visitDiagram(UmlDiagram diagram) {
+//		for(UmlComponent element : diagram.getUmlElements()) {
+//            element.accept(this);
+//        }
+//	}
+
+	@Override // Mettre en privée
+	public void visit(UmlClass umlClass) {
+		this.internal(umlClass);
 	}
 
 	@Override
-	public void visit(UmlInterface UmlInterface) {
-		// Print the interface name with the visibility
-		System.out.print(this.convertVisibility(UmlInterface)
-				+ " "
-				+ UmlInterface.getName() 
-				+ "{");
-		for(UmlMethod methods : UmlInterface.getMethodsList()) {
-			System.out.println(this.convertVisibility(methods)
-					+ methods.getVisibility()
-					+ methods.getName()
-					+ "(");
-			for(UmlParams params : methods.getParams()) {
-				System.out.print(params.getType()
-						+ params.getName()
-						+ params);
+	public void visit(UmlInterface umlInterface) {
+		this.internal(umlInterface);
+	}
+	
+	private void internal(UmlComponent component) {
+		String componentCode;
+		
+		// Add the element visibility
+		componentCode = this.convertVisibility(component) + " ";
+		
+		// Add the modifier of the class
+		if(!component.getModifier().isEmpty()) {
+			for(Modifier modifier : component.getModifier()) {
+				componentCode = componentCode + modifier.toString() + " ";
 			}
-					
-			System.out.println("");
 		}
-		System.out.println("\n}");
+		
+		// Add the class name
+		componentCode = componentCode + "{"
+					+ component.getName() 
+					+ this.generateAttribute(component) 
+					+ this.generateMethod(component)
+					+ "\n}";
+		
+		// Add code to a file
+		this.code.put(component.getName(), componentCode);
+	}
+	
+	public HashMap<String, String> getCode() {
+		return this.code;
 	}
 	
 }

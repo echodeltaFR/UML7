@@ -57,6 +57,7 @@ public class JavaGeneratorTest {
 				+ "\ttype1 method2(type1 attribut1)\n"
 				+ "\tstatic void method3()\n"
 				+ "}";
+		
 		System.out.print(results);
 		AssertEquals("UmlInterface : wrong generation", results, );
 		
@@ -96,6 +97,20 @@ public class JavaGeneratorTest {
 		// Test with implement relation
 		
 		// Test with implement and extend
+	}
+	
+	public static void main(String ars[]) {
+		
+		System.out.println("Test : Visited diagram\n");
+		List<UmlComponent> list = new ArrayList<UmlComponent>();
+		UmlInterface umlInterface = new UmlInterface("Mon Interface");
+		umlInterface.addMethod(new UmlMethod());
+		list.add(new UmlEnum("MonEnum"));
+		list.add(new UmlInterface("MonInterface"));
+		
+		JavaGenerator generateur = new JavaGenerator();
+		
+		generateur.visitDiagram(new UmlDiagram("test", list));
 	}
 	
 }

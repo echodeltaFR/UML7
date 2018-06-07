@@ -16,6 +16,5 @@ public interface DiagramElementVisitor {
 	public void visit(UmlClass UmlClass);
 	public void visit(UmlEnum UmlEnum);
 	public void visit(UmlInterface UmlInterface);
-	public void visitDiagram(UmlDiagram UmlDiagram);
 	
 }
