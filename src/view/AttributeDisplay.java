@@ -23,6 +23,14 @@ public class AttributeDisplay extends JLabel {
     }
 
     /**
+     * Get the represented attribute
+     * @return the attribute that is displayed
+     */
+    public UmlAttribute getAttribute() {
+    	return this.attribute;
+    }
+    
+    /**
      * Update the display of the attribute.
      * Call this method when you modify an attribute
      * and you want the display to refresh.

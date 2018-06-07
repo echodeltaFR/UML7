@@ -1,9 +1,29 @@
 package controller;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+import model.Modifier;
+import model.PrimitiveType;
+import model.UmlAttribute;
+import model.UmlClass;
+import model.UmlInterface;
+import model.UmlMethod;
+import model.UmlParams;
+import model.Visibility;
+import view.UMLObjectDisplay;
 
 public class Launcher {
 	
@@ -16,6 +36,7 @@ public class Launcher {
 		JFrame application = new JFrame(APPLICATION_NAME);
 		application.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		application.setJMenuBar(buildApplicationMenuBar(application));
+		buildDebugDiagram(application);
 		application.setVisible(true);
 	}
 
@@ -35,5 +56,34 @@ public class Launcher {
 		appBar.add(file);
 		
 		return appBar;
+	}
+	
+	private static void buildDebugDiagram(JFrame jf) {
+		JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
+		HashSet<Modifier> mod;
+		ArrayList<UmlParams> param;
+		
+		
+		// BUILDING CLASS
+		UmlClass c1 = new UmlClass("Classe 1");
+		
+		c1.addAttribute(new UmlAttribute("The_Default_letter", PrimitiveType.CHAR));
+		mod = new HashSet<Modifier>();
+		mod.add(Modifier.FINAL);
+		mod.add(Modifier.STATIC);
+		c1.addMethod(new UmlMethod(null, null, "A_Method", Visibility.PUBLIC, mod));
+		mod = new HashSet<Modifier>();
+		mod.add(Modifier.VOLATILE);
+		param = new ArrayList<UmlParams>();
+		param.add(new UmlParams(PrimitiveType.CHAR, "letter"));
+		c1.addMethod(new UmlMethod(param, PrimitiveType.INT, "Another_Method", Visibility.PUBLIC, mod));
+		jp.add(new UMLObjectDisplay(c1));
+		
+		//BUILDING INTERFACE
+		UmlInterface i = new UmlInterface("some_interface");
+		i.addMethod(new UmlMethod(null, PrimitiveType.BOOLEAN,"Method 1", Visibility.PROTECTED, null));
+		jp.add(new UMLObjectDisplay(i));
+		
+		jf.getContentPane().add(jp);
 	}
 }

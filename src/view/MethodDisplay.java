@@ -12,8 +12,13 @@ public class MethodDisplay extends JLabel{
 	
 	public MethodDisplay(UmlMethod method) {
 		super();
+		if (method == null) throw new IllegalArgumentException("Method can't be null");
 		this.method = method;
 		updateLabel();
+	}
+	
+	public UmlMethod getMethod() {
+		return this.method;
 	}
 	
 	public void updateLabel() {
