@@ -8,10 +8,10 @@ import generator.DiagramElementVisitor;
 /**
  * Abstract class, an UML entity, parent of UmlComponent
  * @see UmlComponent
- * @author christian, fabien, bastien
+ * @author christian, fabien, bastien, echodeltaFR
  *
  */
-public abstract class UmlEntity{
+public abstract class UmlEntity {
 	
 	// Attributes
 	
@@ -28,17 +28,54 @@ public abstract class UmlEntity{
 	// Constructor
 	
 	/**
-	 * Constructor of an element with visibility and modifier(s).
+	 * Constructor of an element with visibility and modifiers.
 	 * @param visibility the visibility
-	 * @param modifier the method modifier(s)
+	 * @param modifiers the modifiers
 	 */
-	public UmlEntity(Visibility visibility, Set<Modifier> modifier) {
-		this.visibility = visibility;
-		if (modifier == null) {
+	public UmlEntity(Visibility visibility, Set<Modifier> modifiers) {
+		if (visibility == null) {
+			this.visibility = Visibility.PUBLIC;
+		} else {
+			this.visibility = visibility;
+		}
+		if (modifiers == null) {
 			this.modifiers = new HashSet<Modifier>();
 		} else {
-			this.modifiers = new HashSet<Modifier>(modifier);
+			this.modifiers = new HashSet<Modifier>(modifiers);
 		}
+	}
+
+	/**
+	 * Constructor of an element with visibility and modifier.
+	 * @param visibility the visibility
+	 * @param modifier the modifier
+	 */
+	public UmlEntity(Visibility visibility, Modifier modifier) {
+		if (visibility == null) {
+			this.visibility = Visibility.PUBLIC;
+		} else {
+			this.visibility = visibility;
+		}
+		this.modifiers = new HashSet<Modifier>();
+		if (modifier != null) {
+			this.modifiers.add(modifier);
+		}
+	}
+
+	/**
+	 * Constructor of an element with modifiers.
+	 * @param modifiers the modifiers
+	 */
+	public UmlEntity(Set<Modifier> modifiers) {
+		this(null, new HashSet<Modifier>(modifiers));
+	}
+
+	/**
+	 * Constructor of an element with modifier.
+	 * @param modifier The modifier
+	 */
+	public UmlEntity(Modifier modifier) {
+		this(null, modifier);
 	}
 	
 	/**
@@ -46,7 +83,9 @@ public abstract class UmlEntity{
 	 * @param visibility the visibility
 	 */
 	public UmlEntity(Visibility visibility) {
-		this(visibility,null);
+		/* HashSet instead of null enforces use of one of
+		the two visibility and modifier(s) constructors. */
+		this(visibility, new HashSet<Modifier>());
 	}
 	
 	/**
