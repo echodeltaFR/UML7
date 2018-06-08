@@ -21,11 +21,11 @@ public class UmlAttributeTest {
     private UmlAttribute attrTest1;
     private UmlAttribute attrTest2;
     private UmlAttribute attrTest3;
-    private UmlAttribute attrTest4;
     private Set<Modifier> modifiers;
 
     @Before public void setUp() {
-        modifiers = new HashSet<Modifier>(Modifier.FINAL);
+        modifiers = new HashSet<Modifier>();
+        modifiers.add(Modifier.FINAL);
         attrTest1 = new UmlAttribute("Attribute1", PrimitiveType.INT);
         attrTest2 = new UmlAttribute("Attribute2", PrimitiveType.LONG, null, null);
         attrTest3 = new UmlAttribute("Attribute3", PrimitiveType.STRING, Visibility.PRIVATE, modifiers);

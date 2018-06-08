@@ -29,10 +29,14 @@ public class UmlMethodTest {
 
     @Before public void setUp() {
         paramTest1 = new UmlParams(PrimitiveType.INT, "Paramètre 1");
-        paramTest1Set = new HashSet<Params>(paramTest1);
+        paramTest1Set = new HashSet<Params>();
+        paramTest1Set.add(paramTest1);
         paramTest2 = new UmlParams(PrimitiveType.BOOLEAN, "Paramètre 2");
-        params = new HashSet<UmlParams>(paramTest1, paramTest2);
-        modifiers = new HashSet<Modifier>(Modifier.ABSTRACT);
+        params = new HashSet<UmlParams>();
+        params.add(paramTest1);
+        params.add(paramTest2);
+        modifiers = new HashSet<Modifier>();
+        modifiers.add(Modifier.ABSTRACT);
         methodTest1 = new UmlMethod("MethodTest1");
         methodTest2 = new UmlMethod("MethodTest2", null, null, null, null);
         methodTest3 = new UmlMethod("MethodTest3", params, PrimitiveType.INT, Visibility.PRIVATE, modifiers);
