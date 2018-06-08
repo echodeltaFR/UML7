@@ -6,7 +6,7 @@ import java.util.HashSet;
 /**
  * Class which allow to create a method
  * @author fmeslet, echodeltaFR
- * @version 1.2
+ * @version 1.3
  */
 public class UmlMethod extends UmlEntity {
 
@@ -50,7 +50,12 @@ public class UmlMethod extends UmlEntity {
 			Set<Modifier> modifiers) {
 		super(visibility, modifiers);
 		this.name = name;
-		this.params = new HashSet<UmlParams>(params);
+		if (params == null) {
+			this.params = new HashSet<UmlParams>();
+		}
+		else {
+			this.params = new HashSet<UmlParams>(params);
+		}
 		this.returnType = returnType;
 	}
 
