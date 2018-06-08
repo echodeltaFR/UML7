@@ -1,7 +1,6 @@
 package model;
 
 import org.junit.*;
-import org.junit.rules.*;
 
 import model.Modifier;
 import model.PrimitiveType;
@@ -16,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Test class for {@link UmlMethod}
  * @author echodeltaFR
- * @version 1.2
+ * @version 1.3
  */
 public class UmlMethodTest {
 
@@ -49,7 +48,7 @@ public class UmlMethodTest {
         assertTrue("Check the params", methodTest1.getParams().isEmpty());
         assertEquals("Check the return type", null, methodTest1.getReturnType());
         assertEquals("Check the visibility", Visibility.PUBLIC, methodTest1.getVisibility());
-        assertTrue("Check the modifiers", modifiers.equals(methodTest1.getModifier()));
+        assertTrue("Check the modifiers", methodTest1.getModifier().isEmpty());
     }
 
     @Test public void testConstructor2() {
@@ -57,7 +56,7 @@ public class UmlMethodTest {
         assertTrue("Check the params", methodTest2.getParams().isEmpty());
         assertEquals("Check the return type", null, methodTest2.getReturnType());
         assertEquals("Check the visibility", Visibility.PUBLIC, methodTest2.getVisibility());
-        assertTrue("Check the modifiers", modifiers.equals(methodTest2.getModifier()));
+        assertTrue("Check the modifiers", methodTest2.getModifier().isEmpty());
     }
 
     @Test public void testConstructor3() {
@@ -65,7 +64,7 @@ public class UmlMethodTest {
         assertTrue("Check the params", params.equals(methodTest3.getParams()));
         assertEquals("Check the return type", PrimitiveType.INT, methodTest3.getReturnType());
         assertEquals("Check the visibility", Visibility.PRIVATE, methodTest3.getVisibility());
-        assertTrue("Check the modifiers", modifiers.equals(methodTest2.getModifier()));
+        assertTrue("Check the modifiers", modifiers.equals(methodTest3.getModifier()));
     }
 
     @Test public void testSetName() {
