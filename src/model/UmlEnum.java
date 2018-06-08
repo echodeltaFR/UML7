@@ -21,7 +21,7 @@ public class UmlEnum extends UmlRefType {
 	private List<String> valuesList;
 	
 	// Constructors
-	
+
 	/**
 	 * Constructor with a name
 	 * @param name name of the Enum
@@ -78,6 +78,22 @@ public class UmlEnum extends UmlRefType {
 		valuesList = new ArrayList<>(values);
 	}
 	// Methods
+	
+	/**
+	 * Getter list of Enum values
+	 * @return List<String> List of Enum values
+	 */
+	public List<String> getValuesList() {
+		return valuesList;
+	}
+	
+	/**
+	 * Setter list of Enum values
+	 * @param valuesList
+	 */
+	public void setValuesList(List<String> valuesList) {
+		this.valuesList = valuesList;
+	}
 
 	/**
 	 * Add a value to the values list
