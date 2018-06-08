@@ -2,6 +2,8 @@ package view;
 
 import model.UmlRefType;
 import model.UmlInterface;
+import model.UmlMethod;
+import model.UmlAttribute;
 import model.UmlEnum;
 
 import javax.swing.JPanel;
@@ -16,9 +18,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -48,14 +48,8 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	/** The inner label that display the name*/
 	private JLabel classname;
 	
-	/** The inner AttributeDisplays that shows the backed object's attributes */
-	private List<AttributeDisplay> attributes;
-	
 	/** the container of the attribute displays */
 	private JPanel attributeContainer;
-	
-	/** The inner MethodDisplays that shows the backed object's methods*/
-	private List<MethodDisplay> methods;
 
 	/** the container of the function/method displays */
 	private JPanel functionContainer;
@@ -73,13 +67,11 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		
 		//creating object attributes
 		umlobject.addObserver(this);
-		this.attributes = new ArrayList<AttributeDisplay>();
-		this.methods = new ArrayList<MethodDisplay>();
 		
 		//Creating Swing architecture
 		this.buildInnerSwingArchitecture(umlobject);
 		
-		this.addMouseListener(new ClassEditorController(umlobject));
+		this.classname.addMouseListener(new ClassEditorController(umlobject));
 		this.updateDisplay(umlobject);
 	}
 
@@ -132,5 +124,14 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	
 	private void updateDisplay(UmlRefType uc) {
 		this.classname.setText(uc.getName());
+		this.attributeContainer.removeAll();
+		for (UmlAttribute a : uc.getAttributesList()) {
+			this.attributeContainer.add(new AttributeDisplay(a));
+		}
+		this.functionContainer.removeAll();
+		for (UmlMethod m : uc.getMethodsList()) {
+			this.functionContainer.add(new MethodDisplay(m));
+			
+		}
 	}
 }
