@@ -14,6 +14,7 @@ import generator.DiagramElementVisitor;
  *
  */
 public abstract class UmlEntity extends Observable {
+
 	
 	// Attributes
 	
@@ -27,7 +28,9 @@ public abstract class UmlEntity extends Observable {
 	 */
 	private Set<Modifier> modifiers;
 	
+
 	// Constructors
+
 	
 	/**
 	 * Constructor of an element with visibility and modifiers.
@@ -54,6 +57,7 @@ public abstract class UmlEntity extends Observable {
 	public UmlEntity(Set<Modifier> modifiers) {
 		this(null, new HashSet<Modifier>(modifiers));
 	}
+
 	
 	/**
 	 * Constructor of an element with visibility.
@@ -78,6 +82,7 @@ public abstract class UmlEntity extends Observable {
 	 * @param modifier a modifier of the entity
 	 */
 	public void addModifier(Modifier modifier) {
+
 		if (this.modifiers.add(modifier)) {
 			this.setChangedAndNotify();
 		}
@@ -101,6 +106,7 @@ public abstract class UmlEntity extends Observable {
 		if (this.modifiers.remove(modifier)) {
 			this.setChangedAndNotify();
 		}
+
 	}
 	
 	/**
