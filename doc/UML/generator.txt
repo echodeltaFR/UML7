@@ -3,8 +3,8 @@
 interface Generator.DiagramElementVisitor {
     +visit(Class class)
     +visit(Interface interface)
-    +visitEnum(Enum enum)
-    +visitDiagram(Diagram diagram)
+    +visit(Enum enum)
+    +visit(Diagram diagram)
 }
 
 class UmlEntity {
