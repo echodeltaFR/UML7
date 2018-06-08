@@ -3,13 +3,13 @@ import javax.swing.JLabel;
 
 import model.Modifier;
 import model.UmlAttribute;
-import model.Visibility;
 
 /**
- * Diplay attributes into the GUI.
+ * Display attributes into the GUI.
  * @author echodeltaFR
- * @version 1.1
+ * @version 1.2
  */
+@SuppressWarnings("serial")
 public class AttributeDisplay extends JLabel {
 
     /** Attribute to display. */
@@ -40,14 +40,17 @@ public class AttributeDisplay extends JLabel {
      */
     public void updateLabel() {
         StringBuilder str = new StringBuilder();
-        if (attribute.getVisibility() == Visibility.PUBLIC) {
-            str.append("+");
-        } else if (attribute.getVisibility() == Visibility.PRIVATE) {
-            str.append("-");
-        } else if (attribute.getVisibility() == Visibility.PROTECTED) {
-            str.append("#");
-        } else {
-            str.append("Exception");
+        switch (attribute.getVisibility()) {
+        case PUBLIC:
+        	str.append("+");
+        	break;
+        case PRIVATE:
+        	str.append("-");
+        	break;
+        case PROTECTED:
+        	str.append("#");
+        default:
+        	str.append("Exception");
         }
         if (!attribute.getModifiers().isEmpty()) {
             for (Modifier m : attribute.getModifiers()) {
