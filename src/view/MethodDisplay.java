@@ -73,9 +73,9 @@ public class MethodDisplay extends JLabel {
 			str.append(method.getReturnType().getTypeName());
 		}
 		
-		if (!method.getModifier().isEmpty()) {
+		if (!method.getModifiers().isEmpty()) {
 			str.append(" {");
-			for (Modifier m : method.getModifier()) {
+			for (Modifier m : method.getModifiers()) {
 				str.append(m.toString() + ",");
 			}
 			String tmp = str.substring(0,str.length()-1)+"}";

@@ -49,8 +49,8 @@ public class AttributeDisplay extends JLabel {
         } else {
             str.append("Exception");
         }
-        if (!attribute.getModifier().isEmpty()) {
-            for (Modifier m : attribute.getModifier()) {
+        if (!attribute.getModifiers().isEmpty()) {
+            for (Modifier m : attribute.getModifiers()) {
                 str.append(m.toString() + " ");
             }
         }

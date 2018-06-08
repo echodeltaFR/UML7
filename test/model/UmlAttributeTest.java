@@ -1,6 +1,5 @@
 package model;
 import org.junit.*;
-import org.junit.rules.*;
 
 import model.Modifier;
 import model.PrimitiveType;
@@ -37,21 +36,21 @@ public class UmlAttributeTest {
         assertEquals("Check the name", "Attribute1", attrTest1.getName());
         assertEquals("Check the type", PrimitiveType.INT, attrTest1.getType());
         assertEquals("Check the visibility", Visibility.PUBLIC, attrTest1.getVisibility());
-        assertTrue("Check the modifiers", attrTest1.getModifier().isEmpty());
+        assertTrue("Check the modifiers", attrTest1.getModifiers().isEmpty());
     }
 
     @Test public void testConstructor2() {
         assertEquals("Check the name", "Attribute2", attrTest2.getName());
         assertEquals("Check the type", PrimitiveType.LONG, attrTest2.getType());
         assertEquals("Check the visibility", Visibility.PUBLIC, attrTest2.getVisibility());
-        assertTrue("Check the modifiers", attrTest1.getModifier().isEmpty());
+        assertTrue("Check the modifiers", attrTest1.getModifiers().isEmpty());
     }
 
     @Test public void testConstructor3() {
         assertEquals("Check the name", "Attribute3", attrTest3.getName());
         assertEquals("Check the type", PrimitiveType.STRING, attrTest3.getType());
         assertEquals("Check the visibility", Visibility.PRIVATE, attrTest3.getVisibility());
-        assertTrue("Check the modifiers", modifiers.equals(attrTest3.getModifier()));
+        assertTrue("Check the modifiers", modifiers.equals(attrTest3.getModifiers()));
     }
 
     @Test public void testSetName() {
