@@ -86,34 +86,34 @@ public class UmlClassTest {
 	public void testInitialization1() {
 		this.umlClass1 = new UmlClass("class1");
 		assertNotNull(umlClass1);
-		assertTrue(umlClass1.getName() == "class1");
+		assertTrue(umlClass1.getName().equals("class1"));
 	}
 	
 	@Test
 	public void testInitialization2() {
 		this.umlClass2 = new UmlClass("class2", methods);
 		assertNotNull(umlClass2);
-		assertTrue(umlClass2.getName() == "class2");
-		assertTrue(umlClass2.getMethodsList() == methods);
+		assertTrue(umlClass2.getName().equals("class2"));
+		assertTrue(umlClass2.getMethodsList().equals(methods));
 	}
 	
 	@Test
 	public void testInitialization3() {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		assertNotNull(umlClass3);
-		assertTrue(umlClass3.getName() == "class3");
-		assertTrue(umlClass3.getMethodsList() == methods);
-		assertTrue(umlClass3.getAttributesList() == attributes);
+		assertTrue(umlClass3.getName().equals("class3"));
+		assertTrue(umlClass3.getMethodsList().equals(methods));
+		assertTrue(umlClass3.getAttributesList().equals(attributes));
 	}
 	
 	@Test
 	public void testInitialization4() {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		assertNotNull(umlClass4);
-		assertTrue(umlClass4.getName() == "class4");
-		assertTrue(umlClass4.getMethodsList() == methods);
-		assertTrue(umlClass4.getAttributesList() == attributes);
-		assertTrue(umlClass4.getVisibility() == visibility);
+		assertTrue(umlClass4.getName().equals("class4"));
+		assertTrue(umlClass4.getMethodsList().equals(methods));
+		assertTrue(umlClass4.getAttributesList().equals(attributes));
+		assertTrue(umlClass4.getVisibility().equals(visibility));
 		assertTrue(umlClass4.getModifiers().equals(modifiers));
 	}
 	
@@ -121,21 +121,21 @@ public class UmlClassTest {
 	public void testSetName() {
 		this.umlClass1 = new UmlClass("class1");
 		this.umlClass1.setName("newName");
-		assertTrue(umlClass1.getName() == "newName");
+		assertTrue(umlClass1.getName().equals("newName"));
 	}
 	
 	@Test
 	public void testSetMethods() {
 		this.umlClass2 = new UmlClass("class2", methods);
 		this.umlClass2.setMethodsList(methods2);
-		assertTrue(umlClass2.getMethodsList() == methods2);
+		assertTrue(umlClass2.getMethodsList().equals(methods2));
 	}
 	
 	@Test
 	public void testSetAttributes() {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.setAttributesList(attributes2);
-		assertTrue(umlClass3.getAttributesList() == attributes2);
+		assertTrue(umlClass3.getAttributesList().equals(attributes2));
 	}
 	
 	@Test
@@ -143,7 +143,7 @@ public class UmlClassTest {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.setVisibility(visibility2);
 		this.umlClass4.setModifiers(modifiers2);
-		assertTrue(umlClass4.getVisibility() == visibility2);
+		assertTrue(umlClass4.getVisibility().equals(visibility2));
 		assertTrue(umlClass4.getModifiers().equals(modifiers2));
 	}
 	
@@ -170,6 +170,6 @@ public class UmlClassTest {
 	@Test
 	public void testGetTypeName() {
 		this.umlClass1 = new UmlClass("class1");
-		assertTrue(umlClass1.getTypeName() == "class1");
+		assertTrue(umlClass1.getTypeName().equals("class1"));
 	}
 }
