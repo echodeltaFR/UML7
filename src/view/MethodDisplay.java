@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import model.Modifier;
 import model.UmlMethod;
 import model.UmlParams;
+import model.Visibility;
 
 /**
  * Display method into the GUI.
@@ -42,11 +43,11 @@ public class MethodDisplay extends JLabel {
 	public void updateLabel() {
 		StringBuilder str = new StringBuilder();
 
-		if (attribute.getVisibility() == Visibility.PUBLIC) {
+		if (method.getVisibility() == Visibility.PUBLIC) {
             str.append("+");
-        } else if (attribute.getVisibility() == Visibility.PRIVATE) {
+        } else if (method.getVisibility() == Visibility.PRIVATE) {
             str.append("-");
-        } else if (attribute.getVisibility() == Visibility.PROTECTED) {
+        } else if (method.getVisibility() == Visibility.PROTECTED) {
             str.append("#");
         } else {
             str.append("Exception");
