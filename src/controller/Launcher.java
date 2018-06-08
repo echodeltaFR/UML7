@@ -1,13 +1,15 @@
 package controller;
 
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-
+import java.util.List;
+import java.util.Random;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -35,23 +37,23 @@ public class Launcher {
 		GridBagLayout layout = new GridBagLayout(); 
 		GridBagConstraints gc = new GridBagConstraints();
 		
-		
 		JFrame application = new JFrame(APPLICATION_NAME);
-		gc.weightx = 20;
-		gc.weighty = 20;
+		gc.weightx = 1;
+		gc.weighty = 1;
 		
 		JPanel editingArea = new JPanel(layout);
 		editingArea.setBackground(Color.WHITE);
-		gc.ipady = gc.anchor = GridBagConstraints.CENTER;
-
+		//gc.ipady = gc.anchor = GridBagConstraints.CENTER;
+		
 		application.setContentPane(editingArea);
 		application.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		application.setLocationRelativeTo(null);
 		application.setJMenuBar(buildApplicationMenuBar(application));
-		buildDebugDiagram(editingArea, gc);
+		
+		
+		buildDebugDiagram(editingArea, layout);
+				
 		application.setVisible(true);
-		
-		
 	}
 
 	private static JMenuBar buildApplicationMenuBar(JFrame f) {
@@ -72,7 +74,7 @@ public class Launcher {
 		return appBar;
 	}
 	
-	private static void buildDebugDiagram(JPanel ea, GridBagConstraints gc) {
+	private static void buildDebugDiagram(JPanel ea, GridBagLayout layout) {
 		HashSet<Modifier> mod;
 		HashSet<UmlParams> param;
 		
@@ -90,15 +92,83 @@ public class Launcher {
 		param = new HashSet<UmlParams>();
 		param.add(new UmlParams(PrimitiveType.CHAR, "letter"));
 		c1.addMethod(new UmlMethod("Another_Method", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
-		gc.gridx = 2;
-		gc.gridy = 2;
-		ea.add(new UMLObjectDisplay(c1),gc);
 		
+		GridBagConstraints gc1 = getConstraintObject(layout, ea.getComponents());
+
+		ea.add(new UMLObjectDisplay(c1),gc1);
+
 		//BUILDING INTERFACE
 		UmlInterface i = new UmlInterface("some_interface");
 		i.addMethod(new UmlMethod("Method 1", new HashSet<UmlParams>(), PrimitiveType.BOOLEAN, Visibility.PROTECTED, null));
-		gc.gridx = 15;
-		gc.gridy = 15;
-		ea.add(new UMLObjectDisplay(i),gc);
+		//gc.insets = new Insets(5, 5, 5, 5);
+		
+		GridBagConstraints gc2 = getConstraintObject(layout, ea.getComponents());
+		
+		ea.add(new UMLObjectDisplay(i),gc2);
+
+		// BUILDING CLASS 2
+		UmlClass c2 = new UmlClass("Entreprise");
+
+		c2.addAttribute(new UmlAttribute("The_Default_letter", PrimitiveType.CHAR));
+		mod = new HashSet<Modifier>();
+		mod.add(Modifier.FINAL);
+		mod.add(Modifier.STATIC);
+		c2.addMethod(new UmlMethod("A_Method", new HashSet<UmlParams>(), null, Visibility.PUBLIC, mod));
+		mod = new HashSet<Modifier>();
+		mod.add(Modifier.VOLATILE);
+		param = new HashSet<UmlParams>();
+		c2.addMethod(new UmlMethod("getA()", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
+		GridBagConstraints gc3 = getConstraintObject(layout, ea.getComponents());
+
+		ea.add(new UMLObjectDisplay(c2),gc3);
 	}
+	
+	private static GridBagConstraints getConstraintObject(GridBagLayout layout, Component[] components) {
+		
+		List<Point> occupee = new ArrayList<Point>();
+		
+		int[][] dimensions = layout.getLayoutDimensions();
+				
+		GridBagConstraints freeGbc = new GridBagConstraints();
+		
+		Component match = null;
+		
+		double xMax = 0;
+		double yMax = 0;
+
+		for (Component comp : components) {
+		    GridBagConstraints gbc = layout.getConstraints(comp);
+		    occupee.add(new Point(gbc.gridx, gbc.gridy));   
+		    if (gbc.gridx > xMax) {
+		    	xMax = gbc.gridx;
+		    }
+		    
+		    if (gbc.gridy > yMax) {
+		    	yMax = gbc.gridy;
+		    }
+		}
+		
+		// On génere un couple aleatoire
+		Random random = new Random();
+		
+		do {
+			freeGbc.gridx = random.nextInt((int)xMax+2);
+			freeGbc.gridy = random.nextInt((int)yMax+2);
+		} while (contains(occupee, new Point(freeGbc.gridx, freeGbc.gridy)));
+		
+		freeGbc.fill = GridBagConstraints.BOTH;
+
+		return freeGbc;
+		
+	}
+	
+	private static boolean contains(List<Point> list, Point recherche) {
+		for (Point p : list) {
+			if (p.getX() == recherche.getX() && p.getY() == recherche.getY())
+				return true;
+		}
+		return false;
+	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 import model.UmlAssociationLink;
 
@@ -17,19 +18,23 @@ public class AssociationRelationDisplay extends RelationDisplay {
 		/**
 		 * Constructor
 		 * @param umlRelation the association relationship
+		 * @param start the start point
+		 * @param end the end point
 		 */
-		public AssociationRelationDisplay(UmlAssociationLink umlRelation) {
-			super(umlRelation);
+		public AssociationRelationDisplay(UmlAssociationLink umlRelation, Point start, Point end) {
+			super(umlRelation, start, end);
 			this.unidirectional = false;
 		}
 		
 		/**
 		 * Constructor with option (unidirectonal or not)
 		 * @param umlRelation the association relationship
+		 * @param start the start point
+		 * @param end the end point
 		 * @param unidirectional boolean that permits to know if the relationship is unidirectional
 		 */
-		public AssociationRelationDisplay(UmlAssociationLink umlRelation, boolean unidirectional) {
-			super(umlRelation);
+		public AssociationRelationDisplay(UmlAssociationLink umlRelation, Point start, Point end, boolean unidirectional) {
+			super(umlRelation, start, end);
 			this.unidirectional = unidirectional;
 		}
 		
@@ -38,22 +43,22 @@ public class AssociationRelationDisplay extends RelationDisplay {
 			super.paintComponent(g);
 			
 		    // Draw the line
-		    g.drawLine(this.getStart().getX(), 
-		    		this.getStart().getY(), 
-		    		this.getEnd().getX(), 
-		    		this.getEnd().getY());
+		    g.drawLine((int)this.getStart().getX(), 
+		    		(int)this.getStart().getY(), 
+		    		(int)this.getEnd().getX(), 
+		    		(int)this.getEnd().getY());
 		    
 		    // Draw the arrow if unidirectional is enabled
 		    if (this.unidirectional) {
-			    g.drawLine(this.getEnd().getX(), 
-			    		this.getEnd().getY(), 
-			    		this.getEnd().getX()-10, 
-			    		this.getEnd().getY()+5);
+			    g.drawLine((int)this.getEnd().getX(), 
+			    		(int)this.getEnd().getY(), 
+			    		(int)this.getEnd().getX()-10, 
+			    		(int)this.getEnd().getY()+5);
 			    
-			    g.drawLine(this.getEnd().getX(), 
-			    		this.getEnd().getY(), 
-			    		this.getEnd().getX()-10, 
-			    		this.getEnd().getY()-5);
+			    g.drawLine((int)this.getEnd().getX(), 
+			    		(int)this.getEnd().getY(), 
+			    		(int)this.getEnd().getX()-10, 
+			    		(int)this.getEnd().getY()-5);
 			    
 		    }
 	    }

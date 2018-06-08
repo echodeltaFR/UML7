@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
@@ -30,13 +31,16 @@ public abstract class RelationDisplay extends JPanel {
 	/**
 	 * Constructor
 	 * @param umlRelation relationship to display
+	 * @param start the start point
+	 * @param end the end point
 	 */
-	public RelationDisplay(UmlRelationship umlRelation) {
+	public RelationDisplay(UmlRelationship umlRelation, Point start, Point end) {
 		super();
 		assert umlRelation != null;
 		this.umlRelation = umlRelation;
 		this.start = null;
 		this.end = null;
+		
 	}
 	
 	@Override

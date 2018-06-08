@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 import model.UmlExtendLink;
 
@@ -15,8 +16,8 @@ public class ExtendRelationDisplay extends RelationDisplay {
 	 * Constructor
 	 * @param umlRelation the extend relationship
 	 */
-	public ExtendRelationDisplay(UmlExtendLink umlRelation) {
-		super(umlRelation);
+	public ExtendRelationDisplay(UmlExtendLink umlRelation, Point start, Point end) {
+		super(umlRelation, start, end);
 	}
 	
     @Override
@@ -25,30 +26,30 @@ public class ExtendRelationDisplay extends RelationDisplay {
 		
 		
 		final int HEIGHT_TRIANGLE = 20;
-		int xBWithoutArrow = this.getEnd().getX() - HEIGHT_TRIANGLE;
+		int xBWithoutArrow = (int)this.getEnd().getX() - HEIGHT_TRIANGLE;
 	
 		// Draw the vertical line
 		g.drawLine(xBWithoutArrow, 
-				this.getEnd().getY() - 10, 
+				(int)this.getEnd().getY() - 10, 
 				xBWithoutArrow, 
-				this.getEnd().getY() + 10);
+				(int)this.getEnd().getY() + 10);
 		
 	    // Draw triangle's side
 	    g.drawLine(xBWithoutArrow, 
-	    		this.getEnd().getY()-10, 
-	    		this.getEnd().getX(), 
-	    		this.getEnd().getY());
+	    		(int)this.getEnd().getY()-10, 
+	    		(int)this.getEnd().getX(), 
+	    		(int)this.getEnd().getY());
 	    
 	    g.drawLine(xBWithoutArrow, 
-	    		this.getEnd().getY()+10, 
-	    		this.getEnd().getX(), 
-	    		this.getEnd().getY());
+	    		(int)this.getEnd().getY()+10, 
+	    		(int)this.getEnd().getX(), 
+	    		(int)this.getEnd().getY());
 
 		// Draw horizontal line from start point
-	    g.drawLine(this.getStart().getX(), 
-	    		this.getStart().getY(), 
-	    		this.getStart().getX(), 
-	    		this.getStart().getY());
+	    g.drawLine((int)this.getStart().getX(), 
+	    		(int)this.getStart().getY(), 
+	    		(int)this.getStart().getX(), 
+	    		(int)this.getStart().getY());
     }
 
 }

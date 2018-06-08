@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Polygon;
 
 import model.UmlAggregationLink;
@@ -16,8 +17,8 @@ public class AggregationRelationDisplay extends RelationDisplay {
 	 * Constructor
 	 * @param umlRelation the aggregation relationship
 	 */
-	public AggregationRelationDisplay(UmlAggregationLink umlRelation) {
-		super(umlRelation);
+	public AggregationRelationDisplay(UmlAggregationLink umlRelation, Point start, Point end) {
+		super(umlRelation, start, end);
 	}
 	
     @Override
@@ -30,17 +31,17 @@ public class AggregationRelationDisplay extends RelationDisplay {
 
 
 		// Left extremity
-        int xPoly[] = {this.getStart().getX(),
+        int xPoly[] = {(int)this.getStart().getX(),
         				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
         				(int)(this.getStart().getX() + (2*HEIGHT_TRIANGLE)), 
         				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
-        				this.getStart().getX()
+        				(int)this.getStart().getX()
         };
-        int yPoly[] = {this.getStart().getY(),
+        int yPoly[] = {(int)this.getStart().getY(),
         				(int) (this.getStart().getY() + (BASE_TRIANGLE/2)),		
-        				this.getStart().getY(), 
+        				(int)this.getStart().getY(), 
         				(int) (this.getStart().getY() - (BASE_TRIANGLE/2)), 
-        				this.getStart().getY()
+        				(int)this.getStart().getY()
         };
         
 	    Polygon losange = new Polygon(xPoly, yPoly, xPoly.length);
@@ -48,15 +49,15 @@ public class AggregationRelationDisplay extends RelationDisplay {
 	    
 		// Draw the line
 	    if (this.getEnd().getX() < this.getStart().getX()) {
-	    	g.drawLine(this.getStart().getX(), this.getStart().getY(), this.getEnd().getX(), this.getEnd().getY());
+	    	g.drawLine((int)this.getStart().getX(), (int)this.getStart().getY(), (int)this.getEnd().getX(), (int)this.getEnd().getY());
 		    // Draw the arrow	    
-		    g.drawLine(this.getEnd().getX(), this.getEnd().getY(), this.getEnd().getX()+10, this.getEnd().getY()+5);
-		    g.drawLine(this.getEnd().getX(), this.getEnd().getY(), this.getEnd().getX()+10, this.getEnd().getY()-5);
+		    g.drawLine((int)this.getEnd().getX(), (int)this.getEnd().getY(), (int)this.getEnd().getX()+10, (int)this.getEnd().getY()+5);
+		    g.drawLine((int)this.getEnd().getX(), (int)this.getEnd().getY(), (int)this.getEnd().getX()+10, (int)this.getEnd().getY()-5);
 	    } else {
-	    	g.drawLine((int)(this.getStart().getX()+(HEIGHT_TRIANGLE*2)), this.getStart().getY(), this.getEnd().getX(), this.getEnd().getY());
+	    	g.drawLine((int)(this.getStart().getX()+(HEIGHT_TRIANGLE*2)), (int)this.getStart().getY(), (int)this.getEnd().getX(), (int)this.getEnd().getY());
 		    // Draw the arrow	    
-		    g.drawLine(this.getEnd().getX(), this.getEnd().getY(), this.getEnd().getX()-10, this.getEnd().getY()+5);
-		    g.drawLine(this.getEnd().getX(), this.getEnd().getY(), this.getEnd().getX()-10, this.getEnd().getY()-5);
+		    g.drawLine((int)this.getEnd().getX(), (int)this.getEnd().getY(), (int)this.getEnd().getX()-10, (int)this.getEnd().getY()+5);
+		    g.drawLine((int)this.getEnd().getX(), (int)this.getEnd().getY(), (int)this.getEnd().getX()-10, (int)this.getEnd().getY()-5);
 
 	    }
 
