@@ -58,9 +58,9 @@ public class UmlInterface extends UmlComponent {
 	
 	private Boolean checkattribute() {
 		for(int i=0;i < this.getAttributesList().size(); i++) {
-			if(this.getAttributesList().get(i).getModifier().size()==2 && 
-				this.getAttributesList().get(i).getModifier().contains(Modifier.FINAL) &&
-				this.getAttributesList().get(i).getModifier().contains(Modifier.STATIC)) {
+			if(this.getAttributesList().get(i).getModifiers().size()==2 && 
+				this.getAttributesList().get(i).getModifiers().contains(Modifier.FINAL) &&
+				this.getAttributesList().get(i).getModifiers().contains(Modifier.STATIC)) {
 			} else {
 				return false;
 			}
