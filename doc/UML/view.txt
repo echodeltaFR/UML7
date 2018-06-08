@@ -1,0 +1,94 @@
+@startuml
+
+title UML7 - View
+
+abstract RelationDisplay {
+    # {static} double HEIGHT_TRIANGLE
+    # {static} double BASE_TRIANGLE
+    - UmlRelationship umlRelation
+    - Point start
+    - Point end
+    --
+    + void paintComponent(Graphics g)
+    + Point getStart()
+    + Point getEnd()
+    --
+    + RelationDisplay(UmlRelationship umlRelation)
+}
+
+class AggregationRelationDisplay {
+    --
+    + void paintComponent(Graphics g)
+    --
+    + AggregationRelationDisplay(UmlAggregationLink umlRelation, Point start, Point end)
+}
+
+class AssociationRelationDisplay {
+    - boolean unidirectional
+    --
+    + void paintComponent(Graphics g)
+    --
+    + AssociationRelationDisplay(UmlAssociationLink umlRelation, Point start, Point end)
+    + AssociationRelationDisplay(UmlAssociationLink umlRelation, Point start, Point end, boolean unidirectional)
+}
+
+class CompositionRelationDisplay {
+    --
+    + void paintComponent(Graphics g)
+    --
+    + CompositionRelationDisplay(UmlCompositionLink umlRelation, Point start, Point end)
+}
+
+class ExtendRelationDisplay {
+    --
+    + void paintComponent(Graphics g)
+    --
+    + ExtendRelationDisplay(UmlExtendLink umlRelation, Point start, Point end)
+}
+
+class AttributeDisplay {
+    - UmlAttribute attribute
+    --
+    + UmlAttribute getAttribute()
+    + void updateLabel()
+    --
+    + AttributeDisplay(UmlAttribute attribute)
+}
+
+class MethodDisplay {
+    - UmlMethod method
+    --
+    + UmlMethod getMethod()
+    + void updateLabel()
+    --
+    + MethodDisplay(UmlMethod method)
+}
+
+class UmlObjectDisplay {
+    - {static} HashMap<Class<? extends UmlRefType>,String> stereotypeMap
+    - {static} Border UML_OBJECT_BORDERS
+    - JLabel className
+    - List<AttributeDisplay> attributes
+    - JPanel attributeContainer
+    - List<MethodDisplay> methods
+    - JPanel functionContainer
+    --
+    - void buildInnerSwingArchitecture(UmlRefType umlobject)
+    - void updateDisplay(UmlRefType uc)
+    + void update(Observable o, Object arg)
+    --
+    + UmlObjectDisplay(UmlRefType umlobject)
+}
+
+class DiagramDisplay
+
+RelationDisplay <|-- CompositionRelationDisplay
+RelationDisplay <|-left- AssociationRelationDisplay
+RelationDisplay <|-down- AggregationRelationDisplay
+RelationDisplay <|-up- ExtendRelationDisplay
+DiagramDisplay *-- RelationDisplay
+DiagramDisplay *-- UmlObjectDisplay
+UmlObjectDisplay *-- MethodDisplay
+UmlObjectDisplay *-- AttributeDisplay
+
+@enduml
