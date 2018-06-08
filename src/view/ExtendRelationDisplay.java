@@ -48,8 +48,8 @@ public class ExtendRelationDisplay extends RelationDisplay {
 		// Draw horizontal line from start point
 	    g.drawLine((int)this.getStart().getX(), 
 	    		(int)this.getStart().getY(), 
-	    		(int)this.getStart().getX(), 
-	    		(int)this.getStart().getY());
+	    		xBWithoutArrow, 
+	    		(int)this.getEnd().getY());
     }
 
 }

@@ -25,6 +25,9 @@ import model.UmlInterface;
 import model.UmlMethod;
 import model.UmlParams;
 import model.Visibility;
+import view.AssociationRelationDisplay;
+import view.CompositionRelationDisplay;
+import view.RelationDisplay;
 import view.UMLObjectDisplay;
 
 public class Launcher {
@@ -93,14 +96,15 @@ public class Launcher {
 		param.add(new UmlParams(PrimitiveType.CHAR, "letter"));
 		c1.addMethod(new UmlMethod("Another_Method", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
 		
-		GridBagConstraints gc1 = getConstraintObject(layout, ea.getComponents());
+		GridBagConstraints gc1 = new GridBagConstraints();
+		
+		gc1.gridx = 0;
+		gc1.gridy = 1;
+		gc1.fill = GridBagConstraints.BOTH;
 
 		ea.add(new UMLObjectDisplay(c1),gc1);
 		
-		//gc.insets = new Insets(5, 5, 5, 5);
-		
-		GridBagConstraints gc2 = getConstraintObject(layout, ea.getComponents());
-
+	
 		// BUILDING CLASS 2
 		UmlClass c2 = new UmlClass("Entreprise");
 
@@ -113,20 +117,34 @@ public class Launcher {
 		mod.add(Modifier.VOLATILE);
 		param = new HashSet<UmlParams>();
 		c2.addMethod(new UmlMethod("getA()", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
-		GridBagConstraints gc3 = getConstraintObject(layout, ea.getComponents());
+
+		
+		GridBagConstraints gc3 = new GridBagConstraints();
+		
+		gc3.gridx = 3;
+		gc3.gridy = 1;
+		gc3.fill = GridBagConstraints.BOTH;
 
 		ea.add(new UMLObjectDisplay(c2),gc3);
+		
+		GridBagConstraints gc4 = new GridBagConstraints();
+		RelationDisplay relation = new CompositionRelationDisplay(null,null,null);
+		gc4.gridx = 1;
+		gc4.gridy = 1;
+		gc4.ipadx = 100;
+		gc4.fill = GridBagConstraints.BOTH;
+		gc4.anchor = GridBagConstraints.LINE_START;
+
+		ea.add(relation,gc4);
 	}
 	
-	private static GridBagConstraints getConstraintObject(GridBagLayout layout, Component[] components) {
+	/**private static GridBagConstraints getConstraintObject(GridBagLayout layout, Component[] components) {
 		
 		List<Point> occupee = new ArrayList<Point>();
 		
 		int[][] dimensions = layout.getLayoutDimensions();
 				
 		GridBagConstraints freeGbc = new GridBagConstraints();
-		
-		Component match = null;
 		
 		double xMax = 0;
 		double yMax = 0;
@@ -143,7 +161,6 @@ public class Launcher {
 		    }
 		}
 		
-		// On génere un couple aleatoire
 		Random random = new Random();
 		
 		do {
@@ -162,7 +179,7 @@ public class Launcher {
 				return true;
 		}
 		return false;
-	}
+	}**/
 	
 	
 }
