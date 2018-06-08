@@ -103,6 +103,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param name of the component
 	 */
 	public void setName(String name) {
+		if (name == null) throw new IllegalArgumentException("name can't be null");
 		this.name = name;
 		this.setChangedAndNotify();
 	}
