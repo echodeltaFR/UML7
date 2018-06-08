@@ -1,5 +1,7 @@
 @startuml
 
+title UML7 - model
+
 enum Visibility {
     - String symbol
     - String name
@@ -217,43 +219,24 @@ class UmlCompositionLink
 class UmlExtendLink
 class UmlInterface
 
-/' UmlDiagram "1" *- "*" UmlElement
-UmlDiagram "1" *- "*" UmlRelationship
-UmlRelationship "*" o-- "2..*" UmlElement
-
-UmlElement <|.. UmlLabeled_Element
-UmlLabeled_Element <|-- UmlEntity
-
-
-UmlComponent <|-- UmlClass
-UmlComponent <|-- UmlInterface
-UmlComponent <|-- UmlEnum
-
-UmlEntity <|-- UmlComponent
-
-UmlEntity <|-- UmlMethod
-UmlEntity <|-- UmlAttribute
-
-UmlLabeled_Element <|-- UmlPackage
-UmlLabeled_Element "*" <- "1" UmlPackage
-
-UmlEntity  -> "visibility" Visibility
-Modifier "modifier" <- UmlEntity
-
-UmlType "1" *-- "*" UmlMethod
-UmlType "1" *-- "*" UmlAttribute
-UmlParams "*" *-- "1" UmlType
-UmlMethod "*" *-- "*" UmlParams
- 
-
-UmlHierachyLink -[hidden]-> UmlUsageLink
-
-UmlRelationship <|. UmlHierachyLink
-UmlRelationship <|. UmlUsageLink
-UmlType <|. UmlComponent
-UmlType <|. PrimitiveType
-
-UmlHierachyLink -> Relationship_Type
-UmlUsageLink -> Relationship_Type '/
+UmlEntity -right-> Visibility
+UmlEntity -left-> Modifier
+UmlDiagram *-- UmlEntity
+UmlDiagram *-- UmlRelationship
+UmlParams -down-* UmlMethod
+PrimitiveType .left.|> UmlType
+UmlClass -right-|> UmlRefType
+UmlMethod -up-|> UmlEntity
+UmlAttribute -up-|> UmlEntity
+UmlEnum -up-|> UmlRefType
+UmlInterface -up-|> UmlRefType
+UmlRefType -up-|> UmlEntity
+UmlAggregationLink -right-|> UmlRelationship
+UmlAssociationLink -right-|> UmlRelationship
+UmlCompositionLink -right-|> UmlRelationship
+UmlExtendLink -right-|> UmlRelationship
+UmlAttribute -up-* UmlType
+UmlMethod --* UmlType
+UmlParams --* UmlType
 
 @enduml
