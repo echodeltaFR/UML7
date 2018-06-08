@@ -8,7 +8,7 @@ import generator.DiagramElementVisitor;
 
 /**
  * Abstract class, an UML entity with a visibility and modifiers.
- * @see UmlComponent
+ * @see UmlRefType
  * @author christian, fabien, bastien, echodeltaFR
  * @version 1.2
  *

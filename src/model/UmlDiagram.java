@@ -20,7 +20,7 @@ public class UmlDiagram {
 	/**
 	 * Element of the diagram.
 	 */
-	private List<UmlComponent> elements;
+	private List<UmlRefType> elements;
 	
 	/**
 	 * Relation in the diagram.
@@ -33,13 +33,13 @@ public class UmlDiagram {
 	 * @param elements uml elements in the diagram
 	 * @params relations uml relation in the diagram
 	 */
-	public UmlDiagram(String title, List<UmlComponent> elements, List<UmlRelationship> relations) {
+	public UmlDiagram(String title, List<UmlRefType> elements, List<UmlRelationship> relations) {
 		this.title = title;
 		
 		if(elements != null) {
-			this.elements = new ArrayList<UmlComponent>(elements);
+			this.elements = new ArrayList<UmlRefType>(elements);
 		}else {
-			this.elements = new ArrayList<UmlComponent>();
+			this.elements = new ArrayList<UmlRefType>();
 		}
 		
 		if(relations != null) {
@@ -54,13 +54,13 @@ public class UmlDiagram {
 	 * @param title title of diagram
 	 * @param elements uml elements in the diagram
 	 */
-	public UmlDiagram(String title, List<UmlComponent> elements) {
+	public UmlDiagram(String title, List<UmlRefType> elements) {
 		this.title = title;
 		
 		if(elements != null) {
-			this.elements = new ArrayList<UmlComponent>(elements);
+			this.elements = new ArrayList<UmlRefType>(elements);
 		}else {
-			this.elements = new ArrayList<UmlComponent>();
+			this.elements = new ArrayList<UmlRefType>();
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class UmlDiagram {
 	 */
 	public UmlDiagram(String title) {
 		this.title = title;
-		this.elements = new ArrayList<UmlComponent>(elements);
+		this.elements = new ArrayList<UmlRefType>(elements);
 		this.relations = new ArrayList<UmlRelationship>(relations);
 	}
 	
@@ -79,7 +79,7 @@ public class UmlDiagram {
 	 */
 	public UmlDiagram() {
 		this.title = null;
-		this.elements = new ArrayList<UmlComponent>();
+		this.elements = new ArrayList<UmlRefType>();
 		this.relations = new ArrayList<UmlRelationship>();
 		
 	}
@@ -104,7 +104,7 @@ public class UmlDiagram {
 	 * Get the Element of the diagram.
 	 * @return the diagram elements
 	 */
-	public List<UmlComponent> getUmlElements() {
+	public List<UmlRefType> getUmlElements() {
 		return this.elements;
 	}
 	
@@ -112,7 +112,7 @@ public class UmlDiagram {
 	 * Add an Element in the diagram.
 	 * @param element a diagram element
 	 */
-	public void addUmlElements(UmlComponent element) {
+	public void addUmlElements(UmlRefType element) {
 		this.elements.add(element);
 	}
 	
@@ -120,7 +120,7 @@ public class UmlDiagram {
 	 * Add a list of Element in the diagram.
 	 * @param elements a list of diagram element
 	 */
-	public void addAllUmlElements(List<UmlComponent> elements) {
+	public void addAllUmlElements(List<UmlRefType> elements) {
 		this.elements.addAll(elements);
 	}
 	

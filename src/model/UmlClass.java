@@ -6,7 +6,7 @@ import java.util.Set;
 import generator.DiagramElementVisitor;
 
 
-public class UmlClass extends UmlComponent{
+public class UmlClass extends UmlRefType{
 	/**
 	 * Constructor with a name
 	 * @param name the name of the UmlClass

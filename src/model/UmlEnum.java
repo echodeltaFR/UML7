@@ -7,11 +7,11 @@ import java.util.Set;
 import generator.DiagramElementVisitor;
 /**
  * Class representing Enum type in UML, extends UmlComponent
- * @see UmlComponent
+ * @see UmlRefType
  * @author bastien
  *
  */
-public class UmlEnum extends UmlComponent {
+public class UmlEnum extends UmlRefType {
 	
 	// Attributes
 	

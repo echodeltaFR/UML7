@@ -5,13 +5,13 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import model.UmlComponent;
+import model.UmlRefType;
 
 public class ClassEditorController extends MouseAdapter {
 
-	private UmlComponent modificationTarget;
+	private UmlRefType modificationTarget;
 	
-	public ClassEditorController(UmlComponent modificationTarget) {
+	public ClassEditorController(UmlRefType modificationTarget) {
 		if (modificationTarget == null) {
 			throw new IllegalArgumentException("Modification target can't be null");
 		}

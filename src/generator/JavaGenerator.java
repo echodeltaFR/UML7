@@ -11,7 +11,7 @@ import model.UmlParams;
 import model.UmlEnum;
 import model.UmlDiagram;
 import model.UmlEntity;
-import model.UmlComponent;
+import model.UmlRefType;
 
 /**
  * Class which allow to generate Java code thanks to Uml diagram.
@@ -55,12 +55,12 @@ public class JavaGenerator implements DiagramElementVisitor {
 	
 	public void generateCode(){
 		// for each components in the diagram
-		for(UmlComponent element : diagram.getUmlElements()) {
+		for(UmlRefType element : diagram.getUmlElements()) {
             element.accept(this);
         }
 	}
 	
-	private String generateAttribute(UmlComponent component) {
+	private String generateAttribute(UmlRefType component) {
 		String attributeCode = "";
 		
 		// Add the attributes
@@ -84,7 +84,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 		return attributeCode;
 	}
 	
-	private String generateMethod(UmlComponent component) {
+	private String generateMethod(UmlRefType component) {
 		String methodCode = "";
 		
 		// Print the class method
@@ -133,7 +133,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 		this.internal(umlInterface, "interface");
 	}
 	
-	private void internal(UmlComponent component, String refType) {
+	private void internal(UmlRefType component, String refType) {
 		String componentCode;
 		
 		// Add the element visibility

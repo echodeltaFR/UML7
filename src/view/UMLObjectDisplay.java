@@ -1,6 +1,6 @@
 package view;
 
-import model.UmlComponent;
+import model.UmlRefType;
 import model.UmlInterface;
 import model.UmlEnum;
 
@@ -32,7 +32,7 @@ import java.util.Observer;
  */
 public class UMLObjectDisplay extends JPanel implements Observer {
 	
-	private static final HashMap<Class<? extends UmlComponent>,String> stereotypeMap;
+	private static final HashMap<Class<? extends UmlRefType>,String> stereotypeMap;
 	
 	/** The yellow,wide border of a class */
 	private static final Border umlObjectBorders = BorderFactory.createLineBorder(
@@ -40,7 +40,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 			2);
 	
 	static {
-		stereotypeMap = new HashMap<Class<? extends UmlComponent>,String>();
+		stereotypeMap = new HashMap<Class<? extends UmlRefType>,String>();
 		stereotypeMap.put(UmlInterface.class, "interface");
 		stereotypeMap.put(UmlEnum.class, "enum");
 	}
@@ -66,7 +66,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	 * @param umlobject
 	 * 		The (non null) object to visually represent
 	 */
-	public UMLObjectDisplay(UmlComponent umlobject) {
+	public UMLObjectDisplay(UmlRefType umlobject) {
 		super();
 		
 		if (umlobject == null) throw new IllegalArgumentException("uml object can't be null");
@@ -87,7 +87,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	 * Generate the inner SWING Architecture of this JPanel to properly display
 	 * an UML Object.
 	 */
-	private void buildInnerSwingArchitecture(UmlComponent umlobject) {
+	private void buildInnerSwingArchitecture(UmlRefType umlobject) {
 		this.setLayout(new BorderLayout());
 		this.setBorder(umlObjectBorders);
 		this.classname = new JLabel();
@@ -125,12 +125,12 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof UmlComponent) {
-			this.updateDisplay((UmlComponent) o);
+		if (o instanceof UmlRefType) {
+			this.updateDisplay((UmlRefType) o);
 		}
 	}
 	
-	private void updateDisplay(UmlComponent uc) {
+	private void updateDisplay(UmlRefType uc) {
 		this.classname.setText(uc.getName());
 	}
 }

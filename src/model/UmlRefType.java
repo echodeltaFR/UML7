@@ -15,7 +15,7 @@ import generator.DiagramElementVisitor;
  * @author bastien
  *
  */
-public abstract class UmlComponent extends UmlEntity implements UmlType{
+public abstract class UmlRefType extends UmlEntity implements UmlType{
 
 	// Attributes
 	
@@ -40,7 +40,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * Constructor with a name
 	 * @param name name of the component
 	 */
-	public UmlComponent(String name) {
+	public UmlRefType(String name) {
 		super();
 		this.name = name;
 		methodsList = new ArrayList<UmlMethod>();
@@ -52,7 +52,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param name name of the component
 	 * @param methods methods of the component
 	 */
-	public UmlComponent(String name, List<UmlMethod> methods) {
+	public UmlRefType(String name, List<UmlMethod> methods) {
 		super();
 		this.name = name;
 		methodsList = methods;
@@ -65,7 +65,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param methods methods of the component
 	 * @param attributes attributes of the component
 	 */
-	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super();
 		this.name = name;
 		methodsList = methods;
@@ -80,7 +80,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param visibility visibility of the component
 	 * @param modifiers modifiers of the component
 	 */
-	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
 		super(visibility, modifiers);
 		this.name = name;
 		methodsList = methods;

@@ -14,7 +14,7 @@ import model.Modifier;
 import model.PrimitiveType;
 import model.UmlAttribute;
 import model.UmlClass;
-import model.UmlComponent;
+import model.UmlRefType;
 import model.UmlDiagram;
 import model.UmlEnum;
 import model.UmlInterface;
@@ -48,8 +48,8 @@ public class JavaGeneratorTest {
 				null);
 		
 		// Create parameters
-		UmlComponent type1 = new UmlClass("type1");
-		UmlComponent type2 = new UmlClass("type2");
+		UmlRefType type1 = new UmlClass("type1");
+		UmlRefType type2 = new UmlClass("type2");
 		UmlParams param1 = new UmlParams(type1, "param1");
 		UmlParams param2 = new UmlParams(type2, "param2");
 		
@@ -79,7 +79,7 @@ public class JavaGeneratorTest {
 		methodsInterface.add(method3);
 		
 		// Create components
-		UmlComponent interfaceComponent = new UmlInterface("Interface", 
+		UmlRefType interfaceComponent = new UmlInterface("Interface", 
 				methodsInterface, attributesInterface, 
 				Visibility.PUBLIC, null);
 		
@@ -92,7 +92,7 @@ public class JavaGeneratorTest {
 //		UmlComponent enumComponent = new UmlEnum("Enum", Visibility.PUBLIC);
 		
 		// Create diagram
-		List<UmlComponent> components = new ArrayList<UmlComponent>();
+		List<UmlRefType> components = new ArrayList<UmlRefType>();
 		components.add(interfaceComponent);
 		
 		UmlDiagram diagram = new UmlDiagram("Diagram1", components);
