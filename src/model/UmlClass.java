@@ -34,17 +34,6 @@ public class UmlClass extends UmlComponent{
 		super(name, methods, attributes);
 	}
 	
-	/**
-	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a modifier
-	 * @param name the name of the component
-	 * @param methods all of methods of the UmlClass
-	 * @param attributes all of attributes of the UmlClass
-	 * @param visibility visibility of the component
-	 * @param modifier modifier of the component
-	 */
-	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier) {
-		super(name, methods, attributes, visibility, modifier);
-	}
 	
 	/**
 	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers

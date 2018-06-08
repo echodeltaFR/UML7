@@ -73,22 +73,6 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	}
 	
 	/**
-	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a modifier
-	 * @param name name of the component
-	 * @param methods methods of the component
-	 * @param attributes attributes of the component
-	 * @param visibility visibility of the component
-	 * @param modifier modifier of the component
-	 */
-	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier) {
-		super(visibility);
-		this.addModifier(modifier);
-		this.name = name;
-		methodsList = methods;
-		attributesList = attributes;
-	}
-	
-	/**
 	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers
 	 * @param name name of the component
 	 * @param methods methods of the component

@@ -65,20 +65,6 @@ public class UmlEnum extends UmlComponent {
 	}
 	
 	/**
-	 * Constructor with a name, a list of values, a list of methods, a list of attributes, a visibility and a modifier
-	 * @param name name of the Enum
-	 * @param values values of the Enum
-	 * @param methods methods of the Enum
-	 * @param attributes attributes of the ENum
-	 * @param visibility visibility of the components
-	 * @param modifier modifier of the component
-	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier) {
-		super(name, methods, attributes, visibility, modifier);
-		valuesList = new ArrayList<>(values);
-	}
-	
-	/**
 	 * Constructor with a name, a list of values, a list of methods, a list of attributes, a visibility and a set of modifiers
 	 * @param name name of the Enum
 	 * @param values values of the Enum

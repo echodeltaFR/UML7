@@ -43,17 +43,6 @@ public class UmlInterface extends UmlComponent {
 		super(name, methods, attributes);
 	}
 	
-	/**
-	 * Constructor of an interface with a name, a list of methods, a list of attributes, a visibility and a modifier
-	 * @param name name of the interface
-	 * @param methods methods of the interface
-	 * @param attributes attributes of the interface
-	 * @param visibility visibility of the interface
-	 * @param modifier modifier of the interface
-	 */
-	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier) {
-		super(name, methods, attributes, visibility, modifier);
-	}
 	
 	/**
 	 * Constructor of an interface with a name, a list of methods, a list of attributes a visibility and a set of modifiers
