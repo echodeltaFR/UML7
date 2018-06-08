@@ -24,7 +24,6 @@ import model.UmlMethod;
 import model.UmlParams;
 import model.Visibility;
 import view.UMLObjectDisplay;
-import view.GridPanel;
 
 public class Launcher {
 	
@@ -49,7 +48,7 @@ public class Launcher {
 		application.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		application.setLocationRelativeTo(null);
 		application.setJMenuBar(buildApplicationMenuBar(application));
-		buildDebugDiagram(application);
+		buildDebugDiagram(editingArea, gc);
 		application.setVisible(true);
 		
 		
@@ -73,10 +72,9 @@ public class Launcher {
 		return appBar;
 	}
 	
-	private static void buildDebugDiagram(JFrame jf) {
-		JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
+	private static void buildDebugDiagram(JPanel ea, GridBagConstraints gc) {
 		HashSet<Modifier> mod;
-		ArrayList<UmlParams> param;
+		HashSet<UmlParams> param;
 		
 		
 		// BUILDING CLASS
@@ -86,19 +84,21 @@ public class Launcher {
 		mod = new HashSet<Modifier>();
 		mod.add(Modifier.FINAL);
 		mod.add(Modifier.STATIC);
-		c1.addMethod(new UmlMethod(null, null, "A_Method", Visibility.PUBLIC, mod));
+		c1.addMethod(new UmlMethod("A_Method", new HashSet<UmlParams>(), null, Visibility.PUBLIC, mod));
 		mod = new HashSet<Modifier>();
 		mod.add(Modifier.VOLATILE);
-		param = new ArrayList<UmlParams>();
+		param = new HashSet<UmlParams>();
 		param.add(new UmlParams(PrimitiveType.CHAR, "letter"));
-		c1.addMethod(new UmlMethod(param, PrimitiveType.INT, "Another_Method", Visibility.PUBLIC, mod));
-		jp.add(new UMLObjectDisplay(c1));
+		c1.addMethod(new UmlMethod("Another_Method", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
+		gc.gridx = 2;
+		gc.gridy = 2;
+		ea.add(new UMLObjectDisplay(c1),gc);
 		
 		//BUILDING INTERFACE
 		UmlInterface i = new UmlInterface("some_interface");
-		i.addMethod(new UmlMethod(null, PrimitiveType.BOOLEAN,"Method 1", Visibility.PROTECTED, null));
-		jp.add(new UMLObjectDisplay(i));
-		
-		jf.getContentPane().add(jp);
+		i.addMethod(new UmlMethod("Method 1", new HashSet<UmlParams>(), PrimitiveType.BOOLEAN, Visibility.PROTECTED, null));
+		gc.gridx = 15;
+		gc.gridy = 15;
+		ea.add(new UMLObjectDisplay(i),gc);
 	}
 }
