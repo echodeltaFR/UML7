@@ -84,13 +84,13 @@ public class UmlClass extends UmlRefType{
 				return false;
 			//check attributes
 			for(int i = 0; i < attributes.size(); i++) {
-				if(attributes.get(i).getModifier().contains(Modifier.ABSTRACT)) {
+				if(attributes.get(i).getModifiers().contains(Modifier.ABSTRACT)) {
 					return false;
 				}
 			}
 			//check methods
 			for(int i = 0; i < methods.size(); i++) {
-				if(methods.get(i).getModifier().contains(Modifier.ABSTRACT)) {
+				if(methods.get(i).getModifiers().contains(Modifier.ABSTRACT)) {
 					return false;
 				}
 			}
