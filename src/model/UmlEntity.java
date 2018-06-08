@@ -1,18 +1,19 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Observable;
 import java.util.Set;
 
 import generator.DiagramElementVisitor;
 
 /**
- * Abstract class, an UML entity, parent of UmlComponent
+ * Abstract class, an UML entity with a visibility and modifiers.
  * @see UmlComponent
  * @author christian, fabien, bastien, echodeltaFR
  * @version 1.2
  *
  */
-public abstract class UmlEntity {
+public abstract class UmlEntity extends Observable {
 	
 	// Attributes
 	
@@ -77,14 +78,19 @@ public abstract class UmlEntity {
 	 * @param modifier a modifier of the entity
 	 */
 	public void addModifier(Modifier modifier) {
-		this.modifiers.add(modifier);
+		if (this.modifiers.add(modifier)) {
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
-	 * Clear the modifiers set.
+	 * Empty the modifiers set.
 	 */
 	public void clearModifiers() {
-		this.modifiers.clear();
+		if (! this.modifiers.isEmpty()) {
+			this.modifiers.clear();
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
@@ -92,7 +98,9 @@ public abstract class UmlEntity {
 	 * @param modifier the modifier to remove
 	 */
 	public void removeModifier(Modifier modifier) {
-		this.modifiers.remove(modifier);
+		if (this.modifiers.remove(modifier)) {
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
@@ -109,6 +117,7 @@ public abstract class UmlEntity {
 	 */
 	public void setVisibility(Visibility visibility) {
 		this.visibility = visibility;
+		this.setChangedAndNotify();
 	}
 	
 	/**
@@ -125,6 +134,14 @@ public abstract class UmlEntity {
 	 */
 	public void setModifiers(Set<Modifier> modifiers) {
 		this.modifiers = new HashSet<>(modifiers);
+		this.setChangedAndNotify();
 	}
 
+	/**
+	 * Sugar coating for calling setChanged() then notify()
+	 */
+	protected void setChangedAndNotify() {
+		this.setChanged();
+		this.notifyObservers();
+	}
 }
