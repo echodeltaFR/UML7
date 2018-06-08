@@ -66,7 +66,9 @@ public class UmlMethod extends UmlEntity {
 	 * @param param the method parameter to add
 	 */
 	public void addParam(UmlParams param) {
-		this.params.add(param);
+		if (this.params.add(param)) {
+			this.setChangedAndNotify();
+		};
 	}
 
 	/**
@@ -74,7 +76,9 @@ public class UmlMethod extends UmlEntity {
 	 * @param params the method parameters to add
 	 */
 	public void addParams(Set<UmlParams> params) {
-		this.params.addAll(params);
+		if (this.params.addAll(params)) {
+			this.setChangedAndNotify();
+		};
 	}
 
 	/**
@@ -82,14 +86,19 @@ public class UmlMethod extends UmlEntity {
 	 * @param param the method parameter to remove
 	 */
 	public void removeParam(UmlParams param) {
-		this.params.remove(param);
+		if(this.params.remove(param)) {
+			this.setChangedAndNotify();
+		};
 	}
 	/**
 	 * Delete method parameters.
 	 * @param params the method parameters to delete
 	 */
 	public void removeParams(Set<UmlParams> params) {
-		this.params.removeAll(params);
+		if (this.params.removeAll(params)) {
+			this.setChangedAndNotify();
+		};
+		
 	}
 
 	// Getters & Setters
@@ -124,6 +133,7 @@ public class UmlMethod extends UmlEntity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+		this.setChangedAndNotify();
 	}
 
 	/**
@@ -132,6 +142,7 @@ public class UmlMethod extends UmlEntity {
 	 */
 	public void setReturnType(UmlType returnType) {
 		this.returnType = returnType;
+		this.setChangedAndNotify();
 	}
 
 }

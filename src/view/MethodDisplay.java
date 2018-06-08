@@ -1,7 +1,11 @@
 package view;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JLabel;
 
+import controller.MethodEditorControler;
 import model.Modifier;
 import model.UmlMethod;
 import model.UmlParams;
@@ -12,10 +16,7 @@ import model.Visibility;
  * @author Christian, Charly, echodeltaFR
  * @version 1.2
  */
-public class MethodDisplay extends JLabel {
-
-	/** Method to display. */
-	private UmlMethod method;
+public class MethodDisplay extends JLabel implements Observer {
 
 	/** Constructor.
 	 * @param method The method to display
@@ -23,16 +24,9 @@ public class MethodDisplay extends JLabel {
 	public MethodDisplay(UmlMethod method) {
 		super();
 		if (method == null) throw new IllegalArgumentException("Method can't be null");
-		this.method = method;
-		updateLabel();
-	}
-
-	/**
-	 * Get the represented method.
-	 * @return the method that is displayed
-	 */
-	public UmlMethod getMethod() {
-		return this.method;
+		method.addObserver(this);
+		this.addMouseListener(new MethodEditorControler(method));
+		updateLabel(method);
 	}
 
 	/**
@@ -40,7 +34,7 @@ public class MethodDisplay extends JLabel {
      * Call this method when you modify the method
      * and you want the display to be refreshed.
      */
-	public void updateLabel() {
+	public void updateLabel(UmlMethod method) {
 		StringBuilder str = new StringBuilder();
 
 		if (method.getVisibility() == Visibility.PUBLIC) {
@@ -84,6 +78,13 @@ public class MethodDisplay extends JLabel {
 		}
 		
 		this.setText(str.toString());
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof UmlMethod) {
+			this.updateLabel((UmlMethod)o);
+		}
 	}
 	
 }
