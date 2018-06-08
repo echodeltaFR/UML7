@@ -104,6 +104,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 */
 	public void setName(String name) {
 		this.name = name;
+		this.setChangedAndNotify();
 	}
 	
 	/**
@@ -120,6 +121,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 */
 	public void setMethodsList(List<UmlMethod> methodsList) {
 		this.methodsList = methodsList;
+		this.setChangedAndNotify();
 	}
 
 	/**
@@ -136,6 +138,7 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 */
 	public void setAttributesList(List<UmlAttribute> attributesList) {
 		this.attributesList = attributesList;
+		this.setChangedAndNotify();
 	}
 
 	
@@ -144,7 +147,9 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param method of a component
 	 */
 	public void addMethod(UmlMethod method) {
-		this.methodsList.add(method);
+		if(this.methodsList.add(method)) {
+			this.setChangedAndNotify();
+		};
 	}
 	
 	/**
@@ -152,7 +157,9 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param attribute of a component
 	 */
 	public void addAttribute(UmlAttribute attribute) {
-		this.attributesList.add(attribute);
+		if (this.attributesList.add(attribute)) {
+			this.setChangedAndNotify();
+		};
 	}
 	
 	/**
@@ -160,7 +167,9 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param method method of a component
 	 */
 	public void removeMethod(UmlMethod method) {
-		this.methodsList.remove(method);
+		if (this.methodsList.remove(method)) {
+			this.setChangedAndNotify();
+		};
 	}
 	
 	/**
@@ -168,7 +177,9 @@ public abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param attribute of a component
 	 */
 	public void removeAttribute(UmlAttribute attribute) {
-		this.attributesList.remove(attribute);
+		if (this.attributesList.remove(attribute)) {
+			this.setChangedAndNotify();
+		};
 	}
 	
 	@Override
