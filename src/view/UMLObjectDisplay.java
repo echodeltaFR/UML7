@@ -41,7 +41,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	
 	static {
 		stereotypeMap = new HashMap<Class<? extends UmlRefType>,String>();
-		stereotypeMap.put(UmlInterface.class, "interface");
+		//stereotypeMap.put(UmlInterface.class, "interface");
 		stereotypeMap.put(UmlEnum.class, "enum");
 	}
 	

@@ -96,24 +96,10 @@ public class Launcher {
 		GridBagConstraints gc1 = getConstraintObject(layout, ea.getComponents());
 
 		ea.add(new UMLObjectDisplay(c1),gc1);
-
-		//BUILDING INTERFACE
-		UmlInterface i = new UmlInterface("some_interface");
-		i.addMethod(new UmlMethod("Method 1", new HashSet<UmlParams>(), PrimitiveType.BOOLEAN, Visibility.PROTECTED, null));
-
-		gc1.gridx = 15;
-		gc1.gridy = 15;
-		ea.add(new UMLObjectDisplay(i),gc1);
-		
-		gc1.gridx = 5;
-		gc1.gridy = 2;
-		ea.add(new UMLObjectDisplay(i),gc1);
 		
 		//gc.insets = new Insets(5, 5, 5, 5);
 		
 		GridBagConstraints gc2 = getConstraintObject(layout, ea.getComponents());
-		
-		ea.add(new UMLObjectDisplay(i),gc2);
 
 		// BUILDING CLASS 2
 		UmlClass c2 = new UmlClass("Entreprise");

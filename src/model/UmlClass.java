@@ -36,22 +36,22 @@ public class UmlClass extends UmlRefType{
 	@Override
 	public void addAttribute(UmlAttribute attribute) {
 		//throw exception
-		if(check(null, null, null, null, null, attribute, null))
+		//if(check(null, null, null, null, null, attribute, null))
 			super.addAttribute(attribute);
 	}
 	@Override
 	public void addMethod(UmlMethod method) {
-		if(check(null, null, null, null, null, null, method))
+		//if(check(null, null, null, null, null, null, method))
 			super.addMethod(method);
 	}
 	@Override
 	public void setAttributesList(List<UmlAttribute> attributesList) {
-		if(check(null, attributesList, null, null, null, null, null))
+		//if(check(null, attributesList, null, null, null, null, null))
 			super.setAttributesList(attributesList);
 	}
 	@Override
 	public void setMethodsList(List<UmlMethod> methodsList) {
-		if(check(methodsList, null, null, null, null, null, null))
+		//if(check(methodsList, null, null, null, null, null, null))
 			super.setMethodsList(methodsList);
 	}
 	
@@ -66,7 +66,7 @@ public class UmlClass extends UmlRefType{
 	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
 		super(name, methods, attributes, visibility, modifiers);
 	}
-	private Boolean check(List<UmlMethod> methods, 
+	/*private Boolean check(List<UmlMethod> methods, 
 			List<UmlAttribute> attributes,
 			Visibility visibility,
 			Modifier modifier,
@@ -97,7 +97,7 @@ public class UmlClass extends UmlRefType{
 		}
 		
 		return true;
-	}
+	}*/
 	
 	@Override
 	public void accept(DiagramElementVisitor visitor) {
