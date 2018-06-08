@@ -5,7 +5,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import model.UmlRelationShip;
+import model.UmlRelationship;
 
 /**
  * Abstract class that represents a relationship
@@ -18,7 +18,7 @@ public abstract class RelationDisplay extends JPanel {
 	protected static final double BASE_TRIANGLE = 20;
 	
 	/** Relationship **/
-	private UmlRelationShip umlRelation;
+	private UmlRelationship umlRelation;
 	
 	/** Start point **/
 	private Point start;
@@ -31,7 +31,7 @@ public abstract class RelationDisplay extends JPanel {
 	 * Constructor
 	 * @param umlRelation relationship to display
 	 */
-	public RelationDisplay(UmlRelationShip umlRelation) {
+	public RelationDisplay(UmlRelationship umlRelation) {
 		super();
 		assert umlRelation != null;
 		this.umlRelation = umlRelation;

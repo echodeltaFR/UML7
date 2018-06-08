@@ -4,7 +4,7 @@ package model;
  * Uml Relationship
  * @author Charly Courilleau
  */
-public abstract class UmlRelationShip {
+public abstract class UmlRelationship {
 	
 	/** Class A **/
 	private UmlClass classA;
@@ -22,7 +22,7 @@ public abstract class UmlRelationShip {
 	private String relationName;
 
 
-	protected UmlRelationShip(UmlClass elementA, UmlClass elementB) {
+	protected UmlRelationship(UmlClass elementA, UmlClass elementB) {
 		assert elementA != null && elementB != null;
 		this.classA = elementA;
 		this.classB = elementB;

@@ -25,7 +25,7 @@ public class UmlDiagram {
 	/**
 	 * Relation in the diagram.
 	 */
-	private List<UmlRelationShip> relations;
+	private List<UmlRelationship> relations;
 	
 	/**
 	 * Build an uml diagram with relation.
@@ -33,7 +33,7 @@ public class UmlDiagram {
 	 * @param elements uml elements in the diagram
 	 * @params relations uml relation in the diagram
 	 */
-	public UmlDiagram(String title, List<UmlComponent> elements, List<UmlRelationShip> relations) {
+	public UmlDiagram(String title, List<UmlComponent> elements, List<UmlRelationship> relations) {
 		this.title = title;
 		
 		if(elements != null) {
@@ -43,9 +43,9 @@ public class UmlDiagram {
 		}
 		
 		if(relations != null) {
-			this.relations = new ArrayList<UmlRelationShip>(relations);
+			this.relations = new ArrayList<UmlRelationship>(relations);
 		} else {
-			this.relations = new ArrayList<UmlRelationShip>();
+			this.relations = new ArrayList<UmlRelationship>();
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class UmlDiagram {
 	public UmlDiagram(String title) {
 		this.title = title;
 		this.elements = new ArrayList<UmlComponent>(elements);
-		this.relations = new ArrayList<UmlRelationShip>(relations);
+		this.relations = new ArrayList<UmlRelationship>(relations);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class UmlDiagram {
 	public UmlDiagram() {
 		this.title = null;
 		this.elements = new ArrayList<UmlComponent>();
-		this.relations = new ArrayList<UmlRelationShip>();
+		this.relations = new ArrayList<UmlRelationship>();
 		
 	}
 	
@@ -128,7 +128,7 @@ public class UmlDiagram {
 	 * Get the diagram element.
 	 * @return the diagram elements 
 	 */
-	public List<UmlRelationShip> getUmlRelations() {
+	public List<UmlRelationship> getUmlRelations() {
 		return this.relations;
 	}
 	
@@ -136,7 +136,7 @@ public class UmlDiagram {
 	 * Add a diagram element.
 	 * @params relation a relation
 	 */
-	public void addUmlRelations(UmlRelationShip relation) {
+	public void addUmlRelations(UmlRelationship relation) {
 		this.relations.add(relation);
 	}
 	
@@ -144,7 +144,7 @@ public class UmlDiagram {
 	 * Add a list of diagram element.
 	 * @params relations a list of relation
 	 */
-	public void addAllUmlRelations(List<UmlRelationShip> relations) {
+	public void addAllUmlRelations(List<UmlRelationship> relations) {
 		this.relations.addAll(relations);
 	}
 }

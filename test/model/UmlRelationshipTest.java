@@ -7,10 +7,10 @@ import org.junit.Test;
 
 public class UmlRelationshipTest {
 
-	private UmlRelationShip umlRelation1;
-	private UmlRelationShip umlRelation2;
-	private UmlRelationShip umlRelation3;
-	private UmlRelationShip umlRelation4;
+	private UmlRelationship umlRelation1;
+	private UmlRelationship umlRelation2;
+	private UmlRelationship umlRelation3;
+	private UmlRelationship umlRelation4;
 
 	private UmlClass classA;
 	private UmlClass classB;
