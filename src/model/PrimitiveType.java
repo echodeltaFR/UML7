@@ -10,11 +10,12 @@ public enum PrimitiveType implements UmlType {
 	DOUBLE("double"),
 	FLOAT("float"),
 	CHAR("char"),
-	STRING("string"),
+	STRING("String"),
 	BOOLEAN("boolean"),
 	BYTE("byte"),
 	SHORT("short"),
-	LONG("long");
+	LONG("long"),
+	VOID("void");
 	
 	/**
 	 * Primitive type name.

@@ -147,4 +147,6 @@ public class UmlDiagram {
 	public void addAllUmlRelations(List<UmlRelationship> relations) {
 		this.relations.addAll(relations);
 	}
+	
+	//Mettre les remove
 }

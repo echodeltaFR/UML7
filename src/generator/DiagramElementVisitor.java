@@ -13,6 +13,8 @@ import model.UmlDiagram;
  */
 public interface DiagramElementVisitor {
 
+	public static final String TAB = "    "; 
+	
 	public void visit(UmlClass UmlClass);
 	public void visit(UmlEnum UmlEnum);
 	public void visit(UmlInterface UmlInterface);

@@ -65,20 +65,21 @@ public class JavaGenerator implements DiagramElementVisitor {
 		
 		// Add the attributes
 		for(UmlAttribute attribut : component.getAttributesList()) {
-			attributeCode =  "\n" + this.convertVisibility(attribut) + " ";
+			attributeCode =  attributeCode + "\n" + DiagramElementVisitor.TAB
+						+ this.convertVisibility(attribut) + " ";
 			
 			// Add the attribute modifier
-			if(!attribut.getModifier().isEmpty()) {
-				for(Modifier modifier : attribut.getModifier()) {
+			if(!attribut.getModifiers().isEmpty()) {
+				for(Modifier modifier : attribut.getModifiers()) {
 					attributeCode = attributeCode + modifier.toString() + " ";
 				}
 			}
 			
 			// Add type and name
 			attributeCode = attributeCode
-							+ attribut.getType() + " "
-							+ attribut.getName() + " "
-							+ ";\n";
+							+ attribut.getType().getTypeName() + " "
+							+ attribut.getName()
+							+ ";";
 		}
 		return attributeCode;
 	}
@@ -88,11 +89,12 @@ public class JavaGenerator implements DiagramElementVisitor {
 		
 		// Print the class method
 		for(UmlMethod method : component.getMethodsList()) {
-			methodCode = "\n" + this.convertVisibility(method) + " ";
-			
+			methodCode = methodCode +  "\n" + DiagramElementVisitor.TAB 
+					+ this.convertVisibility(method) + " ";
+
 			// Add the method modifier
-			if(!method.getModifier().isEmpty()) {
-				for(Modifier modifier : method.getModifier()) {
+			if(!method.getModifiers().isEmpty()) {
+				for(Modifier modifier : method.getModifiers()) {
 					methodCode = methodCode + modifier.toString() + " ";
 				}
 			}
@@ -104,10 +106,13 @@ public class JavaGenerator implements DiagramElementVisitor {
 					+ "(";
 			
 			// Add the method parameters
-			for(UmlParams params : method.getParams()) {
-				methodCode = methodCode 
-						+ params.getType() + " "
-						+ params.getName(); // Problème affichage de la virgule
+			if (method.getParams().size()!=0) {
+				for(UmlParams params : method.getParams()) {
+					methodCode = methodCode 
+							+ params.getType().getTypeName() + " "
+							+ params.getName() + ", ";
+				}
+				methodCode = methodCode.substring(0, methodCode.length()-2);
 			}
 			methodCode = methodCode + ");";
 		}
@@ -115,52 +120,51 @@ public class JavaGenerator implements DiagramElementVisitor {
 	}
 	
 	public void visit(UmlEnum umlEnum) {
-		this.internal(umlEnum);
+		this.internal(umlEnum, "enum");
 	}
-	
-//	@Override // Methode A supprimer
-//	public void visitDiagram(UmlDiagram diagram) {
-//		for(UmlComponent element : diagram.getUmlElements()) {
-//            element.accept(this);
-//        }
-//	}
 
-	@Override // Mettre en privée
+	@Override
 	public void visit(UmlClass umlClass) {
-		this.internal(umlClass);
+		this.internal(umlClass, "class");
 	}
 
 	@Override
 	public void visit(UmlInterface umlInterface) {
-		this.internal(umlInterface);
+		this.internal(umlInterface, "interface");
 	}
 	
-	private void internal(UmlComponent component) {
+	private void internal(UmlComponent component, String refType) {
 		String componentCode;
 		
 		// Add the element visibility
 		componentCode = this.convertVisibility(component) + " ";
 		
 		// Add the modifier of the class
-		if(!component.getModifier().isEmpty()) {
-			for(Modifier modifier : component.getModifier()) {
+		if(!component.getModifiers().isEmpty()) {
+			for(Modifier modifier : component.getModifiers()) {
 				componentCode = componentCode + modifier.toString() + " ";
 			}
 		}
 		
 		// Add the class name
-		componentCode = componentCode + "{"
-					+ component.getName() 
+		componentCode = componentCode
+					+ refType + " "
+					+ component.getName() + " {\n"
 					+ this.generateAttribute(component) 
+					+ "\n"
 					+ this.generateMethod(component)
-					+ "\n}";
+					+ "\n\n}\n";
 		
 		// Add code to a file
-		this.code.put(component.getName(), componentCode);
+		this.code.put(component.getName() + ".java", componentCode);
 	}
 	
 	public HashMap<String, String> getCode() {
 		return this.code;
+	}
+	
+	public void setDiagram(UmlDiagram diagram) {
+		this.diagram = diagram;
 	}
 	
 }
