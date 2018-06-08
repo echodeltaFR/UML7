@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +12,7 @@ import generator.DiagramElementVisitor;
  * @author bastien
  *
  */
-public class UmlInterface extends UmlComponent {
+public class UmlInterface extends UmlRefType {
 	
 	// Constructor
 	
@@ -81,40 +80,37 @@ public class UmlInterface extends UmlComponent {
 	@Override
 	public void addAttribute(UmlAttribute attribute) {
 		//throw exception
-		try {
+		/**try {
 			this.checkAttribute(attribute);
 		} catch(ExceptionInitialization e) {
 			
 		}
-		super.addAttribute(attribute);
+		super.addAttribute(attribute);**/
 	}
-	@Override
-	public void addMethod(UmlMethod method) throws ExceptionInitialization {
-		this.checkMethod(method);
-		super.addMethod(method);
+	public void addMethod(UmlMethod method) {
+		/**this.checkMethod(method);
+		super.addMethod(method);**/
 	}
-	@Override
 	public void setAttributesList(List<UmlAttribute> attributesList) {
-		try {
+		/**try {
 			this.checkAttributes(attributesList);
 		} catch(ExceptionInitialization e) {
 			
 		}
-		super.setAttributesList(attributesList);
+		super.setAttributesList(attributesList);**/
 	}
-	@Override
 	public void setMethodsList(List<UmlMethod> methodsList) {
-		try {
+		/**try {
 			this.checkMethods(methodsList);
 		} catch(ExceptionInitialization e) {
 			
 		}
-		super.setMethodsList(methodsList);
+		super.setMethodsList(methodsList);**/
 	}
 	
 	//check attribute
 	private void checkAttribute(UmlAttribute attribute) throws ExceptionInitialization {
-		if(attribute.getVisibility() != null && attribute.getVisibility() != Visibility.PUBLIC) {
+		/**if(attribute.getVisibility() != null && attribute.getVisibility() != Visibility.PUBLIC) {
 			throw new ExceptionInitialization("The visibility of the attribute should be public or default");
 		}
 		if(attribute.getModifier() == null ||
@@ -126,11 +122,11 @@ public class UmlInterface extends UmlComponent {
 				attribute.getModifier().contains(Modifier.STATIC))))) {
 		} else {
 			throw new ExceptionInitialization("The modifier of the attribute should be final static or default");
-		}
+		}**/
 	}
 	//check method
 	private void checkMethod(UmlMethod method) throws ExceptionInitialization {
-		if(method.getModifier() == null ||
+		/**if(method.getModifier() == null ||
 				(method.getModifier().size()==1 &&
 						method.getModifier().contains(Modifier.ABSTRACT))) {
 			} else {
@@ -140,7 +136,7 @@ public class UmlInterface extends UmlComponent {
 				method.getVisibility() == Visibility.PUBLIC ) {
 		} else {
 			throw new ExceptionInitialization("The visibility of the method should be public or default");
-		}
+		}**/
 	}
 	//check visibility of the interface 
 	private void checkVisibility(Visibility visibility) throws ExceptionInitialization {
@@ -161,7 +157,7 @@ public class UmlInterface extends UmlComponent {
 		}
 	}
 	private void checkAttributes(List<UmlAttribute> attributes) throws ExceptionInitialization{
-		if(attributes != null ) {
+		/**if(attributes != null ) {
 			for(int i=0;i < attributes.size(); i++) {
 				//check modifiers of attributes
 				if(attributes.get(i).getModifier() == null ||
@@ -181,10 +177,10 @@ public class UmlInterface extends UmlComponent {
 					throw new ExceptionInitialization("The visibility of the attribute should be public or default");
 				}
 			}
-		}
+		}**/
 	}
 	private void checkMethods(List<UmlMethod> methods) throws ExceptionInitialization{
-		if(methods != null) {
+		/**if(methods != null) {
 			for(int i=0;i < methods.size(); i++) {
 				//check modifiers of methods
 				if(methods.get(i).getModifier() == null ||
@@ -200,8 +196,9 @@ public class UmlInterface extends UmlComponent {
 					throw new ExceptionInitialization("The modifier of the attribute should be final static or default");
 				}
 			}
-		}
+		}**/
 	}
+	
 	@Override
 	public void accept(DiagramElementVisitor visitor) {
 		visitor.visit(this);
