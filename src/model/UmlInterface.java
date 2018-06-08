@@ -9,11 +9,11 @@ import generator.DiagramElementVisitor;
 
 /**
  * Class representing Interface type in UML, extends UmlComponent
- * @see UmlRefType
+ * @see UmlComponent
  * @author bastien
  *
  */
-public class UmlInterface extends UmlRefType {
+public class UmlInterface extends UmlComponent {
 	
 	// Constructor
 	
@@ -89,12 +89,8 @@ public class UmlInterface extends UmlRefType {
 		super.addAttribute(attribute);
 	}
 	@Override
-	public void addMethod(UmlMethod method) {
-		try {
-			this.checkMethod(method);
-		} catch(ExceptionInitialization e) {
-			
-		}
+	public void addMethod(UmlMethod method) throws ExceptionInitialization {
+		this.checkMethod(method);
 		super.addMethod(method);
 	}
 	@Override
