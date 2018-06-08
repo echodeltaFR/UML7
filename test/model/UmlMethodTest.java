@@ -1,3 +1,5 @@
+package model;
+
 import org.junit.*;
 import org.junit.rules.*;
 
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
 /**
  * Test class for {@link UmlMethod}
  * @author echodeltaFR
- * @version 1.1
+ * @version 1.2
  */
 public class UmlMethodTest {
 
@@ -23,13 +25,13 @@ public class UmlMethodTest {
     private UmlMethod methodTest3;
     private UmlParams paramTest1;
     private UmlParams paramTest2;
-    private Set<Params> paramTest1Set;
+    private Set<UmlParams> paramTest1Set;
     private Set<UmlParams> params;
     private Set<Modifier> modifiers;
 
     @Before public void setUp() {
         paramTest1 = new UmlParams(PrimitiveType.INT, "Paramètre 1");
-        paramTest1Set = new HashSet<Params>();
+        paramTest1Set = new HashSet<UmlParams>();
         paramTest1Set.add(paramTest1);
         paramTest2 = new UmlParams(PrimitiveType.BOOLEAN, "Paramètre 2");
         params = new HashSet<UmlParams>();

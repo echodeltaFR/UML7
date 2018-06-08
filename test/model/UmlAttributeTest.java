@@ -1,3 +1,4 @@
+package model;
 import org.junit.*;
 import org.junit.rules.*;
 
@@ -13,7 +14,7 @@ import java.util.HashSet;
 /**
  * Test class for {@link UmlAttribute}
  * @author echodeltaFR
- * @version 1.0
+ * @version 1.1
  */
 public class UmlAttributeTest {
 
