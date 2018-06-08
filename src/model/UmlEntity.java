@@ -115,7 +115,7 @@ public abstract class UmlEntity {
 	 * Getter set of modifiers.
 	 * @return Set<Modifier> the set of modifiers
 	 */
-	public Set<Modifier> getModifier() {
+	public Set<Modifier> getModifiers() {
 		return this.modifiers;
 	}
 	
