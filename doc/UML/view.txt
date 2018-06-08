@@ -13,7 +13,7 @@ abstract RelationDisplay {
     + Point getStart()
     + Point getEnd()
     --
-    + RelationDisplay(UmlRelationship umlRelation)
+    + RelationDisplay(UmlRelationship umlRelation, Point startPoint, Point endPoint)
 }
 
 class AggregationRelationDisplay {
