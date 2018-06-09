@@ -1,6 +1,7 @@
 package generator;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import model.Modifier;
 import model.UmlAttribute;
@@ -20,18 +21,18 @@ import model.UmlRefType;
  */
 public class JavaGenerator implements DiagramElementVisitor {
 	
-	private HashMap<String, String> code;
+	private Map<String, String> code;
 	
 	private UmlDiagram diagram;
 	
 	public JavaGenerator(UmlDiagram diagram) {
 		this.diagram = diagram;
-		this.code = new HashMap<String, String>();
+		this.code = new HashMap<>();
 	}
 	
 	public JavaGenerator() {
 		this.diagram = null;
-		this.code = new HashMap<String, String>();
+		this.code = new HashMap<>();
 	}
 	
 	private String convertVisibility(UmlEntity component) {
@@ -61,62 +62,63 @@ public class JavaGenerator implements DiagramElementVisitor {
 	}
 	
 	private String generateAttribute(UmlRefType component) {
-		String attributeCode = "";
-		
+		StringBuilder attributeCode = new StringBuilder();
+
 		// Add the attributes
 		for(UmlAttribute attribut : component.getAttributesList()) {
-			attributeCode =  attributeCode + "\n" + DiagramElementVisitor.TAB
-						+ this.convertVisibility(attribut) + " ";
+			attributeCode.append("\n" + DiagramElementVisitor.TAB
+					+ this.convertVisibility(attribut) + " ");
 			
 			// Add the attribute modifier
 			if(!attribut.getModifiers().isEmpty()) {
 				for(Modifier modifier : attribut.getModifiers()) {
-					attributeCode = attributeCode + modifier.toString() + " ";
+					attributeCode.append(modifier.toString() + " ");
 				}
 			}
 			
 			// Add type and name
-			attributeCode = attributeCode
-							+ attribut.getType().getTypeName() + " "
-							+ attribut.getName()
-							+ ";";
+			attributeCode.append(attribut.getType().getTypeName() + " "
+					+ attribut.getName()
+					+ ";");
+
 		}
-		return attributeCode;
+		return attributeCode.toString();
 	}
 	
 	private String generateMethod(UmlRefType component) {
-		String methodCode = "";
-		
+		StringBuilder methodCode = new StringBuilder();
+
 		// Print the class method
 		for(UmlMethod method : component.getMethodsList()) {
-			methodCode = methodCode +  "\n" + DiagramElementVisitor.TAB 
-					+ this.convertVisibility(method) + " ";
+			methodCode.append("\n" + DiagramElementVisitor.TAB 
+					+ this.convertVisibility(method) + " ");
 
 			// Add the method modifier
 			if(!method.getModifiers().isEmpty()) {
 				for(Modifier modifier : method.getModifiers()) {
-					methodCode = methodCode + modifier.toString() + " ";
+					methodCode.append(methodCode + modifier.toString() + " ");
 				}
 			}
 			
 			// Add the method name and return type
-			methodCode = methodCode 
-					+ method.getReturnType().getTypeName() + " "
+			methodCode.append(method.getReturnType().getTypeName() + " "
 					+ method.getName()
-					+ "(";
+					+ "(");
 			
 			// Add the method parameters
 			if (method.getParams().size()!=0) {
 				for(UmlParams params : method.getParams()) {
-					methodCode = methodCode 
-							+ params.getType().getTypeName() + " "
-							+ params.getName() + ", ";
+					methodCode.append(params.getType().getTypeName() + " "
+							+ params.getName() + ", ");
 				}
-				methodCode = methodCode.substring(0, methodCode.length()-2);
+				String tmp = methodCode.substring(0, methodCode.length()-2);
+				methodCode.setLength(0);
+				methodCode.append(tmp);
 			}
-			methodCode = methodCode + ");";
+			
+			methodCode.append(");");
 		}
-		return methodCode;
+		return methodCode.toString();
 	}
 	
 	public void visit(UmlEnum umlEnum) {
@@ -134,32 +136,31 @@ public class JavaGenerator implements DiagramElementVisitor {
 	}
 	
 	private void internal(UmlRefType component, String refType) {
-		String componentCode;
-		
+		StringBuilder componentCode = new StringBuilder();
+
 		// Add the element visibility
-		componentCode = this.convertVisibility(component) + " ";
+		componentCode.append(this.convertVisibility(component) + " ");
 		
 		// Add the modifier of the class
 		if(!component.getModifiers().isEmpty()) {
 			for(Modifier modifier : component.getModifiers()) {
-				componentCode = componentCode + modifier.toString() + " ";
+				componentCode.append(modifier.toString() + " ");
 			}
 		}
 		
 		// Add the class name
-		componentCode = componentCode
-					+ refType + " "
+		componentCode.append(refType + " "
 					+ component.getName() + " {\n"
 					+ this.generateAttribute(component) 
 					+ "\n"
 					+ this.generateMethod(component)
-					+ "\n\n}\n";
+					+ "\n\n}\n");
 		
 		// Add code to a file
-		this.code.put(component.getName() + ".java", componentCode);
+		this.code.put(component.getName() + ".java", componentCode.toString());
 	}
 	
-	public HashMap<String, String> getCode() {
+	public Map<String, String> getCode() {
 		return this.code;
 	}
 	

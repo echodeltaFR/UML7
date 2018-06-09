@@ -43,8 +43,8 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	public UmlRefType(String name) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<UmlMethod>();
-		attributesList = new ArrayList<UmlAttribute>();
+		methodsList = new ArrayList<>();
+		attributesList = new ArrayList<>();
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 		super();
 		this.name = name;
 		methodsList = methods;
-		attributesList = new ArrayList<UmlAttribute>();
+		attributesList = new ArrayList<>();
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	public void addMethod(UmlMethod method) {
 		if(this.methodsList.add(method)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	public void addAttribute(UmlAttribute attribute) {
 		if (this.attributesList.add(attribute)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 	
 	/**
@@ -170,7 +170,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	public void removeMethod(UmlMethod method) {
 		if (this.methodsList.remove(method)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	public void removeAttribute(UmlAttribute attribute) {
 		if (this.attributesList.remove(attribute)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 	
 	@Override
@@ -192,7 +192,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	 * Visit accept by the element. 
 	 * @param visitor the visitor of the element
 	 */
-	abstract public void accept(DiagramElementVisitor visitor);
+	public abstract void accept(DiagramElementVisitor visitor);
 	
 }
 

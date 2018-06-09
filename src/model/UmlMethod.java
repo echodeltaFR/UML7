@@ -32,7 +32,7 @@ public class UmlMethod extends UmlEntity {
 	public UmlMethod(String name) {
 		super();
 		this.name = name;
-		this.params = new HashSet<UmlParams>();
+		this.params = new HashSet<>();
 		this.returnType = null;
 	}
 
@@ -51,10 +51,10 @@ public class UmlMethod extends UmlEntity {
 		super(visibility, modifiers);
 		this.name = name;
 		if (params == null) {
-			this.params = new HashSet<UmlParams>();
+			this.params = new HashSet<>();
 		}
 		else {
-			this.params = new HashSet<UmlParams>(params);
+			this.params = new HashSet<>(params);
 		}
 		this.returnType = returnType;
 	}
@@ -88,7 +88,7 @@ public class UmlMethod extends UmlEntity {
 	public void removeParam(UmlParams param) {
 		if(this.params.remove(param)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 	/**
 	 * Delete method parameters.

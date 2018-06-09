@@ -28,6 +28,7 @@ public abstract class UmlRelationship {
 		this.classB = elementB;
 		this.roleA = "";
 		this.roleB = "";
+		this.relationName = "";
 	}
 	
 	public String getRoleA() {
@@ -59,8 +60,10 @@ public abstract class UmlRelationship {
 	}
 
 	public void setRelationName(String relationName) {
-		assert relationName != null;
-		this.relationName = relationName;
+		  if (relationName == null) {
+			    throw new IllegalArgumentException("Invalid relation name (null is not allowed)");
+		  }
+		  this.relationName = relationName;
 	}
 
 }

@@ -4,8 +4,6 @@ import model.UmlClass;
 import model.UmlInterface;
 import model.UmlEnum;
 
-import model.UmlDiagram;
-
 /**
  * Class which allow to visit a diagram element.
  * @author fmeslet
@@ -15,8 +13,8 @@ public interface DiagramElementVisitor {
 
 	public static final String TAB = "    "; 
 	
-	public void visit(UmlClass UmlClass);
-	public void visit(UmlEnum UmlEnum);
-	public void visit(UmlInterface UmlInterface);
+	public void visit(UmlClass umlClass);
+	public void visit(UmlEnum umlEnum);
+	public void visit(UmlInterface umlInterface);
 	
 }

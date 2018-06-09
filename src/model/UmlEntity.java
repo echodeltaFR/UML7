@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
 
-import generator.DiagramElementVisitor;
-
 /**
  * Abstract class, an UML entity with a visibility and modifiers.
  * @see UmlRefType
@@ -44,9 +42,9 @@ public abstract class UmlEntity extends Observable {
 			this.visibility = visibility;
 		}
 		if (modifiers == null) {
-			this.modifiers = new HashSet<Modifier>();
+			this.modifiers = new HashSet<>();
 		} else {
-			this.modifiers = new HashSet<Modifier>(modifiers);
+			this.modifiers = new HashSet<>(modifiers);
 		}
 	}
 
@@ -55,7 +53,7 @@ public abstract class UmlEntity extends Observable {
 	 * @param modifiers the modifiers
 	 */
 	public UmlEntity(Set<Modifier> modifiers) {
-		this(null, new HashSet<Modifier>(modifiers));
+		this(null, new HashSet<>(modifiers));
 	}
 
 	
@@ -72,7 +70,7 @@ public abstract class UmlEntity extends Observable {
 	 */
 	public UmlEntity() {
 		this.visibility = Visibility.PUBLIC;
-		this.modifiers = new HashSet<Modifier>();
+		this.modifiers = new HashSet<>();
 	}
 	
 	// Methods

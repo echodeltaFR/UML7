@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import generator.DiagramElementVisitor;
 
 /**
  * Class which allow to create a diagram with element.
@@ -37,15 +36,15 @@ public class UmlDiagram {
 		this.title = title;
 		
 		if(elements != null) {
-			this.elements = new ArrayList<UmlRefType>(elements);
+			this.elements = new ArrayList<>(elements);
 		}else {
-			this.elements = new ArrayList<UmlRefType>();
+			this.elements = new ArrayList<>();
 		}
 		
 		if(relations != null) {
-			this.relations = new ArrayList<UmlRelationship>(relations);
+			this.relations = new ArrayList<>(relations);
 		} else {
-			this.relations = new ArrayList<UmlRelationship>();
+			this.relations = new ArrayList<>();
 		}
 	}
 	
@@ -58,9 +57,9 @@ public class UmlDiagram {
 		this.title = title;
 		
 		if(elements != null) {
-			this.elements = new ArrayList<UmlRefType>(elements);
+			this.elements = new ArrayList<>(elements);
 		}else {
-			this.elements = new ArrayList<UmlRefType>();
+			this.elements = new ArrayList<>();
 		}
 	}
 	
@@ -70,8 +69,8 @@ public class UmlDiagram {
 	 */
 	public UmlDiagram(String title) {
 		this.title = title;
-		this.elements = new ArrayList<UmlRefType>(elements);
-		this.relations = new ArrayList<UmlRelationship>(relations);
+		this.elements = new ArrayList<>(elements);
+		this.relations = new ArrayList<>(relations);
 	}
 	
 	/**
@@ -79,8 +78,8 @@ public class UmlDiagram {
 	 */
 	public UmlDiagram() {
 		this.title = null;
-		this.elements = new ArrayList<UmlRefType>();
-		this.relations = new ArrayList<UmlRelationship>();
+		this.elements = new ArrayList<>();
+		this.relations = new ArrayList<>();
 		
 	}
 	

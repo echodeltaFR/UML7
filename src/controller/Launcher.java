@@ -1,15 +1,10 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.Set;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -21,11 +16,9 @@ import model.Modifier;
 import model.PrimitiveType;
 import model.UmlAttribute;
 import model.UmlClass;
-import model.UmlInterface;
 import model.UmlMethod;
 import model.UmlParams;
 import model.Visibility;
-import view.AssociationRelationDisplay;
 import view.CompositionRelationDisplay;
 import view.RelationDisplay;
 import view.UMLObjectDisplay;
@@ -46,7 +39,6 @@ public class Launcher {
 		
 		JPanel editingArea = new JPanel(layout);
 		editingArea.setBackground(Color.WHITE);
-		//gc.ipady = gc.anchor = GridBagConstraints.CENTER;
 		
 		application.setContentPane(editingArea);
 		application.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -54,7 +46,7 @@ public class Launcher {
 		application.setJMenuBar(buildApplicationMenuBar(application));
 		
 		
-		buildDebugDiagram(editingArea, layout);
+		buildDebugDiagram(editingArea);
 				
 		application.setVisible(true);
 	}
@@ -77,22 +69,22 @@ public class Launcher {
 		return appBar;
 	}
 	
-	private static void buildDebugDiagram(JPanel ea, GridBagLayout layout) {
-		HashSet<Modifier> mod;
-		HashSet<UmlParams> param;
+	private static void buildDebugDiagram(JPanel ea) {
+		Set<Modifier> mod;
+		Set<UmlParams> param;
 		
 		
 		// BUILDING CLASS
 		UmlClass c1 = new UmlClass("Classe 1");
 		
 		c1.addAttribute(new UmlAttribute("The_Default_letter", PrimitiveType.CHAR));
-		mod = new HashSet<Modifier>();
+		mod = new HashSet<>();
 		mod.add(Modifier.FINAL);
 		mod.add(Modifier.STATIC);
 		c1.addMethod(new UmlMethod("A_Method", new HashSet<UmlParams>(), null, Visibility.PUBLIC, mod));
-		mod = new HashSet<Modifier>();
+		mod = new HashSet<>();
 		mod.add(Modifier.VOLATILE);
-		param = new HashSet<UmlParams>();
+		param = new HashSet<>();
 		param.add(new UmlParams(PrimitiveType.CHAR, "letter"));
 		c1.addMethod(new UmlMethod("Another_Method", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
 		
@@ -109,13 +101,13 @@ public class Launcher {
 		UmlClass c2 = new UmlClass("Entreprise");
 
 		c2.addAttribute(new UmlAttribute("The_Default_letter", PrimitiveType.CHAR));
-		mod = new HashSet<Modifier>();
+		mod = new HashSet<>();
 		mod.add(Modifier.FINAL);
 		mod.add(Modifier.STATIC);
 		c2.addMethod(new UmlMethod("A_Method", new HashSet<UmlParams>(), null, Visibility.PUBLIC, mod));
-		mod = new HashSet<Modifier>();
+		mod = new HashSet<>();
 		mod.add(Modifier.VOLATILE);
-		param = new HashSet<UmlParams>();
+		param = new HashSet<>();
 		c2.addMethod(new UmlMethod("getA()", param, PrimitiveType.INT, Visibility.PUBLIC, mod));
 
 		
