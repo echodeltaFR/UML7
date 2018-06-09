@@ -49,6 +49,7 @@ public class AttributeDisplay extends JLabel {
         	break;
         case PROTECTED:
         	str.append("#");
+        	break;
         default:
         	str.append("Exception");
         }

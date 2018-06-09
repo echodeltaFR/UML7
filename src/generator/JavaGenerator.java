@@ -96,7 +96,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 			// Add the method modifier
 			if(!method.getModifiers().isEmpty()) {
 				for(Modifier modifier : method.getModifiers()) {
-					methodCode.append(methodCode + modifier.toString() + " ");
+					methodCode.append(modifier.toString() + " ");
 				}
 			}
 			
@@ -106,7 +106,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 					+ "(");
 			
 			// Add the method parameters
-			if (method.getParams().size()!=0) {
+			if (!method.getParams().isEmpty()) {
 				for(UmlParams params : method.getParams()) {
 					methodCode.append(params.getType().getTypeName() + " "
 							+ params.getName() + ", ");
@@ -119,6 +119,8 @@ public class JavaGenerator implements DiagramElementVisitor {
 			methodCode.append(");");
 		}
 		return methodCode.toString();
+		
+		
 	}
 	
 	public void visit(UmlEnum umlEnum) {

@@ -29,13 +29,13 @@ public class CompositionRelationDisplay extends RelationDisplay {
 			super.paintComponent(g);
 
 			// Extremité gauche (losange)
-	        int xPoly[] = {(int)this.getStart().getX(),
+	        int[] xPoly = {(int)this.getStart().getX(),
 	        				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
 	        				(int)(this.getStart().getX() + (2*HEIGHT_TRIANGLE)), 
 	        				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
 	        				(int)this.getStart().getX()
 	        };
-	        int yPoly[] = {(int)this.getStart().getY(),
+	        int[] yPoly = {(int)this.getStart().getY(),
 	        				(int) (this.getStart().getY() + (BASE_TRIANGLE/2)),		
 	        				(int)this.getStart().getY(), 
 	        				(int) (this.getStart().getY() - (BASE_TRIANGLE/2)), 

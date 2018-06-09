@@ -72,9 +72,6 @@ public abstract class RelationDisplay extends JPanel {
 	
 	@Override
     public void paintComponent(Graphics g) {
-		assert g != null;
-		assert start != null;
-		assert end != null;
 		super.paintComponent(g);
 	}
 	

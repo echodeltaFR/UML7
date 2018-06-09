@@ -23,21 +23,17 @@ public class AggregationRelationDisplay extends RelationDisplay {
 	
     @Override
     public void paintComponent(Graphics g) {
-		assert g != null;
-		assert this.getStart() != null;
-		assert this.getEnd() != null;
-
 		super.paintComponent(g);
 
 
 		// Left extremity
-        int xPoly[] = {(int)this.getStart().getX(),
+        int[] xPoly = {(int)this.getStart().getX(),
         				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
         				(int)(this.getStart().getX() + (2*HEIGHT_TRIANGLE)), 
         				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
         				(int)this.getStart().getX()
         };
-        int yPoly[] = {(int)this.getStart().getY(),
+        int[] yPoly = {(int)this.getStart().getY(),
         				(int) (this.getStart().getY() + (BASE_TRIANGLE/2)),		
         				(int)this.getStart().getY(), 
         				(int) (this.getStart().getY() - (BASE_TRIANGLE/2)), 

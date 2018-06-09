@@ -68,7 +68,7 @@ public class UmlMethod extends UmlEntity {
 	public void addParam(UmlParams param) {
 		if (this.params.add(param)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class UmlMethod extends UmlEntity {
 	public void addParams(Set<UmlParams> params) {
 		if (this.params.addAll(params)) {
 			this.setChangedAndNotify();
-		};
+		}
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class UmlMethod extends UmlEntity {
 	public void removeParams(Set<UmlParams> params) {
 		if (this.params.removeAll(params)) {
 			this.setChangedAndNotify();
-		};
+		}
 		
 	}
 
