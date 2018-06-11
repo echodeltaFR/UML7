@@ -127,9 +127,16 @@ public class JavaGenerator implements DiagramElementVisitor {
 			}
 			
 			// Add the method name and return type
-			methodCode.append(method.getReturnType().getTypeName() + " "
-					+ method.getName()
-					+ "(");
+			if (method.getReturnType() != null) {
+				methodCode.append(method.getReturnType().getTypeName() + " "
+						+ method.getName()
+						+ "(");
+			} else {
+				methodCode.append("void "
+						+ method.getName()
+						+ "(");
+			}
+			
 			
 			// Add the method parameters
 			if (!method.getParams().isEmpty()) {
