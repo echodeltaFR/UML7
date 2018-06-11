@@ -5,9 +5,9 @@ title UML7 - generator
 interface Generator.DiagramElementVisitor {
     + String TAB {static} {final}
     --
-	+ void visit(UmlClass UmlClass)
-	+ void visit(UmlEnum UmlEnum)
-	+ void visit(UmlInterface UmlInterface)
+    + void visit(UmlClass UmlClass)
+    + void visit(UmlEnum UmlEnum)
+    + void visit(UmlInterface UmlInterface)
 }
 
 class Generator.JavaGenerator {
