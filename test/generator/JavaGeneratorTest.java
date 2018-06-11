@@ -27,6 +27,25 @@ public class JavaGeneratorTest {
 
 	private JavaGenerator generator;
 	
+	private UmlDiagram diagramInterface;
+	private UmlDiagram diagramClass;
+	private UmlDiagram diagramEnum;
+	private UmlDiagram diagramClassEmpty;
+	
+	private List<UmlRefType> interfaceDiagramComponents;
+	private List<UmlRefType> classDiagramComponents;
+	private List<UmlRefType> emptyClassDiagramComponents;
+	private List<UmlRefType> enumDiagramComponents;
+	
+	private UmlRefType interfaceComponent;
+	private UmlRefType classComponent;
+	private UmlRefType emptyClassComponent;
+	private UmlRefType enumComponent;
+	
+	
+	private String code;
+	private String result;
+	
 	@Before
 	public void setUp() {
 		// Create attributes with modifier and visiblity
@@ -68,60 +87,81 @@ public class JavaGeneratorTest {
 		UmlMethod method3 = new UmlMethod("method3", null, type2, null, modifierMethod3);
 		
 		// Create attribute and method component
-		List <UmlAttribute> attributesInterface = new ArrayList<UmlAttribute>();
-		attributesInterface.add(attribute1);
-		attributesInterface.add(attribute2);
-		attributesInterface.add(attribute3);
+		List <UmlAttribute> attributes = new ArrayList<UmlAttribute>();
+		attributes.add(attribute1);
+		attributes.add(attribute2);
+		attributes.add(attribute3);
 		
-		List <UmlMethod> methodsInterface = new ArrayList<UmlMethod>();
-		methodsInterface.add(method1);
-		methodsInterface.add(method2);
-		methodsInterface.add(method3);
+		List <UmlMethod> methods = new ArrayList<UmlMethod>();
+		methods.add(method1);
+		methods.add(method2);
+		methods.add(method3);
+		
+		List <String> valuesEnum = new ArrayList<String>();
+		valuesEnum.add("INT");
+		valuesEnum.add("DOUBLE");
+		valuesEnum.add("STRING");
 		
 		// Create components
-		UmlRefType interfaceComponent = new UmlInterface("Interface", 
-				methodsInterface, attributesInterface, 
+		interfaceComponent = new UmlInterface("Interface", 
+				methods, attributes, 
 				Visibility.PUBLIC, null);
 		
-//		umlInterface.setVisibility(Visibility.PUBLIC);
-//		
-//		UmlComponent classComponent = new UmlClass("ClassA");
-//
-//		UmlComponent abstractClassComponent = new UmlClass();
-//		
-//		UmlComponent enumComponent = new UmlEnum("Enum", Visibility.PUBLIC);
+		classComponent = new UmlClass("Class", 
+				methods, attributes, 
+				Visibility.PUBLIC, null);
 		
-		// Create diagram
-		List<UmlRefType> components = new ArrayList<UmlRefType>();
-		components.add(interfaceComponent);
+		emptyClassComponent = new UmlClass("ClassEmpty", 
+				new ArrayList<UmlMethod>(), new ArrayList<UmlAttribute>(), Visibility.PUBLIC, null);
 		
-		UmlDiagram diagram = new UmlDiagram("Diagram1", components);
+		enumComponent = new UmlEnum("Enum", 
+				valuesEnum, methods, attributes, 
+				Visibility.PUBLIC, null);
+		
+		// Create diagrams
+		interfaceDiagramComponents = new ArrayList<UmlRefType>();
+		interfaceDiagramComponents.add(interfaceComponent);
+		
+		classDiagramComponents = new ArrayList<UmlRefType>();
+		classDiagramComponents.add(classComponent);
+		
+		emptyClassDiagramComponents = new ArrayList<UmlRefType>();
+		emptyClassDiagramComponents.add(emptyClassComponent);
+		
+		enumDiagramComponents = new ArrayList<UmlRefType>();
+		enumDiagramComponents.add(enumComponent);
+		
+		diagramInterface = new UmlDiagram("Diagram Interface", interfaceDiagramComponents);
+		diagramClass = new UmlDiagram("Diagram Class", classDiagramComponents);
+		diagramClassEmpty = new UmlDiagram("Diagram Class Empty", emptyClassDiagramComponents);
+		diagramEnum = new UmlDiagram("Diagram Enum", enumDiagramComponents);
 		
 		// Create generator
 		generator = new JavaGenerator();
-		generator.setDiagram(diagram);
+		
+		// Result goal and code generate
+		result = null;
+		code = null;
 	}
 	
 	@Test
-	public void testVisitUmlInterface() {
+	public void testGenerationInterface() {
+		// Test with no relation
 		// The results objective
-		String results = "public interface Interface {\n\n"
+		result = "public interface Interface {\n\n"
 				+ DiagramElementVisitor.TAB + "public static final int CONSTANTE;\n"
 				+ DiagramElementVisitor.TAB + "public String attribut2;\n"
 				+ DiagramElementVisitor.TAB + "private double attribut3;\n\n"
-				+ DiagramElementVisitor.TAB + "public void method1(type1 param1, type2 param2);\n"
+				+ DiagramElementVisitor.TAB + "public void method1(type2 param2, type1 param1);\n"
 				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1);\n"
 				+ DiagramElementVisitor.TAB + "public final type2 method3();\n\n"
 				+ "}\n";
 		
-		System.out.print(results);
+		generator.setDiagram(diagramInterface);
 		generator.generateCode();
-		String code = generator.getCode().get("Interface.java");
+		String code = generator.getCode().get("Interface.java");	
 		
-		System.out.println("\nLe résulat : \n");
-		
-		System.out.println(code);
-		assertEquals("UmlInterface : wrong generation", results, code);
+		assertEquals("testGenerationInterface : wrong generation", result, code);
 		
 		// Test with extends relation
 		// Add interface in diagram
@@ -131,32 +171,70 @@ public class JavaGeneratorTest {
 	}
 	
 	@Test
-	public void testVisitClass() {
-		// Test with no relation
+	public void testGenerationNormalClass() {
 		// The results objective
-		String results = "public interface Interface {\n"
-				+ "public static final int CONSTANTE = 3;"
-				+ "String variable1;"
-				+ "private double variable2;\n"
-				+ "\tpublic void method1(type1 param1, type2 param2){\n"
-				+ "}\n\n"
-				+ "\ttype1 method2(type1 param1){\n"
-				+ "}\n\n"
-				+ "\tstatic type2 method3(){\n"
-				+ "}\n\n"
-				+ "}";
-		// Test with extends relation
+		result = "public class Class {\n\n"
+				+ DiagramElementVisitor.TAB + "public static final int CONSTANTE;\n"
+				+ DiagramElementVisitor.TAB + "public String attribut2;\n"
+				+ DiagramElementVisitor.TAB + "private double attribut3;\n\n"
+				+ DiagramElementVisitor.TAB + "public void method1(type2 param2, type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ DiagramElementVisitor.TAB + "public final type2 method3() {\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ "}\n";
 		
+		// Test with no relation
+		generator.setDiagram(diagramClass);
+		generator.generateCode();
+		code = generator.getCode().get("Class.java");
+		assertEquals("testGenerationClass: wrong normal class generation", result, code);
+		
+		// Test with extends relation
 		
 		// Test with implement relation
 		
 		// Test with implement and extend
 	}
-	
 	
 	@Test
-	public void testVisitEnum() {
+	public void testGenerationAbstractClass() { 
+		// The result objective
+		result = "public abstract class ClassEmpty {\n\n" + "}\n";
+		
+		emptyClassComponent.addModifier(Modifier.ABSTRACT);
+		generator.setDiagram(diagramClassEmpty);
+		generator.generateCode();
+		code = generator.getCode().get("ClassEmpty.java");
+		System.out.println(code);
+		assertEquals("testGenerationClass: wrong abstract class generation", result, code);
+	}
+	
+	@Test
+	public void testGenerationEnum() {
+		// The results objective
+		result = "public enum Enum {\n\n"
+				+ DiagramElementVisitor.TAB + "INT;\n"
+				+ DiagramElementVisitor.TAB + "DOUBLE;\n"
+				+ DiagramElementVisitor.TAB + "STRING;\n\n"
+				+ DiagramElementVisitor.TAB + "public static final int CONSTANTE;\n"
+				+ DiagramElementVisitor.TAB + "public String attribut2;\n"
+				+ DiagramElementVisitor.TAB + "private double attribut3;\n\n"
+				+ DiagramElementVisitor.TAB + "public void method1(type1 param1, type2 param2) {\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ DiagramElementVisitor.TAB + "public final type2 method3() {\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ "}\n";
+		
 		// Test with no relation
+		generator.setDiagram(diagramEnum);
+		generator.generateCode();
+		code = generator.getCode().get("Enum.java");
+		System.out.println(code);
+		assertEquals("testGenerationClass: wrong enum generation", result, code);
 		
 		// Test with extends relation
 		
@@ -164,19 +242,5 @@ public class JavaGeneratorTest {
 		
 		// Test with implement and extend
 	}
-	
-//	public static void main(String ars[]) {
-//		
-//		System.out.println("Test : Visited diagram\n");
-//		List<UmlComponent> list = new ArrayList<UmlComponent>();
-//		UmlInterface umlInterface = new UmlInterface("Mon Interface");
-//		umlInterface.addMethod(new UmlMethod());
-//		list.add(new UmlEnum("MonEnum"));
-//		list.add(new UmlInterface("MonInterface"));
-//		
-//		JavaGenerator generateur = new JavaGenerator();
-//		
-//		generateur.visitDiagram(new UmlDiagram("test", list));
-//	}
 	
 }

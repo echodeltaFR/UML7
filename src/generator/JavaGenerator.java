@@ -25,16 +25,28 @@ public class JavaGenerator implements DiagramElementVisitor {
 	
 	private UmlDiagram diagram;
 	
+	/**
+	 * Build a java generator.
+	 * @param diagram diagram we need to generate code
+	 */
 	public JavaGenerator(UmlDiagram diagram) {
 		this.diagram = diagram;
 		this.code = new HashMap<>();
 	}
 	
+	/**
+	 * Build a java generator.
+	 */
 	public JavaGenerator() {
 		this.diagram = null;
 		this.code = new HashMap<>();
 	}
 	
+	/**
+	 * Convert the name visibility of the component. 
+	 * @param component the component
+	 * @return the new name visibility
+	 */
 	private String convertVisibility(UmlEntity component) {
 		String visibility = null;
 		
@@ -49,25 +61,33 @@ public class JavaGenerator implements DiagramElementVisitor {
 			visibility = "protected";
 			break;
 		default:
-			visibility = "";
+			visibility = "public";
 		}
 		return visibility;
 	}
 	
-	public void generateCode(){
+	/**
+	 * Generate diagram code.
+	 */
+	public void generateCode() {
 		// for each components in the diagram
 		for(UmlRefType element : diagram.getUmlElements()) {
-            element.accept(this);
+			element.accept(this);
         }
 	}
 	
-	private String generateAttribute(UmlRefType component) {
+	/**
+	 * Generate attributes for an uml component.
+	 * @param component component we need to generate attributes
+	 * @return the attributes code
+	 */
+	private String generateAttributes(UmlRefType component) {
 		StringBuilder attributeCode = new StringBuilder();
 
 		// Add the attributes
 		for(UmlAttribute attribut : component.getAttributesList()) {
 			attributeCode.append("\n" + DiagramElementVisitor.TAB
-					+ this.convertVisibility(attribut) + " ");
+				+ this.convertVisibility(attribut) + " ");
 			
 			// Add the attribute modifier
 			if(!attribut.getModifiers().isEmpty()) {
@@ -77,15 +97,21 @@ public class JavaGenerator implements DiagramElementVisitor {
 			}
 			
 			// Add type and name
-			attributeCode.append(attribut.getType().getTypeName() + " "
+			attributeCode.append(
+					attribut.getType().getTypeName() + " "
 					+ attribut.getName()
-					+ ";");
-
+					+ ";\n");
 		}
 		return attributeCode.toString();
 	}
 	
-	private String generateMethod(UmlRefType component) {
+	/**
+ 	* Generate methods for an uml component.
+ 	* @param component uml component we need to generate method
+ 	* @param generateBody false if we want to generate an interface or abstract method
+ 	* @return String which contains the methods code
+ 	*/
+	private String generateMethods(UmlRefType component, boolean generateBody) {
 		StringBuilder methodCode = new StringBuilder();
 
 		// Print the class method
@@ -115,31 +141,51 @@ public class JavaGenerator implements DiagramElementVisitor {
 				methodCode.setLength(0);
 				methodCode.append(tmp);
 			}
+
+			methodCode.append(")");
 			
-			methodCode.append(");");
+			if (generateBody) {
+				methodCode.append(" {\n" + DiagramElementVisitor.TAB + "}\n\n");
+			} else {
+				methodCode.append(";\n");
+			}
+
 		}
 		return methodCode.toString();
 		
-		
 	}
 	
+	@Override
 	public void visit(UmlEnum umlEnum) {
-		this.internal(umlEnum, "enum");
+		this.generateJavaObject(umlEnum, "enum", true);
 	}
 
 	@Override
 	public void visit(UmlClass umlClass) {
-		this.internal(umlClass, "class");
+		boolean generateBody = true;
+		for(Modifier modifier : umlClass.getModifiers()) {
+			if(modifier.equals(Modifier.ABSTRACT)) {
+				generateBody = false;
+			}
+		}
+		this.generateJavaObject(umlClass, "class", generateBody);
+		
 	}
 
 	@Override
 	public void visit(UmlInterface umlInterface) {
-		this.internal(umlInterface, "interface");
+		this.generateJavaObject(umlInterface, "interface", false);
 	}
 	
-	private void internal(UmlRefType component, String refType) {
+	/**
+	 * Generate code for an uml component.
+	 * @param component the uml component
+	 * @param refType the name of the uml component
+	 * @param generateBody true if we need to generate body
+	 */
+	private void generateJavaObject(UmlRefType component, String refType, boolean generateBody) {
 		StringBuilder componentCode = new StringBuilder();
-
+		
 		// Add the element visibility
 		componentCode.append(this.convertVisibility(component) + " ");
 		
@@ -151,23 +197,54 @@ public class JavaGenerator implements DiagramElementVisitor {
 		}
 		
 		// Add the class name
-		componentCode.append(refType + " "
-					+ component.getName() + " {\n"
-					+ this.generateAttribute(component) 
-					+ "\n"
-					+ this.generateMethod(component)
-					+ "\n\n}\n");
+		componentCode.append(
+					refType + " "
+					+ component.getName() + " {\n\n"
+					);
+		
+		// Check if it's an enum
+		if(refType.equals("enum") && !((UmlEnum)component).getValuesList().isEmpty()) {
+			for(String attribute : ((UmlEnum)component).getValuesList()) {
+				componentCode.append(DiagramElementVisitor.TAB + attribute + ";\n");
+			}
+			componentCode.append("\n");
+		}		
+		
+		// Put a return if no attributes was print 
+		if(!component.getAttributesList().isEmpty()) {
+			componentCode.append(this.generateAttributes(component) + "\n");
+		}
+		
+		// Add the methods
+		if(!component.getMethodsList().isEmpty()) {
+			componentCode.append(this.generateMethods(component, generateBody));
+			if(!generateBody) {
+				componentCode.append("\n");
+			}
+		}
+		
+		// Add the close part
+		componentCode.append("}\n");
 		
 		// Add code to a file
 		this.code.put(component.getName() + ".java", componentCode.toString());
 	}
 	
+	/**
+	 * Get the code for each uml component
+	 * @return the code for each uml component
+	 */
 	public Map<String, String> getCode() {
 		return this.code;
 	}
 	
+	/**
+	 * Set a new diagram for the generator
+	 * @param diagram the new diagram
+	 */
 	public void setDiagram(UmlDiagram diagram) {
 		this.diagram = diagram;
+		this.code = new HashMap<String, String>();
 	}
 	
 }

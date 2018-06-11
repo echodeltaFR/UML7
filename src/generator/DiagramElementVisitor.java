@@ -11,10 +11,26 @@ import model.UmlEnum;
  */
 public interface DiagramElementVisitor {
 
+	/**
+	 * Constant which define a tabulation
+	 */
 	public static final String TAB = "    "; 
 	
+	/**
+	 * Visit a class component. 
+	 * @param umlClass the class component visited
+	 */
 	public void visit(UmlClass umlClass);
-	public void visit(UmlEnum umlEnum);
-	public void visit(UmlInterface umlInterface);
 	
+	/**
+	 * Visit an enum component. 
+	 * @param umlEnum the enum component visited
+	 */
+	public void visit(UmlEnum umlEnum);
+	
+	/**
+	 * Visit an interface component.
+	 * @param umlInterface the interface component visited
+	 */
+	public void visit(UmlInterface umlInterface);
 }

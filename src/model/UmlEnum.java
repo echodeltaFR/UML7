@@ -28,7 +28,7 @@ public class UmlEnum extends UmlRefType {
 	 */
 	public UmlEnum(String name) {
 		super(name);
-		valuesList = new ArrayList<>();
+		valuesList = new ArrayList<String>();
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class UmlEnum extends UmlRefType {
 	 */
 	public UmlEnum(String name, List<String> values) {
 		super(name);
-		valuesList = new ArrayList<>(values);
+		valuesList = new ArrayList<String>(values);
 	}
 	
 	/**
@@ -110,6 +110,14 @@ public class UmlEnum extends UmlRefType {
 	 */
 	public void removeValue(String value) {
 		this.valuesList.remove(value);
+	}
+	
+	/**
+	 * Getter list of attributes
+	 * @return List<String> list of attributes
+	 */
+	public List<String> getValuesList() {
+		return this.valuesList;
 	}
 	
 	

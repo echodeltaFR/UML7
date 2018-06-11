@@ -8,7 +8,7 @@ import generator.DiagramElementVisitor;
 
 /**
  * Class representing Interface type in UML, extends UmlComponent
- * @see UmlComponent
+ * @see UmlRefType
  * @author bastien
  *
  */
