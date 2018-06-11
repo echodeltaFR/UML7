@@ -3,27 +3,27 @@
 title UML7 - generator
 
 interface Generator.DiagramElementVisitor {
-    + String TAB {static} {final}
+    + TAB : String {static, final}
     --
-    + void visit(UmlClass UmlClass)
-    + void visit(UmlEnum UmlEnum)
-    + void visit(UmlInterface UmlInterface)
+	+ visit(umlClass : UmlClass) : void
+	+ visit(umlEnum : UmlEnum) : void
+	+ visit(umlInterface : UmlInterface) : void
 }
 
 class Generator.JavaGenerator {
     --
-    + void generateCode()
-    + void visit(UmlEnum umlEnum)
-    + void visit(UmlClass umlClass)
-    + void visit(UmlInterface umlInterface)
-    + HashMap<String, String> getCode()
-    + void setDiagram(UmlDiagram diagram)
-    - String generateAttributes(UmlComponent component)
-    - String generateMethods(UmlComponent component, boolean generateBody)
-    - void generateJavaObject(UmlComponent component, String refType, boolean generateBody)
-    - String convertVisibility(UmlEntity component)
+    + generateCode() : void
+    + visit(umlEnum : UmlEnum) : void
+    + visit(umlClass : UmlClass) : void
+    + visit(umlInterface : UmlInterface) : void
+    + getCode() : HashMap<String, String>
+    + setDiagram(diagram : UmlDiagram) : void
+    - generateAttributes(component : UmlComponent) : String
+    - generateMethods(component : UmlComponent, generateBody : boolean) : String
+    - generateJavaObject(component : UmlComponent, refType : String, generateBody : boolean) : void
+    - convertVisibility(component : UmlEntity) : String
     --
-    + JavaGenerator(UmlDiagram diagram)
+    + JavaGenerator(diagram : UmlDiagram)
     + JavaGenerator()
 }
 
