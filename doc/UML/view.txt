@@ -5,79 +5,79 @@ title UML7 - View
 abstract RelationDisplay {
     # {static} double HEIGHT_TRIANGLE
     # {static} double BASE_TRIANGLE
-    - UmlRelationship umlRelation
-    - Point start
-    - Point end
+    - umlRelation : UmlRelationship
+    - start : Point
+    - end : Point
     --
-    + void paintComponent(Graphics g)
-    + Point getStart()
-    + Point getEnd()
+    + paintComponent(g : Graphics) : void
+    + getStart() : Point
+    + getEnd() : Point
     --
-    + RelationDisplay(UmlRelationship umlRelation, Point startPoint, Point endPoint)
+    + RelationDisplay(umlRelation : UmlRelationship, startPoint : Point, endPoint : Point)
 }
 
 class AggregationRelationDisplay {
     --
-    + void paintComponent(Graphics g)
+    + paintComponent(g : Graphics) : void
     --
-    + AggregationRelationDisplay(UmlAggregationLink umlRelation, Point start, Point end)
+    + AggregationRelationDisplay(umlRelation : UmlAggregationLink ; start : Point ; end : Point)
 }
 
 class AssociationRelationDisplay {
-    - boolean unidirectional
+    - unidirectional : boolean
     --
-    + void paintComponent(Graphics g)
+    + paintComponent(g : Graphics) : void
     --
-    + AssociationRelationDisplay(UmlAssociationLink umlRelation, Point start, Point end)
-    + AssociationRelationDisplay(UmlAssociationLink umlRelation, Point start, Point end, boolean unidirectional)
+    + AssociationRelationDisplay(umlRelation : UmlAssociationLink ; start Point ; end : Point)
+    + AssociationRelationDisplay(umlRelation : UmlAssociationLink ; start : Point ; end : Point ; unidirectional : boolean)
 }
 
 class CompositionRelationDisplay {
     --
-    + void paintComponent(Graphics g)
+    + paintComponent(g : Graphics) : void
     --
-    + CompositionRelationDisplay(UmlCompositionLink umlRelation, Point start, Point end)
+    + CompositionRelationDisplay(umlRelation UmlCompositionLink ; start : Point ; end : Point)
 }
 
 class ExtendRelationDisplay {
     --
-    + void paintComponent(Graphics g)
+    + paintComponent(g : Graphics) : void
     --
-    + ExtendRelationDisplay(UmlExtendLink umlRelation, Point start, Point end)
+    + ExtendRelationDisplay(umlRelation UmlExtendLink ; start : Point ; end : Point)
 }
 
 class AttributeDisplay {
-    - UmlAttribute attribute
+    - attribute : UmlAttribute
     --
-    + UmlAttribute getAttribute()
-    + void updateLabel()
+    + getAttribute() : UmlAttribute
+    + updateLabel() : void
     --
-    + AttributeDisplay(UmlAttribute attribute)
+    + AttributeDisplay(attribute : UmlAttribute)
 }
 
 class MethodDisplay {
-    - UmlMethod method
+    - method : UmlMethod
     --
-    + UmlMethod getMethod()
-    + void updateLabel()
+    + getMethod() : UmlMethod
+    + updateLabel() : void
     --
-    + MethodDisplay(UmlMethod method)
+    + MethodDisplay(method : UmlMethod)
 }
 
 class UmlObjectDisplay {
-    - {static} HashMap<Class<? extends UmlRefType>,String> stereotypeMap
-    - {static} Border UML_OBJECT_BORDERS
-    - JLabel className
-    - List<AttributeDisplay> attributes
-    - JPanel attributeContainer
-    - List<MethodDisplay> methods
-    - JPanel functionContainer
+    - {static} STEREOTYPE_MAP : HashMap<Class<? extends UmlRefType>,String>
+    - {static} UML_OBJECT_BORDERS : Border
+    - className : JLabel
+    - attributes : List<AttributeDisplay>
+    - attributeContainer : JPanel
+    - methods : List<MethodDisplay>
+    - functionContainer : JPanel
     --
-    - void buildInnerSwingArchitecture(UmlRefType umlobject)
-    - void updateDisplay(UmlRefType uc)
-    + void update(Observable o, Object arg)
+    - buildInnerSwingArchitecture(umlobject : UmlRefType) : void
+    - updateDisplay(uc : UmlRefType) : void
+    + update(o : Observable ; arg : Object) : void
     --
-    + UmlObjectDisplay(UmlRefType umlobject)
+    + UmlObjectDisplay(umlobject : UmlRefType)
 }
 
 class DiagramDisplay
