@@ -3,20 +3,20 @@
 title UML7 - model
 
 enum Visibility {
-    - String symbol
-    - String name
+    - symbol : String
+    - name : String
     PRIVATE
     PROTECTED
     PUBLIC
     PACKAGE
     --
-    + String toString()
+    + toString() : String
     --
-    + Visibility(String symbol)
+    + Visibility(symbol : String)
 }
 
 enum Modifier {
-    -name : String
+    - name : String
     FINAL
     STATIC
     ABSTRACT
@@ -26,41 +26,41 @@ enum Modifier {
     --
     + toString() : String
     --
-    + Modifier(String name)
+    + Modifier(name : String)
 }
 
 class UmlDiagram {
-    - String titre
-    - List<UmlRefType> elements
-    - List<UmlRelationship> relations
+    - titre : String
+    - elements : List<UmlRefType>
+    - relations : List<UmlRelationship>
     --
     + getTitre()
-    + setTitre(String titre)
+    + setTitre(titre : String)
     --
-    + UmlDiagram(String title, List<UmlRefType> elements, List<UmlRelationship> relations)
+    + UmlDiagram(title : String ; elements : List<UmlRefType> ; relations : List<UmlRelationship>)
 }
 
 interface UmlType {
     --
-    + String getTypeName()
+    + getTypeName() : String
     --
 }
 
 class UmlParams {
-    - UmlType type
-    - String name
+    - type : UmlType
+    - name : String
     --
-    + UmlType getType()
-    + void setType()
-    + String getName()
-    + void setName()
+    + getType() : UmlType
+    + setType() : void
+    + getName() : String
+    + setName() : void
     --
-    + UmlParams(UmlType type, String name)
+    + UmlParams(type : UmlType ; name : String)
     
 }
 
 enum PrimitiveType {
-    -name : String
+    - name : String
     INT
     DOUBLE
     FLOAT
@@ -71,146 +71,133 @@ enum PrimitiveType {
     LONG
     BOOLEAN
     --
-    + String toString()
-    + String getTypeName()
+    + toString() : String
+    + getTypeName() : String
     --
-    + PrimitiveType(String name)
+    + PrimitiveType(name : String)
 }
 
 
 Abstract class UmlEntity {
-    - Visibility visibility
-    - Set<Modifier> modifiers
+    - visibility : Visibility
+    - modifiers : Set<Modifier>
     --
-    + void addModifier(Modifier modifier)
-    + void clearModifiers()
-    + void removeModifier(Modifier modifier)
-    + Visibility getVisibility()
-    + void setVisibility(Visibility visibility)
-    + Set<Modifier> getModifiers()
-    + void setModifiers(Set<Modifier> modifiers)
-    # void setChangedAndNotify()
+    + addModifier(modifier : Modifier) : void
+    + clearModifiers() : void
+    + removeModifier(modifier : Modifier) : void
+    + getVisibility() : Visibility
+    + setVisibility(visibility : Visibility) : void
+    + getModifiers() : Set<Modifier>
+    + setModifiers(modifiers : Set<Modifier>) : void
+    # setChangedAndNotify() : void
     --
     + UmlEntity()
-    + UmlEntity(Visibility visibility)
-    + UmlEntity(Set<Modifier> modifiers)
-    + UmlEntity(Visibility visibility, Set<Modifier> modifier)
+    + UmlEntity(visibility : Visibility)
+    + UmlEntity(modifiers : Set<Modifier>)
+    + UmlEntity(visibility : Visibility ; modifier : Set<Modifier>)
 }
 
 class UmlClass {
     --
-    void accept(DiagramElementVisitor visitor)
+    + accept(visitor : DiagramElementVisitor) : void
     --
-    + UmlClass(String name)
-    + UmlClass(String name, List<UmlMethod> methods)
-    + UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes)
-    + UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers)
+    + UmlClass(name : String)
+    + UmlClass(name : String ; methods : List<UmlMethod>)
+    + UmlClass(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+    + UmlClass(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility Visibility ; modifiers : Set<Modifier>)
 }
 
 class UmlMethod {
-    - Set<UmlParams> params
-    - UmlType returnType
-    - String name
+    - params : Set<UmlParams>
+    - returnType : UmlType
+    - name : String
     --
-    + void addParam(UmlParams param)
-    + void addParams(Set<UmlParams> params)
-    + void removeParam(UmlParams param)
-    + void removeParams(Set<UmlParams> params)
-    + UmlType getReturnType()
-    + String getName()
-    + Set<UmlParams> getParams()
-    + void setName(String name)
-    + void setReturnType(UmlType returnType)
+    + addParam(param : UmlParams) : void
+    + addParams(params : Set<UmlParams>) : void
+    + removeParam(param : UmlParams) : void
+    + removeParams(params : Set<UmlParams>) : void
+    + getReturnType() : UmlType
+    + getName() : String
+    + getParams() : Set<UmlParams>
+    + setName(name : String) : void
+    + setReturnType(returnType : UmlType) : void
     --
-    + UmlMethod(String name)
-    + UmlMethod(String name, Set<UmlParams> params, UmlType returnType, Visibility visibility, Set<Modifier> modifiers)
+    + UmlMethod(name : String)
+    + UmlMethod(name : String ; params : Set<UmlParams> ; returnType : UmlType ; visibility : Visibility ; modifiers : Set<Modifier>)
 }
 
 class UmlAttribute {
-    - String name
-    - UmlType type
+    - name : String
+    - type : UmlType
     --
-    + String getName()
-    + UmlType getType()
-    + void setName(String attrName)
-    + void setType(UmlType attrType)
+    + getName() : String
+    + getType() : UmlType
+    + setName(attrName : String) : void
+    + setType(attrType : UmlType) : void
     --
-    + UmlAttribute(String attrName, UmlType attrType)
-    + UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Set<Modifier> attrModifs)
+    + UmlAttribute(attrName : String ; attrType : UmlType)
+    + UmlAttribute(attrName : String ; attrType : UmlType ; attrVisi : Visibility ; attrModifs : Set<Modifier>)
 }
 
 
 class UmlEnum {
-    - List<String> valuesList
+    - valuesList : List<String>
     --
-    + List<String> getValuesList()
-    + void setValuesList(List<String> valuesList)
-    + void addValue(String value)
-    + void removeValue(String value)
-    + void accept(DiagramElementVisitor visitor)
+    + getValuesList() : List<String>
+    + setValuesList(valuesList : List<String>) : void
+    + addValue(value : String) : void
+    + removeValue(value : String) : void
+    + accept(visitor : DiagramElementVisitor) : void
     --
-    + UmlEnum(String name) 
-    + UmlEnum(String name, List<String> values)
-    + UmlEnum(String name, List<String> values, List<UmlMethod> methods)
-    + UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes)
+    + UmlEnum(name : String) 
+    + UmlEnum(name : String ; values : List<String>)
+    + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod>)
+    + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
 }
 
-class UmlInterface {
-    --
-    + void addAttribute(UmlAttribute attribute)
-    + void addMethod(UmlMethod method)
-    + void setAttributesList(List<UmlAttribute> attributesList)
-    + void setMethodsList(List<UmlMethod> methodsList)
-    - Boolean check(List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Modifier modifier, Set<Modifier> modifiers, UmlAttribute attribute, UmlMethod method)
-    + void accept(DiagramElementVisitor visitor)
-    --
-    + UmlInterface(String name)
-    + UmlInterface(String name, List<UmlMethod> methods)
-    + UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes)
-    + UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers)
-}
+class UmlInterface
 
 Abstract class UmlRefType {
-    - String name
-    - List<UmlMethod> methodsList
-    - List<UmlAttribute> attributesList
+    - name : String
+    - methodsList : List<UmlMethod>
+    - attributesList : List<UmlAttribute>
     --
-    + String getName()
-    + void setName(String name)
-    + List<UmlMethod> getMethodsList()
-    + void setMethodsList(List<UmlMethod> methodsList)
-    + List<UmlAttribute> getAttributesList()
-    + void setAttributesList(List<UmlAttribute> attributesList)
-    + void addMethod(UmlMethod method)
-    + void addAttribute(UmlAttribute attribute)
-    + void removeMethod(UmlMethod method)
-    + void removeAttribute(UmlAttribute attribute)
-    + String getTypeName()
-    + {abstract} void accept(DiagramElementVisitor visitor)
+    + getName() : String
+    + setName(name : String) : void
+    + getMethodsList() : List<UmlMethod>
+    + setMethodsList(methodsList : List<UmlMethod>) : void
+    + getAttributesList() : List<UmlAttribute>
+    + setAttributesList(attributesList : List<UmlAttribute>) : void
+    + addMethod(method : UmlMethod) : void
+    + addAttribute(attribute : UmlAttribute) : void
+    + removeMethod(method : UmlMethod) : void
+    + removeAttribute(attribute : UmlAttribute) : void
+    + getTypeName() : String
+    + {abstract} accept(visitor : DiagramElementVisitor) : void
     --
-    + UmlRefType(String name)
-    + UmlRefType(String name, List<UmlMethod> methods)
-    + UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes)
-    + UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers)
+    + UmlRefType(name : String)
+    + UmlRefType(name : String ; methods : List<UmlMethod>)
+    + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+    + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility : Visibility ; modifiers : Set<Modifier>)
 }
 
 Abstract class UmlRelationship {
-    - UmlClass classA
-    - UmlClass classB
-    - String roleA
-    - String roleB
-    - String relationName
+    - classA : UmlClass
+    - classB : UmlClass
+    - roleA : String
+    - roleB : String
+    - relationName : String
     --
-    + String getRoleA()
-    + void setRoleA(String roleA)
-    + String getRoleB()
-    + void setRoleB(String roleB)
-    + UmlClass getClassA()
-    + UmlClass getClassB()
-    + String getRelationName()
-    + void setRelationName(String relationName)
+    + getRoleA() : String
+    + setRoleA(roleA : String) : void
+    + getRoleB() : String
+    + setRoleB(roleB : String) : void
+    + getClassA() : UmlClass
+    + getClassB() : UmlClass
+    + getRelationName() : String
+    + setRelationName(relationName : String) : void
     --
-    # UmlRelationship(UmlClass elementA, UmlClass elementB)
+    # UmlRelationship(elementA : UmlClass ; elementB : UmlClass)
 }
 
 class UmlAggregationLink
