@@ -19,8 +19,7 @@ public enum Visibility {
 	 * symbol corresponding to a visibility
 	 */
 	private String symbol;
-	
-	
+
 	private String name;
 	
 	// Constructor

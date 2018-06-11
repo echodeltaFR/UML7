@@ -80,14 +80,6 @@ public class UmlEnum extends UmlRefType {
 	// Methods
 	
 	/**
-	 * Getter list of Enum values
-	 * @return List<String> List of Enum values
-	 */
-	public List<String> getValuesList() {
-		return valuesList;
-	}
-	
-	/**
 	 * Setter list of Enum values
 	 * @param valuesList
 	 */
@@ -102,7 +94,6 @@ public class UmlEnum extends UmlRefType {
 	public void addValue(String value) {
 		this.valuesList.add(value);
 	}
-	
 	
 	/**
 	 * Remove a value from the values list
