@@ -1,11 +1,13 @@
 package model;
+
+import java.util.Set;
+
 /**
- * Rerpesentation of attributes in
- * a UML classes diagram.
+ * Representation of attributes in a UML classes diagram.
  * @author echodeltaFR
- * @version 1.2
+ * @version 1.3
  */
-public class UmlAttribute extends UmlEntity{
+public class UmlAttribute extends UmlEntity {
 
     /** Name of the attribute. */
     private String name;
@@ -13,16 +15,34 @@ public class UmlAttribute extends UmlEntity{
     /** Type of the attribute. */
     private UmlType type;
 
+    // Constructors
+
     /**
-     * Constructor. Creates an attribute in a
-     * UML diagram.
+     * Constructor. Creates an attribute in a UML diagram.
      * @param attrName Name of the attribute to create
      * @param attrType Type of the attribute to create
      */
     public UmlAttribute(String attrName, UmlType attrType) {
+        super();
         this.name = attrName;
         this.type = attrType;
     }
+
+    /**
+     * Constructor. Creates an attribute in a UML diagram
+     * with visibility and modifiers.
+     * @param attrName Name of the attribute to create
+     * @param attrType Type of the attribute to create
+     * @param attrVisi Visibility of the attribute to create
+     * @param attrModifs Modifiers of the attribute to create
+     */
+    public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Set<Modifier> attrModifs) {
+        super(attrVisi, attrModifs);
+        this.name = attrName;
+        this.type = attrType;
+    }
+
+    // Getters & Setters
 
     /**
      * Gets attribute's name.

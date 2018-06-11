@@ -1,0 +1,229 @@
+@startuml
+
+title UML7 - model
+
+enum Visibility {
+    - symbol : String
+    - name : String
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    PACKAGE
+    --
+    + toString() : String
+    --
+    + Visibility(symbol : String)
+}
+
+enum Modifier {
+    - name : String
+    FINAL
+    STATIC
+    ABSTRACT
+    VOLATILE
+    TRANSIENT
+    SYNCHRONIZED
+    --
+    + toString() : String
+    --
+    + Modifier(name : String)
+}
+
+class UmlDiagram {
+    - titre : String
+    - elements : List<UmlRefType>
+    - relations : List<UmlRelationship>
+    --
+    + getTitre()
+    + setTitre(titre : String)
+    --
+    + UmlDiagram(title : String ; elements : List<UmlRefType> ; relations : List<UmlRelationship>)
+}
+
+interface UmlType {
+    --
+    + getTypeName() : String
+    --
+}
+
+class UmlParams {
+    - type : UmlType
+    - name : String
+    --
+    + getType() : UmlType
+    + setType() : void
+    + getName() : String
+    + setName() : void
+    --
+    + UmlParams(type : UmlType ; name : String)
+    
+}
+
+enum PrimitiveType {
+    - name : String
+    INT
+    DOUBLE
+    FLOAT
+    BYTE
+    CHAR
+    STRING
+    SHORT
+    LONG
+    BOOLEAN
+    --
+    + toString() : String
+    + getTypeName() : String
+    --
+    + PrimitiveType(name : String)
+}
+
+
+Abstract class UmlEntity {
+    - visibility : Visibility
+    - modifiers : Set<Modifier>
+    --
+    + addModifier(modifier : Modifier) : void
+    + clearModifiers() : void
+    + removeModifier(modifier : Modifier) : void
+    + getVisibility() : Visibility
+    + setVisibility(visibility : Visibility) : void
+    + getModifiers() : Set<Modifier>
+    + setModifiers(modifiers : Set<Modifier>) : void
+    # setChangedAndNotify() : void
+    --
+    + UmlEntity()
+    + UmlEntity(visibility : Visibility)
+    + UmlEntity(modifiers : Set<Modifier>)
+    + UmlEntity(visibility : Visibility ; modifier : Set<Modifier>)
+}
+
+class UmlClass {
+    --
+    + accept(visitor : DiagramElementVisitor) : void
+    --
+    + UmlClass(name : String)
+    + UmlClass(name : String ; methods : List<UmlMethod>)
+    + UmlClass(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+    + UmlClass(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility Visibility ; modifiers : Set<Modifier>)
+}
+
+class UmlMethod {
+    - params : Set<UmlParams>
+    - returnType : UmlType
+    - name : String
+    --
+    + addParam(param : UmlParams) : void
+    + addParams(params : Set<UmlParams>) : void
+    + removeParam(param : UmlParams) : void
+    + removeParams(params : Set<UmlParams>) : void
+    + getReturnType() : UmlType
+    + getName() : String
+    + getParams() : Set<UmlParams>
+    + setName(name : String) : void
+    + setReturnType(returnType : UmlType) : void
+    --
+    + UmlMethod(name : String)
+    + UmlMethod(name : String ; params : Set<UmlParams> ; returnType : UmlType ; visibility : Visibility ; modifiers : Set<Modifier>)
+}
+
+class UmlAttribute {
+    - name : String
+    - type : UmlType
+    --
+    + getName() : String
+    + getType() : UmlType
+    + setName(attrName : String) : void
+    + setType(attrType : UmlType) : void
+    --
+    + UmlAttribute(attrName : String ; attrType : UmlType)
+    + UmlAttribute(attrName : String ; attrType : UmlType ; attrVisi : Visibility ; attrModifs : Set<Modifier>)
+}
+
+
+class UmlEnum {
+    - valuesList : List<String>
+    --
+    + getValuesList() : List<String>
+    + setValuesList(valuesList : List<String>) : void
+    + addValue(value : String) : void
+    + removeValue(value : String) : void
+    + accept(visitor : DiagramElementVisitor) : void
+    --
+    + UmlEnum(name : String) 
+    + UmlEnum(name : String ; values : List<String>)
+    + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod>)
+    + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+}
+
+class UmlInterface
+
+Abstract class UmlRefType {
+    - name : String
+    - methodsList : List<UmlMethod>
+    - attributesList : List<UmlAttribute>
+    --
+    + getName() : String
+    + setName(name : String) : void
+    + getMethodsList() : List<UmlMethod>
+    + setMethodsList(methodsList : List<UmlMethod>) : void
+    + getAttributesList() : List<UmlAttribute>
+    + setAttributesList(attributesList : List<UmlAttribute>) : void
+    + addMethod(method : UmlMethod) : void
+    + addAttribute(attribute : UmlAttribute) : void
+    + removeMethod(method : UmlMethod) : void
+    + removeAttribute(attribute : UmlAttribute) : void
+    + getTypeName() : String
+    + {abstract} accept(visitor : DiagramElementVisitor) : void
+    --
+    + UmlRefType(name : String)
+    + UmlRefType(name : String ; methods : List<UmlMethod>)
+    + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+    + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility : Visibility ; modifiers : Set<Modifier>)
+}
+
+Abstract class UmlRelationship {
+    - classA : UmlClass
+    - classB : UmlClass
+    - roleA : String
+    - roleB : String
+    - relationName : String
+    --
+    + getRoleA() : String
+    + setRoleA(roleA : String) : void
+    + getRoleB() : String
+    + setRoleB(roleB : String) : void
+    + getClassA() : UmlClass
+    + getClassB() : UmlClass
+    + getRelationName() : String
+    + setRelationName(relationName : String) : void
+    --
+    # UmlRelationship(elementA : UmlClass ; elementB : UmlClass)
+}
+
+class UmlAggregationLink
+class UmlAssociationLink
+class UmlCompositionLink
+class UmlExtendLink
+class UmlInterface
+
+UmlEntity -right-> Visibility
+UmlEntity -left-> Modifier
+UmlDiagram *-- UmlEntity
+UmlDiagram *-- UmlRelationship
+UmlParams -down-* UmlMethod
+PrimitiveType .left.|> UmlType
+UmlClass -right-|> UmlRefType
+UmlMethod -up-|> UmlEntity
+UmlAttribute -up-|> UmlEntity
+UmlEnum -up-|> UmlRefType
+UmlInterface -up-|> UmlRefType
+UmlRefType -up-|> UmlEntity
+UmlAggregationLink -right-|> UmlRelationship
+UmlAssociationLink -right-|> UmlRelationship
+UmlCompositionLink -right-|> UmlRelationship
+UmlExtendLink -right-|> UmlRelationship
+UmlAttribute -up-* UmlType
+UmlMethod --* UmlType
+UmlParams --* UmlType
+
+@enduml

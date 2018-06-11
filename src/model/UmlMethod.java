@@ -1,20 +1,19 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Class which allow to create a method
- * @author fmeslet
- * @version 1.0
+ * @author fmeslet, echodeltaFR
+ * @version 1.3
  */
-public class UmlMethod extends UmlEntity{
+public class UmlMethod extends UmlEntity {
 
 	/**
 	 * Method parameters.
 	 */
-	private List<UmlParams> params;
+	private Set<UmlParams> params;
 	/**
 	 * Method return type.
 	 */
@@ -23,61 +22,87 @@ public class UmlMethod extends UmlEntity{
 	 * Method name.
 	 */
 	private String name;
-	
+
+	// Constructors
+
 	/**
-	 * Build a class method.
-	 * @param params method parameter
-	 * @param returnType method return type
+	 * Constructor. Creates a method with name.
 	 * @param name method name
-	 * @param visibility method visibility
-	 * @param modifier method modifiers
 	 */
-	public UmlMethod(List<UmlParams> params,  
-			UmlType returnType,
-			String name,
-			Visibility visibility,
-			Set<Modifier> modifier) {
-		super(visibility, modifier);
-		this.returnType = returnType;
-		if (params != null) {
-			this.params = new ArrayList<UmlParams>(params);
-		} else {
-			this.params = new ArrayList<UmlParams>();
-		}
+	public UmlMethod(String name) {
+		super();
 		this.name = name;
-	}
-	
-	/**
-	 * Add all the method parameters.
-	 * @param params the method parameters to add
-	 */
-	public void addAllParams(List<UmlParams> params) {
-		this.params.addAll(params);
-	}
-	
-	/**
-	 * Add a method parameter.
-	 * @param param the method parameters to add
-	 */
-	public void addParams(UmlParams param) {
-		this.params.add(param);
-	}
-	
-	/**
-	 * Add return type.
-	 * @param returnType return type
-	 */
-	public void setReturnType(UmlType returnType) {
-		this.returnType = returnType;
-	}
-	
-	/**
-	 * Delete return type.
-	 */
-	public void removeReturnType() {
+		this.params = new HashSet<>();
 		this.returnType = null;
 	}
-	
+
+	/** Constructor. Creates a method with several modifiers.
+	 * @param name method name
+	 * @param params method parameters
+	 * @param returnType method return type
+	 * @param visibility method visibility
+	 * @param modifiers method modifiers
+	 */
+	public UmlMethod(String name,
+			Set<UmlParams> params,
+			UmlType returnType,
+			Visibility visibility,
+			Set<Modifier> modifiers) {
+		super(visibility, modifiers);
+		this.name = name;
+		if (params == null) {
+			this.params = new HashSet<>();
+		}
+		else {
+			this.params = new HashSet<>(params);
+		}
+		this.returnType = returnType;
+	}
+
+	// Methods
+
+	/**
+	 * Add a method parameter.
+	 * @param param the method parameter to add
+	 */
+	public void addParam(UmlParams param) {
+		if (this.params.add(param)) {
+			this.setChangedAndNotify();
+		}
+	}
+
+	/**
+	 * Add method parameters.
+	 * @param params the method parameters to add
+	 */
+	public void addParams(Set<UmlParams> params) {
+		if (this.params.addAll(params)) {
+			this.setChangedAndNotify();
+		}
+	}
+
+	/**
+	 * Delete a method parameter.
+	 * @param param the method parameter to remove
+	 */
+	public void removeParam(UmlParams param) {
+		if(this.params.remove(param)) {
+			this.setChangedAndNotify();
+		}
+	}
+	/**
+	 * Delete method parameters.
+	 * @param params the method parameters to delete
+	 */
+	public void removeParams(Set<UmlParams> params) {
+		if (this.params.removeAll(params)) {
+			this.setChangedAndNotify();
+		}
+		
+	}
+
+	// Getters & Setters
+
 	/**
 	 * Get return type.
 	 * @return returnType return type
@@ -85,7 +110,7 @@ public class UmlMethod extends UmlEntity{
 	public UmlType getReturnType() {
 		return this.returnType;
 	}
-	
+
 	/**
 	 * Get method name.
 	 * @return the method name.
@@ -93,29 +118,31 @@ public class UmlMethod extends UmlEntity{
 	public String getName() {
 		return this.name;
 	}
-	
+
 	/**
-	 * Get the method parameter(s).
-	 * @return method parameter(s)
+	 * Get the method parameters.
+	 * @return The method parameters
 	 */
-	public List<UmlParams> getParams(){
+	public Set<UmlParams> getParams(){
 		return this.params;
 	}
-	
+
 	/**
-	 * Delete the method parameter.
-	 * @param params method parameter
+	 * Set the method name.
+	 * @param name The name of the method
 	 */
-	public void removeParams(UmlParams params) {
-		this.params.remove(params);
+	public void setName(String name) {
+		this.name = name;
+		this.setChangedAndNotify();
 	}
-	
+
 	/**
-	 * Delete the method parameters.
-	 * @param params the method parameters to delete
+	 * Set the method return type.
+	 * @param returnType The return type
 	 */
-	public void removeAllParams(List<String> params) {
-		this.params.removeAll(params);
+	public void setReturnType(UmlType returnType) {
+		this.returnType = returnType;
+		this.setChangedAndNotify();
 	}
-	
+
 }

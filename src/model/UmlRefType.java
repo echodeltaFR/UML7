@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import generator.DiagramElementVisitor;
 
 /**
  * Abstract class, an UML component, parent of types classes ( UmlClass, UmlEnum, UmlInterface, ...), extends UmlEntity
@@ -12,7 +15,7 @@ import java.util.List;
  * @author bastien
  *
  */
-abstract class UmlComponent extends UmlEntity implements UmlType{
+public abstract class UmlRefType extends UmlEntity implements UmlType{
 
 	// Attributes
 	
@@ -37,7 +40,7 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * Constructor with a name
 	 * @param name name of the component
 	 */
-	public UmlComponent(String name) {
+	public UmlRefType(String name) {
 		super();
 		this.name = name;
 		methodsList = new ArrayList<>();
@@ -49,10 +52,10 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param name name of the component
 	 * @param methods methods of the component
 	 */
-	public UmlComponent(String name, List<UmlMethod> methods) {
+	public UmlRefType(String name, List<UmlMethod> methods) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<>(methods);
+		methodsList = methods;
 		attributesList = new ArrayList<>();
 	}
 	
@@ -62,16 +65,28 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param methods methods of the component
 	 * @param attributes attributes of the component
 	 */
-	public UmlComponent(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super();
 		this.name = name;
-		methodsList = new ArrayList<>(methods);
-		attributesList = new ArrayList<>(attributes);
+		methodsList = methods;
+		attributesList = attributes;
 	}
 	
 	/**
-	 * TODO add needed constructors with visibility and modifiers
+	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers
+	 * @param name name of the component
+	 * @param methods methods of the component
+	 * @param attributes attributes of the component
+	 * @param visibility visibility of the component
+	 * @param modifiers modifiers of the component
 	 */
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+		super(visibility, modifiers);
+		this.name = name;
+		methodsList = methods;
+		attributesList = attributes;
+	}
+	
 	
 	// Methods
 	
@@ -88,7 +103,9 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param name of the component
 	 */
 	public void setName(String name) {
+		if (name == null) throw new IllegalArgumentException("name can't be null");
 		this.name = name;
+		this.setChangedAndNotify();
 	}
 	
 	/**
@@ -105,6 +122,7 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 */
 	public void setMethodsList(List<UmlMethod> methodsList) {
 		this.methodsList = methodsList;
+		this.setChangedAndNotify();
 	}
 
 	/**
@@ -121,6 +139,7 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 */
 	public void setAttributesList(List<UmlAttribute> attributesList) {
 		this.attributesList = attributesList;
+		this.setChangedAndNotify();
 	}
 
 	
@@ -129,7 +148,9 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param method of a component
 	 */
 	public void addMethod(UmlMethod method) {
-		this.methodsList.add(method);
+		if(this.methodsList.add(method)) {
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
@@ -137,7 +158,9 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param attribute of a component
 	 */
 	public void addAttribute(UmlAttribute attribute) {
-		this.attributesList.add(attribute);
+		if (this.attributesList.add(attribute)) {
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
@@ -145,7 +168,9 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param method method of a component
 	 */
 	public void removeMethod(UmlMethod method) {
-		this.methodsList.remove(method);
+		if (this.methodsList.remove(method)) {
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
@@ -153,7 +178,21 @@ abstract class UmlComponent extends UmlEntity implements UmlType{
 	 * @param attribute of a component
 	 */
 	public void removeAttribute(UmlAttribute attribute) {
-		this.attributesList.remove(attribute);
+		if (this.attributesList.remove(attribute)) {
+			this.setChangedAndNotify();
+		}
 	}
+	
+	@Override
+	public String getTypeName() {
+		return this.name;
+	}
+	
+	/**
+	 * Visit accept by the element. 
+	 * @param visitor the visitor of the element
+	 */
+	public abstract void accept(DiagramElementVisitor visitor);
+	
 }
 

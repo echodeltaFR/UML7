@@ -5,16 +5,17 @@ package model;
  * @author fmeslet
  * @version 1.0
  */
-public enum PrimitiveType implements UmlType{
+public enum PrimitiveType implements UmlType {
 	INT("int"),
 	DOUBLE("double"),
 	FLOAT("float"),
 	CHAR("char"),
-	STRING("string"),
+	STRING("String"),
 	BOOLEAN("boolean"),
 	BYTE("byte"),
 	SHORT("short"),
-	LONG("long");
+	LONG("long"),
+	VOID("void");
 	
 	/**
 	 * Primitive type name.
@@ -35,6 +36,11 @@ public enum PrimitiveType implements UmlType{
 	 * @return the primitive type name
 	 */
 	public String toString() {
+		return this.name;
+	}
+
+	@Override
+	public String getTypeName() {
 		return this.name;
 	}
 }

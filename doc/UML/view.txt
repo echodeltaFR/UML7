@@ -1,0 +1,94 @@
+@startuml
+
+title UML7 - View
+
+abstract RelationDisplay {
+    # {static} double HEIGHT_TRIANGLE
+    # {static} double BASE_TRIANGLE
+    - umlRelation : UmlRelationship
+    - start : Point
+    - end : Point
+    --
+    + paintComponent(g : Graphics) : void
+    + getStart() : Point
+    + getEnd() : Point
+    --
+    + RelationDisplay(umlRelation : UmlRelationship, startPoint : Point, endPoint : Point)
+}
+
+class AggregationRelationDisplay {
+    --
+    + paintComponent(g : Graphics) : void
+    --
+    + AggregationRelationDisplay(umlRelation : UmlAggregationLink ; start : Point ; end : Point)
+}
+
+class AssociationRelationDisplay {
+    - unidirectional : boolean
+    --
+    + paintComponent(g : Graphics) : void
+    --
+    + AssociationRelationDisplay(umlRelation : UmlAssociationLink ; start Point ; end : Point)
+    + AssociationRelationDisplay(umlRelation : UmlAssociationLink ; start : Point ; end : Point ; unidirectional : boolean)
+}
+
+class CompositionRelationDisplay {
+    --
+    + paintComponent(g : Graphics) : void
+    --
+    + CompositionRelationDisplay(umlRelation UmlCompositionLink ; start : Point ; end : Point)
+}
+
+class ExtendRelationDisplay {
+    --
+    + paintComponent(g : Graphics) : void
+    --
+    + ExtendRelationDisplay(umlRelation UmlExtendLink ; start : Point ; end : Point)
+}
+
+class AttributeDisplay {
+    - attribute : UmlAttribute
+    --
+    + getAttribute() : UmlAttribute
+    + updateLabel() : void
+    --
+    + AttributeDisplay(attribute : UmlAttribute)
+}
+
+class MethodDisplay {
+    - method : UmlMethod
+    --
+    + getMethod() : UmlMethod
+    + updateLabel() : void
+    --
+    + MethodDisplay(method : UmlMethod)
+}
+
+class UmlObjectDisplay {
+    - {static} STEREOTYPE_MAP : HashMap<Class<? extends UmlRefType>,String>
+    - {static} UML_OBJECT_BORDERS : Border
+    - className : JLabel
+    - attributes : List<AttributeDisplay>
+    - attributeContainer : JPanel
+    - methods : List<MethodDisplay>
+    - functionContainer : JPanel
+    --
+    - buildInnerSwingArchitecture(umlobject : UmlRefType) : void
+    - updateDisplay(uc : UmlRefType) : void
+    + update(o : Observable ; arg : Object) : void
+    --
+    + UmlObjectDisplay(umlobject : UmlRefType)
+}
+
+class DiagramDisplay
+
+RelationDisplay <|-- CompositionRelationDisplay
+RelationDisplay <|-left- AssociationRelationDisplay
+RelationDisplay <|-down- AggregationRelationDisplay
+RelationDisplay <|-up- ExtendRelationDisplay
+DiagramDisplay *-- RelationDisplay
+DiagramDisplay *-- UmlObjectDisplay
+UmlObjectDisplay *-- MethodDisplay
+UmlObjectDisplay *-- AttributeDisplay
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+
+title UML7 - generator
+
+interface Generator.DiagramElementVisitor {
+    + TAB : String {static, final}
+    --
+	+ visit(umlClass : UmlClass) : void
+	+ visit(umlEnum : UmlEnum) : void
+	+ visit(umlInterface : UmlInterface) : void
+}
+
+class Generator.JavaGenerator {
+    --
+    + generateCode() : void
+    + visit(umlEnum : UmlEnum) : void
+    + visit(umlClass : UmlClass) : void
+    + visit(umlInterface : UmlInterface) : void
+    + getCode() : HashMap<String, String>
+    + setDiagram(diagram : UmlDiagram) : void
+    - generateAttributes(component : UmlComponent) : String
+    - generateMethods(component : UmlComponent, generateBody : boolean) : String
+    - generateJavaObject(component : UmlComponent, refType : String, generateBody : boolean) : void
+    - convertVisibility(component : UmlEntity) : String
+    --
+    + JavaGenerator(diagram : UmlDiagram)
+    + JavaGenerator()
+}
+
+namespace Generator #FFFFFF { 
+    
+}
+
+Generator.DiagramElementVisitor <|-- Generator.JavaGenerator
+
+@enduml

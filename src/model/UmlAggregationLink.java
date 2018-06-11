@@ -5,7 +5,7 @@ package model;
  * @author Charly Courilleau
  *
  */
-public class UmlAggregationLink extends UmlRelationShip {
+public class UmlAggregationLink extends UmlRelationship {
 
 	
 	public UmlAggregationLink(UmlClass theClassA, UmlClass theClassB) {

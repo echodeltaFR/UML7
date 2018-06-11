@@ -2,14 +2,26 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Polygon;
 
 import model.UmlCompositionLink;
 
+/**
+ * Class that represents composition relationship
+ * @author Charly Courilleau
+ *
+ */
 public class CompositionRelationDisplay extends RelationDisplay {
 
-		public CompositionRelationDisplay(UmlCompositionLink umlRelation) {
-			super(umlRelation);
+		/**
+		 * Constructor
+		 * @param umlRelation the composition relationship
+		 * @param start the start point
+		 * @param end the end point
+		 */
+		public CompositionRelationDisplay(UmlCompositionLink umlRelation, Point start, Point end) {
+			super(umlRelation, start, end);
 		}
 		
 	    @Override
@@ -17,17 +29,17 @@ public class CompositionRelationDisplay extends RelationDisplay {
 			super.paintComponent(g);
 
 			// Extremité gauche (losange)
-	        int xPoly[] = {this.getElemA().getX(),
-	        				(int) (this.getElemA().getX() + HEIGHT_TRIANGLE),
-	        				(int)(this.getElemA().getX() + (2*HEIGHT_TRIANGLE)), 
-	        				(int) (this.getElemA().getX() + HEIGHT_TRIANGLE),
-	        				this.getElemA().getX()
+	        int[] xPoly = {(int)this.getStart().getX(),
+	        				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
+	        				(int)(this.getStart().getX() + (2*HEIGHT_TRIANGLE)), 
+	        				(int) (this.getStart().getX() + HEIGHT_TRIANGLE),
+	        				(int)this.getStart().getX()
 	        };
-	        int yPoly[] = {this.getElemA().getY(),
-	        				(int) (this.getElemA().getY() + (BASE_TRIANGLE/2)),		
-	        				this.getElemA().getY(), 
-	        				(int) (this.getElemA().getY() - (BASE_TRIANGLE/2)), 
-	        				this.getElemA().getY()
+	        int[] yPoly = {(int)this.getStart().getY(),
+	        				(int) (this.getStart().getY() + (BASE_TRIANGLE/2)),		
+	        				(int)this.getStart().getY(), 
+	        				(int) (this.getStart().getY() - (BASE_TRIANGLE/2)), 
+	        				(int)this.getStart().getY()
 	        };
 	        
 		    Polygon losange = new Polygon(xPoly, yPoly, xPoly.length);
@@ -36,11 +48,11 @@ public class CompositionRelationDisplay extends RelationDisplay {
 		    g.fillPolygon(losange);
 
 			// Draw the line
-		    g.drawLine(this.getElemA().getX(), this.getElemA().getY(), this.getElemB().getX(), this.getElemB().getY());
+		    g.drawLine((int)this.getStart().getX(), (int)this.getStart().getY(), (int)this.getEnd().getX(), (int)this.getEnd().getY());
 
 		    // Draw the arrow
-		    g.drawLine(this.getElemB().getX(), this.getElemB().getY(), this.getElemB().getX()-10, this.getElemB().getY()+5);
-		    g.drawLine(this.getElemB().getX(), this.getElemB().getY(), this.getElemB().getX()-10, this.getElemB().getY()-5);
+		    g.drawLine((int)this.getEnd().getX(), (int)this.getEnd().getY(), (int)this.getEnd().getX()-10, (int)this.getEnd().getY()+5);
+		    g.drawLine((int)this.getEnd().getX(), (int)this.getEnd().getY(), (int)this.getEnd().getX()-10, (int)this.getEnd().getY()-5);
 
 	    }
 

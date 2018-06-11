@@ -1,15 +1,18 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Observable;
 import java.util.Set;
 
 /**
- * Abstract class, an UML entity, parent of UmlComponent
- * @see UmlComponent
- * @author christian, fabien, bastien
+ * Abstract class, an UML entity with a visibility and modifiers.
+ * @see UmlRefType
+ * @author christian, fabien, bastien, echodeltaFR
+ * @version 1.2
  *
  */
-public abstract class UmlEntity{
+public abstract class UmlEntity extends Observable {
+
 	
 	// Attributes
 	
@@ -23,28 +26,43 @@ public abstract class UmlEntity{
 	 */
 	private Set<Modifier> modifiers;
 	
-	// Constructor
+
+	// Constructors
+
 	
 	/**
-	 * Constructor of an element with visibility and modifier(s).
+	 * Constructor of an element with visibility and modifiers.
 	 * @param visibility the visibility
-	 * @param modifier the method modifier(s)
+	 * @param modifiers the modifiers
 	 */
-	public UmlEntity(Visibility visibility, Set<Modifier> modifier) {
-		this.visibility = visibility;
-		if (modifier == null) {
-			this.modifiers = new HashSet<Modifier>();
+	public UmlEntity(Visibility visibility, Set<Modifier> modifiers) {
+		if (visibility == null) {
+			this.visibility = Visibility.PUBLIC;
 		} else {
-			this.modifiers = new HashSet<Modifier>(modifier);
+			this.visibility = visibility;
+		}
+		if (modifiers == null) {
+			this.modifiers = new HashSet<>();
+		} else {
+			this.modifiers = new HashSet<>(modifiers);
 		}
 	}
+
+	/**
+	 * Constructor of an element with modifiers.
+	 * @param modifiers the modifiers
+	 */
+	public UmlEntity(Set<Modifier> modifiers) {
+		this(null, new HashSet<>(modifiers));
+	}
+
 	
 	/**
 	 * Constructor of an element with visibility.
 	 * @param visibility the visibility
 	 */
 	public UmlEntity(Visibility visibility) {
-		this(visibility,null);
+		this(visibility, null);
 	}
 	
 	/**
@@ -62,14 +80,20 @@ public abstract class UmlEntity{
 	 * @param modifier a modifier of the entity
 	 */
 	public void addModifier(Modifier modifier) {
-		this.modifiers.add(modifier);
+
+		if (this.modifiers.add(modifier)) {
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
-	 * Clear the modifiers set.
+	 * Empty the modifiers set.
 	 */
 	public void clearModifiers() {
-		this.modifiers.clear();
+		if (! this.modifiers.isEmpty()) {
+			this.modifiers.clear();
+			this.setChangedAndNotify();
+		}
 	}
 	
 	/**
@@ -77,7 +101,10 @@ public abstract class UmlEntity{
 	 * @param modifier the modifier to remove
 	 */
 	public void removeModifier(Modifier modifier) {
-		this.modifiers.remove(modifier);
+		if (this.modifiers.remove(modifier)) {
+			this.setChangedAndNotify();
+		}
+
 	}
 	
 	/**
@@ -94,13 +121,14 @@ public abstract class UmlEntity{
 	 */
 	public void setVisibility(Visibility visibility) {
 		this.visibility = visibility;
+		this.setChangedAndNotify();
 	}
 	
 	/**
 	 * Getter set of modifiers.
 	 * @return Set<Modifier> the set of modifiers
 	 */
-	public Set<Modifier> getModifier() {
+	public Set<Modifier> getModifiers() {
 		return this.modifiers;
 	}
 	
@@ -110,6 +138,14 @@ public abstract class UmlEntity{
 	 */
 	public void setModifiers(Set<Modifier> modifiers) {
 		this.modifiers = new HashSet<>(modifiers);
+		this.setChangedAndNotify();
+	}
+
+	/**
+	 * Sugar coating for calling setChanged() then notify()
+	 */
+	protected void setChangedAndNotify() {
+		this.setChanged();
+		this.notifyObservers();
 	}
 }
-

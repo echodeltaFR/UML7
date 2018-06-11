@@ -2,16 +2,18 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import generator.DiagramElementVisitor;
 /**
  * Class representing Enum type in UML, extends UmlComponent
- * @see UmlComponent
+ * @see UmlRefType
  * @author bastien
  *
  */
-public class UmlEnum extends UmlComponent {
+public class UmlEnum extends UmlRefType {
 	
 	// Attributes
-	
 	
 	/**
 	 * List of Enum values
@@ -19,14 +21,14 @@ public class UmlEnum extends UmlComponent {
 	private List<String> valuesList;
 	
 	// Constructors
-	
+
 	/**
 	 * Constructor with a name
 	 * @param name name of the Enum
 	 */
 	public UmlEnum(String name) {
 		super(name);
-		valuesList = new ArrayList<>();
+		valuesList = new ArrayList<String>();
 	}
 	
 	/**
@@ -36,7 +38,7 @@ public class UmlEnum extends UmlComponent {
 	 */
 	public UmlEnum(String name, List<String> values) {
 		super(name);
-		valuesList = new ArrayList<>(values);
+		valuesList = new ArrayList<String>(values);
 	}
 	
 	/**
@@ -63,10 +65,35 @@ public class UmlEnum extends UmlComponent {
 	}
 	
 	/**
-	 *  TODO add needed constructors with visibility and modifiers
+	 * Constructor with a name, a list of values, a list of methods, a list of attributes, a visibility and a set of modifiers
+	 * @param name name of the Enum
+	 * @param values values of the Enum
+	 * @param methods methods of the Enum
+	 * @param attributes attributes of the ENum
+	 * @param visibility visibility of the component
+	 * @param modifiers a set of modifiers
 	 */
-	
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+		super(name, methods, attributes, visibility, modifiers);
+		valuesList = new ArrayList<>(values);
+	}
 	// Methods
+	
+	/**
+	 * Getter list of Enum values
+	 * @return List<String> List of Enum values
+	 */
+	public List<String> getValuesList() {
+		return valuesList;
+	}
+	
+	/**
+	 * Setter list of Enum values
+	 * @param valuesList
+	 */
+	public void setValuesList(List<String> valuesList) {
+		this.valuesList = valuesList;
+	}
 
 	/**
 	 * Add a value to the values list
@@ -84,4 +111,19 @@ public class UmlEnum extends UmlComponent {
 	public void removeValue(String value) {
 		this.valuesList.remove(value);
 	}
+	
+	/**
+	 * Getter list of attributes
+	 * @return List<String> list of attributes
+	 */
+	public List<String> getValuesList() {
+		return this.valuesList;
+	}
+	
+	
+	@Override
+	public void accept(DiagramElementVisitor visitor) {
+		visitor.visit(this);
+	}
+
 }

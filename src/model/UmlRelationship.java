@@ -4,7 +4,7 @@ package model;
  * Uml Relationship
  * @author Charly Courilleau
  */
-public abstract class UmlRelationShip {
+public abstract class UmlRelationship {
 	
 	/** Class A **/
 	private UmlClass classA;
@@ -22,9 +22,13 @@ public abstract class UmlRelationShip {
 	private String relationName;
 
 
-	protected UmlRelationShip(UmlClass elementA, UmlClass elementB) {
+	protected UmlRelationship(UmlClass elementA, UmlClass elementB) {
+		assert elementA != null && elementB != null;
 		this.classA = elementA;
 		this.classB = elementB;
+		this.roleA = "";
+		this.roleB = "";
+		this.relationName = "";
 	}
 	
 	public String getRoleA() {
@@ -56,7 +60,10 @@ public abstract class UmlRelationShip {
 	}
 
 	public void setRelationName(String relationName) {
-		this.relationName = relationName;
+		  if (relationName == null) {
+			    throw new IllegalArgumentException("Invalid relation name (null is not allowed)");
+		  }
+		  this.relationName = relationName;
 	}
 
 }
