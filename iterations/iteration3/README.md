@@ -11,7 +11,7 @@
 * Tests unitaires JUnit (partie non graphique)
 * Validation manuelle par deux autres personnes (partie graphique)
 * Tests d'intégration
-* GIT propre : cf (référentiel Git)[../../doc/REF_utilisation-git.pdf]
+* GIT propre : cf [référentiel Git](../../doc/REF_utilisation-git.pdf)
 * Rapports d'itération complets
 * Diagramme de classe complété au fur-et-à-mesure
 * Validation Sonarqube
