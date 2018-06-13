@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import exception.ExceptionAttribute;
+import exception.ExceptionInitialization;
+import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 /**
  * Class representing Enum type in UML, extends UmlComponent
@@ -115,6 +118,48 @@ public class UmlEnum extends UmlRefType {
 	@Override
 	public void accept(DiagramElementVisitor visitor) {
 		visitor.visit(this);
+	}
+
+	@Override
+	protected void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkMethods(List<UmlMethod> methods) throws ExceptionMethode {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

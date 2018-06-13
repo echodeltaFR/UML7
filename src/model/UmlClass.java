@@ -3,6 +3,9 @@ package model;
 import java.util.List;
 import java.util.Set;
 
+import exception.ExceptionAttribute;
+import exception.ExceptionInitialization;
+import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
 
@@ -33,28 +36,6 @@ public class UmlClass extends UmlRefType{
 	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		super(name, methods, attributes);
 	}
-	@Override
-	public void addAttribute(UmlAttribute attribute) {
-		//throw exception
-		//if(check(null, null, null, null, null, attribute, null))
-			super.addAttribute(attribute);
-	}
-	@Override
-	public void addMethod(UmlMethod method) {
-		//if(check(null, null, null, null, null, null, method))
-			super.addMethod(method);
-	}
-	@Override
-	public void setAttributesList(List<UmlAttribute> attributesList) {
-		//if(check(null, attributesList, null, null, null, null, null))
-			super.setAttributesList(attributesList);
-	}
-	@Override
-	public void setMethodsList(List<UmlMethod> methodsList) {
-		//if(check(methodsList, null, null, null, null, null, null))
-			super.setMethodsList(methodsList);
-	}
-	
 	/**
 	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers
 	 * @param name the name of the component
@@ -102,6 +83,48 @@ public class UmlClass extends UmlRefType{
 	@Override
 	public void accept(DiagramElementVisitor visitor) {
 		visitor.visit(this);
+	}
+
+	@Override
+	protected void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkMethods(List<UmlMethod> methods) throws ExceptionMethode {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

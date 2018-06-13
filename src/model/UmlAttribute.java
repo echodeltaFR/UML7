@@ -2,6 +2,8 @@ package model;
 
 import java.util.Set;
 
+import exception.ExceptionInitialization;
+
 /**
  * Representation of attributes in a UML classes diagram.
  * @author echodeltaFR
@@ -75,5 +77,23 @@ public class UmlAttribute extends UmlEntity {
     public void setType(UmlType attrType) {
         this.type = attrType;
     }
+
+	@Override
+	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

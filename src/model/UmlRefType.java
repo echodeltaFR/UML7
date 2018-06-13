@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import exception.ExceptionAttribute;
+import exception.ExceptionComposition;
+import exception.ExceptionInitialization;
+import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
 /**
@@ -79,6 +83,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	 * @param attributes attributes of the component
 	 * @param visibility visibility of the component
 	 * @param modifiers modifiers of the component
+	 * @throws ExceptionComposition 
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
 		super(visibility, modifiers);
@@ -119,8 +124,11 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	/**
 	 * Setter list of methods
 	 * @param methodsList list of methods
+	 * @throws ExceptionMethode 
+	 * @throws ExceptionComposition 
 	 */
-	public void setMethodsList(List<UmlMethod> methodsList) {
+	public final void setMethodsList(List<UmlMethod> methodsList) throws ExceptionMethode  {
+		this.checkMethods(methodsList);
 		this.methodsList = methodsList;
 		this.setChangedAndNotify();
 	}
@@ -136,8 +144,11 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	/**
 	 * Setter list of attributes
 	 * @param attributesList list of attributes
+	 * @throws ExceptionAttribute 
+	 * @throws ExceptionComposition 
 	 */
-	public void setAttributesList(List<UmlAttribute> attributesList) {
+	public final void setAttributesList(List<UmlAttribute> attributesList) throws ExceptionAttribute {
+		checkAttributes(attributesList);
 		this.attributesList = attributesList;
 		this.setChangedAndNotify();
 	}
@@ -146,8 +157,10 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	/**
 	 * Add a method to the methods list
 	 * @param method of a component
+	 * @throws ExceptionMethode 
 	 */
-	public void addMethod(UmlMethod method) {
+	public final void addMethod(UmlMethod method) throws ExceptionMethode {
+		checkMethod(method);
 		if(this.methodsList.add(method)) {
 			this.setChangedAndNotify();
 		}
@@ -156,13 +169,18 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	/**
 	 * Add an attribute to the attributes list 
 	 * @param attribute of a component
+	 * @throws ExceptionAttribute 
+	 * @throws ExceptionComposition 
 	 */
-	public void addAttribute(UmlAttribute attribute) {
+	public final void addAttribute(UmlAttribute attribute) throws ExceptionAttribute {
+		this.checkAttribute(attribute);
 		if (this.attributesList.add(attribute)) {
 			this.setChangedAndNotify();
 		}
 	}
 	
+	
+
 	/**
 	 * Remove a method from the methods list
 	 * @param method method of a component
@@ -187,7 +205,15 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	public String getTypeName() {
 		return this.name;
 	}
-	
+	/**
+	 * 
+	 * @param attributes
+	 * @throws ExceptionComposition
+	 */
+	protected abstract void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute;
+	protected abstract void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute;
+	protected abstract void checkMethod(UmlMethod method) throws ExceptionMethode;
+	protected abstract void checkMethods(List<UmlMethod> methods) throws ExceptionMethode;
 	/**
 	 * Visit accept by the element. 
 	 * @param visitor the visitor of the element

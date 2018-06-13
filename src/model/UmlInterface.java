@@ -32,15 +32,12 @@ public class UmlInterface extends UmlRefType {
 	 * Constructor of an interface with a name and a list of methods
 	 * @param name name name of the interface
 	 * @param methods methods of the interface
+	 * @throws ExceptionMethode 
 	 */
-	public UmlInterface(String name, List<UmlMethod> methods) 	{
+	public UmlInterface(String name, List<UmlMethod> methods) throws ExceptionMethode 	{
 		super(name, methods);
-//		try {
-//			this.checkMethods(methods);
-//		} catch(ExceptionInitialization e) {
-//			
-//		}
-
+		this.checkMethods(methods);
+		
 	}
 	
 	/**
@@ -48,15 +45,13 @@ public class UmlInterface extends UmlRefType {
 	 * @param name name of the interface
 	 * @param methods methods of the interface
 	 * @param attributes attributes of the interface
+	 * @throws ExceptionAttribute 
+	 * @throws ExceptionMethode 
 	 */
-	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
+	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionAttribute, ExceptionMethode {
 		super(name, methods, attributes);
-//		try {
-//			this.checkMethods(methods);
-//			this.checkAttributes(attributes);
-//		} catch(ExceptionInitialization e) {
-//			
-//		}
+		this.checkMethods(methods);
+		this.checkAttributes(attributes);
 	}
 	
 	
@@ -67,41 +62,21 @@ public class UmlInterface extends UmlRefType {
 	 * @param attributes attributes of the interface
 	 * @param visibility visibility of the interface
 	 * @param modifiers a set of modifiers of the interface
+	 * @throws ExceptionInitialization 
+	 * @throws ExceptionMethode 
+	 * @throws ExceptionAttribute 
 	 */
-	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionComposition {
 		super(name, methods, attributes, visibility, modifiers);
-//		this.checkMethods(methods);
-//		this.checkAttributes(attributes);
-//		this.checkVisibility(visibility);
-//		this.checkModifier(modifiers);
+		this.checkMethods(methods);
+		this.checkAttributes(attributes);
+		this.checkVisibility(visibility);
+		this.checkModifier(modifiers);
 		
 	}
 	
-	@Override
-	public void addAttribute(UmlAttribute attribute) {
-		//throw exception
-		/**try {
-			this.checkAttribute(attribute);
-		} catch(ExceptionInitialization e) {
-			
-		}
-		super.addAttribute(attribute);**/
-	}
-	public void addMethod(UmlMethod method) {
-		/**this.checkMethod(method);
-		super.addMethod(method);**/
-	}
-	public void setAttributesList(List<UmlAttribute> attributesList) {
-		//this.checkAttributes(attributesList);
-		super.setAttributesList(attributesList);
-	}
-	public void setMethodsList(List<UmlMethod> methodsList) {	
-		//this.checkMethods(methodsList);
-		super.setMethodsList(methodsList);
-	}
-	
 	//check attribute
-	private void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute {
+	protected void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute {
 		if(attribute.getVisibility() != null && attribute.getVisibility() != Visibility.PUBLIC) {
 			throw new ExceptionAttribute("The visibility of the attribute should be public or default");
 		}
@@ -117,7 +92,7 @@ public class UmlInterface extends UmlRefType {
 		}
 	}
 	//check method
-	private void checkMethod(UmlMethod method) throws ExceptionMethode {
+	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
 		if(method.getModifiers() == null ||
 				(method.getModifiers().size()==1 &&
 						method.getModifiers().contains(Modifier.ABSTRACT))) {
@@ -131,24 +106,25 @@ public class UmlInterface extends UmlRefType {
 		}
 	}
 	//check visibility of the interface 
-	private void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
 		if(!(visibility == null || visibility != Visibility.PUBLIC)) {
 			throw new ExceptionInitialization("The visibility of the interface should be public or default");
 		}
 	}
 	//check modifier of the interface
-	private void checkModifier(Modifier modifier) throws ExceptionInitialization {
+	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
 		if(!(modifier == null || modifier != Modifier.ABSTRACT)) {
 			throw new ExceptionInitialization("The modifier of the interface should be abstract or default");
 		}
 	}
 	//check modifiers of the interface
-	private void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
 		if(!(modifiers == null || (modifiers.size()==1 && modifiers.contains(Modifier.ABSTRACT)))) {
 			throw new ExceptionInitialization("The modifier of the interface should be abstract or default");
 		}
 	}
-	private void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute{
+	@Override
+	protected void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute {
 		if(attributes != null ) {
 			for(int i=0;i < attributes.size(); i++) {
 				//check modifiers of attributes
@@ -171,7 +147,7 @@ public class UmlInterface extends UmlRefType {
 			}
 		}
 	}
-	private void checkMethods(List<UmlMethod> methods) throws ExceptionMethode{
+	protected void checkMethods(List<UmlMethod> methods) throws ExceptionMethode {
 		if(methods != null) {
 			for(int i=0;i < methods.size(); i++) {
 				//check modifiers of methods
@@ -195,4 +171,5 @@ public class UmlInterface extends UmlRefType {
 	public void accept(DiagramElementVisitor visitor) {
 		visitor.visit(this);
 	}
+
 }

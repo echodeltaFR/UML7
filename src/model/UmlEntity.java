@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
 
+import exception.ExceptionComposition;
+import exception.ExceptionInitialization;
+
 /**
  * Abstract class, an UML entity with a visibility and modifiers.
  * @see UmlRefType
@@ -78,9 +81,10 @@ public abstract class UmlEntity extends Observable {
 	/**
 	 * Add a modifier to the modifiers set.
 	 * @param modifier a modifier of the entity
+	 * @throws ExceptionInitialization 
 	 */
-	public void addModifier(Modifier modifier) {
-
+	public void addModifier(Modifier modifier) throws ExceptionInitialization {
+		this.checkModifier(modifier);
 		if (this.modifiers.add(modifier)) {
 			this.setChangedAndNotify();
 		}
@@ -118,8 +122,10 @@ public abstract class UmlEntity extends Observable {
 	/**
 	 * Setter visibility.
 	 * @param visibility the visibility
+	 * @throws ExceptionInitialization 
 	 */
-	public void setVisibility(Visibility visibility) {
+	public final void setVisibility(Visibility visibility) throws ExceptionInitialization {
+		this.checkVisibility(visibility);
 		this.visibility = visibility;
 		this.setChangedAndNotify();
 	}
@@ -128,15 +134,17 @@ public abstract class UmlEntity extends Observable {
 	 * Getter set of modifiers.
 	 * @return Set<Modifier> the set of modifiers
 	 */
-	public Set<Modifier> getModifiers() {
+	public final Set<Modifier> getModifiers() {
 		return this.modifiers;
 	}
 	
 	/**
 	 * Setter set of modifiers.
 	 * @param modifiers a collection of modifiers
+	 * @throws ExceptionInitialization 
 	 */
-	public void setModifiers(Set<Modifier> modifiers) {
+	public final void setModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
+		this.checkModifier(modifiers);
 		this.modifiers = new HashSet<>(modifiers);
 		this.setChangedAndNotify();
 	}
@@ -148,4 +156,7 @@ public abstract class UmlEntity extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+	protected abstract void checkVisibility(Visibility visibility) throws ExceptionInitialization;
+	protected abstract void checkModifier(Modifier modifier) throws ExceptionInitialization;
+	protected abstract void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization;
 }

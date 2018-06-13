@@ -1,6 +1,9 @@
 package model;
 
 import java.util.Set;
+
+import exception.ExceptionInitialization;
+
 import java.util.HashSet;
 
 /**
@@ -143,6 +146,24 @@ public class UmlMethod extends UmlEntity {
 	public void setReturnType(UmlType returnType) {
 		this.returnType = returnType;
 		this.setChangedAndNotify();
+	}
+
+	@Override
+	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+		
+		
+	}
+
+	@Override
+	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+		if(this.getModifiers().contains(Modifier.ABSTRACT) )
+		
+	}
+
+	@Override
+	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
