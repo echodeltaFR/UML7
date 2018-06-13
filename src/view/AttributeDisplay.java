@@ -44,6 +44,9 @@ public class AttributeDisplay extends JLabel implements Observer{
         case PROTECTED:
         	str.append("#");
         	break;
+        case PACKAGE:
+        	//Nothing to append
+        	break;
         default:
         	str.append("Exception");
         }
