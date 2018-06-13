@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Enum representing the visibility
+ * Enum representing the visibility.
  * @see UmlEntity
  * @author fabien, bastien
  *
@@ -14,8 +14,8 @@ public enum Visibility {
 	PACKAGE;
 	
 	/**
-	 * Returns the symbol of a visibility
-	 * @return String symbol of a visibility
+	 * Returns the symbol of a visibility.
+	 * @return The symbol of a visibility
 	 */
 	@Override
 	public String toString() {

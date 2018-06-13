@@ -10,8 +10,10 @@ import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
 /**
- * Class representing Interface type in UML, extends UmlComponent
+ * Class representing Interface type in UML, extends UmlComponent.
+ * @see DiagramElementVisitor
  * @see UmlRefType
+ * @see UmlEntity
  * @author bastien
  *
  */
@@ -34,7 +36,7 @@ public class UmlInterface extends UmlRefType {
 	 * @param methods methods of the interface
 	 * @throws ExceptionMethode 
 	 */
-	public UmlInterface(String name, List<UmlMethod> methods) throws ExceptionMethode 	{
+	public UmlInterface(String name, List<UmlMethod> methods) throws ExceptionMethode {
 		super(name, methods);
 		this.checkMethods(methods);
 		

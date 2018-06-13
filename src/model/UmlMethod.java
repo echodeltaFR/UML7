@@ -9,6 +9,7 @@ import java.util.HashSet;
 /**
  * Class which allow to create a method
  * @author fmeslet, echodeltaFR
+ * @see UmlEntity
  * @version 1.3
  */
 public class UmlMethod extends UmlEntity {

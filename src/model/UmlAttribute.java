@@ -7,6 +7,9 @@ import exception.ExceptionInitialization;
 /**
  * Representation of attributes in a UML classes diagram.
  * @author echodeltaFR
+ * @see UmlEntity
+ * @see Visibility
+ * @see Modifier
  * @version 1.3
  */
 public class UmlAttribute extends UmlEntity {

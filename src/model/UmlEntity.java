@@ -9,7 +9,8 @@ import exception.ExceptionInitialization;
 
 /**
  * Abstract class, an UML entity with a visibility and modifiers.
- * @see UmlRefType
+ * @see Visibility
+ * @see Modifier
  * @author christian, fabien, bastien, echodeltaFR
  * @version 1.2
  *

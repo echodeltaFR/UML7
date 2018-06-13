@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * Class which allow to create a diagram with element.
  * @author fmeslet
+ * @see UmlRefType
+ * @see UmlRelationship
  * @version 1.0
  */
 public class UmlDiagram {

@@ -17,6 +17,16 @@ import model.UmlRefType;
 /**
  * Class which allows to generate Java code from UML diagram.
  * @author fmeslet
+ * @see DiagramElementVisitor
+ * @see UmlDiagram
+ * @see UmlEntity
+ * @see Visibility
+ * @see UmlRefType
+ * @see UmlAttribute
+ * @see UmlMethod
+ * @see UmlEnum
+ * @see UmlParams
+ * @see UmlInterface
  * @version 1.0
  */
 public class JavaGenerator implements DiagramElementVisitor {
@@ -106,8 +116,8 @@ public class JavaGenerator implements DiagramElementVisitor {
 	}
 	
 	/**
- 	* Generate methods for an uml component.
- 	* @param component Uml component we need in order to generate method
+ 	* Generate methods for an UML component.
+ 	* @param component UML component we need in order to generate method
  	* @param generateBody False if we want to generate an interface or abstract method
  	* @return String which contains the methods' code
  	*/
@@ -150,7 +160,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 			}
 
 			methodCode.append(")");
-			
+
 			if (generateBody) {
 				methodCode.append(" {\n" + DiagramElementVisitor.TAB + "}\n\n");
 			} else {

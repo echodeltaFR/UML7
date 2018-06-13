@@ -3,6 +3,7 @@ package model;
 /**
  * Primitive type in Java.
  * @author fmeslet
+ * @see UmlType
  * @version 1.0
  */
 public enum PrimitiveType implements UmlType {
@@ -17,9 +18,7 @@ public enum PrimitiveType implements UmlType {
 	LONG("long"),
 	VOID("void");
 
-	/**
-	 * Primitive type name.
-	 */
+	/** Primitive type name. */
 	private String name;
 
 	/**

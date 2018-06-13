@@ -7,6 +7,9 @@ import model.UmlEnum;
 /**
  * Class which allow to visit a diagram element.
  * @author fmeslet
+ * @see UmlClass
+ * @see UmlInterface
+ * @see UmlEnum
  * @version 1.0
  */
 public interface DiagramElementVisitor {

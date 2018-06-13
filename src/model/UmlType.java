@@ -8,8 +8,8 @@ package model;
 public interface UmlType {
 	
 	/**
-	 * Get the name of the type
-	 * @return the name the the type
+	 * Get the name of the type.
+	 * @return The name the the type
 	 */
 	public String getTypeName();
 }

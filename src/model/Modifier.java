@@ -32,7 +32,7 @@ public enum Modifier {
 	// Methods
 	/**
 	 * Returns the name of the modifier.
-	 * @return Tame of the modifier
+	 * @return The name of the modifier
 	 */
 	@Override
 	public String toString() {
