@@ -68,6 +68,7 @@ public class UmlAttribute extends UmlEntity {
      */
     public void setName(String attrName) {
         this.name = attrName;
+        setChangedAndNotify();
     }
 
     /**
@@ -76,6 +77,7 @@ public class UmlAttribute extends UmlEntity {
      */
     public void setType(UmlType attrType) {
         this.type = attrType;
+        setChangedAndNotify();
     }
 
 	@Override

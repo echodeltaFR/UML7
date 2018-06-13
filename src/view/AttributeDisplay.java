@@ -1,6 +1,10 @@
 package view;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JLabel;
 
+import controller.AttributeEditorController;
 import model.Modifier;
 import model.UmlAttribute;
 
@@ -10,10 +14,7 @@ import model.UmlAttribute;
  * @version 1.2
  */
 @SuppressWarnings("serial")
-public class AttributeDisplay extends JLabel {
-
-    /** Attribute to display. */
-    private UmlAttribute attribute;
+public class AttributeDisplay extends JLabel implements Observer{
 
     /**
      * Constructor.
@@ -21,16 +22,9 @@ public class AttributeDisplay extends JLabel {
      */
     public AttributeDisplay(UmlAttribute attribute) {
         super();
-        this.attribute = attribute;
-        updateLabel();
-    }
-
-    /**
-     * Gets the represented attribute
-     * @return the attribute that is displayed
-     */
-    public UmlAttribute getAttribute() {
-    	return this.attribute;
+        attribute.addObserver(this);
+        this.addMouseListener(new AttributeEditorController(attribute));
+        updateLabel(attribute);
     }
     
     /**
@@ -38,7 +32,7 @@ public class AttributeDisplay extends JLabel {
      * Call this method when you modify an attribute
      * and you want the display to refresh.
      */
-    public void updateLabel() {
+    public void updateLabel(UmlAttribute attribute) {
         StringBuilder str = new StringBuilder();
         switch (attribute.getVisibility()) {
         case PUBLIC:
@@ -61,5 +55,12 @@ public class AttributeDisplay extends JLabel {
         str.append(attribute.getName() + ": " + attribute.getType());
         this.setText(str.toString());
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof UmlAttribute) {
+			this.updateLabel((UmlAttribute)o);
+		}
+	}
 
 }
