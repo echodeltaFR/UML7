@@ -1,0 +1,12 @@
+@startuml
+left to right direction
+
+rectangle "UML7" {
+User -- (Edit diagram)
+User -- (Save/Export diagram)
+(Edit diagram) .> (Import diagram) : include
+(Edit diagram) .> (Create diagram from scratch) : include
+(Save/Export diagram) .> (Edit diagram) : extends
+}
+
+@enduml
