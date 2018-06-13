@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import exception.ExceptionAttribute;
+import exception.ExceptionMethode;
 import generator.JavaGenerator;
 import model.Modifier;
 import model.PrimitiveType;
@@ -37,7 +39,7 @@ public class Launcher {
 	public static final int DEFAULT_WIDTH = 500;
 	public static final int DEFAULT_HEIGHT = 300;
 	
-	public static void main(String[] argv) {
+	public static void main(String[] argv) throws ExceptionAttribute, ExceptionMethode {
 		UmlDiagram showedDiagram = new UmlDiagram();
 		
 		GridBagLayout layout = new GridBagLayout(); 
@@ -109,7 +111,7 @@ public class Launcher {
 		return appBar;
 	}
 	
-	private static void buildDebugDiagram(JPanel ea, UmlDiagram showedDiagram) {
+	private static void buildDebugDiagram(JPanel ea, UmlDiagram showedDiagram) throws ExceptionAttribute, ExceptionMethode {
 		Set<Modifier> mod;
 		Set<UmlParams> param;
 		
