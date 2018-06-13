@@ -45,7 +45,7 @@ public class UmlClassTest {
 	
 	@Before
 	public void setUp() {
-		this.visibility = Visibility.PRIVATE;
+		this.visibility = Visibility.PUBLIC;
 		this.visibility2 = Visibility.PACKAGE;
 		
 		this.modifier1 = Modifier.FINAL;
@@ -53,10 +53,9 @@ public class UmlClassTest {
 		
 		this.modifiers = new HashSet<Modifier>();
 		this.modifiers.add(modifier1);
-		this.modifiers.add(modifier2);
 		
 		this.modifiers2 = new HashSet<Modifier>();
-		this.modifiers2.add(modifier1);
+		this.modifiers2.add(modifier2);
 		
 		this.umlMethod1 = new UmlMethod("method1");
 		this.umlMethod2 = new UmlMethod("method2");
