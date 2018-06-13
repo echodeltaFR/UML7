@@ -149,20 +149,23 @@ public class UmlMethod extends UmlEntity {
 	}
 
 	@Override
-	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+	protected final void checkVisibility(Visibility visibility) throws ExceptionInitialization {
 		
 		
 	}
 
 	@Override
 	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+		Set<Modifier> m_temp = this.getModifiers();
+		if(m_temp.contains(Modifier.ABSTRACT) && m_temp.size()>1)
+				throw new ExceptionInitialization("");
 		
 		
 	}
 
 	@Override
 	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
