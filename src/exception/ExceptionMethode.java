@@ -1,6 +1,6 @@
 package exception;
 
-public class ExceptionMethode extends ExceptionComposition {
+public class ExceptionMethode extends ExceptionUml {
 
 	public ExceptionMethode(String message) {
 		super(message);

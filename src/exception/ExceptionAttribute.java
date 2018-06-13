@@ -1,6 +1,6 @@
 package exception;
 
-public class ExceptionAttribute extends ExceptionComposition {
+public class ExceptionAttribute extends ExceptionUml {
 
 	public ExceptionAttribute(String message) {
 		super(message);

@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import exception.ExceptionAttribute;
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
+import exception.ExceptionVisibility;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
+import exception.ExceptionModifier;
 import generator.DiagramElementVisitor;
 /**
  * Class representing Enum type in UML.
@@ -62,9 +64,9 @@ public class UmlEnum extends UmlRefType {
 	 * @param values values of the Enum
 	 * @param methods methods of the Enum
 	 * @param attributes attributes of the ENum
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionComposition {
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionUml {
 		super(name, methods, attributes);
 		this.checkMethods(methods);
 		this.checkAttributes(attributes);
@@ -78,10 +80,12 @@ public class UmlEnum extends UmlRefType {
 	 * @param methods methods of the Enum
 	 * @param attributes attributes of the ENum
 	 * @param visibility visibility of the component
-	 * @throws ExceptionComposition 
+
+	 * @param modifiers a set of modifiers
+	 * @throws ExceptionUml 
 	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility) throws ExceptionComposition {
-		super(name, methods, attributes, visibility, null);
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionUml {
+		super(name, methods, attributes, visibility, modifiers);
 		this.checkMethods(methods);
 		this.checkAttributes(attributes);
 		this.checkVisibility(visibility);
@@ -160,23 +164,23 @@ public class UmlEnum extends UmlRefType {
 	}
 
 	@Override
-	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility {
 		// TODO Auto-generated method stub
 		if(visibility != Visibility.PUBLIC)
-			throw new ExceptionInitialization("Enumeration class can only be public or default");
+			throw new ExceptionVisibility("Enumeration class can only be public or default");
 	}
 
 	@Override
-	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		// TODO Auto-generated method stub
 		if(modifier != null)
-			throw new ExceptionInitialization("Enumerated classes cannot have non-access modifiers");
+			throw new ExceptionModifier("Enumerated classes cannot have non-access modifiers");
 	}
 
 	@Override
-	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
 		if(modifiers != null)
-			throw new ExceptionInitialization("Enumerated classes cannot have non-access modifiers");
+			throw new ExceptionModifier("Enumerated classes cannot have non-access modifiers");
 	}
 
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 import org.junit.*;
 
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
 import exception.ExceptionMethode;
 
 public class UmlClassTest {
@@ -100,7 +100,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization3() throws ExceptionComposition {
+	public void testInitialization3() throws ExceptionUml {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		assertNotNull(umlClass3);
 		assertTrue(umlClass3.getName().equals("class3"));
@@ -109,7 +109,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization4() throws ExceptionComposition {
+	public void testInitialization4() throws ExceptionUml {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		assertNotNull(umlClass4);
 		assertTrue(umlClass4.getName().equals("class4"));
@@ -134,14 +134,14 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testSetAttributes() throws ExceptionComposition {
+	public void testSetAttributes() throws ExceptionUml {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.setAttributesList(attributes2);
 		assertTrue(umlClass3.getAttributesList().equals(attributes2));
 	}
 	
 	@Test
-	public void testSetVisibilityModifiers() throws ExceptionComposition {
+	public void testSetVisibilityModifiers() throws ExceptionUml {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.setVisibility(visibility2);
 		this.umlClass4.setModifiers(modifiers2);
@@ -150,14 +150,14 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testClearModifiers() throws ExceptionComposition {
+	public void testClearModifiers() throws ExceptionUml {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.clearModifiers();
 		assertTrue(umlClass4.getModifiers().isEmpty());
 	}
 	
 	@Test
-	public void testAddRemove() throws ExceptionComposition {
+	public void testAddRemove() throws ExceptionUml {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.removeAttribute(umlAttribute1);
 		assertTrue(!umlClass3.getAttributesList().contains(umlAttribute1));

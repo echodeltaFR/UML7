@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import exception.ExceptionAttribute;
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
@@ -73,7 +73,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * @param attributes Attributes of the component
 	 * @param visibility Visibility of the component
 	 * @param modifiers Modifiers of the component
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
 		super(name, visibility, modifiers);
@@ -95,7 +95,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * Setter list of methods.
 	 * @param methodsList List of methods
 	 * @throws ExceptionMethode 
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
 	public final void setMethodsList(List<UmlMethod> methodsList) throws ExceptionMethode  {
 		this.checkMethods(methodsList);
@@ -115,7 +115,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * Setter list of attributes.
 	 * @param attributesList List of attributes
 	 * @throws ExceptionAttribute 
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
 	public final void setAttributesList(List<UmlAttribute> attributesList) throws ExceptionAttribute {
 		checkAttributes(attributesList);
@@ -140,7 +140,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * Add an attribute to the attributes list .
 	 * @param attribute Attribute of a component
 	 * @throws ExceptionAttribute 
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
 	public final void addAttribute(UmlAttribute attribute) throws ExceptionAttribute {
 		this.checkAttribute(attribute);
@@ -176,7 +176,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	/**
 	 * 
 	 * @param attributes
-	 * @throws ExceptionComposition
+	 * @throws ExceptionUml
 	 */
 	protected abstract void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute;
 	protected abstract void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute;

@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 import exception.ExceptionAttribute;
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
+import exception.ExceptionVisibility;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
+import exception.ExceptionModifier;
 import generator.DiagramElementVisitor;
 
 
@@ -35,9 +37,9 @@ public class UmlClass extends UmlRefType{
 	 * @param name the name of the component
 	 * @param methods all of methods of the UmlClass
 	 * @param attributes all of attributes of the UmlClass
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
-	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionComposition {
+	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionUml {
 		super(name, methods, attributes);
 		this.checkAttributes(attributes);
 		this.checkMethods(methods);
@@ -49,9 +51,9 @@ public class UmlClass extends UmlRefType{
 	 * @param attributes all of attributes of the UmlClass
 	 * @param visibility visibility of the component
 	 * @param modifiers modifiers of the component
-	 * @throws ExceptionComposition 
+	 * @throws ExceptionUml 
 	 */
-	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionComposition {
+	public UmlClass(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionUml {
 		super(name, methods, attributes, visibility, modifiers);
 		this.checkAttributes(attributes);
 		this.checkMethods(methods);
@@ -99,34 +101,34 @@ public class UmlClass extends UmlRefType{
 	}
 
 	@Override
-	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility  {
 		// TODO Auto-generated method stub
 		if(visibility == Visibility.PRIVATE || visibility == Visibility.PROTECTED)
-			throw new ExceptionInitialization("Class can only set access limiters to public or defaut");
+			throw new ExceptionVisibility("Class can only set access limiters to public or defaut");
 		
 	}
 
 	@Override
-	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		// TODO Auto-generated method stub
 		//String table_modifier = Modifier.ABSTRACT.toString() + Modifier.FINAL.toString();table_modifier.indexOf(Modifier.ABSTRACT.toString()) == -1
 		if(modifier != Modifier.ABSTRACT && modifier != Modifier.FINAL)
-			throw new ExceptionInitialization("the modifier of class should be abstract or final");
+			throw new ExceptionModifier("the modifier of class should be abstract or final");
 		if(modifier ==  Modifier.FINAL) {
 			for (int i = 0; i< this.getMethodsList().size(); i++) {
 				if(this.getMethodsList().get(i).getModifiers().contains(Modifier.ABSTRACT))
-					throw new ExceptionInitialization("This class has an abstract method that cannot be added to the final modifier");
+					throw new ExceptionModifier("This class has an abstract method that cannot be added to the final modifier");
 			}
 		}
 	}
 
 	@Override
-	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
-		if (modifiers.size()>1) throw new ExceptionInitialization("The class may only have one of the abstract modifier or the final modifier");
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
+		if (modifiers.size()>1) throw new ExceptionModifier("The class may only have one of the abstract modifier or the final modifier");
 		if(modifiers.contains(Modifier.FINAL)) {
 			for (int i = 0; i< this.getMethodsList().size(); i++) {
 				if(this.getMethodsList().get(i).getModifiers().contains(Modifier.ABSTRACT))
-					throw new ExceptionInitialization("This class has an abstract method that cannot be added to the final modifier");
+					throw new ExceptionModifier("This class has an abstract method that cannot be added to the final modifier");
 			}
 		}
 	}

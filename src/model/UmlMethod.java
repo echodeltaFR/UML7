@@ -3,6 +3,8 @@ package model;
 import java.util.Set;
 
 import exception.ExceptionInitialization;
+import exception.ExceptionModifier;
+import exception.ExceptionVisibility;
 
 import java.util.HashSet;
 
@@ -124,22 +126,22 @@ public class UmlMethod extends UmlEntity {
 	}
 
 	@Override
-	protected final void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+	protected final void checkVisibility(Visibility visibility) throws ExceptionVisibility {
 		
 		
 	}
 
 	@Override
-	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		Set<Modifier> m_temp = this.getModifiers();
 		if(m_temp.contains(Modifier.ABSTRACT) && m_temp.size()>1)
-				throw new ExceptionInitialization("");
+				throw new ExceptionModifier("");
 		
 		
 	}
 
 	@Override
-	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
 		
 		
 	}

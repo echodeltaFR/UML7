@@ -2,7 +2,7 @@ package controller;
 
 import javax.swing.JOptionPane;
 
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
 import model.UmlEntity;
 import model.Visibility;
 
@@ -39,7 +39,7 @@ public class UmlEntityControlUnit {
 				try {
 					umle.setVisibility(v);
 					done = true;
-				} catch (ExceptionComposition ex) {
+				} catch (ExceptionUml ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} else {

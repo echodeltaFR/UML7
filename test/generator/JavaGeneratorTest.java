@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
 import exception.ExceptionInitialization;
 import model.Modifier;
 import model.PrimitiveType;
@@ -49,7 +49,7 @@ public class JavaGeneratorTest {
 	private String result;
 	
 	@Before
-	public void setUp() throws ExceptionComposition {
+	public void setUp() throws ExceptionUml {
 		// Create attributes with modifier and visiblity
 		Set<Modifier> modifierAttribut1 = new HashSet<Modifier>();
 		modifierAttribut1.add(Modifier.FINAL);

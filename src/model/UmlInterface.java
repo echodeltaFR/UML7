@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 import exception.ExceptionAttribute;
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
+import exception.ExceptionVisibility;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
+import exception.ExceptionModifier;
 import generator.DiagramElementVisitor;
 
 /**
@@ -50,7 +52,7 @@ public class UmlInterface extends UmlRefType {
 	 * @throws ExceptionAttribute 
 	 * @throws ExceptionMethode 
 	 */
-	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionAttribute, ExceptionMethode {
+	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionUml  {
 		super(name, methods, attributes);
 		this.checkMethods(methods);
 		this.checkAttributes(attributes);
@@ -68,7 +70,7 @@ public class UmlInterface extends UmlRefType {
 	 * @throws ExceptionMethode 
 	 * @throws ExceptionAttribute 
 	 */
-	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionComposition {
+	public UmlInterface(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionUml {
 		super(name, methods, attributes, visibility, modifiers);
 		this.checkMethods(methods);
 		this.checkAttributes(attributes);
@@ -102,28 +104,28 @@ public class UmlInterface extends UmlRefType {
 				throw new ExceptionMethode("The modifier of the method should be abstract");
 				}
 		if(method.getVisibility() == null ||
-				method.getVisibility() == Visibility.PUBLIC ||
-				method.getVisibility() == Visibility.PACKAGE) {
+				method.getVisibility() == Visibility.PUBLIC) {
 		} else {
 			throw new ExceptionMethode("The visibility of the method should be public or default");
 		}
 	}
 	//check visibility of the interface 
-	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
-		if(!(visibility == null || visibility != Visibility.PUBLIC)) {
-			throw new ExceptionInitialization("The visibility of the interface should be public or default");
+	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility {
+		if(!(visibility == null || visibility != Visibility.PUBLIC ||
+				visibility != Visibility.PACKAGE)) {
+			throw new ExceptionVisibility("The visibility of the interface should be public or default");
 		}
 	}
 	//check modifier of the interface
-	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		if(!(modifier == null || modifier != Modifier.ABSTRACT)) {
-			throw new ExceptionInitialization("The modifier of the interface should be abstract or default");
+			throw new ExceptionModifier("The modifier of the interface should be abstract or default");
 		}
 	}
 	//check modifiers of the interface
-	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
 		if(!(modifiers == null || (modifiers.size()==1 && modifiers.contains(Modifier.ABSTRACT)))) {
-			throw new ExceptionInitialization("The modifier of the interface should be abstract or default");
+			throw new ExceptionModifier("The modifier of the interface should be abstract or default");
 		}
 	}
 	@Override

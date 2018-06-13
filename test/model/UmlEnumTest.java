@@ -11,7 +11,7 @@ import java.util.Set;
 import org.junit.*;
 
 import exception.ExceptionAttribute;
-import exception.ExceptionComposition;
+import exception.ExceptionUml;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 
@@ -172,7 +172,7 @@ public class UmlEnumTest {
 	}
 	
 	@Test(expected = ExceptionInitialization.class)
-	public void testSetVisibilityModifiers() throws ExceptionComposition {
+	public void testSetVisibilityModifiers() throws ExceptionUml {
 		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility);
 		this.umlEnum5.setVisibility(visibility2);
 		this.umlEnum5.setModifiers(modifiers2);
@@ -188,7 +188,7 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testAddRemove() throws ExceptionComposition {
+	public void testAddRemove() throws ExceptionUml {
 		this.umlEnum4 = new UmlEnum("enum4", values,  methods, attributes);
 		this.umlEnum4.removeAttribute(umlAttribute1);
 		assertTrue(!umlEnum4.getAttributesList().contains(umlAttribute1));

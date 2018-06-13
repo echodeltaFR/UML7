@@ -3,6 +3,8 @@ package model;
 import java.util.Set;
 
 import exception.ExceptionInitialization;
+import exception.ExceptionModifier;
+import exception.ExceptionVisibility;
 
 /**
  * Representation of attributes in a UML classes diagram.
@@ -62,19 +64,19 @@ public class UmlAttribute extends UmlEntity {
     }
 
 	@Override
-	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
+	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
+	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
 		// TODO Auto-generated method stub
 		
 	}
