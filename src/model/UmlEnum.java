@@ -44,18 +44,11 @@ public class UmlEnum extends UmlRefType {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Constructor with a name, a list of values and a list of methods.
 	 * @param name Name of the Enum
 	 * @param values Values of the Enum
 	 * @param methods Methods of the Enum
-=======
-	 * Constructor with a name, a list of values, a list of methods
-	 * @param name name of the Enum
-	 * @param values values of the Enum
-	 * @param methods methods of the Enum
-	 * @throws ExceptionMethode 
->>>>>>> terminer le methode verofier pour le enum
+	 * @throws ExceptionMethode
 	 */
 	public UmlEnum(String name, List<String> values, List<UmlMethod> methods) throws ExceptionMethode {
 		super(name, methods);
