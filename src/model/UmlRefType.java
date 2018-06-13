@@ -11,7 +11,8 @@ import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
 /**
- * Abstract class, an UML component, parent of types classes ( UmlClass, UmlEnum, UmlInterface, ...), extends UmlEntity
+ * Abstract class, an UML component, parent of
+ * types classes ( UmlClass, UmlEnum, UmlInterface, ...)
  * @see UmlEnum
  * @see UmlInterface
  * @see UmlClass
@@ -19,18 +20,12 @@ import generator.DiagramElementVisitor;
  * @author bastien
  *
  */
-public abstract class UmlRefType extends UmlEntity implements UmlType{
+public abstract class UmlRefType extends UmlEntity implements UmlType {
 
 	// Attributes
 	
 	/**
-	 * Name of an uml component
-	 */
-	private String name;
-	
-	/**
-	 * List of the component methods
-	 */
+	 * List of the component methods */
 	private List<UmlMethod> methodsList;
 	
 	/**
@@ -45,8 +40,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	 * @param name name of the component
 	 */
 	public UmlRefType(String name) {
-		super();
-		this.name = name;
+		super(name);
 		methodsList = new ArrayList<>();
 		attributesList = new ArrayList<>();
 	}
@@ -57,8 +51,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	 * @param methods methods of the component
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods) {
-		super();
-		this.name = name;
+		super(name);
 		methodsList = methods;
 		attributesList = new ArrayList<>();
 	}
@@ -70,8 +63,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	 * @param attributes attributes of the component
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
-		super();
-		this.name = name;
+		super(name);
 		methodsList = methods;
 		attributesList = attributes;
 	}
@@ -86,32 +78,13 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	 * @throws ExceptionComposition 
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
-		super(visibility, modifiers);
-		this.name = name;
+		super(name, visibility, modifiers);
 		methodsList = methods;
 		attributesList = attributes;
 	}
 	
 	
 	// Methods
-	
-	/**
-	 * Getter name of the component
-	 * @return name of the component
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Setter name of the component
-	 * @param name of the component
-	 */
-	public void setName(String name) {
-		if (name == null) throw new IllegalArgumentException("name can't be null");
-		this.name = name;
-		this.setChangedAndNotify();
-	}
 	
 	/**
 	 * Getter list of methods
@@ -203,7 +176,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	
 	@Override
 	public String getTypeName() {
-		return this.name;
+		return this.getName();
 	}
 	/**
 	 * 

@@ -15,7 +15,7 @@ import model.UmlEntity;
 import model.UmlRefType;
 
 /**
- * Class which allow to generate Java code thanks to Uml diagram.
+ * Class which allows to generate Java code from UML diagram.
  * @author fmeslet
  * @version 1.0
  */
@@ -27,7 +27,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 	
 	/**
 	 * Build a java generator.
-	 * @param diagram diagram we need to generate code
+	 * @param diagram Diagram we need in order to generate code
 	 */
 	public JavaGenerator(UmlDiagram diagram) {
 		this.diagram = diagram;
@@ -44,8 +44,8 @@ public class JavaGenerator implements DiagramElementVisitor {
 	
 	/**
 	 * Convert the name visibility of the component. 
-	 * @param component the component
-	 * @return the new name visibility
+	 * @param component The component
+	 * @return The new visibility's name
 	 */
 	private String convertVisibility(UmlEntity component) {
 		String visibility = null;
@@ -78,8 +78,8 @@ public class JavaGenerator implements DiagramElementVisitor {
 	
 	/**
 	 * Generate attributes for an uml component.
-	 * @param component component we need to generate attributes
-	 * @return the attributes code
+	 * @param component Component we need in order to generate attributes
+	 * @return The attributes' code
 	 */
 	private String generateAttributes(UmlRefType component) {
 		StringBuilder attributeCode = new StringBuilder();
@@ -107,9 +107,9 @@ public class JavaGenerator implements DiagramElementVisitor {
 	
 	/**
  	* Generate methods for an uml component.
- 	* @param component uml component we need to generate method
- 	* @param generateBody false if we want to generate an interface or abstract method
- 	* @return String which contains the methods code
+ 	* @param component Uml component we need in order to generate method
+ 	* @param generateBody False if we want to generate an interface or abstract method
+ 	* @return String which contains the methods' code
  	*/
 	private String generateMethods(UmlRefType component, boolean generateBody) {
 		StringBuilder methodCode = new StringBuilder();
@@ -185,10 +185,10 @@ public class JavaGenerator implements DiagramElementVisitor {
 	}
 	
 	/**
-	 * Generate code for an uml component.
-	 * @param component the uml component
-	 * @param refType the name of the uml component
-	 * @param generateBody true if we need to generate body
+	 * Generate code for an UML component.
+	 * @param component The UML component
+	 * @param refType The name of the UML component
+	 * @param generateBody True if we need to generate body
 	 */
 	private void generateJavaObject(UmlRefType component, String refType, boolean generateBody) {
 		StringBuilder componentCode = new StringBuilder();
@@ -238,16 +238,16 @@ public class JavaGenerator implements DiagramElementVisitor {
 	}
 	
 	/**
-	 * Get the code for each uml component
-	 * @return the code for each uml component
+	 * Get the code for each UML component.
+	 * @return The code for each UML component
 	 */
 	public Map<String, String> getCode() {
 		return this.code;
 	}
 	
 	/**
-	 * Set a new diagram for the generator
-	 * @param diagram the new diagram
+	 * Set a new diagram for the generator.
+	 * @param diagram The new diagram
 	 */
 	public void setDiagram(UmlDiagram diagram) {
 		this.diagram = diagram;

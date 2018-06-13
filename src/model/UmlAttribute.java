@@ -10,9 +10,6 @@ import exception.ExceptionInitialization;
  * @version 1.3
  */
 public class UmlAttribute extends UmlEntity {
-
-    /** Name of the attribute. */
-    private String name;
     
     /** Type of the attribute. */
     private UmlType type;
@@ -25,8 +22,7 @@ public class UmlAttribute extends UmlEntity {
      * @param attrType Type of the attribute to create
      */
     public UmlAttribute(String attrName, UmlType attrType) {
-        super();
-        this.name = attrName;
+        super(attrName);
         this.type = attrType;
     }
 
@@ -39,20 +35,11 @@ public class UmlAttribute extends UmlEntity {
      * @param attrModifs Modifiers of the attribute to create
      */
     public UmlAttribute(String attrName, UmlType attrType, Visibility attrVisi, Set<Modifier> attrModifs) {
-        super(attrVisi, attrModifs);
-        this.name = attrName;
+        super(attrName, attrVisi, attrModifs);
         this.type = attrType;
     }
 
     // Getters & Setters
-
-    /**
-     * Gets attribute's name.
-     * @return The name of the attribute
-     */
-    public String getName() {
-        return name;
-    }
 
     /**
      * Gets attribute's type.
@@ -60,15 +47,6 @@ public class UmlAttribute extends UmlEntity {
      */
     public UmlType getType() {
         return type;
-    }
-
-    /**
-     * Sets attribute's name.
-     * @param attrName Given name for the attribute
-     */
-    public void setName(String attrName) {
-        this.name = attrName;
-        setChangedAndNotify();
     }
 
     /**

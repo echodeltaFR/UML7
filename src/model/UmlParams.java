@@ -7,20 +7,16 @@ package model;
  */
 public class UmlParams {
 
-	/**
-	 * Parameter type.
-	 */
+	/** Parameter type. */
 	private UmlType type;
 	
-	/**
-	 * Parameter name.
-	 */
+	/** Parameter name. */
 	private String name;
 	
 	/**
 	 * Create a parameter.
-	 * @param type of parameter
-	 * @param name of parameter
+	 * @param type The parameter type
+	 * @param name The parameter name
 	 */
 	public UmlParams(UmlType type, String name) {
 		this.type = type;
@@ -29,7 +25,7 @@ public class UmlParams {
 	
 	/**
 	 * Get the parameter type.
-	 * @return type of parameter
+	 * @return The parameter type
 	 */
 	public UmlType getType() {
 		return type;
@@ -37,7 +33,7 @@ public class UmlParams {
 
 	/**
 	 * Set the parameter type.
-	 * @param type parameter type
+	 * @param type The parameter type
 	 */
 	public void setType(UmlType type) {
 		this.type = type;
@@ -45,7 +41,7 @@ public class UmlParams {
 
 	/**
 	 * Get the parameter name.
-	 * @return parameter name
+	 * @return The parameter name
 	 */
 	public String getName() {
 		return name;
@@ -53,7 +49,7 @@ public class UmlParams {
 
 	/**
 	 * Set the parameter name.
-	 * @param name parameter name
+	 * @param name The parameter name
 	 */
 	public void setName(String name) {
 		this.name = name;

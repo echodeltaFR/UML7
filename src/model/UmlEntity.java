@@ -18,27 +18,26 @@ public abstract class UmlEntity extends Observable {
 
 	
 	// Attributes
-	
-	/**
-	 * Visibility of an element.
-	 */
+
+	/** Name of an element. */
+	private String name;
+
+	/** Visibility of an element. */
 	private Visibility visibility;
 
-	/**
-	 * Element modifier.
-	 */
+	/** Element modifier. */
 	private Set<Modifier> modifiers;
-	
 
 	// Constructors
-
 	
 	/**
 	 * Constructor of an element with visibility and modifiers.
-	 * @param visibility the visibility
-	 * @param modifiers the modifiers
+	 * @param name Name of the element
+	 * @param visibility Visibility of the element
+	 * @param modifiers Set of modifiers of the element
 	 */
-	public UmlEntity(Visibility visibility, Set<Modifier> modifiers) {
+	public UmlEntity(String name, Visibility visibility, Set<Modifier> modifiers) {
+		this.name = name;
 		if (visibility == null) {
 			this.visibility = Visibility.PUBLIC;
 		} else {
@@ -53,35 +52,56 @@ public abstract class UmlEntity extends Observable {
 
 	/**
 	 * Constructor of an element with modifiers.
-	 * @param modifiers the modifiers
+	 * @param name Name of the element
+	 * @param modifiers Set modifiers of an element
 	 */
-	public UmlEntity(Set<Modifier> modifiers) {
-		this(null, new HashSet<>(modifiers));
+	public UmlEntity(String name, Set<Modifier> modifiers) {
+		this(name, null, new HashSet<>(modifiers));
 	}
 
 	
 	/**
 	 * Constructor of an element with visibility.
-	 * @param visibility the visibility
+	 * @param name Name of the element
+	 * @param visibility Visibility of the element
 	 */
-	public UmlEntity(Visibility visibility) {
-		this(visibility, null);
+	public UmlEntity(String name, Visibility visibility) {
+		this(name, visibility, null);
 	}
 	
 	/**
 	 * Constructor of an element by default.
+	 * @param name Name of the element
 	 */
-	public UmlEntity() {
+	public UmlEntity(String name) {
+		this.name = name;
 		this.visibility = Visibility.PUBLIC;
 		this.modifiers = new HashSet<>();
 	}
 	
 	// Methods
-	
+
+	/**
+	 * Get element name.
+	 * @return The name of the element
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * Set element name.
+	 * @param name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+		this.setChangedAndNotify();
+	}
+
 	/**
 	 * Add a modifier to the modifiers set.
-	 * @param modifier a modifier of the entity
 	 * @throws ExceptionInitialization 
+	 * @param modifier A modifier to add to the element
 	 */
 	public void addModifier(Modifier modifier) throws ExceptionInitialization {
 		this.checkModifier(modifier);
@@ -102,7 +122,7 @@ public abstract class UmlEntity extends Observable {
 	
 	/**
 	 * Remove a modifier from the modifiers list.
-	 * @param modifier the modifier to remove
+	 * @param modifier The modifier to remove from the element
 	 */
 	public void removeModifier(Modifier modifier) {
 		if (this.modifiers.remove(modifier)) {
@@ -113,7 +133,7 @@ public abstract class UmlEntity extends Observable {
 	
 	/**
 	 * Getter visibility.
-	 * @return visibility the visibility
+	 * @return The visibility of the element
 	 */
 	public Visibility getVisibility() {
 		return this.visibility;
@@ -121,8 +141,8 @@ public abstract class UmlEntity extends Observable {
 	
 	/**
 	 * Setter visibility.
-	 * @param visibility the visibility
 	 * @throws ExceptionInitialization 
+	 * @param visibility The visibility to set
 	 */
 	public final void setVisibility(Visibility visibility) throws ExceptionInitialization {
 		this.checkVisibility(visibility);
@@ -132,7 +152,7 @@ public abstract class UmlEntity extends Observable {
 	
 	/**
 	 * Getter set of modifiers.
-	 * @return Set<Modifier> the set of modifiers
+	 * @return The set of modifiers of the element
 	 */
 	public final Set<Modifier> getModifiers() {
 		return this.modifiers;
@@ -140,8 +160,8 @@ public abstract class UmlEntity extends Observable {
 	
 	/**
 	 * Setter set of modifiers.
-	 * @param modifiers a collection of modifiers
 	 * @throws ExceptionInitialization 
+	 * @param modifiers A set of modifiers
 	 */
 	public final void setModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
 		this.checkModifier(modifiers);

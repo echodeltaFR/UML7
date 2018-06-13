@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Enum representing the modifiers
+ * Enum representing the modifiers.
  * @see UmlEntity
  * @author fabien, bastien
  *
@@ -16,16 +16,14 @@ public enum Modifier {
 	
 	// Attributes
 	
-	/**
-	 * name of the modifier
-	 */
+	/** The name of the modifier */
 	private String name;
 	
 	// Constructor
 	
 	/**
-	 * Constructor of a modifier with a name
-	 * @param name name of the modifier
+	 * Constructor of a modifier with a name.
+	 * @param name Name of the modifier
 	 */
 	Modifier(String name) {
 		this.name = name;
@@ -33,8 +31,8 @@ public enum Modifier {
 	
 	// Methods
 	/**
-	 * Returns the name of the modifier
-	 * @return String name of the modifier
+	 * Returns the name of the modifier.
+	 * @return Tame of the modifier
 	 */
 	@Override
 	public String toString() {
