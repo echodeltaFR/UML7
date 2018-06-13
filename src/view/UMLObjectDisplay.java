@@ -13,11 +13,15 @@ import controller.ClassEditorController;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -130,8 +134,28 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		}
 		this.functionContainer.removeAll();
 		for (UmlMethod m : uc.getMethodsList()) {
-			this.functionContainer.add(new MethodDisplay(m));
-			
+			this.functionContainer.add(new MethodDeleteDisplay(m,uc));
 		}
+		this.functionContainer.repaint();
+		this.functionContainer.revalidate();
+		this.revalidate();
+	}
+	
+	private class MethodDeleteDisplay extends JPanel{
+		
+		private JButton deleteButton;
+		
+		MethodDeleteDisplay(UmlMethod umlm, UmlRefType umlrt){
+			super(new BorderLayout());
+			this.add(new MethodDisplay(umlm), BorderLayout.CENTER);
+			deleteButton = new JButton(" - ");
+			deleteButton.setBorder(BorderFactory.createLineBorder(Color.RED));
+			this.add(deleteButton, BorderLayout.EAST);
+			deleteButton.addActionListener(e -> {
+				umlrt.removeMethod(umlm);
+			});
+			this.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		}
+		
 	}
 }
