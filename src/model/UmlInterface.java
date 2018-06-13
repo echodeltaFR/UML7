@@ -71,7 +71,7 @@ public class UmlInterface extends UmlRefType {
 		this.checkMethods(methods);
 		this.checkAttributes(attributes);
 		this.checkVisibility(visibility);
-		this.checkModifier(modifiers);
+		this.checkModifiers(modifiers);
 		
 	}
 	
@@ -118,7 +118,7 @@ public class UmlInterface extends UmlRefType {
 		}
 	}
 	//check modifiers of the interface
-	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
 		if(!(modifiers == null || (modifiers.size()==1 && modifiers.contains(Modifier.ABSTRACT)))) {
 			throw new ExceptionInitialization("The modifier of the interface should be abstract or default");
 		}

@@ -56,7 +56,7 @@ public class UmlClass extends UmlRefType{
 		this.checkAttributes(attributes);
 		this.checkMethods(methods);
 		this.checkVisibility(visibility);
-		this.checkModifier(modifiers);
+		this.checkModifiers(modifiers);
 	}
 	
 	@Override
@@ -121,7 +121,7 @@ public class UmlClass extends UmlRefType{
 	}
 
 	@Override
-	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
 		if (modifiers.size()>1) throw new ExceptionInitialization("The class may only have one of the abstract modifier or the final modifier");
 		if(modifiers.contains(Modifier.FINAL)) {
 			for (int i = 0; i< this.getMethodsList().size(); i++) {

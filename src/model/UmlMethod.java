@@ -138,7 +138,7 @@ public class UmlMethod extends UmlEntity {
 	}
 
 	@Override
-	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
 		
 		
 	}

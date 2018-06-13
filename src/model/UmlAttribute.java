@@ -71,7 +71,7 @@ public class UmlAttribute extends UmlEntity {
 	}
 
 	@Override
-	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
 		// TODO Auto-generated method stub
 		
 	}

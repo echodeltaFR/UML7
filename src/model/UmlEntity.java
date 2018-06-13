@@ -164,7 +164,7 @@ public abstract class UmlEntity extends Observable {
 	 * @param modifiers A set of modifiers
 	 */
 	public final void setModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
-		this.checkModifier(modifiers);
+		this.checkModifiers(modifiers);
 		this.modifiers = new HashSet<>(modifiers);
 		this.setChangedAndNotify();
 	}
@@ -178,5 +178,5 @@ public abstract class UmlEntity extends Observable {
 	}
 	protected abstract void checkVisibility(Visibility visibility) throws ExceptionInitialization;
 	protected abstract void checkModifier(Modifier modifier) throws ExceptionInitialization;
-	protected abstract void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization;
+	protected abstract void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization;
 }

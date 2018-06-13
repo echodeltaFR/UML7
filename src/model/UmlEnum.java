@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import exception.ExceptionAttribute;
+import exception.ExceptionComposition;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
@@ -43,39 +44,64 @@ public class UmlEnum extends UmlRefType {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Constructor with a name, a list of values and a list of methods.
 	 * @param name Name of the Enum
 	 * @param values Values of the Enum
 	 * @param methods Methods of the Enum
+=======
+	 * Constructor with a name, a list of values, a list of methods
+	 * @param name name of the Enum
+	 * @param values values of the Enum
+	 * @param methods methods of the Enum
+	 * @throws ExceptionMethode 
+>>>>>>> terminer le methode verofier pour le enum
 	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods) {
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods) throws ExceptionMethode {
 		super(name, methods);
+		this.checkMethods(methods);
 		valuesList = new ArrayList<>(values);
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Constructor with a name, a list of values, a list of methods and a list of attributes.
 	 * @param name Name of the Enum
 	 * @param values Values of the Enum
 	 * @param methods Methods of the Enum
 	 * @param attributes Attributes of the ENum
+=======
+	 * Constructor with a name, a list of values, a list of methods, a list of attributes
+	 * @param name name of the Enum
+	 * @param values values of the Enum
+	 * @param methods methods of the Enum
+	 * @param attributes attributes of the ENum
+	 * @throws ExceptionComposition 
+>>>>>>> terminer le methode verofier pour le enum
 	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes) {
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes) throws ExceptionComposition {
 		super(name, methods, attributes);
+		this.checkMethods(methods);
+		this.checkAttributes(attributes);
 		valuesList = new ArrayList<>(values);
 	}
 	
 	/**
-	 * Constructor with a name, a list of values, a list of methods, a list of attributes, a visibility and a set of modifiers.
-	 * @param name Name of the Enum
-	 * @param values Values of the Enum
-	 * @param methods Methods of the Enum
-	 * @param attributes Attributes of the ENum
-	 * @param visibility Visibility of the component
-	 * @param modifiers A set of modifiers
+	 * Constructor with a name, a list of values, a list of methods, a list of attributes, a visibility and a set of modifiers
+	 * @param name name of the Enum
+	 * @param values values of the Enum
+	 * @param methods methods of the Enum
+	 * @param attributes attributes of the ENum
+	 * @param visibility visibility of the component
+	 * @param modifiers a set of modifiers
+	 * @throws ExceptionComposition 
 	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionComposition {
 		super(name, methods, attributes, visibility, modifiers);
+		this.checkMethods(methods);
+		this.checkAttributes(attributes);
+		this.checkVisibility(visibility);
+		this.checkModifiers(modifiers);
 		valuesList = new ArrayList<>(values);
 	}
 	// Methods
@@ -121,43 +147,53 @@ public class UmlEnum extends UmlRefType {
 	@Override
 	protected void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute {
 		// TODO Auto-generated method stub
-		
+		if(attribute.getModifiers().contains(Modifier.ABSTRACT))
+			throw new ExceptionAttribute("Member variable cannot be set to abstract");
 	}
 
 	@Override
 	protected void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute {
 		// TODO Auto-generated method stub
-		
+		for(int i = 0 ;i < attributes.size(); i++) {
+			if(attributes.get(i).getModifiers().contains(Modifier.ABSTRACT))
+				throw new ExceptionAttribute("Member variable cannot be set to abstract");
+		}
 	}
 
 	@Override
 	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
 		// TODO Auto-generated method stub
-		
+		if(method.getVisibility() != Visibility.PUBLIC || method.getModifiers().contains(Modifier.ABSTRACT))
+			throw new ExceptionMethode("Access modifiers can only be public and Non-access modifier cannot be abstract");
 	}
 
 	@Override
 	protected void checkMethods(List<UmlMethod> methods) throws ExceptionMethode {
 		// TODO Auto-generated method stub
-		
+		for(int i = 0;i < methods.size();i++) {
+			if(methods.get(i).getVisibility() != Visibility.PUBLIC || methods.get(i).getModifiers().contains(Modifier.ABSTRACT))
+				throw new ExceptionMethode("Access modifiers can only be public and Non-access modifier cannot be abstract");
+		}
 	}
 
 	@Override
 	protected void checkVisibility(Visibility visibility) throws ExceptionInitialization {
 		// TODO Auto-generated method stub
-		
+		if(visibility != Visibility.PUBLIC)
+			throw new ExceptionInitialization("Enumeration class can only be public or default");
 	}
 
 	@Override
 	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
 		// TODO Auto-generated method stub
-		
+		if(modifier != null)
+			throw new ExceptionInitialization("Enumerated classes cannot have non-access modifiers");
 	}
 
 	@Override
-	protected void checkModifier(Set<Modifier> modifiers) throws ExceptionInitialization {
-		// TODO Auto-generated method stub
-		
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionInitialization {
+		if(modifiers != null)
+			throw new ExceptionInitialization("Enumerated classes cannot have non-access modifiers");
 	}
 
 }
