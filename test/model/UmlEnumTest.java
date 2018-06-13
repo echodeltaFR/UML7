@@ -10,6 +10,10 @@ import java.util.Set;
 
 import org.junit.*;
 
+import exception.ExceptionAttribute;
+import exception.ExceptionInitialization;
+import exception.ExceptionMethode;
+
 public class UmlEnumTest {
 	
 	private UmlEnum umlEnum1;
@@ -164,21 +168,21 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testSetMethods() {
+	public void testSetMethods() throws ExceptionMethode {
 		this.umlEnum3 = new UmlEnum("enum3", values, methods);
 		this.umlEnum3.setMethodsList(methods2);
 		assertTrue(umlEnum3.getMethodsList().equals(methods2));
 	}
 	
 	@Test
-	public void testSetAttributes() {
+	public void testSetAttributes() throws ExceptionAttribute {
 		this.umlEnum4 = new UmlEnum("enum4", values, methods, attributes);
 		this.umlEnum4.setAttributesList(attributes2);
 		assertTrue(umlEnum4.getAttributesList().equals(attributes2));
 	}
 	
 	@Test
-	public void testSetVisibilityModifiers() {
+	public void testSetVisibilityModifiers() throws ExceptionInitialization {
 		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility, modifiers);
 		this.umlEnum5.setVisibility(visibility2);
 		this.umlEnum5.setModifiers(modifiers2);
@@ -194,7 +198,7 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testAddRemove() {
+	public void testAddRemove() throws ExceptionAttribute, ExceptionMethode {
 		this.umlEnum4 = new UmlEnum("enum4", values,  methods, attributes);
 		this.umlEnum4.removeAttribute(umlAttribute1);
 		assertTrue(!umlEnum4.getAttributesList().contains(umlAttribute1));

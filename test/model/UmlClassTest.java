@@ -10,6 +10,9 @@ import java.util.Set;
 
 import org.junit.*;
 
+import exception.ExceptionComposition;
+import exception.ExceptionMethode;
+
 public class UmlClassTest {
 	
 	private UmlClass umlClass1;
@@ -90,7 +93,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization2() {
+	public void testInitialization2() throws ExceptionMethode {
 		this.umlClass2 = new UmlClass("class2", methods);
 		assertNotNull(umlClass2);
 		assertTrue(umlClass2.getName().equals("class2"));
@@ -98,7 +101,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization3() {
+	public void testInitialization3() throws ExceptionComposition {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		assertNotNull(umlClass3);
 		assertTrue(umlClass3.getName().equals("class3"));
@@ -107,7 +110,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization4() {
+	public void testInitialization4() throws ExceptionComposition {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		assertNotNull(umlClass4);
 		assertTrue(umlClass4.getName().equals("class4"));
@@ -125,21 +128,21 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testSetMethods() {
+	public void testSetMethods() throws ExceptionMethode {
 		this.umlClass2 = new UmlClass("class2", methods);
 		this.umlClass2.setMethodsList(methods2);
 		assertTrue(umlClass2.getMethodsList().equals(methods2));
 	}
 	
 	@Test
-	public void testSetAttributes() {
+	public void testSetAttributes() throws ExceptionComposition {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.setAttributesList(attributes2);
 		assertTrue(umlClass3.getAttributesList().equals(attributes2));
 	}
 	
 	@Test
-	public void testSetVisibilityModifiers() {
+	public void testSetVisibilityModifiers() throws ExceptionComposition {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.setVisibility(visibility2);
 		this.umlClass4.setModifiers(modifiers2);
@@ -148,14 +151,14 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testClearModifiers() {
+	public void testClearModifiers() throws ExceptionComposition {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.clearModifiers();
 		assertTrue(umlClass4.getModifiers().isEmpty());
 	}
 	
 	@Test
-	public void testAddRemove() {
+	public void testAddRemove() throws ExceptionComposition {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.removeAttribute(umlAttribute1);
 		assertTrue(!umlClass3.getAttributesList().contains(umlAttribute1));
