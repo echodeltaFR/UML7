@@ -156,7 +156,7 @@ public class UmlMethod extends UmlEntity {
 
 	@Override
 	protected void checkModifier(Modifier modifier) throws ExceptionInitialization {
-		if(this.getModifiers().contains(Modifier.ABSTRACT) )
+		
 		
 	}
 
