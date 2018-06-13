@@ -43,6 +43,8 @@ public class MethodDisplay extends JLabel implements Observer {
             str.append("-");
         } else if (method.getVisibility() == Visibility.PROTECTED) {
             str.append("#");
+        } else if (method.getVisibility() == Visibility.PACKAGE) {
+        	//DO NOTHING
         } else {
             str.append("Exception");
         }
