@@ -8,31 +8,10 @@ package model;
  */
 public enum Visibility {
 	
-	PRIVATE("-"),
-	PUBLIC("+"),
-	PROTECTED("#"),
-	PACKAGE("");
-	
-	// Attributes
-	
-	/**
-	 * symbol corresponding to a visibility
-	 */
-	private String symbol;
-
-	private String name;
-	
-	// Constructor
-	
-	/**
-	 * Constructor of a visibility with a symbol
-	 * @param symbol symbol of a visibility
-	 */
-	Visibility(String symbol){
-		this.symbol = symbol;
-	}
-	
-	// Methods
+	PRIVATE,
+	PUBLIC,
+	PROTECTED,
+	PACKAGE;
 	
 	/**
 	 * Returns the symbol of a visibility
@@ -40,7 +19,7 @@ public enum Visibility {
 	 */
 	@Override
 	public String toString() {
-		return this.symbol;
+		return this.name();
 	}
 	
 }
