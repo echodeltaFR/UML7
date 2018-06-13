@@ -1,64 +1,35 @@
 @startuml
 
-title UML7 - model
+title UML7 - View
 
-package model {
+package view {
 
-enum Visibility
+abstract RelationDisplay
 
-enum Modifier
+class AggregationRelationDisplay
 
-class UmlDiagram
+class AssociationRelationDisplay
 
-interface UmlType
+class CompositionRelationDisplay
 
-class UmlParams
+class ExtendRelationDisplay
 
-enum PrimitiveType
+class AttributeDisplay
 
+class MethodDisplay
 
-Abstract class UmlEntity
+class UmlObjectDisplay
 
-class UmlClass
+class DiagramDisplay
 
-class UmlMethod
-
-class UmlAttribute
-
-
-class UmlEnum
-
-class UmlInterface
-
-Abstract class UmlRefType
-
-Abstract class UmlRelationship
-
-class UmlAggregationLink
-class UmlAssociationLink
-class UmlCompositionLink
-class UmlExtendLink
-class UmlInterface
-
-UmlEntity -right-> Visibility
-UmlEntity -left-> Modifier
-UmlDiagram *-- UmlEntity
-UmlDiagram *-- UmlRelationship
-UmlParams -down-* UmlMethod
-PrimitiveType .left.|> UmlType
-UmlClass -right-|> UmlRefType
-UmlMethod -up-|> UmlEntity
-UmlAttribute -up-|> UmlEntity
-UmlEnum -up-|> UmlRefType
-UmlInterface -up-|> UmlRefType
-UmlRefType -up-|> UmlEntity
-UmlAggregationLink -right-|> UmlRelationship
-UmlAssociationLink -right-|> UmlRelationship
-UmlCompositionLink -right-|> UmlRelationship
-UmlExtendLink -right-|> UmlRelationship
-UmlAttribute -up-* UmlType
-UmlMethod --* UmlType
-UmlParams --* UmlType
+RelationDisplay <|-- CompositionRelationDisplay
+RelationDisplay <|-left- AssociationRelationDisplay
+RelationDisplay <|-down- AggregationRelationDisplay
+RelationDisplay <|-up- ExtendRelationDisplay
+DiagramDisplay *-- RelationDisplay
+DiagramDisplay *-- UmlObjectDisplay
+UmlObjectDisplay *-- MethodDisplay
+UmlObjectDisplay *-- AttributeDisplay
 
 }
 
