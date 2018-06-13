@@ -11,8 +11,6 @@ enum Visibility {
     PACKAGE
     --
     + toString() : String
-    --
-    + Visibility(symbol : String)
 }
 
 enum Modifier {
@@ -79,9 +77,12 @@ enum PrimitiveType {
 
 
 Abstract class UmlEntity {
+    - name : String
     - visibility : Visibility
     - modifiers : Set<Modifier>
     --
+    + getName() : String
+    + setName(name : String) : void
     + addModifier(modifier : Modifier) : void
     + clearModifiers() : void
     + removeModifier(modifier : Modifier) : void
@@ -91,15 +92,22 @@ Abstract class UmlEntity {
     + setModifiers(modifiers : Set<Modifier>) : void
     # setChangedAndNotify() : void
     --
-    + UmlEntity()
-    + UmlEntity(visibility : Visibility)
-    + UmlEntity(modifiers : Set<Modifier>)
-    + UmlEntity(visibility : Visibility ; modifier : Set<Modifier>)
+    + UmlEntity(name : String)
+    + UmlEntity(name : String ; visibility : Visibility)
+    + UmlEntity(name : String ; modifiers : Set<Modifier>)
+    + UmlEntity(name : String ; visibility : Visibility ; modifier : Set<Modifier>)
 }
 
 class UmlClass {
     --
     + accept(visitor : DiagramElementVisitor) : void
+    # checkAttribute(attribute : UmlAttribute) : void
+    # checkAttributes(attributes : List<UmlAttribute>) : void
+    # checkMethod(method : UmlMethod) : void
+    # checkMethods(methods : List<UmlMethod>) : void
+    # checkVisibility(visibility : Visibility) : void
+    # checkModifier(modifier : Modifier) : void
+    # checkModifiers(modifiers : Set<Modifier>) : void
     --
     + UmlClass(name : String)
     + UmlClass(name : String ; methods : List<UmlMethod>)
@@ -110,30 +118,29 @@ class UmlClass {
 class UmlMethod {
     - params : Set<UmlParams>
     - returnType : UmlType
-    - name : String
     --
     + addParam(param : UmlParams) : void
     + addParams(params : Set<UmlParams>) : void
     + removeParam(param : UmlParams) : void
     + removeParams(params : Set<UmlParams>) : void
     + getReturnType() : UmlType
-    + getName() : String
-    + getParams() : Set<UmlParams>
-    + setName(name : String) : void
     + setReturnType(returnType : UmlType) : void
+    + getParams() : Set<UmlParams>
+    # checkVisibility(visibility : Visibility) : void
+    # checkModifier(modifier : Modifier) : void
+    # checkModifiers(modifiers : Set<Modifier>) : void
     --
     + UmlMethod(name : String)
     + UmlMethod(name : String ; params : Set<UmlParams> ; returnType : UmlType ; visibility : Visibility ; modifiers : Set<Modifier>)
 }
 
 class UmlAttribute {
-    - name : String
     - type : UmlType
     --
-    + getName() : String
     + getType() : UmlType
-    + setName(attrName : String) : void
     + setType(attrType : UmlType) : void
+    # checkVisibility(visibility : Visibility) : void
+    # checkModifier(modifier : Modifier) : void
     --
     + UmlAttribute(attrName : String ; attrType : UmlType)
     + UmlAttribute(attrName : String ; attrType : UmlType ; attrVisi : Visibility ; attrModifs : Set<Modifier>)
@@ -148,6 +155,13 @@ class UmlEnum {
     + addValue(value : String) : void
     + removeValue(value : String) : void
     + accept(visitor : DiagramElementVisitor) : void
+    # checkAttribute(attribute : UmlAttribute) : void
+    # checkAttributes(attributes : List<UmlAttribute>) : void
+    # checkMethod(method : UmlMethod) : void
+    # checkMethods(methods : List<UmlMethod>) : void
+    # checkVisibility(visibility : Visibility) : void
+    # checkModifier(modifier : Modifier) : void
+    # checkModifiers(modifiers : Set<Modifier>) : void
     --
     + UmlEnum(name : String) 
     + UmlEnum(name : String ; values : List<String>)
@@ -158,12 +172,9 @@ class UmlEnum {
 class UmlInterface
 
 Abstract class UmlRefType {
-    - name : String
     - methodsList : List<UmlMethod>
     - attributesList : List<UmlAttribute>
     --
-    + getName() : String
-    + setName(name : String) : void
     + getMethodsList() : List<UmlMethod>
     + setMethodsList(methodsList : List<UmlMethod>) : void
     + getAttributesList() : List<UmlAttribute>
