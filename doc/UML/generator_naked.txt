@@ -1,0 +1,11 @@
+@startuml
+
+title UML7 - Generator
+
+package generator {
+
+DiagramElementVisitor <|-- JavaGenerator
+
+}
+
+@enduml
