@@ -18,6 +18,11 @@
 
 ### Objectifs
 
+* Sauvegarder et charger un diagramme UML
+* Créer des éléments via l'interface graphique
+* Traiter les cas d'exception
+* Éditer les éléments UML
+
 ### État itération
 
 ### Velocité
