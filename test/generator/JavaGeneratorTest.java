@@ -10,6 +10,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.ExceptionComposition;
+import exception.ExceptionInitialization;
 import model.Modifier;
 import model.PrimitiveType;
 import model.UmlAttribute;
@@ -47,7 +49,7 @@ public class JavaGeneratorTest {
 	private String result;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws ExceptionComposition {
 		// Create attributes with modifier and visiblity
 		Set<Modifier> modifierAttribut1 = new HashSet<Modifier>();
 		modifierAttribut1.add(Modifier.FINAL);
@@ -199,7 +201,7 @@ public class JavaGeneratorTest {
 	}
 	
 	@Test
-	public void testGenerationAbstractClass() { 
+	public void testGenerationAbstractClass() throws ExceptionInitialization { 
 		// The result objective
 		result = "public abstract class ClassEmpty {\n\n" + "}\n";
 		
