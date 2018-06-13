@@ -4,6 +4,7 @@ import model.UmlRefType;
 import model.UmlInterface;
 import model.UmlMethod;
 import model.UmlAttribute;
+import model.UmlEntity;
 import model.UmlEnum;
 
 import javax.swing.JPanel;
@@ -130,29 +131,40 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		this.classname.setText(uc.getName());
 		this.attributeContainer.removeAll();
 		for (UmlAttribute a : uc.getAttributesList()) {
-			this.attributeContainer.add(new AttributeDisplay(a));
+			this.attributeContainer.add(new SubComponentDeleteWrapper(a,uc,false));
 		}
+		this.attributeContainer.repaint();
+		this.attributeContainer.revalidate();
+		
 		this.functionContainer.removeAll();
 		for (UmlMethod m : uc.getMethodsList()) {
-			this.functionContainer.add(new MethodDeleteDisplay(m,uc));
+			this.functionContainer.add(new SubComponentDeleteWrapper(m,uc,true));
 		}
 		this.functionContainer.repaint();
 		this.functionContainer.revalidate();
 		this.revalidate();
 	}
 	
-	private class MethodDeleteDisplay extends JPanel{
+	private class SubComponentDeleteWrapper extends JPanel{
 		
 		private JButton deleteButton;
 		
-		MethodDeleteDisplay(UmlMethod umlm, UmlRefType umlrt){
+		SubComponentDeleteWrapper(UmlEntity umlent, UmlRefType umlrt, boolean isMethod){
 			super(new BorderLayout());
-			this.add(new MethodDisplay(umlm), BorderLayout.CENTER);
+			if (isMethod) {
+				this.add(new MethodDisplay((UmlMethod)umlent), BorderLayout.CENTER);
+			} else {
+				this.add(new AttributeDisplay((UmlAttribute)umlent), BorderLayout.CENTER);
+			}
 			deleteButton = new JButton(" - ");
 			deleteButton.setBorder(BorderFactory.createLineBorder(Color.RED));
 			this.add(deleteButton, BorderLayout.EAST);
 			deleteButton.addActionListener(e -> {
-				umlrt.removeMethod(umlm);
+				if (isMethod) {
+					umlrt.removeMethod((UmlMethod)umlent);
+				} else {
+					umlrt.removeAttribute((UmlAttribute)umlent);
+				}
 			});
 			this.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		}
