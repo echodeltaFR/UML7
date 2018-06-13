@@ -27,6 +27,13 @@ public class AttributeEditorController extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		/*
+		 * MODIFICATION CHOICE : 
+		 * 0 - NAME
+		 * 1 - TYPE
+		 * 2 - VISIBILITY
+		 * 3 - CANCEL
+		 */
 		Object[] options = {"Edit name",
                 "Edit type",
                 "Edit visibility",
@@ -41,53 +48,23 @@ public class AttributeEditorController extends MouseAdapter{
 		options,
 		options[2]);
 		
-		boolean done = (userChoice == 3); /* not canceled*/
-		while (!done) {
-			if (userChoice == 0 /* name */) {
-				String newName = JOptionPane.showInputDialog("What is the new method name?", modificationTarget.getName());
-				if (newName != null) {
-					modificationTarget.setName(newName);
-					done = true;
-				} else {
-					done = true;
-				}
-			} else if (userChoice == 1 /* return type */) {
-				Object[] possibilities = PrimitiveType.values();
-				PrimitiveType pt = (PrimitiveType)JOptionPane.showInputDialog(
-				                    null,
-				                    "Choose a primitive type",
-				                    "Type choosing",
-				                    JOptionPane.PLAIN_MESSAGE,
-				                    null,
-				                    possibilities,
-				                    PrimitiveType.INT);
-				if (pt != null) {
-					modificationTarget.setType(pt);
-					done = true;
-				} else {
-					done = true;
-				}
-			} else if (userChoice == 2 /* visibility */) {
-				Object[] possibilities = Visibility.values();
-				Visibility v = (Visibility)JOptionPane.showInputDialog(
-				                    null,
-				                    "Choose a visibility",
-				                    "Visibility choosing",
-				                    JOptionPane.PLAIN_MESSAGE,
-				                    null,
-				                    possibilities,
-				                    Visibility.PUBLIC);
-				if (v != null) {
-					try {
-						modificationTarget.setVisibility(v);
-						done = true;
-					} catch (ExceptionComposition ex) {
-						JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					done = true;
-				}
+		if (userChoice == 0 /* name */) {
+			UmlEntityControlUnit.askAndChangeName(modificationTarget);
+		} else if (userChoice == 1 /* return type */) {
+			Object[] possibilities = PrimitiveType.values();
+			PrimitiveType pt = (PrimitiveType)JOptionPane.showInputDialog(
+			                    null,
+			                    "Choose a primitive type",
+			                    "Type choosing",
+			                    JOptionPane.PLAIN_MESSAGE,
+			                    null,
+			                    possibilities,
+			                    PrimitiveType.INT);
+			if (pt != null) {
+				modificationTarget.setType(pt);
 			}
+		} else if (userChoice == 2 /* visibility */) {
+			UmlEntityControlUnit.askAndChangeVisibility(modificationTarget);
 		}
 	}
 	
