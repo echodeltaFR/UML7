@@ -99,10 +99,11 @@ public class UmlInterface extends UmlRefType {
 				(method.getModifiers().size()==1 &&
 						method.getModifiers().contains(Modifier.ABSTRACT))) {
 			} else {
-				throw new ExceptionMethode("The modifier of the method should be final static or default");
+				throw new ExceptionMethode("The modifier of the method should be abstract");
 				}
 		if(method.getVisibility() == null ||
-				method.getVisibility() == Visibility.PUBLIC ) {
+				method.getVisibility() == Visibility.PUBLIC ||
+				method.getVisibility() == Visibility.PACKAGE) {
 		} else {
 			throw new ExceptionMethode("The visibility of the method should be public or default");
 		}
@@ -133,10 +134,10 @@ public class UmlInterface extends UmlRefType {
 				if(attributes.get(i).getModifiers() == null ||
 					(attributes.get(i).getModifiers().size() == 2 &&
 					attributes.get(i).getModifiers().contains(Modifier.FINAL) &&
-					attributes.contains(Modifier.STATIC) ||
+					attributes.get(i).getModifiers().contains(Modifier.STATIC) ||
 					(attributes.get(i).getModifiers().size() == 1 &&
 					(attributes.get(i).getModifiers().contains(Modifier.FINAL) ||
-					attributes.contains(Modifier.STATIC))))) {
+					attributes.get(i).getModifiers().contains(Modifier.STATIC))))) {
 				} else {
 					throw new ExceptionAttribute("The modifier of the attribute should be final static or default");
 				}
@@ -157,7 +158,7 @@ public class UmlInterface extends UmlRefType {
 					(methods.get(i).getModifiers().size()==1 &&
 							methods.get(i).getModifiers().contains(Modifier.ABSTRACT))) {
 				} else {
-					throw new ExceptionMethode("The modifier of the method should be final static or default");
+					throw new ExceptionMethode("The modifier of the method should be abstract");
 				}
 				//check visibility of methods
 				if(methods.get(i).getVisibility() == null ||
