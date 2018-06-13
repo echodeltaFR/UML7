@@ -94,6 +94,9 @@ public abstract class UmlEntity extends Observable {
 	 * @param name 
 	 */
 	public void setName(String name) {
+		if (name == null) throw new IllegalArgumentException("Name can't be null");
+		if (name.trim().isEmpty()) throw new IllegalArgumentException("Name can't be empty");
+		if (name.contains(" ")) throw new IllegalArgumentException("Name can't contain spaces");
 		this.name = name;
 		this.setChangedAndNotify();
 	}
