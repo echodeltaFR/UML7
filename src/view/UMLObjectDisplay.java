@@ -103,7 +103,8 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		this.add(titleArea, BorderLayout.NORTH);
 		
 		//Content has 2 categories : attributes and methods/functions
-		JPanel listsContainer = new JPanel(new GridLayout(2, 0));
+		JPanel listsContainer = new JPanel();
+		listsContainer.setLayout(new BoxLayout(listsContainer,BoxLayout.Y_AXIS));
 		listsContainer.setBorder(umlObjectBorders);
 		
 		this.attributeContainer = new JPanel();
