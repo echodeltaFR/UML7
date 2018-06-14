@@ -1,28 +1,31 @@
 package view;
 
 import model.UmlRefType;
-import model.UmlInterface;
 import model.UmlMethod;
 import model.UmlAttribute;
 import model.UmlEntity;
 import model.UmlEnum;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
 import controller.ClassEditorController;
+import controller.MethodAddController;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -87,13 +90,48 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	private void buildInnerSwingArchitecture(UmlRefType umlobject) {
 		this.setLayout(new BorderLayout());
 		this.setBorder(umlObjectBorders);
+		
 		this.classname = new JLabel();
+		
+		
+		JLabel addElement = new JLabel(
+				new ImageIcon(
+						this.getClass().getClassLoader().getResource("resource/plus.png")
+						)
+				);
+		
+		
+		addElement.addMouseListener(new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent arg0) {
+				// Show popup menu
+				JPopupMenu popup = new JPopupMenu(); 
+		        JMenuItem methodItem = new JMenuItem("Add method");
+				methodItem.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						new MethodAddController(umlobject);
+					}
+					
+				});
+		        JMenuItem attributeItem = new JMenuItem("Add attribute");
+				
+				popup.add(methodItem);
+				popup.add(attributeItem);
+				popup.show(arg0.getComponent(), arg0.getX(), arg0.getY());
+				
+			}
+
+		});
+		
 		classname.setHorizontalAlignment(JLabel.CENTER);;
 		
 		//Creating title area
 		JPanel titleArea = new JPanel(new BorderLayout());
 		titleArea.setBorder(umlObjectBorders);
 		titleArea.add(this.classname,BorderLayout.CENTER);
+		titleArea.add(addElement, BorderLayout.EAST);
 		
 		String stereotype = stereotypeMap.get(umlobject.getClass());
 		if (stereotype != null) {
