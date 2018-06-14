@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import exception.ExceptionUml;
 import exception.ExceptionInitialization;
+import exception.ExceptionModifier;
 import model.Modifier;
 import model.PrimitiveType;
 import model.UmlAttribute;
@@ -67,6 +68,10 @@ public class JavaGeneratorTest {
 				PrimitiveType.DOUBLE, 
 				Visibility.PRIVATE,
 				null);
+		UmlAttribute attributeInterface = new UmlAttribute("attributInterface",
+				PrimitiveType.DOUBLE, 
+				Visibility.PUBLIC,
+				modifierAttribut1);
 		
 		// Create parameters
 		UmlRefType type1 = new UmlClass("type1");
@@ -84,9 +89,13 @@ public class JavaGeneratorTest {
 		Set<Modifier> modifierMethod3 = new HashSet<Modifier>();
 		modifierMethod3.add(Modifier.FINAL);
 		
+		Set<Modifier> modifierAbstract = new HashSet<Modifier>();
+		modifierAbstract.add(Modifier.ABSTRACT);
+		
 		UmlMethod method1 = new UmlMethod("method1", paramsMethod1, PrimitiveType.VOID, Visibility.PUBLIC, null);
 		UmlMethod method2 = new UmlMethod("method2", paramsMethod2, type1, null, null);
 		UmlMethod method3 = new UmlMethod("method3", null, type2, null, modifierMethod3);
+		UmlMethod method4 = new UmlMethod("method4", null, PrimitiveType.VOID, Visibility.PUBLIC, modifierAbstract );
 		
 		// Create attribute and method component
 		List <UmlAttribute> attributes = new ArrayList<UmlAttribute>();
@@ -94,10 +103,16 @@ public class JavaGeneratorTest {
 		attributes.add(attribute2);
 		attributes.add(attribute3);
 		
+		List <UmlAttribute> attributesInterface = new ArrayList<UmlAttribute>();
+		attributesInterface.add(attributeInterface);
+		
 		List <UmlMethod> methods = new ArrayList<UmlMethod>();
 		methods.add(method1);
 		methods.add(method2);
 		methods.add(method3);
+		
+		List <UmlMethod> methodsInterface = new ArrayList<UmlMethod>();
+		methodsInterface.add(method4);
 		
 		List <String> valuesEnum = new ArrayList<String>();
 		valuesEnum.add("INT");
@@ -106,7 +121,7 @@ public class JavaGeneratorTest {
 		
 		// Create components
 		interfaceComponent = new UmlInterface("Interface", 
-				methods, attributes, 
+				methodsInterface, attributesInterface, 
 				Visibility.PUBLIC, null);
 		
 		classComponent = new UmlClass("Class", 
@@ -118,7 +133,7 @@ public class JavaGeneratorTest {
 		
 		enumComponent = new UmlEnum("Enum", 
 				valuesEnum, methods, attributes, 
-				Visibility.PUBLIC, null);
+				Visibility.PUBLIC);
 		
 		// Create diagrams
 		interfaceDiagramComponents = new ArrayList<UmlRefType>();
@@ -201,7 +216,7 @@ public class JavaGeneratorTest {
 	}
 	
 	@Test
-	public void testGenerationAbstractClass() throws ExceptionInitialization { 
+	public void testGenerationAbstractClass() throws ExceptionInitialization, ExceptionModifier { 
 		// The result objective
 		result = "public abstract class ClassEmpty {\n\n" + "}\n";
 		
