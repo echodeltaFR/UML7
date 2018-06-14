@@ -123,13 +123,14 @@ public class UmlClass extends UmlRefType{
 
 	@Override
 	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
-		if (modifiers.size()>1) throw new ExceptionModifier("The class may only have one of the abstract modifier or the final modifier");
-		if(modifiers.contains(Modifier.FINAL)) {
-			for (int i = 0; i< this.getMethodsList().size(); i++) {
-				if(this.getMethodsList().get(i).getModifiers().contains(Modifier.ABSTRACT))
-					throw new ExceptionModifier("This class has an abstract method that cannot be added to the final modifier");
+		if (modifiers != null) {
+			if (modifiers.size()>1) throw new ExceptionModifier("The class may only have one of the abstract modifier or the final modifier");
+			if(modifiers.contains(Modifier.FINAL)) {
+				for (int i = 0; i< this.getMethodsList().size(); i++) {
+					if(this.getMethodsList().get(i).getModifiers().contains(Modifier.ABSTRACT))
+						throw new ExceptionModifier("This class has an abstract method that cannot be added to the final modifier");
+				}
 			}
 		}
 	}
-	
 }
