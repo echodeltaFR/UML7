@@ -16,6 +16,8 @@ public class UmlEntityControlUnit {
 				if (newName != null) {
 					umle.setName(newName);
 					done = true;
+				} else {
+					done = true;
 				}
 			} catch(IllegalArgumentException ex) {
 				JOptionPane.showMessageDialog(null, "Error : "+ex.getMessage(),"An error happened",JOptionPane.ERROR_MESSAGE);
