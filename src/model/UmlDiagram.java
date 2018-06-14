@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 
 
 /**
@@ -11,7 +13,7 @@ import java.util.List;
  * @see UmlRelationship
  * @version 1.0
  */
-public class UmlDiagram {
+public class UmlDiagram extends Observable{
 
 	/** Title of the UmlDiagram. */
 	private String title;
@@ -93,14 +95,17 @@ public class UmlDiagram {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
 	 * Get the elements of the diagram.
+	 * This returns an unmodifiable view of this object list.
 	 * @return The diagram's elements
 	 */
 	public List<UmlRefType> getUmlElements() {
-		return this.elements;
+		return Collections.unmodifiableList(this.elements);
 	}
 	
 	/**
@@ -108,7 +113,10 @@ public class UmlDiagram {
 	 * @param element An element to add in the diagram
 	 */
 	public void addUmlElements(UmlRefType element) {
-		this.elements.add(element);
+		if (this.elements.add(element)) {
+			this.setChanged();
+			this.notifyObservers();
+		};
 	}
 	
 	/**
@@ -116,15 +124,19 @@ public class UmlDiagram {
 	 * @param elements A list of diagram elements to add
 	 */
 	public void addAllUmlElements(List<UmlRefType> elements) {
-		this.elements.addAll(elements);
+		if (this.elements.addAll(elements)) {
+			this.setChanged();
+			this.notifyObservers();
+		};
 	}
 	
 	/**
 	 * Get the diagram element.
+	 * This returns an unmodifiable view of this object list.
 	 * @return The diagram elements 
 	 */
 	public List<UmlRelationship> getUmlRelations() {
-		return this.relations;
+		return Collections.unmodifiableList(this.relations);
 	}
 	
 	/**
@@ -132,7 +144,10 @@ public class UmlDiagram {
 	 * @param relation A relation to add
 	 */
 	public void addUmlRelations(UmlRelationship relation) {
-		this.relations.add(relation);
+		if (this.relations.add(relation)) {
+			this.setChanged();
+			this.notifyObservers();
+		};
 	}
 	
 	/**
@@ -140,8 +155,9 @@ public class UmlDiagram {
 	 * @param relations A list of relations to add
 	 */
 	public void addAllUmlRelations(List<UmlRelationship> relations) {
-		this.relations.addAll(relations);
+		if (this.relations.addAll(relations)) {
+			this.setChanged();
+			this.notifyObservers();
+		};
 	}
-	
-	//Mettre les remove
 }
