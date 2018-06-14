@@ -66,6 +66,20 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	}
 	
 	/**
+	 * Constructor with a name, a list of methods, a list of attributes, and a visibility.
+	 * @param name Name of the component
+	 * @param methods Methods of the component
+	 * @param attributes Attributes of the component
+	 * @param visibility Visibility of the component
+	 * @throws ExceptionUml 
+	 */
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility) {
+		super(name, visibility);
+		methodsList = methods;
+		attributesList = attributes;
+	}
+	
+	/**
 	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers.
 	 * @param name Name of the component
 	 * @param methods Methods of the component

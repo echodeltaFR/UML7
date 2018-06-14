@@ -79,12 +79,10 @@ public class UmlEnum extends UmlRefType {
 	 * @param methods methods of the Enum
 	 * @param attributes attributes of the ENum
 	 * @param visibility visibility of the component
-
-	 * @param modifiers a set of modifiers
 	 * @throws ExceptionUml 
 	 */
-	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) throws ExceptionUml {
-		super(name, methods, attributes, visibility, modifiers);
+	public UmlEnum(String name, List<String> values, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility) throws ExceptionUml {
+		super(name, methods, attributes, visibility);
 		this.checkMethods(methods);
 		this.checkAttributes(attributes);
 		this.checkVisibility(visibility);
