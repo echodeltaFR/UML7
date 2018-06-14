@@ -4,14 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.*;
 
-import exception.ExceptionAttribute;
 import exception.ExceptionUml;
+import exception.ExceptionVisibility;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 
@@ -40,9 +39,6 @@ public class UmlEnumTest {
 	
 	private Visibility visibility;
 	private Visibility visibility2;
-	
-//	private Modifier modifier1;
-//	private Modifier modifier2;
 	
 	private Set<Modifier> modifiers;
 	private Set<Modifier> modifiers2;
@@ -171,7 +167,7 @@ public class UmlEnumTest {
 		assertTrue(umlEnum4.getAttributesList().equals(attributes2));
 	}
 	
-	@Test(expected = ExceptionInitialization.class)
+	@Test(expected = ExceptionVisibility.class)
 	public void testSetVisibilityModifiers() throws ExceptionUml {
 		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility);
 		this.umlEnum5.setVisibility(visibility2);

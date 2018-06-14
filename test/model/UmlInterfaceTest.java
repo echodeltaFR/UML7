@@ -15,6 +15,8 @@ import exception.ExceptionAttribute;
 import exception.ExceptionComposition;
 import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
+import exception.ExceptionModifier;
+import exception.ExceptionUml;
 
 public class UmlInterfaceTest {
 	
@@ -34,15 +36,27 @@ public class UmlInterfaceTest {
 	private Visibility visibility;
 	private Visibility visibility2;
 	
+	private Modifier modifier1;
+	
+	private Set<Modifier> modifiers;
+	private Set<Modifier> modifiers2;
+	
 	private List<UmlMethod> methods;
 	private List<UmlMethod> methods2;
 	
 	private List<UmlAttribute> attributes;
 	private List<UmlAttribute> attributes2;
 	
-	@Before public void setUp() throws ExceptionInitialization {
+	@Before public void setUp() throws ExceptionUml, ExceptionModifier {
 		this.visibility = Visibility.PUBLIC;
 		this.visibility2 = Visibility.PACKAGE;
+		
+		this.modifier1 = Modifier.ABSTRACT;
+		
+		this.modifiers = new HashSet<Modifier>();
+		this.modifiers.add(modifier1);
+		
+		this.modifiers2 = new HashSet<Modifier>();
 		
 		this.umlMethod1 = new UmlMethod("method1");
 		umlMethod1.clearModifiers();
@@ -99,7 +113,7 @@ public class UmlInterfaceTest {
 	}
 	
 	@Test
-	public void testInitialization3() throws ExceptionAttribute, ExceptionMethode {
+	public void testInitialization3() throws ExceptionUml {
 		this.umlInterface3 = new UmlInterface("interface3", methods, attributes);
 		assertNotNull(umlInterface3);
 		assertTrue(umlInterface3.getName().equals("interface3"));
@@ -108,8 +122,8 @@ public class UmlInterfaceTest {
 	}
 	
 	@Test
-	public void testInitialization5() throws ExceptionComposition {
-		this.umlInterface4 = new UmlInterface("interface4", methods, attributes, visibility);
+	public void testInitialization5() throws ExceptionUml {
+		this.umlInterface4 = new UmlInterface("interface4", methods, attributes, visibility, modifiers );
 		assertNotNull(umlInterface4);
 		assertTrue(umlInterface4.getName().equals("interface4"));
 		assertTrue(umlInterface4.getMethodsList().equals(methods));
@@ -132,28 +146,28 @@ public class UmlInterfaceTest {
 	}
 	
 	@Test
-	public void testSetAttributes() throws ExceptionAttribute, ExceptionMethode {
+	public void testSetAttributes() throws ExceptionUml {
 		this.umlInterface3 = new UmlInterface("interface3", methods, attributes);
 		this.umlInterface3.setAttributesList(attributes2);
 		assertTrue(umlInterface3.getAttributesList().equals(attributes2));
 	}
 	
 	@Test
-	public void testSetVisibilityModifiers() throws ExceptionComposition {
-		this.umlInterface4 = new UmlInterface("interface4", methods, attributes, visibility);
+	public void testSetVisibilityModifiers() throws ExceptionUml {
+		this.umlInterface4 = new UmlInterface("interface4", methods, attributes, visibility, modifiers);
 		this.umlInterface4.setVisibility(visibility2);
 		assertTrue(umlInterface4.getVisibility().equals(visibility2));
 	}
 	
 	@Test
-	public void testClearModifiers() throws ExceptionComposition {
-		this.umlInterface4 = new UmlInterface("interface5", methods, attributes, visibility);
+	public void testClearModifiers() throws ExceptionUml {
+		this.umlInterface4 = new UmlInterface("interface5", methods, attributes, visibility, modifiers);
 		this.umlInterface4.clearModifiers();
 		assertTrue(umlInterface4.getModifiers().isEmpty());
 	}
 	
 	@Test
-	public void testAddRemove() throws ExceptionAttribute, ExceptionMethode {
+	public void testAddRemove() throws ExceptionUml {
 		this.umlInterface3 = new UmlInterface("interface3",  methods, attributes);
 		this.umlInterface3.removeAttribute(umlAttribute1);
 		assertTrue(!umlInterface3.getAttributesList().contains(umlAttribute1));
