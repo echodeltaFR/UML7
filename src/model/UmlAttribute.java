@@ -2,7 +2,6 @@ package model;
 
 import java.util.Set;
 
-import exception.ExceptionInitialization;
 import exception.ExceptionModifier;
 import exception.ExceptionVisibility;
 

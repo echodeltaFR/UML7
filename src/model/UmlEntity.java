@@ -6,7 +6,6 @@ import java.util.Set;
 
 import exception.ExceptionUml;
 import exception.ExceptionVisibility;
-import exception.ExceptionInitialization;
 import exception.ExceptionModifier;
 
 /**

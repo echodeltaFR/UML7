@@ -5,11 +5,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import exception.ExceptionUml;
-import exception.ExceptionInitialization;
-import model.UmlAttributeTest;
-import model.UmlMethod;
-import model.Visibility;
 import model.PrimitiveType;
 import model.UmlAttribute;
 

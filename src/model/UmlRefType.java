@@ -6,7 +6,6 @@ import java.util.Set;
 
 import exception.ExceptionAttribute;
 import exception.ExceptionUml;
-import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
