@@ -109,7 +109,10 @@ public abstract class UmlEntity extends Observable {
 	 * @param modifier A modifier to add to the element
 	 */
 	public void addModifier(Modifier modifier) throws ExceptionModifier {
-		this.checkModifier(modifier);
+		Set<Modifier> temp= new HashSet<>();
+		temp=this.getModifiers();
+		temp.add(modifier);
+		this.checkModifiers(temp);
 		if (this.modifiers.add(modifier)) {
 			this.setChangedAndNotify();
 		}

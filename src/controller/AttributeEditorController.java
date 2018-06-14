@@ -5,6 +5,13 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
+<<<<<<< HEAD
+=======
+import exception.ExceptionUml;
+import model.UmlAttributeTest;
+import model.UmlMethod;
+import model.Visibility;
+>>>>>>> modifeir checkparti pour attribute et method
 import model.PrimitiveType;
 import model.UmlAttribute;
 

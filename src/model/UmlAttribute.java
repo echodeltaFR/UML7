@@ -1,7 +1,7 @@
 package model;
 
+import java.util.HashSet;
 import java.util.Set;
-
 import exception.ExceptionModifier;
 import exception.ExceptionVisibility;
 
@@ -17,7 +17,6 @@ public class UmlAttribute extends UmlEntity {
     
     /** Type of the attribute. */
     private UmlType type;
-
     // Constructors
 
     /**
@@ -71,13 +70,17 @@ public class UmlAttribute extends UmlEntity {
 	@Override
 	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		// TODO Auto-generated method stub
-		
+		if(modifier == Modifier.ABSTRACT)
+			throw new ExceptionModifier("Attribute cannot be set to abstract");
 	}
 
 	@Override
 	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
 		// TODO Auto-generated method stub
-		
+		if(modifiers.contains(Modifier.ABSTRACT))
+			throw new ExceptionModifier("Attribute cannot be set to abstract");
+		if(modifiers.contains(Modifier.FINAL) && modifiers.contains(Modifier.VOLATILE))
+			throw new ExceptionModifier("the modifier of attribute conflicts");
 	}
 
 }

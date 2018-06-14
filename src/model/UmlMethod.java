@@ -123,7 +123,7 @@ public class UmlMethod extends UmlEntity {
 		this.returnType = returnType;
 		this.setChangedAndNotify();
 	}
-
+	
 	@Override
 	protected final void checkVisibility(Visibility visibility) throws ExceptionVisibility {
 		
@@ -132,17 +132,14 @@ public class UmlMethod extends UmlEntity {
 
 	@Override
 	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
-		Set<Modifier> m_temp = this.getModifiers();
-		if(m_temp.contains(Modifier.ABSTRACT) && m_temp.size()>1)
-				throw new ExceptionModifier("");
-		
-		
 	}
 
 	@Override
 	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
-		
-		
+		if(modifiers.contains(Modifier.ABSTRACT) && modifiers.size()>1)
+			throw new ExceptionModifier("Abstract modifiers cannot be used in conjunction with other modifiers");
+		if(modifiers.contains(Modifier.FINAL)&&modifiers.contains(Modifier.VOLATILE))
+			throw new ExceptionModifier("the modifier of attribute conflicts");
 	}
 
 }
