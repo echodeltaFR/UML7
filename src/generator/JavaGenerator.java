@@ -96,7 +96,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 
 		// Add the attributes
 		for(UmlAttribute attribut : component.getAttributesList()) {
-			attributeCode.append("\n" + DiagramElementVisitor.TAB
+			attributeCode.append(DiagramElementVisitor.TAB
 				+ this.convertVisibility(attribut) + " ");
 			
 			// Add the attribute modifier
@@ -126,7 +126,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 
 		// Print the class method
 		for(UmlMethod method : component.getMethodsList()) {
-			methodCode.append("\n" + DiagramElementVisitor.TAB 
+			methodCode.append(DiagramElementVisitor.TAB 
 					+ this.convertVisibility(method) + " ");
 
 			// Add the method modifier
