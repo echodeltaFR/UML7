@@ -14,6 +14,12 @@ public abstract class UmlRelationship implements Serializable {
 	/** Class B **/
 	private UmlClass classB;
 	
+	/** classA's cardinality **/
+	private int cardinalityA;
+	
+	/** classB's cardinality **/
+	private int cardinalityB;
+	
 	/** classA's role **/
 	private String roleA;
 	
@@ -28,6 +34,8 @@ public abstract class UmlRelationship implements Serializable {
 		assert elementA != null && elementB != null;
 		this.classA = elementA;
 		this.classB = elementB;
+		this.cardinalityA = 1;
+		this.cardinalityB = -1;
 		this.roleA = "";
 		this.roleB = "";
 		this.relationName = "";
@@ -56,7 +64,23 @@ public abstract class UmlRelationship implements Serializable {
 	public UmlClass getClassB() {
 		return classB;
 	}
+	
+	public int getCardinalityA() {
+		return this.cardinalityA;
+	}
+	
+	public int getCardinalityB() {
+		return this.cardinalityB;
+	}
+	
+	public void setCardinalityA(int value) {
+		this.cardinalityA = value;
+	}
 
+	public void setCardinalityB(int value) {
+		this.cardinalityB = value;
+	}
+	
 	public String getRelationName() {
 		return relationName;
 	}
