@@ -7,13 +7,11 @@ interface Loader {
 }
 
 class DiagramLoader {
-    - file : File
     - diagram : UmlDiagram
     - jfc : JFileChooser
-    - filter : FileNameExtensionFilter
     --
     + load() : void
-    - loadFile() : void
+    - loadFile(File file) : void
     + getDiagram() : UmlDiagram
     --
     + DiagramLoader()
