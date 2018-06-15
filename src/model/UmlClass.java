@@ -109,7 +109,7 @@ public class UmlClass extends UmlRefType{
 	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility  {
 		// TODO Auto-generated method stub
 		if(visibility == Visibility.PRIVATE || visibility == Visibility.PROTECTED)
-			throw new ExceptionVisibility("Class can only set access limiters to public or defaut");
+			throw new ExceptionVisibility("Class can only set access limiters to public or empty");
 		
 	}
 

@@ -178,7 +178,7 @@ public class UmlEnum extends UmlRefType {
 	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility {
 		// TODO Auto-generated method stub
 		if(visibility != Visibility.PUBLIC)
-			throw new ExceptionVisibility("Enumeration class can only be public or default");
+			throw new ExceptionVisibility("Enumeration class can only be public or empty");
 	}
 
 	@Override

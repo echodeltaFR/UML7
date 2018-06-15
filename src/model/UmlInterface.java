@@ -103,31 +103,31 @@ public class UmlInterface extends UmlRefType {
 				(method.getModifiers().size()==1 &&
 						method.getModifiers().contains(Modifier.ABSTRACT))) {
 			} else {
-				throw new ExceptionMethode("The modifier of the method should be abstract");
+				throw new ExceptionMethode("The modifier of the method should be abstract or empty");
 				}
 		if(method.getVisibility() == null ||
 				method.getVisibility() == Visibility.PUBLIC) {
 		} else {
-			throw new ExceptionMethode("The visibility of the method should be public or default");
+			throw new ExceptionMethode("The visibility of the method should be public or empty");
 		}
 	}
 	//check visibility of the interface 
 	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility {
 		if(!(visibility == null || visibility != Visibility.PUBLIC ||
 				visibility != Visibility.PACKAGE)) {
-			throw new ExceptionVisibility("The visibility of the interface should be public or default");
+			throw new ExceptionVisibility("The visibility of the interface should be public or empty");
 		}
 	}
 	//check modifier of the interface
 	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
 		if(!(modifier == null || modifier != Modifier.ABSTRACT)) {
-			throw new ExceptionModifier("The modifier of the interface should be abstract or default");
+			throw new ExceptionModifier("The modifier of the interface should be abstract or empty");
 		}
 	}
 	//check modifiers of the interface
 	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
 		if(!(modifiers == null || (modifiers.size()==1 && modifiers.contains(Modifier.ABSTRACT)))) {
-			throw new ExceptionModifier("The modifier of the interface should be abstract or default");
+			throw new ExceptionModifier("The modifier of the interface should be abstract or empty");
 		}
 	}
 	@Override
@@ -143,13 +143,13 @@ public class UmlInterface extends UmlRefType {
 					(attributes.get(i).getModifiers().contains(Modifier.FINAL) ||
 					attributes.get(i).getModifiers().contains(Modifier.STATIC))))) {
 				} else {
-					throw new ExceptionAttribute("The modifier of the attribute should be final static or default");
+					throw new ExceptionAttribute("The modifier of the attribute should be final static or empty");
 				}
 				//check visibility of attributes
 				if(attributes.get(i).getVisibility() == null ||
 						attributes.get(i).getVisibility() == Visibility.PUBLIC ) {
 				} else {
-					throw new ExceptionAttribute("The visibility of the attribute should be public or default");
+					throw new ExceptionAttribute("The visibility of the attribute should be public or empty");
 				}
 			}
 		}
@@ -162,13 +162,13 @@ public class UmlInterface extends UmlRefType {
 					(methods.get(i).getModifiers().size()==1 &&
 							methods.get(i).getModifiers().contains(Modifier.ABSTRACT))) {
 				} else {
-					throw new ExceptionMethode("The modifier of the method should be abstract");
+					throw new ExceptionMethode("The modifier of the method should be abstract or empty");
 				}
 				//check visibility of methods
-				if(methods.get(i).getVisibility() == null ||
+				if(methods.get(i).getVisibility() == null || 
 						methods.get(i).getVisibility() == Visibility.PUBLIC ) {
 				} else {
-					throw new ExceptionMethode("The visibility of the attribute should be final static or default");
+					throw new ExceptionMethode("The visibility of the attribute should be final static or empty");
 				}
 			}
 		}
