@@ -10,6 +10,7 @@ import model.UmlInterface;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import controller.AttributeEditorController;
 import controller.ClassEditorController;
 import controller.MethodEditorController;
 
@@ -118,6 +119,14 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 					
 				});
 		        JMenuItem attributeItem = new JMenuItem("Add attribute");
+		        attributeItem.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						new AttributeEditorController(umlobject);
+					}
+		        	
+		        });
 				
 				popup.add(methodItem);
 				popup.add(attributeItem);

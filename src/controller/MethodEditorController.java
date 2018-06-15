@@ -35,6 +35,11 @@ import exception.ExceptionModifier;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JCheckBox;
 
+
+/**
+ * Class that represents the method editor controller.
+ * @author Charly Courilleau
+ */
 public class MethodEditorController extends JDialog {
 	
 	/**
@@ -71,7 +76,8 @@ public class MethodEditorController extends JDialog {
 	private Set<Modifier> modifiers;
 	
 	/**
-	 * @wbp.parser.constructor
+	 * Constructor called when we need to update a method.
+	 * @param umlMethod the method to add
 	 */
 	public MethodEditorController(UmlMethod umlMethod) {
 		if (umlMethod == null) {
@@ -129,17 +135,16 @@ public class MethodEditorController extends JDialog {
 					umlMethod.addParams(umlParams);
 	
 					try {
-						
 						umlMethod.setModifiers(modifiers);
 						umlMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
 						myself.dispose();
 	
 					} catch (ExceptionModifier e1) {
-							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
 					}
 					
 				} catch (IllegalArgumentException ex) {
-					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Name can't be empty", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Empty name", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			
@@ -147,7 +152,10 @@ public class MethodEditorController extends JDialog {
 		
 	}
 	
-	
+	/**
+	 * Constructor called when we need to add a method.
+	 * @param umlRef the uml element
+	 */
 	public MethodEditorController(UmlRefType umlRef) {
 		if (umlRef == null) {
 			throw new IllegalArgumentException("Add target can't be null");
@@ -176,7 +184,7 @@ public class MethodEditorController extends JDialog {
 						newMethod.setModifiers(modifiers);
 
 					} catch (ExceptionModifier e1) {
-							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
 					}
 					
 					newMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
@@ -189,7 +197,7 @@ public class MethodEditorController extends JDialog {
 					}
 					
 				} catch(IllegalArgumentException ex) {
-					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Name can't be empty", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Empty name", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				
@@ -199,7 +207,9 @@ public class MethodEditorController extends JDialog {
 		
 	}
 	
-	
+	/**
+	 * Method that permits to build the GUI
+	 */
 	private void initializeNakedGUI() {
 		
 		JDialog myself = this;
@@ -410,15 +420,21 @@ public class MethodEditorController extends JDialog {
 
 	}
 	
-	
+	/**
+	 * Method that permits to initialize the combobox type.
+	 * @param combo the swing combobox type
+	 */
 	private void initializeType(JComboBox<String> combo) {
 		for (PrimitiveType type : PrimitiveType.values()) {
 			combo.addItem(type.name());
 		}
 	}
 	
-	
-	private void removeParameter(String methodName) {
+	/**
+	 * Method that permits to remove a parameter.
+	 * @param parameterName the paramater name to remove
+	 */
+	private void removeParameter(String parameterName) {
 		
 		UmlParams found = null;
 				
@@ -426,7 +442,7 @@ public class MethodEditorController extends JDialog {
 		
 		for (int i = 0; i < tab.length && found == null; i++) {
 
-			if (tab[i].getName().equals(methodName)) {
+			if (tab[i].getName().equals(parameterName)) {
 				found = tab[i];
 			}
 		}
@@ -438,6 +454,11 @@ public class MethodEditorController extends JDialog {
 		
 	}
 	
+	/**
+	 * Method that permits to add an item listener on a checkbox.
+	 * @param checkBox the swing checkbox
+	 * @param modifier the modifier handled by the swing checkbox
+	 */
 	private void addItemListenerCheckBox(JCheckBox checkBox, Modifier modifier) {
 		checkBox.addItemListener(new ItemListener() {
 

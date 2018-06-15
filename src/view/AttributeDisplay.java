@@ -1,4 +1,6 @@
 package view;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,7 +30,14 @@ public class AttributeDisplay extends JLabel implements Observer{
         super();
         attribute.addObserver(this);
         this.setBackground(Uml7JFrame.objectBackgroundColor);
-        this.addMouseListener(new AttributeEditorController(attribute));
+        
+        this.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new AttributeEditorController(attribute);
+        	}
+        });
+        
         updateLabel(attribute);
     }
     
