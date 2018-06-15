@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,12 @@ import java.util.Observable;
  * @see UmlRelationship
  * @version 1.0
  */
-public class UmlDiagram extends Observable{
+public class UmlDiagram extends Observable implements Serializable{
+
+	/**
+	 * generated serial ID
+	 */
+	private static final long serialVersionUID = -3323312232281185348L;
 
 	/** Title of the UmlDiagram. */
 	private String title;
@@ -160,4 +166,5 @@ public class UmlDiagram extends Observable{
 			this.notifyObservers();
 		};
 	}
+
 }

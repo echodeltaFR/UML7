@@ -122,7 +122,6 @@ public class UmlEnum extends UmlRefType {
 		return this.valuesList;
 	}
 
-
 	@Override
 	public void accept(DiagramElementVisitor visitor) {
 		visitor.visit(this);

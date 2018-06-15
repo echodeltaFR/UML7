@@ -171,7 +171,7 @@ public class JavaGeneratorTest {
 				+ DiagramElementVisitor.TAB + "private double attribut3;\n\n"
 				+ DiagramElementVisitor.TAB + "public void method1(type2 param2, type1 param1);\n"
 				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1);\n"
-				+ DiagramElementVisitor.TAB + "public final type2 method3();\n\n"
+				+ DiagramElementVisitor.TAB + "public type2 method3();\n\n"
 				+ "}\n";
 		
 		generator.setDiagram(diagramInterface);
@@ -224,7 +224,7 @@ public class JavaGeneratorTest {
 		generator.setDiagram(diagramClassEmpty);
 		generator.generateCode();
 		code = generator.getCode().get("ClassEmpty.java");
-		System.out.println(code);
+
 		assertEquals("testGenerationClass: wrong abstract class generation", result, code);
 	}
 	
@@ -250,7 +250,7 @@ public class JavaGeneratorTest {
 		generator.setDiagram(diagramEnum);
 		generator.generateCode();
 		code = generator.getCode().get("Enum.java");
-		System.out.println(code);
+
 		assertEquals("testGenerationClass: wrong enum generation", result, code);
 		
 		// Test with extends relation

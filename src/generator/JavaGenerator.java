@@ -60,14 +60,14 @@ public class JavaGenerator implements DiagramElementVisitor {
 	private String convertVisibility(UmlEntity component) {
 		String visibility = null;
 		
-		switch(component.getVisibility().toString()) {
-		case "+":
+		switch(component.getVisibility()) {
+		case PUBLIC:
 			visibility = "public";
 			break;
-		case "-":
+		case PRIVATE:
 			visibility = "private";
 			break;
-		case "#":
+		case PROTECTED:
 			visibility = "protected";
 			break;
 		default:
@@ -123,6 +123,7 @@ public class JavaGenerator implements DiagramElementVisitor {
  	*/
 	private String generateMethods(UmlRefType component, boolean generateBody) {
 		StringBuilder methodCode = new StringBuilder();
+		boolean methodAbstract = false;
 
 		// Print the class method
 		for(UmlMethod method : component.getMethodsList()) {
@@ -166,7 +167,7 @@ public class JavaGenerator implements DiagramElementVisitor {
 			} else {
 				methodCode.append(";\n");
 			}
-
+			methodAbstract = false;
 		}
 		return methodCode.toString();
 		
