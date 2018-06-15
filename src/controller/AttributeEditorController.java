@@ -35,6 +35,11 @@ import javax.swing.JCheckBox;
  */
 public class AttributeEditorController extends JDialog {
 	
+	/**
+	 * generated Serial ID
+	 */
+	private static final long serialVersionUID = -2220012312015127408L;
+
 	/** Swing name textfield **/
 	private JTextField nameTextField;
 	
