@@ -2,6 +2,23 @@
 
 title UML7 - model
 
+together {
+class UmlEntity
+class Visibility
+class Modifier
+class UmlRefType
+class UmlClass
+class UmlEnum
+class UmlInterface
+}
+
+together {
+class UmlAggregationLink
+class UmlAssociationLink
+class UmlCompositionLink
+class UmlExtendLink
+}
+
 enum Visibility {
     - symbol : String
     - name : String
@@ -28,13 +45,25 @@ enum Modifier {
 }
 
 class UmlDiagram {
+    - serialVersionUID : long {final} {static}
     - titre : String
     - elements : List<UmlRefType>
     - relations : List<UmlRelationship>
     --
-    + getTitre()
-    + setTitre(titre : String)
+    + getTitle()
+    + setTitle(title : String)
+    + getUmlElements() : List<UmlRefType>
+    + addUmlElements(element : UmlRefType) : void
+    + addAllUmlElements(elements : List<UmlRefType>) : void
+    + getUmlRelations() : List<UmlRelationship>
+    + addUmlRelations(relation : UmlRelationship) : void
+    + addAllUmlRelations(relations : List<UmlRelationship>) : void
+    + removeUmlElement(reftype : UmlRefType) : void
+    + equals(o : Object) : boolean
     --
+    + UmlDiagram()
+    + UmlDiagram(title : String)
+    + UmlDiagram(title : String, elements : List<UmlRefType>)
     + UmlDiagram(title : String ; elements : List<UmlRefType> ; relations : List<UmlRelationship>)
 }
 
@@ -45,6 +74,7 @@ interface UmlType {
 }
 
 class UmlParams {
+    - serialVersionUID : long {final} {static}
     - type : UmlType
     - name : String
     --
@@ -52,6 +82,7 @@ class UmlParams {
     + setType() : void
     + getName() : String
     + setName() : void
+    + equals(o : Object) : void
     --
     + UmlParams(type : UmlType ; name : String)
     
@@ -68,6 +99,7 @@ enum PrimitiveType {
     SHORT
     LONG
     BOOLEAN
+    VOIDa
     --
     + toString() : String
     + getTypeName() : String
@@ -77,6 +109,7 @@ enum PrimitiveType {
 
 
 Abstract class UmlEntity {
+    - serialVersionUID : long {static}{final}
     - name : String
     - visibility : Visibility
     - modifiers : Set<Modifier>
@@ -90,6 +123,9 @@ Abstract class UmlEntity {
     + setVisibility(visibility : Visibility) : void
     + getModifiers() : Set<Modifier>
     + setModifiers(modifiers : Set<Modifier>) : void
+    # checkVisibility(visibility : Visibility) : void
+    # checkModifier(modifier : Modifier) : void
+    # checkModifiers(modifiers : Set<Modifier>) : void
     # setChangedAndNotify() : void
     --
     + UmlEntity(name : String)
@@ -99,8 +135,10 @@ Abstract class UmlEntity {
 }
 
 class UmlClass {
+    - serialVersionUID : long {static}{final}
     --
     + accept(visitor : DiagramElementVisitor) : void
+    + equals(Object : o) : boolean
     # checkAttribute(attribute : UmlAttribute) : void
     # checkAttributes(attributes : List<UmlAttribute>) : void
     # checkMethod(method : UmlMethod) : void
@@ -116,6 +154,7 @@ class UmlClass {
 }
 
 class UmlMethod {
+    - serialVersionUID : long {final} {static}
     - params : Set<UmlParams>
     - returnType : UmlType
     --
@@ -139,8 +178,10 @@ class UmlAttribute {
     --
     + getType() : UmlType
     + setType(attrType : UmlType) : void
+    + equals(o : Object) : boolean
     # checkVisibility(visibility : Visibility) : void
     # checkModifier(modifier : Modifier) : void
+    # checkModifiers(modifiers : Set<Modifier>) : void
     --
     + UmlAttribute(attrName : String ; attrType : UmlType)
     + UmlAttribute(attrName : String ; attrType : UmlType ; attrVisi : Visibility ; attrModifs : Set<Modifier>)
@@ -148,6 +189,7 @@ class UmlAttribute {
 
 
 class UmlEnum {
+    - serialVersionUID : long {final} {static}
     - valuesList : List<String>
     --
     + getValuesList() : List<String>
@@ -155,6 +197,7 @@ class UmlEnum {
     + addValue(value : String) : void
     + removeValue(value : String) : void
     + accept(visitor : DiagramElementVisitor) : void
+    + equals(o : Object) : boolean
     # checkAttribute(attribute : UmlAttribute) : void
     # checkAttributes(attributes : List<UmlAttribute>) : void
     # checkMethod(method : UmlMethod) : void
@@ -167,11 +210,11 @@ class UmlEnum {
     + UmlEnum(name : String ; values : List<String>)
     + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod>)
     + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+    + UmlEnum(name : String ; values : List<String> ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility : Visibility)
 }
 
-class UmlInterface
-
 Abstract class UmlRefType {
+    - serialVersionUID : long {final} {static}
     - methodsList : List<UmlMethod>
     - attributesList : List<UmlAttribute>
     --
@@ -185,10 +228,16 @@ Abstract class UmlRefType {
     + removeAttribute(attribute : UmlAttribute) : void
     + getTypeName() : String
     + {abstract} accept(visitor : DiagramElementVisitor) : void
+    + equals(o : Object) : boolean
+    # checkAttribute(attribute : UmlAttribute) : void
+    # checkAttributes(attributes : List<UmlAttribute>) : void
+    # checkMethod(method : UmlMethod) : void
+    # checkMethods(methods : List<UmlMethod>) : void
     --
     + UmlRefType(name : String)
     + UmlRefType(name : String ; methods : List<UmlMethod>)
     + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute>)
+    + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility : Visibility)
     + UmlRefType(name : String ; methods : List<UmlMethod> ; attributes : List<UmlAttribute> ; visibility : Visibility ; modifiers : Set<Modifier>)
 }
 
@@ -197,44 +246,96 @@ Abstract class UmlRelationship {
     - classB : UmlClass
     - roleA : String
     - roleB : String
+    - cardinalityA : int
+    - cardinalityB : int
     - relationName : String
     --
     + getRoleA() : String
     + setRoleA(roleA : String) : void
     + getRoleB() : String
     + setRoleB(roleB : String) : void
+    + setCardinalityA(value : int) : void
+    + setCardinalityB(value : int) : void
     + getClassA() : UmlClass
     + getClassB() : UmlClass
+    + getCardinalityA() : int
+    + getCardinalityB() : int
     + getRelationName() : String
     + setRelationName(relationName : String) : void
+    + equals(o : Object) : boolean
     --
     # UmlRelationship(elementA : UmlClass ; elementB : UmlClass)
 }
 
-class UmlAggregationLink
-class UmlAssociationLink
-class UmlCompositionLink
-class UmlExtendLink
-class UmlInterface
+class UmlAggregationLink{
+    -serialVersionUID : long {final} {static}
+    +UmlAggregationLink(theClassA : UmlClass, theClassB :UmlClass)
+    +equals(o : Object) : boolean
+}
 
-UmlEntity -right-> Visibility
-UmlEntity -left-> Modifier
-UmlDiagram *-- UmlEntity
-UmlDiagram *-- UmlRelationship
-UmlParams -down-* UmlMethod
-PrimitiveType .left.|> UmlType
-UmlClass -right-|> UmlRefType
-UmlMethod -up-|> UmlEntity
-UmlAttribute -up-|> UmlEntity
+class UmlAssociationLink{
+    -serialVersionUID : long {final} {static}
+    +UmlAssociationLink(theClassA : UmlClass, theClassB :UmlClass)
+    +equals(o : Object) : boolean
+}
+class UmlCompositionLink{
+    -serialVersionUID : long {final} {static}
+    +UmlCompositionLink(theClassA : UmlClass, theClassB :UmlClass)
+    +equals(o : Object) : boolean
+}
+class UmlExtendLink{
+    -serialVersionUID : long {final} {static}
+    +UmlExtendLink(theClassA : UmlClass, theClassB :UmlClass)
+    +equals(o : Object) : boolean
+}
+
+class UmlInterface {
+    --
+    - serialVersionUID : long {final} {static}
+    --
+    + accept(visitor : DiagramElementVisitor) : void
+    + equals(o : Object) : boolean
+    # checkAttribute(attribute : UmlAttribute) : void
+    # checkAttributes(attributes : List<UmlAttribute>) : void
+    # checkMethod(method : UmlMethod) : void
+    # checkMethods(methods : List<UmlMethod>) : void
+    # checkVisibility(visibility : Visibility) : void
+    # checkModifier(modifier : Modifier) : void
+    # checkModifiers(modifiers : Set<Modifier>) : void
+    --
+    + UmlInterface(name : String)
+    + UmlInterface(name : String, methods : List<UmlMethod>)
+    + UmlInterface(name : String, methods : List<UmlMethod>, attributes : List<UmlAttribute>)
+    + UmlInterface(name : String, methods : List<UmlMethod>, attributes : List<UmlAttribute>, visibility : Visibility, modifiers : Set<Modifier>)
+}
+
+UmlEntity -down-> Visibility
+UmlEntity -down-> Modifier
+UmlRefType -up-|> UmlEntity
+UmlClass -up-|> UmlRefType
 UmlEnum -up-|> UmlRefType
 UmlInterface -up-|> UmlRefType
-UmlRefType -up-|> UmlEntity
-UmlAggregationLink -right-|> UmlRelationship
-UmlAssociationLink -right-|> UmlRelationship
-UmlCompositionLink -right-|> UmlRelationship
-UmlExtendLink -right-|> UmlRelationship
-UmlAttribute -up-* UmlType
-UmlMethod --* UmlType
-UmlParams --* UmlType
+UmlDiagram *-right- UmlEntity
+UmlDiagram *-right- UmlRelationship
+UmlParams --* UmlMethod
+PrimitiveType ..|> UmlType
+UmlMethod --|> UmlEntity
+UmlMethod -up-* UmlRefType
+UmlAttribute --|> UmlEntity
+UmlAttribute -up-* UmlRefType
+UmlAggregationLink -up|> UmlRelationship
+UmlAssociationLink -up|> UmlRelationship
+UmlCompositionLink -up|> UmlRelationship
+UmlExtendLink -up-|> UmlRelationship
+UmlAttribute *-- UmlType
+UmlMethod *-up- UmlType
+UmlParams *-- UmlType
+
+Observable <|-- UmlDiagram
+Observable <|-- UmlEntity
+Serializable <|.. UmlDiagram
+Serializable <|.. UmlEntity
+Serializable <|.. UmlParams
+Serializable <|.. UmlRelationship
 
 @enduml

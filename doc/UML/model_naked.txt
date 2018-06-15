@@ -2,64 +2,59 @@
 
 title UML7 - model
 
-package model {
+together {
+class Observable 
+class Serializable
+}
 
+package modele{
 enum Visibility
-
 enum Modifier
-
 class UmlDiagram
-
 interface UmlType
-
 class UmlParams
-
 enum PrimitiveType
-
-
 Abstract class UmlEntity
-
 class UmlClass
-
 class UmlMethod
-
 class UmlAttribute
-
-
 class UmlEnum
-
-class UmlInterface
-
 Abstract class UmlRefType
-
 Abstract class UmlRelationship
-
 class UmlAggregationLink
 class UmlAssociationLink
 class UmlCompositionLink
 class UmlExtendLink
 class UmlInterface
+}
 
-UmlEntity -right-> Visibility
-UmlEntity -left-> Modifier
-UmlDiagram *-- UmlEntity
-UmlDiagram *-- UmlRelationship
-UmlParams -down-* UmlMethod
-PrimitiveType .left.|> UmlType
-UmlClass -right-|> UmlRefType
-UmlMethod -up-|> UmlEntity
-UmlAttribute -up-|> UmlEntity
+UmlEntity -down-> Visibility
+UmlEntity -down-> Modifier
+UmlRefType -up-|> UmlEntity
+UmlClass -up-|> UmlRefType
 UmlEnum -up-|> UmlRefType
 UmlInterface -up-|> UmlRefType
-UmlRefType -up-|> UmlEntity
-UmlAggregationLink -right-|> UmlRelationship
-UmlAssociationLink -right-|> UmlRelationship
-UmlCompositionLink -right-|> UmlRelationship
-UmlExtendLink -right-|> UmlRelationship
-UmlAttribute -up-* UmlType
-UmlMethod --* UmlType
-UmlParams --* UmlType
+UmlDiagram *-right- UmlEntity
+UmlDiagram *-right- UmlRelationship
+UmlParams --* UmlMethod
+PrimitiveType ..|> UmlType
+UmlMethod --|> UmlEntity
+UmlMethod -up-* UmlRefType
+UmlAttribute --|> UmlEntity
+UmlAttribute -up-* UmlRefType
+UmlAggregationLink -up|> UmlRelationship
+UmlAssociationLink -up|> UmlRelationship
+UmlCompositionLink -up|> UmlRelationship
+UmlExtendLink -up-|> UmlRelationship
+UmlAttribute *-- UmlType
+UmlMethod *-up- UmlType
+UmlParams *-- UmlType
 
-}
+Observable <|-down- UmlDiagram
+Observable <|-down- UmlEntity
+Serializable <|.down. UmlDiagram
+Serializable <|.down. UmlEntity
+Serializable <|.down. UmlParams
+Serializable <|.down. UmlRelationship
 
 @enduml
