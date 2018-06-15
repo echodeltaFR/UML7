@@ -45,8 +45,8 @@ public class DiagramLoader implements Loader {
 		if(returnValue == JFileChooser.APPROVE_OPTION) {
 			fileName = jfc.getSelectedFile().getAbsolutePath();
 			this.file = new File(fileName);
+			this.loadFile();
 		}
-		this.loadFile();
 	}
 	
 	private void loadFile() throws ClassNotFoundException, IOException {
