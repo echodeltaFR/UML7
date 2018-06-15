@@ -67,17 +67,7 @@ public class JavaSaver implements Saver{
 	@SuppressWarnings("serial")
 	private static JFileChooser buildSaverFrame() {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()) {
-			@Override
-			public void approveSelection() {
-				if (getSelectedFile().isFile()) {
-					JOptionPane.showMessageDialog(this, "Please choose a directory", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				} else {
-					super.approveSelection();
-				}
-			}
-		};
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		
 		UIManager.put("FileChooser.acceptAllFileFilterText",
 				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
@@ -85,7 +75,7 @@ public class JavaSaver implements Saver{
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Java file", "java");
 		
 		jfc.addChoosableFileFilter(filter);
-		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		jfc.setDialogTitle("Choose a directory");
 		jfc.setAcceptAllFileFilterUsed(false);
 		return jfc;
