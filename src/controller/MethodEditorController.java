@@ -37,6 +37,11 @@ import javax.swing.JCheckBox;
 
 public class MethodEditorController extends JDialog {
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -3558724654013909662L;
+
 	private Set<UmlParams> umlParams;
 	
 	private UmlRefType umlRefType;

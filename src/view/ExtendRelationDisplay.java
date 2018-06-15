@@ -13,6 +13,11 @@ import model.UmlExtendLink;
 public class ExtendRelationDisplay extends RelationDisplay {
 	
 	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 2904404128088211416L;
+
+	/**
 	 * Constructor
 	 * @param umlRelation the extend relationship
 	 */

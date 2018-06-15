@@ -8,6 +8,11 @@ import java.io.Serializable;
  */
 public abstract class UmlRelationship implements Serializable {
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -4399845426004452067L;
+
 	/** Class A **/
 	private UmlClass classA;
 	

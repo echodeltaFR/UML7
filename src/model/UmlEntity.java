@@ -19,9 +19,6 @@ import exception.ExceptionModifier;
  */
 public abstract class UmlEntity extends Observable implements Serializable {
 
-	
-	// Attributes
-
 	/**
 	 * generated serial ID
 	 */

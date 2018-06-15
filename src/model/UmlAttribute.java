@@ -15,7 +15,12 @@ import exception.ExceptionVisibility;
  */
 public class UmlAttribute extends UmlEntity {
     
-    /** Type of the attribute. */
+    /**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -3165621216117722756L;
+	
+	/** Type of the attribute. */
     private UmlType type;
     // Constructors
 

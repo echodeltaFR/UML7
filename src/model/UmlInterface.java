@@ -20,8 +20,11 @@ import generator.DiagramElementVisitor;
  */
 public class UmlInterface extends UmlRefType {
 	
-	// Constructor
-	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 4878012855489866767L;
+
 	/**
 	 * Constructor of an interface with a name
 	 * @param name name of the interface

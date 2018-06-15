@@ -13,10 +13,14 @@ import model.UmlAttribute;
  * @author echodeltaFR
  * @version 1.2
  */
-@SuppressWarnings("serial")
 public class AttributeDisplay extends JLabel implements Observer{
 
     /**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -6461229184000932823L;
+
+	/**
      * Constructor.
      * @param attribute Attribute to display
      */

@@ -19,6 +19,11 @@ import model.UmlRelationship;
  */
 public abstract class RelationDisplay extends JPanel {
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -4453965006005641784L;
+	
 	protected static final double HEIGHT_TRIANGLE = 10;
 	protected static final double BASE_TRIANGLE = 12;
 	

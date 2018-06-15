@@ -14,6 +14,11 @@ import java.util.HashSet;
  * @version 1.3
  */
 public class UmlMethod extends UmlEntity {
+	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -5705911605829253462L;
 
 	/** Method parameters. */
 	private Set<UmlParams> params;

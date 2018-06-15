@@ -14,6 +14,11 @@ import model.UmlCompositionLink;
  */
 public class CompositionRelationDisplay extends RelationDisplay {
 
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -4996019196669586384L;
+
 		/**
 		 * Constructor
 		 * @param umlRelation the composition relationship

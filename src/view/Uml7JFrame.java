@@ -23,6 +23,11 @@ import model.UmlInterface;
 
 public class Uml7JFrame extends JFrame{
 
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -6668736329185551481L;
+	
 	public static final String APPLICATION_NAME = "UML7";
 	public static final int DEFAULT_WIDTH = 700;
 	public static final int DEFAULT_HEIGHT = 400;

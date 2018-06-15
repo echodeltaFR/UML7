@@ -7,6 +7,11 @@ package model;
  */
 public class UmlAssociationLink extends UmlRelationship {
 
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -7424926719140109927L;
+
 	public UmlAssociationLink(UmlClass theClassA,  UmlClass theClassB) {
 		super(theClassA, theClassB);
 	}

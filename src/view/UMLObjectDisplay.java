@@ -41,6 +41,11 @@ import java.util.Observer;
  */
 public class UMLObjectDisplay extends JPanel implements Observer {
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 8971524820842081306L;
+
 	private static final HashMap<Class<? extends UmlRefType>,String> stereotypeMap;
 	
 	static {
@@ -188,6 +193,11 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	}
 	
 	private class SubComponentDeleteWrapper extends JPanel{
+		
+		/**
+		 * Generated serial ID
+		 */
+		private static final long serialVersionUID = 1776459837985581481L;
 		
 		private JButton deleteButton;
 		

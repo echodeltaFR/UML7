@@ -21,9 +21,12 @@ import generator.DiagramElementVisitor;
  *
  */
 public abstract class UmlRefType extends UmlEntity implements UmlType {
-
-	// Attributes
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 5120005105606691065L;
+
 	/** List of the component methods. */
 	private List<UmlMethod> methodsList;
 	

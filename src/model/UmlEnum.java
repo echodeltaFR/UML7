@@ -17,8 +17,11 @@ import generator.DiagramElementVisitor;
  *
  */
 public class UmlEnum extends UmlRefType {
-	
-	// Attributes
+		
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 5944166860339349053L;
 	
 	/** List of Enum values */
 	private List<String> valuesList;

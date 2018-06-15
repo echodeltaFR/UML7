@@ -16,6 +16,11 @@ import model.UmlRefType;
 
 public class DiagramDisplay extends JScrollPane implements Observer{
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -5448058609418336096L;
+	
 	private JPanel classGrid;
 	
 	public DiagramDisplay(UmlDiagram diagram){

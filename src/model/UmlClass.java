@@ -12,6 +12,12 @@ import generator.DiagramElementVisitor;
 
 
 public class UmlClass extends UmlRefType{
+	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -3471557595290681719L;
+
 	/**
 	 * Constructor with a name
 	 * @param name the name of the UmlClass

@@ -19,6 +19,11 @@ import model.Visibility;
  */
 public class MethodDisplay extends JLabel implements Observer {
 
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 2430315020346922418L;
+
 	/** Constructor.
 	 * @param method The method to display
 	 */
