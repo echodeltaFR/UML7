@@ -124,7 +124,6 @@ public class JavaGenerator implements DiagramElementVisitor {
  	*/
 	private String generateMethods(UmlRefType component, boolean generateBody) {
 		StringBuilder methodCode = new StringBuilder();
-		boolean methodAbstract = false;
 
 		// Print the class method
 		for(UmlMethod method : component.getMethodsList()) {
@@ -190,7 +189,6 @@ public class JavaGenerator implements DiagramElementVisitor {
 			} else {
 				methodCode.append(";\n\n");
 			}
-			methodAbstract = false;
 		}
 		return methodCode.toString();
 		
