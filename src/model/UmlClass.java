@@ -75,14 +75,12 @@ public class UmlClass extends UmlRefType{
 
 	@Override
 	protected void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute {
-		// TODO Auto-generated method stub
 		if(attribute.getModifiers().contains(Modifier.ABSTRACT))
 			throw new ExceptionAttribute("Member variable cannot be set to abstract");
 	}
 
 	@Override
 	protected void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute {
-		// TODO Auto-generated method stub
 		for(int i = 0 ;i < attributes.size(); i++) {
 			if(attributes.get(i).getModifiers().contains(Modifier.ABSTRACT))
 				throw new ExceptionAttribute("Member variable cannot be set to abstract");
@@ -91,14 +89,12 @@ public class UmlClass extends UmlRefType{
 
 	@Override
 	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
-		// TODO Auto-generated method stub
 		if(!this.getModifiers().contains(Modifier.ABSTRACT) && method.getModifiers().contains(Modifier.ABSTRACT))
 			throw new ExceptionMethode("Normal classes cannot include abstract methods");
 	}
 
 	@Override
 	protected void checkMethods(List<UmlMethod> methods) throws ExceptionMethode {
-		// TODO Auto-generated method stub
 		if(!this.getModifiers().contains(Modifier.ABSTRACT)) {
 			for(int i = 0 ;i < methods.size(); i++) {
 				if(methods.get(i).getModifiers().contains(Modifier.ABSTRACT))
@@ -109,7 +105,6 @@ public class UmlClass extends UmlRefType{
 
 	@Override
 	protected void checkVisibility(Visibility visibility) throws ExceptionVisibility  {
-		// TODO Auto-generated method stub
 		if(visibility == Visibility.PRIVATE || visibility == Visibility.PROTECTED)
 			throw new ExceptionVisibility("Class can only set access limiters to public or empty");
 		
@@ -117,7 +112,6 @@ public class UmlClass extends UmlRefType{
 
 	@Override
 	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
-		// TODO Auto-generated method stub
 		//String table_modifier = Modifier.ABSTRACT.toString() + Modifier.FINAL.toString();table_modifier.indexOf(Modifier.ABSTRACT.toString()) == -1
 		if(modifier != Modifier.ABSTRACT && modifier != Modifier.FINAL)
 			throw new ExceptionModifier("the modifier of class should be abstract or final");
