@@ -58,13 +58,7 @@ public class UmlDiagram extends Observable implements Serializable{
 	 * @param elements UML elements in the diagram
 	 */
 	public UmlDiagram(String title, List<UmlRefType> elements) {
-		this.title = title;
-		
-		if(elements != null) {
-			this.elements = new ArrayList<>(elements);
-		}else {
-			this.elements = new ArrayList<>();
-		}
+		this(title,elements,null);
 	}
 	
 	/**
@@ -72,9 +66,7 @@ public class UmlDiagram extends Observable implements Serializable{
 	 * @param title Title of the diagram
 	 */
 	public UmlDiagram(String title) {
-		this.title = title;
-		this.elements = new ArrayList<>(elements);
-		this.relations = new ArrayList<>(relations);
+		this(title,null,null);
 	}
 	
 	/**
