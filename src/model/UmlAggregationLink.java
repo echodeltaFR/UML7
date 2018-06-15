@@ -12,5 +12,11 @@ public class UmlAggregationLink extends UmlRelationship {
 		super(theClassA, theClassB);
 	}
 	
-
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlAggregationLink) {
+			return super.equals(o);
+		}
+		return false;
+	}
 }

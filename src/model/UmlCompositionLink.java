@@ -6,4 +6,11 @@ public class UmlCompositionLink extends UmlRelationship {
 		super(elementA, elementB);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlCompositionLink) {
+			return super.equals(o);
+		}
+		return false;
+	}
 }

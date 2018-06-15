@@ -11,5 +11,11 @@ public class UmlExtendLink extends UmlRelationship {
 		super(theClassA, theClassB);
 	}
 	
-
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlExtendLink) {
+			return super.equals(o);
+		}
+		return false;
+	}
 }

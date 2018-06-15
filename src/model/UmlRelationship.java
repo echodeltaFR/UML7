@@ -66,4 +66,20 @@ public abstract class UmlRelationship {
 		  this.relationName = relationName;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlRelationship) {
+			UmlRelationship r = (UmlRelationship) o;
+			if (
+					r.classA.equals(this.classA) &&
+					r.classB.equals(this.classB) &&
+					r.relationName.equals(this.relationName) &&
+					r.roleA.equals(this.roleA) &&
+					r.roleB.equals(this.roleB)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
