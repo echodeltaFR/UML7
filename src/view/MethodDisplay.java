@@ -68,10 +68,11 @@ public class MethodDisplay extends JLabel implements Observer {
 			for (UmlParams attr : method.getParams()) {
 				str.append(
 						attr.getName() + ":" + 
-						attr.getType().getTypeName() + ",");
+						attr.getType().getTypeName() + " ; ");
 			}
-
-			String tmp = str.substring(0, str.length()-1);
+			
+			// Remove the last ;
+			String tmp = str.substring(0, str.length()-3);
 			str.setLength(0);
 			str.append(tmp);
 		}
@@ -85,11 +86,11 @@ public class MethodDisplay extends JLabel implements Observer {
 		}
 		
 		if (!method.getModifiers().isEmpty()) {
-			str.append(" {");
+			str.append(" { ");
 			for (Modifier m : method.getModifiers()) {
-				str.append(m.toString() + ",");
+				str.append(m.toString() + " ");
 			}
-			String tmp = str.substring(0,str.length()-1)+"}";
+			String tmp = str.substring(0,str.length()-1)+" }";
 			str.setLength(0);
 			str.append(tmp);
 		}

@@ -64,12 +64,15 @@ public class AttributeDisplay extends JLabel implements Observer{
         default:
         	str.append("Exception");
         }
+
+        str.append(attribute.getName() + ": " + attribute.getType());
         if (!attribute.getModifiers().isEmpty()) {
+        	str.append(" { ");
             for (Modifier m : attribute.getModifiers()) {
                 str.append(m.toString() + " ");
             }
+            str.append("}");
         }
-        str.append(attribute.getName() + ": " + attribute.getType());
         this.setText(str.toString());
     }
 

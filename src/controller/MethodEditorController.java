@@ -19,6 +19,7 @@ import model.UmlMethod;
 import model.UmlParams;
 import model.UmlRefType;
 import model.UmlType;
+import model.Visibility;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,9 +32,11 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import exception.ExceptionMethode;
 import exception.ExceptionModifier;
+import exception.ExceptionVisibility;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -75,6 +78,8 @@ public class MethodEditorController extends JDialog {
 	
 	private Set<Modifier> modifiers;
 	
+	private JComboBox<String> comboBoxVisibility;
+	
 	/**
 	 * Constructor called when we need to update a method.
 	 * @param umlMethod the method to add
@@ -86,7 +91,6 @@ public class MethodEditorController extends JDialog {
 		this.umlParams = new HashSet<>(umlMethod.getParams());
 		this.umlRefType = null;
 		this.myself = this;
-		initializeNakedGUI();
 		this.btnValidate.setText("Apply and close");
 		this.setTitle("Edit a method");
 				
@@ -117,6 +121,10 @@ public class MethodEditorController extends JDialog {
 			}
 		}
 		
+		initializeNakedGUI();
+
+		comboBoxVisibility.setSelectedItem(umlMethod.getVisibility().name());
+		
 		nameMethodtextField.setText(umlMethod.getName());
 				
 		for (UmlParams param : this.umlParams) {
@@ -137,10 +145,13 @@ public class MethodEditorController extends JDialog {
 					try {
 						umlMethod.setModifiers(modifiers);
 						umlMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
+						umlMethod.setVisibility(Visibility.valueOf(comboBoxVisibility.getSelectedItem().toString()));
 						myself.dispose();
 	
 					} catch (ExceptionModifier e1) {
-							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
+					} catch (ExceptionVisibility e1) {
+						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Illegal visibility", JOptionPane.ERROR_MESSAGE);
 					}
 					
 				} catch (IllegalArgumentException ex) {
@@ -164,10 +175,11 @@ public class MethodEditorController extends JDialog {
 		this.umlRefType = umlRef;
 
 		this.myself = this;
+		this.modifiers = new HashSet<>();
+
 		initializeNakedGUI();
 		this.btnValidate.setText("Add this method");
 		this.setTitle("Add a method");
-		this.modifiers = new HashSet<>();
 
 		btnValidate.addActionListener(new ActionListener() {
 
@@ -182,19 +194,24 @@ public class MethodEditorController extends JDialog {
 					try {
 						
 						newMethod.setModifiers(modifiers);
+						newMethod.setVisibility(Visibility.valueOf(comboBoxVisibility.getSelectedItem().toString()));
 
+						newMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
+						
+						try {
+							umlRefType.addMethod(newMethod);
+							
+							dispose();
+						} catch (ExceptionMethode e1) {
+							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add method", JOptionPane.ERROR_MESSAGE);
+						}
+						
 					} catch (ExceptionModifier e1) {
 							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
+					} catch (ExceptionVisibility e2) {
+						JOptionPane.showMessageDialog(myself, "Error: "+e2.getMessage(), "Illegal visibility", JOptionPane.ERROR_MESSAGE);
 					}
 					
-					newMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
-					
-					try {
-						umlRefType.addMethod(newMethod);
-						dispose();
-					} catch (ExceptionMethode e1) {
-						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add method", JOptionPane.ERROR_MESSAGE);
-					}
 					
 				} catch(IllegalArgumentException ex) {
 					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Empty name", JOptionPane.ERROR_MESSAGE);
@@ -220,13 +237,13 @@ public class MethodEditorController extends JDialog {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("default:grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
+				ColumnSpec.decode("max(18dlu;default):grow"),},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
@@ -242,6 +259,8 @@ public class MethodEditorController extends JDialog {
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -270,7 +289,10 @@ public class MethodEditorController extends JDialog {
         model.addColumn("Name");
         model.addColumn("Type");
         table = new JTable(model);
-                
+        
+        // Set non-editable cell
+        table.setDefaultEditor(Object.class, null);
+
 		JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane, "8, 10, 3, 5, default, default");
 
@@ -293,35 +315,45 @@ public class MethodEditorController extends JDialog {
 		getContentPane().add(btnRemoveParams, "10, 16");
 		
 		JLabel lblModifiers = new JLabel("Modifiers :");
+		lblModifiers.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblModifiers, "4, 18");
 		
 		chckbxFinal = new JCheckBox("final");
 		getContentPane().add(chckbxFinal, "8, 18");
 		
-		addItemListenerCheckBox(chckbxFinal, Modifier.FINAL);
+		EditorUtils.addItemListenerCheckBox(chckbxFinal, Modifier.FINAL, modifiers);
 		
 		chckbxStatic = new JCheckBox("static");
 		getContentPane().add(chckbxStatic, "10, 18");
 		
-		addItemListenerCheckBox(chckbxStatic, Modifier.STATIC);
-		
+		EditorUtils.addItemListenerCheckBox(chckbxStatic, Modifier.STATIC, modifiers);
+
 		chckbxAbstract = new JCheckBox("abstract");
 		getContentPane().add(chckbxAbstract, "8, 20");
 		
-		addItemListenerCheckBox(chckbxAbstract, Modifier.ABSTRACT);
+		EditorUtils.addItemListenerCheckBox(chckbxAbstract, Modifier.ABSTRACT, modifiers);
 		
 		chckbxVolatile = new JCheckBox("volatile");
 		getContentPane().add(chckbxVolatile, "10, 20");
-		addItemListenerCheckBox(chckbxVolatile, Modifier.VOLATILE);
-
-		JLabel lblReturnType = new JLabel("Return type :");
-		getContentPane().add(lblReturnType, "4, 22");
+		EditorUtils.addItemListenerCheckBox(chckbxVolatile, Modifier.VOLATILE, modifiers);
+						
+		JLabel lblVisibility = new JLabel("Visibility :");
+		getContentPane().add(lblVisibility, "4, 22, right, default");
+						
+		comboBoxVisibility = new JComboBox<>();
+		getContentPane().add(comboBoxVisibility, "8, 22, 3, 1, fill, default");
+		EditorUtils.initializeVisibility(comboBoxVisibility);
 		
+		JLabel lblReturnType = new JLabel("Return type :");
+		getContentPane().add(lblReturnType, "4, 24");
+				
 		returnTypeMethodComboBox = new JComboBox<>();
-		getContentPane().add(returnTypeMethodComboBox, "8, 22, 3, 1");
+		getContentPane().add(returnTypeMethodComboBox, "8, 24, 3, 1");
+				
+		EditorUtils.initializeType(returnTypeMethodComboBox);
 		
 		JButton btnCancel = new JButton("Cancel");
-		getContentPane().add(btnCancel, "4, 26");
+		getContentPane().add(btnCancel, "4, 28");
 		
 		btnCancel.addActionListener(new ActionListener() {
 
@@ -334,7 +366,7 @@ public class MethodEditorController extends JDialog {
 		
 		btnValidate = new JButton();
 		
-		getContentPane().add(btnValidate, "10, 26");
+		getContentPane().add(btnValidate, "10, 28");
 		
 		btnAddParams.addActionListener(new ActionListener() {
 			
@@ -376,7 +408,7 @@ public class MethodEditorController extends JDialog {
 				dialog.getContentPane().add(lblType, "2, 6, right, default");
 				
 				typeParamComboBox = new JComboBox<>();
-				initializeType(typeParamComboBox);
+				EditorUtils.initializeType(typeParamComboBox);
 				dialog.getContentPane().add(typeParamComboBox, "6, 6, 5, 1, fill, default");
 
 				
@@ -412,24 +444,13 @@ public class MethodEditorController extends JDialog {
 			
 		});
 		
-		initializeType(returnTypeMethodComboBox);
-		
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
 	}
 	
-	/**
-	 * Method that permits to initialize the combobox type.
-	 * @param combo the swing combobox type
-	 */
-	private void initializeType(JComboBox<String> combo) {
-		for (PrimitiveType type : PrimitiveType.values()) {
-			combo.addItem(type.name());
-		}
-	}
-	
+
 	/**
 	 * Method that permits to remove a parameter.
 	 * @param parameterName the paramater name to remove
@@ -454,24 +475,6 @@ public class MethodEditorController extends JDialog {
 		
 	}
 	
-	/**
-	 * Method that permits to add an item listener on a checkbox.
-	 * @param checkBox the swing checkbox
-	 * @param modifier the modifier handled by the swing checkbox
-	 */
-	private void addItemListenerCheckBox(JCheckBox checkBox, Modifier modifier) {
-		checkBox.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent arg0) {
-		        if (arg0.getStateChange() == ItemEvent.SELECTED) {
-		            modifiers.add(modifier);
-		        } else {
-		        	modifiers.remove(modifier);
-		        }	
-			}
-		});
-	}
 
 	
 }
