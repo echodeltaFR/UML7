@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import model.Modifier;
 import model.PrimitiveType;
 import model.UmlMethod;
 import model.UmlParams;
@@ -27,8 +28,10 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import exception.ExceptionMethode;
+import exception.ExceptionModifier;
 
 import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JCheckBox;
 
 public class MethodAddController extends JDialog {
 	
@@ -80,6 +83,8 @@ public class MethodAddController extends JDialog {
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,}));
 		
 		JLabel lblName = new JLabel("Name : ");
@@ -118,14 +123,26 @@ public class MethodAddController extends JDialog {
 		
 		getContentPane().add(btnRemoveParams, "10, 16");
 		
+		JLabel lblModifiers = new JLabel("Modifiers :");
+		getContentPane().add(lblModifiers, "4, 18");
+		
+		JCheckBox chckbxFinal = new JCheckBox("final");
+		getContentPane().add(chckbxFinal, "8, 18");
+		
+		JCheckBox chckbxStatic = new JCheckBox("static");
+		getContentPane().add(chckbxStatic, "10, 18");
+		
+		JCheckBox chckbxAbstract = new JCheckBox("abstract");
+		getContentPane().add(chckbxAbstract, "8, 20");
+		
 		JLabel lblReturnType = new JLabel("Return type :");
-		getContentPane().add(lblReturnType, "4, 20");
+		getContentPane().add(lblReturnType, "4, 22");
 		
 		JComboBox<String> choice = new JComboBox<>();
-		getContentPane().add(choice, "8, 20, 3, 1");
+		getContentPane().add(choice, "8, 22, 3, 1");
 		
 		JButton btnCancel = new JButton("Cancel");
-		getContentPane().add(btnCancel, "4, 24");
+		getContentPane().add(btnCancel, "4, 26");
 		
 		btnCancel.addActionListener(new ActionListener() {
 
@@ -137,7 +154,7 @@ public class MethodAddController extends JDialog {
 		});
 		
 		JButton btnAddThisMethod = new JButton("Add this method");
-		getContentPane().add(btnAddThisMethod, "10, 24");
+		getContentPane().add(btnAddThisMethod, "10, 26");
 		
 		btnAddThisMethod.addActionListener(new ActionListener() {
 
@@ -145,6 +162,17 @@ public class MethodAddController extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				UmlMethod newMethod = new UmlMethod(nameMethodtextField.getText());
 				newMethod.addParams(umlParams);
+				
+				try {
+					
+					addModifier(chckbxAbstract, newMethod, Modifier.ABSTRACT);
+					addModifier(chckbxStatic, newMethod, Modifier.STATIC);
+					addModifier(chckbxFinal, newMethod, Modifier.FINAL);
+
+				} catch (ExceptionModifier e1) {
+						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+				}
+				
 				newMethod.setReturnType(PrimitiveType.valueOf((String)choice.getSelectedItem()));
 				try {
 					umlRef.addMethod(newMethod);
@@ -166,7 +194,7 @@ public class MethodAddController extends JDialog {
 				JDialog dialog = new JDialog(myself);
 
 				
-				dialog.setLayout(new FormLayout(new ColumnSpec[] {
+				dialog.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 						FormSpecs.RELATED_GAP_COLSPEC,
 						FormSpecs.DEFAULT_COLSPEC,
 						FormSpecs.RELATED_GAP_COLSPEC,
@@ -188,22 +216,22 @@ public class MethodAddController extends JDialog {
 						FormSpecs.DEFAULT_ROWSPEC,}));
 				
 				JLabel lblName = new JLabel("Name");
-				dialog.add(lblName, "2, 4, right, default");
+				dialog.getContentPane().add(lblName, "2, 4, right, default");
 				
 				JTextField nameTextField = new JTextField();
-				dialog.add(nameTextField, "6, 4, 5, 1, fill, default");
+				dialog.getContentPane().add(nameTextField, "6, 4, 5, 1, fill, default");
 				nameTextField.setColumns(10);
 				
 				JLabel lblType = new JLabel("Type");
-				dialog.add(lblType, "2, 6, right, default");
+				dialog.getContentPane().add(lblType, "2, 6, right, default");
 				
 				JComboBox<String> typeComboBox = new JComboBox<>();
 				initializeType(typeComboBox);
-				dialog.add(typeComboBox, "6, 6, 5, 1, fill, default");
+				dialog.getContentPane().add(typeComboBox, "6, 6, 5, 1, fill, default");
 
 				
 				JButton btnCancel = new JButton("Cancel");
-				dialog.add(btnCancel, "6, 8");
+				dialog.getContentPane().add(btnCancel, "6, 8");
 				btnCancel.addActionListener(new ActionListener() {
 
 					@Override
@@ -214,7 +242,7 @@ public class MethodAddController extends JDialog {
 				});
 				
 				JButton btnAddParam = new JButton("Add this param");
-				dialog.add(btnAddParam, "10, 8");
+				dialog.getContentPane().add(btnAddParam, "10, 8");
 				btnAddParam.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -236,11 +264,11 @@ public class MethodAddController extends JDialog {
 		
 		initializeType(choice);
 		
-		this.setLocationRelativeTo(null);
 		
 		this.pack();
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		
+
 
 	}
 	
@@ -248,6 +276,12 @@ public class MethodAddController extends JDialog {
 	private void initializeType(JComboBox<String> combo) {
 		for (PrimitiveType type : PrimitiveType.values()) {
 			combo.addItem(type.name());
+		}
+	}
+	
+	private void addModifier(JCheckBox checkBox, UmlMethod umlMethod, Modifier modifier) throws ExceptionModifier {
+		if (checkBox.isSelected()) {
+			umlMethod.addModifier(modifier);
 		}
 	}
 	
@@ -272,7 +306,5 @@ public class MethodAddController extends JDialog {
 		
 	}
 
-	
-	
 	
 }
