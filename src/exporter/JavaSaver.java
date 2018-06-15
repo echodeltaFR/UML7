@@ -69,8 +69,18 @@ public class JavaSaver implements Saver{
 		do {
 			returnValue = this.jfc.showDialog(null, "Save");
 			if(returnValue == JFileChooser.APPROVE_OPTION) {
-				file = new File(jfc.getSelectedFile() + ".uml7");
-				overwrite = this.approveSelection(file);
+				// PArcourir le HashMap
+				file = new File(jfc.getSelectedFile().getAbsolutePath());
+				
+				// Absolute path of the file
+				filePath = jfc.getSelectedFile().getAbsolutePath();
+				
+				// Add the extension if the file doesn't have this extension
+				if(!filePath.endsWith(".uml7")) {
+					this.file = new File(filePath + ".uml7");
+				}
+				
+				overwrite = this.approveSelection();
 			}
 		} while (!overwrite && returnValue == JFileChooser.APPROVE_OPTION);
 		

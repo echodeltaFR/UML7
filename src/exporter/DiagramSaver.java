@@ -31,18 +31,16 @@ public class DiagramSaver implements Saver {
 	 * @param diagram the diagram export in a file .uml7
 	 */
 	public DiagramSaver(UmlDiagram diagram) {
-		this.diagram = diagram;
+		if(diagram == null) {
+			this.diagram = new UmlDiagram();
+		} else {
+			this.diagram = diagram;
+		}
+		
 		this.file = new File("");
 		this.filter = new FileNameExtensionFilter("UML7 Format", "uml7");
 		
-		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		
-		UIManager.put("FileChooser.acceptAllFileFilterText",
-				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
-		
-		this.jfc.addChoosableFileFilter(filter);
-		this.jfc.setDialogTitle("Save diagram");
+		buildSaverFrame(this.jfc, this.filter);
 	}
 	
 	/**
@@ -53,14 +51,18 @@ public class DiagramSaver implements Saver {
 		this.file = new File("");
 		this.filter = new FileNameExtensionFilter("UML7 file", "uml7");
 		
+		buildSaverFrame(this.jfc, this.filter);
+	}
+	
+	private static void buildSaverFrame(JFileChooser jfc, FileNameExtensionFilter filter) {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		
 		UIManager.put("FileChooser.acceptAllFileFilterText",
 				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
 		
-		this.jfc.addChoosableFileFilter(filter);
-		this.jfc.setDialogTitle("Save diagram");
+		jfc.addChoosableFileFilter(filter);
+		jfc.setDialogTitle("Save diagram");
 	}
 	
 	@Override
