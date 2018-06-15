@@ -12,6 +12,13 @@ public class UmlAssociationLink extends UmlRelationship {
 	 */
 	private static final long serialVersionUID = -7424926719140109927L;
 
+	/**
+	 * Build a new association link between the two classes.
+	 * @param theClassA
+	 * 		The first class of the relation
+	 * @param theClassB
+	 * 		The second class of the relation
+	 */
 	public UmlAssociationLink(UmlClass theClassA,  UmlClass theClassB) {
 		super(theClassA, theClassB);
 	}

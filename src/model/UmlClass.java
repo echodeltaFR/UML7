@@ -10,7 +10,9 @@ import exception.ExceptionMethode;
 import exception.ExceptionModifier;
 import generator.DiagramElementVisitor;
 
-
+/**
+ * This class represent an UML class with attributes, methods, a visibility and modifiers.
+ */
 public class UmlClass extends UmlRefType{
 	
 	/**

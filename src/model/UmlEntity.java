@@ -198,8 +198,32 @@ public abstract class UmlEntity extends Observable implements Serializable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+	
+	/**
+	 * Method to check if the given visibility is valid for the current entity.
+	 * @param visibility
+	 * 		The visibility that would be set.
+	 * @throws ExceptionVisibility
+	 * 		if the visibility is not valid.
+	 */
 	protected abstract void checkVisibility(Visibility visibility) throws ExceptionVisibility;
+	
+	/**
+	 * Method to check if the modifier could be added without issue.
+	 * @param modifier
+	 * 		The modifier that would be added.
+	 * @throws ExceptionModifier
+	 * 		if the modifier can't be added
+	 */
 	protected abstract void checkModifier(Modifier modifier) throws ExceptionModifier;
+	
+	/**
+	 * Method to check if all modifier could be added without issue.
+	 * @param modifiers
+	 * 		The modifiers that would be added.
+	 * @throws ExceptionModifier
+	 * 		if the modifiers can't all be added.
+	 */
 	protected abstract void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier;
 	
 	@Override

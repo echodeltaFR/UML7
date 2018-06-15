@@ -50,16 +50,32 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 		}
 	}
 
-	private void update(UmlDiagram o) {
+	/**
+	 * Private method to update rebuild the view to show the given diagram.
+	 * @param diagram
+	 * 		The diagram to display.
+	 */
+	private void update(UmlDiagram diagram) {
 		this.refTypeDisplayZone.removeAll();
-		for (UmlRefType refType : o.getUmlElements()) {
-			this.refTypeDisplayZone.add(buildClassDisplayWrapper(refType, o));
+		for (UmlRefType refType : diagram.getUmlElements()) {
+			this.refTypeDisplayZone.add(buildClassDisplayWrapper(refType, diagram));
 		}
 		this.repaint();
 		this.revalidate();
 	}
 	
-	private JPanel buildClassDisplayWrapper(UmlRefType rt, UmlDiagram d) {
+	/**
+	 * Build a wrapper JPanel for the given UmlRefType to allow deletion.<br>
+	 * The function will create a UMLObjectDisplay to display the reference type
+	 * and then wrap it in another JPanel that contains a deletion button.
+	 * @param refType
+	 * 		The reference type to display.
+	 * @param d
+	 * 		The diagram to call when deleting.
+	 * @return
+	 * 		The whole display of the refType with deletion option.
+	 */
+	private JPanel buildClassDisplayWrapper(UmlRefType refType, UmlDiagram d) {
 		JPanel wrapper = new JPanel(new BorderLayout());
 		JPanel wrapperNorth = new JPanel(new BorderLayout());
 		wrapper.add(wrapperNorth,BorderLayout.NORTH);
@@ -67,11 +83,11 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 		del.setBorder(Uml7JFrame.deleteButtonBorder);
 		
 		del.addActionListener(e -> {
-			d.removeUmlElement(rt);
+			d.removeUmlElement(refType);
 		});
 		
 		wrapperNorth.add(del,BorderLayout.WEST);
-		wrapper.add(new UMLObjectDisplay(rt),BorderLayout.CENTER);
+		wrapper.add(new UMLObjectDisplay(refType),BorderLayout.CENTER);
 		return wrapper;
 	}
 

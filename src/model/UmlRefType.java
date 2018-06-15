@@ -10,8 +10,7 @@ import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
 /**
- * Abstract class, an UML component, parent of
- * types classes ( UmlClass, UmlEnum, UmlInterface, ...)
+ * Abstract class, an UML reference type (e.g. a class, an interface...)
  * @see UmlEnum
  * @see UmlInterface
  * @see UmlClass
@@ -27,17 +26,17 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 */
 	private static final long serialVersionUID = 5120005105606691065L;
 
-	/** List of the component methods. */
+	/** List of the reference type's methods. */
 	private List<UmlMethod> methodsList;
 	
-	/** List of the component attributes. */
+	/** List of the reference type's attributes. */
 	private List<UmlAttribute> attributesList;
 	
 	// Constructor
 	
 	/**
 	 * Constructor with a name.
-	 * @param name Name of the component
+	 * @param name Name of the reference type
 	 */
 	public UmlRefType(String name) {
 		super(name);
@@ -47,8 +46,8 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Constructor with a name and a list of methods.
-	 * @param name Name of the component
-	 * @param methods Methods of the component
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods) {
 		this(name,methods,null);
@@ -56,9 +55,9 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Constructor with a name, a list of methods and a list of attributes.
-	 * @param name Name of the component
-	 * @param methods Methods of the component
-	 * @param attributes Attributes of the component
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
+	 * @param attributes Attributes of the reference type
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
 		this(name, methods, attributes, null, null);
@@ -66,10 +65,10 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Constructor with a name, a list of methods, a list of attributes, and a visibility.
-	 * @param name Name of the component
-	 * @param methods Methods of the component
-	 * @param attributes Attributes of the component
-	 * @param visibility Visibility of the component
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
+	 * @param attributes Attributes of the reference type
+	 * @param visibility Visibility of the reference type
 	 * @throws ExceptionUml 
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility) {
@@ -78,11 +77,11 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers.
-	 * @param name Name of the component
-	 * @param methods Methods of the component
-	 * @param attributes Attributes of the component
-	 * @param visibility Visibility of the component
-	 * @param modifiers Modifiers of the component
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
+	 * @param attributes Attributes of the reference type
+	 * @param visibility Visibility of the reference type
+	 * @param modifiers Modifiers of the reference type
 	 * @throws ExceptionUml 
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
@@ -144,7 +143,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Add a method to the methods list.
-	 * @param method Method of a component
+	 * @param method Method of a reference type
 	 * @throws ExceptionMethode 
 	 */
 	public final void addMethod(UmlMethod method) throws ExceptionMethode {
@@ -156,7 +155,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Add an attribute to the attributes list .
-	 * @param attribute Attribute of a component
+	 * @param attribute Attribute of a reference type
 	 * @throws ExceptionAttribute 
 	 * @throws ExceptionUml 
 	 */
@@ -169,7 +168,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 
 	/**
 	 * Remove a method from the methods list.
-	 * @param method Method of a component
+	 * @param method Method of a reference type
 	 */
 	public void removeMethod(UmlMethod method) {
 		if (this.methodsList.remove(method)) {
@@ -179,7 +178,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	
 	/**
 	 * Remove an attribute from the attributes list.
-	 * @param attribute Attribute of a component
+	 * @param attribute Attribute of a reference type
 	 */
 	public void removeAttribute(UmlAttribute attribute) {
 		if (this.attributesList.remove(attribute)) {

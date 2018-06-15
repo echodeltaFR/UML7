@@ -8,7 +8,7 @@ import java.util.Observable;
 
 
 /**
- * Class which allow to create a diagram with element.
+ * Class which allow to create a diagram with element and relations.
  * @author fmeslet
  * @see UmlRefType
  * @see UmlRelationship
@@ -177,8 +177,13 @@ public class UmlDiagram extends Observable implements Serializable{
 		return false;
 	}
 
-	public void removeUmlElement(UmlRefType rt) {
-		if (this.elements.remove(rt)) {
+	/**
+	 * Remove an UML reference type from the diagram.
+	 * @param reftype
+	 * 		The type to remove
+	 */
+	public void removeUmlElement(UmlRefType reftype) {
+		if (this.elements.remove(reftype)) {
 			this.setChanged();
 			this.notifyObservers();
 		};
