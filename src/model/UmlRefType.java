@@ -48,9 +48,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * @param methods Methods of the component
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods) {
-		super(name);
-		methodsList = methods;
-		attributesList = new ArrayList<>();
+		this(name,methods,null);
 	}
 	
 	/**
@@ -60,9 +58,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * @param attributes Attributes of the component
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
-		super(name);
-		methodsList = methods;
-		attributesList = attributes;
+		this(name, methods, attributes, null, null);
 	}
 	
 	/**
@@ -74,9 +70,7 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 * @throws ExceptionUml 
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility) {
-		super(name, visibility);
-		methodsList = methods;
-		attributesList = attributes;
+		this(name, methods, attributes, visibility, null);
 	}
 	
 	/**
@@ -90,8 +84,16 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
 		super(name, visibility, modifiers);
-		methodsList = methods;
-		attributesList = attributes;
+		if (methods == null) {
+			methodsList = new ArrayList<>();
+		} else {
+			methodsList = methods;
+		}
+		if (attributes == null) {
+			attributesList = new ArrayList<>();
+		} else {
+			attributesList = attributes;
+		}
 	}
 
 	// Methods
