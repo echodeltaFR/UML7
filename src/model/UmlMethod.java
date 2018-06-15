@@ -30,7 +30,7 @@ public class UmlMethod extends UmlEntity {
 	public UmlMethod(String name) {
 		super(name);
 		this.params = new HashSet<>();
-		this.returnType = null;
+		this.returnType = PrimitiveType.VOID;
 	}
 
 	/** Constructor. Creates a method with several modifiers.
@@ -52,7 +52,11 @@ public class UmlMethod extends UmlEntity {
 		else {
 			this.params = new HashSet<>(params);
 		}
-		this.returnType = returnType;
+		if (returnType == null) {
+			this.returnType = PrimitiveType.VOID;
+		} else {
+			this.returnType = returnType;
+		}
 	}
 
 	// Methods
@@ -120,6 +124,7 @@ public class UmlMethod extends UmlEntity {
 	 * @param returnType The return type
 	 */
 	public void setReturnType(UmlType returnType) {
+		if (returnType == null) throw new IllegalArgumentException("Return type can't be null");
 		this.returnType = returnType;
 		this.setChangedAndNotify();
 	}
