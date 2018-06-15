@@ -178,5 +178,23 @@ public class UmlEnum extends UmlRefType {
 		if(modifiers != null)
 			throw new ExceptionModifier("Enumerated classes cannot have non-access modifiers");
 	}
+	
+	/**
+	 * Check this object equality with another.
+	 * @return true if o is an UmlEnum with the same name, values, attribute, methods and modifiers.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlEnum) {
+			UmlEnum e = (UmlEnum) o;
+			if (
+					super.equals(e) &&
+					this.valuesList.equals(e.valuesList)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

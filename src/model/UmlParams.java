@@ -54,5 +54,17 @@ public class UmlParams {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlParams) {
+			UmlParams p = (UmlParams) o;
+			if (
+					p.name.equals(this.name) &&
+					p.type.equals(this.type)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -166,5 +166,22 @@ public class UmlDiagram extends Observable implements Serializable{
 			this.notifyObservers();
 		};
 	}
-
+	
+	/**
+	 * Check if this object is equal to another.
+	 * @return true if o is an UmlDiagram with the same relations and elements, false otherwise.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlDiagram) {
+			UmlDiagram u = (UmlDiagram) o;
+			if (
+					u.elements.equals(this.elements) &&
+					u.relations.equals(this.relations)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

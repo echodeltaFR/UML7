@@ -83,4 +83,20 @@ public class UmlAttribute extends UmlEntity {
 			throw new ExceptionModifier("the modifier of attribute conflicts");
 	}
 
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlAttribute) {
+			UmlAttribute a = (UmlAttribute) o;
+			if ( 
+					a.getName().equals(this.getName()) &&
+					a.getModifiers().equals(this.getModifiers()) &&
+					a.getVisibility().equals(this.getVisibility()) &&
+ 					a.type.equals(this.type)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -133,4 +133,12 @@ public class UmlClass extends UmlRefType{
 			}
 		}
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlClass) {
+			return super.equals(o);
+		}
+		return false;
+	}
 }

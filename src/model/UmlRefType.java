@@ -201,5 +201,19 @@ public abstract class UmlRefType extends UmlEntity implements UmlType {
 	 */
 	public abstract void accept(DiagramElementVisitor visitor);
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlRefType) {
+			UmlRefType r = (UmlRefType) o;
+			if (
+					super.equals(r) &&
+					r.attributesList.equals(this.attributesList) &&
+					r.methodsList.equals(this.methodsList)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 

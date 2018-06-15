@@ -175,5 +175,13 @@ public class UmlInterface extends UmlRefType {
 	public void accept(DiagramElementVisitor visitor) {
 		visitor.visit(this);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlInterface) {
+			return super.equals(o);
+		}
+		return false;
+	}
 
 }

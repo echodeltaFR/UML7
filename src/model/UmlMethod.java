@@ -142,4 +142,18 @@ public class UmlMethod extends UmlEntity {
 			throw new ExceptionModifier("the modifier of attribute conflicts");
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlMethod) {
+			UmlMethod m = (UmlMethod) o;
+			if (
+					super.equals(o) &&
+					m.params.equals(this.params) &&
+					m.returnType.equals(this.returnType)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

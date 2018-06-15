@@ -188,4 +188,19 @@ public abstract class UmlEntity extends Observable {
 	protected abstract void checkVisibility(Visibility visibility) throws ExceptionVisibility;
 	protected abstract void checkModifier(Modifier modifier) throws ExceptionModifier;
 	protected abstract void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlEntity) {
+			UmlEntity e = (UmlEntity) o;
+			if (
+					e.modifiers.equals(this.modifiers) &&
+					e.name.equals(this.name) &&
+					e.visibility.equals(this.visibility)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
