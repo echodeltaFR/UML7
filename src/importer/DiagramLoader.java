@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import model.UmlDiagram;
 
-public class DiagramLoader {
+public class DiagramLoader implements Loader {
 
 	private File file;
 	private UmlDiagram diagram;
@@ -36,11 +36,12 @@ public class DiagramLoader {
 		jfc.setAcceptAllFileFilterUsed(false);
 	}
 	
+	@Override
 	public void load() throws ClassNotFoundException, IOException {
 		int returnValue = 0;
 		String fileName = "";
 		
-		returnValue = this.jfc.showDialog(null, "Load");
+		returnValue = this.jfc.showDialog(null, "Import");
 		if(returnValue == JFileChooser.APPROVE_OPTION) {
 			fileName = jfc.getSelectedFile().getAbsolutePath();
 			this.file = new File(fileName);

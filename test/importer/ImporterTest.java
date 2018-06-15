@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +11,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.ExceptionUml;
 import exporter.DiagramSaver;
 import model.Modifier;
 import model.PrimitiveType;
@@ -23,6 +23,11 @@ import model.UmlParams;
 import model.UmlRefType;
 import model.Visibility;
 
+/**
+ * Class with allow to test the importation and the exportation.
+ * @author fmeslet
+ * @version 1.0
+ */
 public class ImporterTest {
 
 	private UmlDiagram diagramClass;
@@ -35,7 +40,7 @@ public class ImporterTest {
 	private DiagramLoader loader;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws ExceptionUml {
 		// Create attributes with modifier and visiblity
 		Set<Modifier> modifierAttribut1 = new HashSet<Modifier>();
 		modifierAttribut1.add(Modifier.FINAL);
@@ -90,10 +95,12 @@ public class ImporterTest {
 		valuesEnum.add("DOUBLE");
 		valuesEnum.add("STRING");
 		
+		Set<Modifier> modifierClass = new HashSet<Modifier>();
+		
 		// Create components
 		classComponent = new UmlClass("Class", 
 				methods, attributes, 
-				Visibility.PUBLIC, new HashMap<Modifier>());
+				Visibility.PUBLIC, modifierClass);
 		
 		// Create diagrams
 		diagramClass = new UmlDiagram("Diagram Class", classDiagramComponents);
@@ -108,7 +115,6 @@ public class ImporterTest {
 	@Test
 	public void testLoader() throws ClassNotFoundException, IOException {
 		saver.save();
-		System.out.println("je passe");
 		loader.load();
 
 		assertEquals("testGenerationClass: wrong normal class generation", diagramClass, loader.getDiagram());

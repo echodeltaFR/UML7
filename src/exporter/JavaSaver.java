@@ -15,25 +15,23 @@ import javax.swing.filechooser.FileSystemView;
 import model.UmlDiagram;
 
 /**
- * Class which allow to save a diagram in uml7 format.
+ * Class which allow to save a diagram in java format.
  * @author fmeslet
  * @version 1.0
  */
-public class DiagramSaver implements Saver {
-
-	private File file;
+public class JavaSaver implements Saver{
+	
 	private UmlDiagram diagram;
 	private JFileChooser jfc;
 	private FileNameExtensionFilter filter;
 	
 	/**
-	 * Build a diagram saver with a diagram.
+	 * Build a java saver with a diagram.
 	 * @param diagram the diagram export in a file .uml7
 	 */
-	public DiagramSaver(UmlDiagram diagram) {
+	public JavaSaver(UmlDiagram diagram) {
 		this.diagram = diagram;
-		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 Format", ".uml7");
+		this.filter = new FileNameExtensionFilter("Java file", ".java");
 		
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -46,12 +44,11 @@ public class DiagramSaver implements Saver {
 	}
 	
 	/**
-	 * Build a diagram saver.
+	 * Build a java saver.
 	 */
-	public DiagramSaver() {
+	public JavaSaver() {
 		this.diagram = new UmlDiagram();
-		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 file", ".uml7");
+		this.filter = new FileNameExtensionFilter("Java file", ".java");
 		
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -67,34 +64,25 @@ public class DiagramSaver implements Saver {
 	public void save() throws IOException {
 		int returnValue = 0;
 		boolean overwrite = true;
-		String filePath = "";
+		File file = new File("");
 		
 		do {
 			returnValue = this.jfc.showDialog(null, "Save");
 			if(returnValue == JFileChooser.APPROVE_OPTION) {
-				this.file = new File(jfc.getSelectedFile().getAbsolutePath());
-				
-				// Absolute path of the file
-				filePath = jfc.getSelectedFile().getAbsolutePath();
-				
-				// Add the extension if the file doesn't have this extension
-				if(!filePath.endsWith(".uml7")) {
-					this.file = new File(filePath + ".uml7");
-				}
-				
-				overwrite = this.approveSelection();
+				file = new File(jfc.getSelectedFile() + ".uml7");
+				overwrite = this.approveSelection(file);
 			}
 		} while (!overwrite && returnValue == JFileChooser.APPROVE_OPTION);
 		
 		if(returnValue == JFileChooser.APPROVE_OPTION || overwrite) {
-			saveFile();
+			saveFile(file);
 		}
 	}
 	
-    private boolean approveSelection() throws IOException {
-		 if(!this.file.exists() ||
+    private boolean approveSelection(File file) throws IOException {
+		 if(file.exists() ||
 				 JOptionPane.showConfirmDialog( null,
-			                  "File " + this.file.getName() + " already exist, override?",
+			                  "File already exist, override?",
 			                  "override?",
 			                  JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			 return true;
@@ -104,11 +92,11 @@ public class DiagramSaver implements Saver {
     }
     
     /**
-     * Save the diagram in a uml7 format.
+     * Save the diagram in a java format.
      * @throws IOException
      */
-    private void saveFile() throws IOException {
-    	FileOutputStream fileOut = new FileOutputStream(this.file);
+    private void saveFile(File file) throws IOException {
+    	FileOutputStream fileOut = new FileOutputStream(file);
 		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 		
 		objectOut.writeObject(this.diagram);
