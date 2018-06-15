@@ -3,6 +3,7 @@
 title UML7 - View
 
 abstract RelationDisplay {
+    - serialVersionUID : long {final} {static}
     # {static} double HEIGHT_TRIANGLE
     # {static} double BASE_TRIANGLE
     - umlRelation : UmlRelationship
@@ -17,6 +18,7 @@ abstract RelationDisplay {
 }
 
 class AggregationRelationDisplay {
+    - serialVersionUID : long {final} {static}
     --
     + paintComponent(g : Graphics) : void
     --
@@ -24,6 +26,7 @@ class AggregationRelationDisplay {
 }
 
 class AssociationRelationDisplay {
+    - serialVersionUID : long {final} {static}
     - unidirectional : boolean
     --
     + paintComponent(g : Graphics) : void
@@ -33,6 +36,7 @@ class AssociationRelationDisplay {
 }
 
 class CompositionRelationDisplay {
+    - serialVersionUID : long {final} {static}
     --
     + paintComponent(g : Graphics) : void
     --
@@ -40,6 +44,7 @@ class CompositionRelationDisplay {
 }
 
 class ExtendRelationDisplay {
+    - serialVersionUID : long {final} {static}
     --
     + paintComponent(g : Graphics) : void
     --
@@ -47,30 +52,29 @@ class ExtendRelationDisplay {
 }
 
 class AttributeDisplay {
-    - attribute : UmlAttribute
+    - serialVersionUID : long {final} {static}
     --
-    + getAttribute() : UmlAttribute
-    + updateLabel() : void
+    + update(o : Observable; arg : Object) : void;
+    - updateLabel(attr : UmlAttribute) : void
     --
     + AttributeDisplay(attribute : UmlAttribute)
 }
 
 class MethodDisplay {
-    - method : UmlMethod
+    - serialVersionUID : long {final} {static}
     --
-    + getMethod() : UmlMethod
-    + updateLabel() : void
+    + update(o : Observable; arg : Object) : void
+    + updateLabel(method : UmlMethod) : void
     --
     + MethodDisplay(method : UmlMethod)
 }
 
 class UmlObjectDisplay {
+    - serialVersionUID : long {final} {static}
     - {static} STEREOTYPE_MAP : HashMap<Class<? extends UmlRefType>,String>
     - {static} UML_OBJECT_BORDERS : Border
     - className : JLabel
-    - attributes : List<AttributeDisplay>
     - attributeContainer : JPanel
-    - methods : List<MethodDisplay>
     - functionContainer : JPanel
     --
     - buildInnerSwingArchitecture(umlobject : UmlRefType) : void
@@ -80,7 +84,16 @@ class UmlObjectDisplay {
     + UmlObjectDisplay(umlobject : UmlRefType)
 }
 
-class DiagramDisplay
+class DiagramDisplay {
+    - serialVersionUID : long {final} {static}
+    - refTypeDisplayZone : JPanel
+    --
+    + update(o : Observable ; arg : Object) : void
+    - update(diagram UmlDiagram) : void
+    - buildClassDisplayWrapper(refType : UmlRefType, diagram : UmlDiagram) : JPanel
+    --
+    DiagramDisplay(diagram : UmlDiagram)
+}
 
 RelationDisplay <|-- CompositionRelationDisplay
 RelationDisplay <|-left- AssociationRelationDisplay
@@ -90,5 +103,17 @@ DiagramDisplay *-- RelationDisplay
 DiagramDisplay *-- UmlObjectDisplay
 UmlObjectDisplay *-- MethodDisplay
 UmlObjectDisplay *-- AttributeDisplay
+
+AttributeDisplay <|.down. Observer
+MethodDisplay <|.down. Observer
+UmlObjectDisplay <|.down. Observer
+DiagramDisplay <|.down. Observer
+AttributeDisplay <|-down- JPanel
+MethodDisplay <|-down- JPanel
+UmlObjectDisplay <|-down- JPanel
+RelationDisplay <|-down- JPanel
+
+DiagramDisplay <|-right- JScrollPane
+
 
 @enduml
