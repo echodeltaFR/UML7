@@ -70,11 +70,19 @@ public class DiagramLoader implements Loader {
 	 * @throws IOException raise in case of I/O Exception
 	 */
 	private void loadFile(File file) throws ClassNotFoundException, IOException {
-	    FileInputStream fileIn = new FileInputStream(file);
-	    ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-	    this.diagram = (UmlDiagram) objectIn.readObject();
-	    objectIn.close();
-	    fileIn.close();
+		ObjectInputStream objectIn = null;
+		FileInputStream fileIn = null;
+		try {
+		    fileIn = new FileInputStream(file);
+		    objectIn = new ObjectInputStream(fileIn);
+		    this.diagram = (UmlDiagram) objectIn.readObject();
+		} finally {
+			if (objectIn != null)
+				  objectIn.close();
+			
+			if (fileIn != null)
+				fileIn.close();
+		}
 	}
 	
 	/**

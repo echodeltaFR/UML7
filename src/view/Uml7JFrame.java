@@ -188,7 +188,6 @@ public class Uml7JFrame extends JFrame{
 			try {
 				saver.save();
 			} catch (IOException e1) {
-				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error: "+e1.getMessage(), "Error while saving", JOptionPane.ERROR_MESSAGE);
 			}
 		}
@@ -234,7 +233,6 @@ public class Uml7JFrame extends JFrame{
 			try {
 				saver.save();
 			} catch (IOException e1) {
-				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage(), "Error while exporting", JOptionPane.ERROR_MESSAGE);
 			}
 		}

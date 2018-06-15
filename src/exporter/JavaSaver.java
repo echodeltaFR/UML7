@@ -1,8 +1,10 @@
 package exporter;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Locale;
 import java.util.Map.Entry;
 
@@ -51,7 +53,7 @@ public class JavaSaver implements Saver{
 		}
 		
 		this.generator = new JavaGenerator(this.diagram);
-		this.jfc = buildSaverFrame(this.jfc);
+		this.jfc = buildSaverFrame();
 	}
 	
 	/**
@@ -59,13 +61,13 @@ public class JavaSaver implements Saver{
 	 */
 	public JavaSaver() {
 		this.diagram = new UmlDiagram();
-		this.jfc = buildSaverFrame(this.jfc);
+		this.jfc = buildSaverFrame();
 	}
 	
 	@SuppressWarnings("serial")
-	private static JFileChooser buildSaverFrame(JFileChooser jfc) {
+	private static JFileChooser buildSaverFrame() {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()) {
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()) {
 			@Override
 			public void approveSelection() {
 				if (getSelectedFile().isFile()) {
@@ -92,7 +94,7 @@ public class JavaSaver implements Saver{
 	@Override
 	public void save() throws IOException {
 		int returnValue = 0;
-		File file = new File("");
+		File file = null;
 		String filePath = "";
 		
 		returnValue = this.jfc.showDialog(null, "Save");
@@ -126,7 +128,7 @@ public class JavaSaver implements Saver{
 	 * @throws IOException exception raise in case of I/O Exception
 	 */
     private boolean approveSelection(File file) throws IOException {
-		 if(!file.exists() ||
+		 if (!file.exists() ||
 				 JOptionPane.showConfirmDialog( null,
 						 	"File " + file.getName() + " already exist, override ?",
 			                  "Override ?",
@@ -144,9 +146,16 @@ public class JavaSaver implements Saver{
      * @throws IOException exception raise in case of I/O Exception
      */
     private void saveFile(File file, String code) throws IOException {
-		FileWriter writer = new FileWriter(file);
-		writer.write(code);
-		writer.close();
+		
+    	FileWriter writer = null;
+    	try {
+    		writer = new FileWriter(file);
+    		writer.write(code);
+    		writer.close();
+    	} finally {
+			if (writer != null)
+				writer.close();
+    	}
     }
 	
     @Override

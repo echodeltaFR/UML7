@@ -43,7 +43,7 @@ public class DiagramSaver implements Saver {
 			this.diagram = diagram;
 		}
 				
-		this.jfc = buildSaverFrame(this.jfc);
+		this.jfc = buildSaverFrame();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class DiagramSaver implements Saver {
 	 */
 	public DiagramSaver() {
 		this.diagram = new UmlDiagram();
-		this.jfc = buildSaverFrame(this.jfc);
+		this.jfc = buildSaverFrame();
 	}
 	
 	/**
@@ -59,9 +59,9 @@ public class DiagramSaver implements Saver {
 	 * @param jfc the box
 	 * @return the box modified
 	 */
-	private static JFileChooser buildSaverFrame(JFileChooser jfc) {
+	private static JFileChooser buildSaverFrame() {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		
 		UIManager.put("FileChooser.acceptAllFileFilterText",
 				UIManager.get("FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
@@ -77,7 +77,7 @@ public class DiagramSaver implements Saver {
 		int returnValue = 0;
 		boolean overwrite = true;
 		String filePath = "";
-		File file = new File("");
+		File file = null;
 		
 		do {
 			returnValue = this.jfc.showDialog(null, "Save");
@@ -108,7 +108,7 @@ public class DiagramSaver implements Saver {
 	 * @throws IOException exception raise in case of I/O Exception
 	 */
     private boolean approveSelection(File file) throws IOException {
-		 if(!file.exists() ||
+		 if (!file.exists() ||
 				 JOptionPane.showConfirmDialog( null,
 			                  "File " + file.getName() + " already exist, override ?",
 			                  "Override?",
@@ -125,10 +125,19 @@ public class DiagramSaver implements Saver {
      * @throws IOException raise in case of I/O Exception
      */
     private void saveFile(File file) throws IOException {
-    	FileOutputStream fileOut = new FileOutputStream(file);
-		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-		objectOut.writeObject(this.diagram);
-		objectOut.close();
+    	ObjectOutputStream objectOut = null;
+    	FileOutputStream fileOut = null;
+    	try {
+	    	fileOut = new FileOutputStream(file);
+			objectOut = new ObjectOutputStream(fileOut);
+			objectOut.writeObject(this.diagram);
+    	} finally {
+			if (objectOut != null)
+				objectOut.close();
+			
+			if (fileOut != null)
+				fileOut.close();
+    	}
     }
 	
     @Override
