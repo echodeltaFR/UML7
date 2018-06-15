@@ -23,6 +23,7 @@ public class AttributeDisplay extends JLabel implements Observer{
     public AttributeDisplay(UmlAttribute attribute) {
         super();
         attribute.addObserver(this);
+        this.setBackground(Uml7JFrame.objectBackgroundColor);
         this.addMouseListener(new AttributeEditorController(attribute));
         updateLabel(attribute);
     }

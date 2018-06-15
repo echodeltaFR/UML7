@@ -25,6 +25,7 @@ public class MethodDisplay extends JLabel implements Observer {
 	public MethodDisplay(UmlMethod method) {
 		super();
 		if (method == null) throw new IllegalArgumentException("Method can't be null");
+		this.setBackground(Uml7JFrame.objectBackgroundColor);
 		method.addObserver(this);
 
 		this.addMouseListener(new MouseAdapter() {

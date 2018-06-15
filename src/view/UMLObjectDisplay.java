@@ -43,11 +43,6 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	
 	private static final HashMap<Class<? extends UmlRefType>,String> stereotypeMap;
 	
-	/** The yellow,wide border of a class */
-	private static final Border umlObjectBorders = BorderFactory.createLineBorder(
-			new Color(250, 240, 50),
-			2);
-	
 	static {
 		stereotypeMap = new HashMap<>();
 		//stereotypeMap.put(UmlInterface.class, "interface");
@@ -91,9 +86,11 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 	 */
 	private void buildInnerSwingArchitecture(UmlRefType umlobject) {
 		this.setLayout(new BorderLayout());
-		this.setBorder(umlObjectBorders);
+		this.setBorder(Uml7JFrame.objectBorder);
+		this.setBackground(Uml7JFrame.objectBackgroundColor);
 		
 		this.classname = new JLabel();
+		this.classname.setBackground(Uml7JFrame.objectBackgroundColor);
 		
 		
 		JLabel addElement = new JLabel(
@@ -131,9 +128,10 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		
 		//Creating title area
 		JPanel titleArea = new JPanel(new BorderLayout());
-		titleArea.setBorder(umlObjectBorders);
+		titleArea.setBorder(Uml7JFrame.objectInnerSeparation);
 		titleArea.add(this.classname,BorderLayout.CENTER);
 		titleArea.add(addElement, BorderLayout.EAST);
+		titleArea.setBackground(Uml7JFrame.objectBackgroundColor);
 		
 		String stereotype = stereotypeMap.get(umlobject.getClass());
 		if (stereotype != null) {
@@ -145,15 +143,18 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		//Content has 2 categories : attributes and methods/functions
 		JPanel listsContainer = new JPanel();
 		listsContainer.setLayout(new BoxLayout(listsContainer,BoxLayout.Y_AXIS));
-		listsContainer.setBorder(umlObjectBorders);
+		listsContainer.setBorder(Uml7JFrame.objectInnerSeparation);
+		listsContainer.setBackground(Uml7JFrame.objectBackgroundColor);
 		
 		this.attributeContainer = new JPanel();
 		attributeContainer.setLayout(new BoxLayout(attributeContainer,BoxLayout.Y_AXIS));
-		attributeContainer.setBorder(umlObjectBorders);
+		attributeContainer.setBorder(Uml7JFrame.objectInnerSeparation);
+		attributeContainer.setBackground(Uml7JFrame.objectBackgroundColor);
 		
 		this.functionContainer = new JPanel();
 		functionContainer.setLayout(new BoxLayout(functionContainer,BoxLayout.Y_AXIS));
-		functionContainer.setBorder(umlObjectBorders);
+		functionContainer.setBorder(Uml7JFrame.objectInnerSeparation);
+		functionContainer.setBackground(Uml7JFrame.objectBackgroundColor);
 		
 		listsContainer.add(attributeContainer);
 		listsContainer.add(functionContainer);
@@ -192,13 +193,14 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		
 		SubComponentDeleteWrapper(UmlEntity umlent, UmlRefType umlrt, boolean isMethod) {
 			super(new BorderLayout());
+			this.setBackground(Uml7JFrame.objectBackgroundColor);
 			if (isMethod) {
 				this.add(new MethodDisplay((UmlMethod)umlent), BorderLayout.CENTER);
 			} else {
 				this.add(new AttributeDisplay((UmlAttribute)umlent), BorderLayout.CENTER);
 			}
 			deleteButton = new JButton(" - ");
-			deleteButton.setBorder(BorderFactory.createLineBorder(Color.RED));
+			deleteButton.setBorder(Uml7JFrame.deleteButtonBorder);
 			this.add(deleteButton, BorderLayout.EAST);
 			deleteButton.addActionListener(e -> {
 				if (isMethod) {
