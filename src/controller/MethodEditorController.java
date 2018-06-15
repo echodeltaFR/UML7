@@ -83,6 +83,7 @@ public class MethodEditorController extends JDialog {
 	/**
 	 * Constructor called when we need to update a method.
 	 * @param umlMethod the method to add
+	 * @wbp.parser.constructor
 	 */
 	public MethodEditorController(UmlMethod umlMethod) {
 		if (umlMethod == null) {

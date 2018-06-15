@@ -46,9 +46,6 @@ public class AttributeEditorController extends JDialog {
 	/** Swing combobox type **/
 	private JComboBox<String> comboBoxType;
 	
-	/** Swing button validate **/
-	private JButton btnValidate;
-	
 	private JComboBox<String> comboBoxVisibility;
 	
 	private Set<Modifier> modifiers;
@@ -58,10 +55,12 @@ public class AttributeEditorController extends JDialog {
 	private JCheckBox chckbxVolatile;
 	
 	private JCheckBox chckbxFinal;
+	private JButton btnValidate;
 	
 	/**
 	 * Constructor called when we need to add an attribute.
 	 * @param umlRef the uml element
+	 * @wbp.parser.constructor
 	 */
 	public AttributeEditorController(UmlRefType umlRef) {
 		if (umlRef == null) {
@@ -71,35 +70,8 @@ public class AttributeEditorController extends JDialog {
 		this.setTitle("Add an attribute");
 
 		initializeNakedGUI();
-
-		JDialog myself = this;
-
 		this.btnValidate.setText("Add this attribute");
-
-		this.btnValidate.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					UmlAttribute umlAttr = new UmlAttribute(nameTextField.getText(), PrimitiveType.valueOf((String)comboBoxType.getSelectedItem()));
-					umlAttr.setVisibility(Visibility.valueOf(comboBoxVisibility.getSelectedItem().toString()));
-					umlAttr.setModifiers(modifiers);
-
-					umlRef.addAttribute(umlAttr);
-					dispose();
-				} catch (ExceptionAttribute e) {
-					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Attribute error", JOptionPane.ERROR_MESSAGE);
-				} catch (ExceptionVisibility e) {
-					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Visibility error", JOptionPane.ERROR_MESSAGE);
-				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Empty name", JOptionPane.ERROR_MESSAGE);
-				} catch (ExceptionModifier e) {
-					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-			
-		});
-		
+		JDialog myself = this;
 		JLabel lblModifiers = new JLabel("Modifiers :");
 		lblModifiers.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblModifiers, "2, 10, right, default");
@@ -130,12 +102,30 @@ public class AttributeEditorController extends JDialog {
 			
 		});
 		
-		btnValidate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		getContentPane().add(btnValidate, "6, 14");
 		
+		this.btnValidate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					UmlAttribute umlAttr = new UmlAttribute(nameTextField.getText(), PrimitiveType.valueOf((String)comboBoxType.getSelectedItem()));
+					umlAttr.setVisibility(Visibility.valueOf(comboBoxVisibility.getSelectedItem().toString()));
+					umlAttr.setModifiers(modifiers);
+
+					umlRef.addAttribute(umlAttr);
+					dispose();
+				} catch (ExceptionAttribute e) {
+					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Attribute error", JOptionPane.ERROR_MESSAGE);
+				} catch (ExceptionVisibility e) {
+					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Visibility error", JOptionPane.ERROR_MESSAGE);
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Empty name", JOptionPane.ERROR_MESSAGE);
+				} catch (ExceptionModifier e) {
+					JOptionPane.showMessageDialog(myself, "Error: " + e.getMessage(), "Illegal modifier", JOptionPane.ERROR_MESSAGE);
+				}				
+			}
+
+		});
 
 	}
 	
@@ -236,13 +226,16 @@ public class AttributeEditorController extends JDialog {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(20dlu;default)"),}));
-		
-		btnValidate = new JButton();
+				RowSpec.decode("max(41dlu;default)"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 
 		JLabel lblAttributeName = new JLabel("Attribute name :");
 		getContentPane().add(lblAttributeName, "2, 4, right, default");
 		
+		btnValidate = new JButton();
+		getContentPane().add(btnValidate, "6, 14");
+
 		nameTextField = new JTextField();
 		getContentPane().add(nameTextField, "4, 4, 3, 1, fill, default");
 		nameTextField.setColumns(10);
