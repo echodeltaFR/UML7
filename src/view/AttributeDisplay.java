@@ -1,6 +1,12 @@
 package view;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JLabel;
 
+import controller.AttributeEditorController;
 import model.Modifier;
 import model.UmlAttribute;
 
@@ -9,28 +15,30 @@ import model.UmlAttribute;
  * @author echodeltaFR
  * @version 1.2
  */
-@SuppressWarnings("serial")
-public class AttributeDisplay extends JLabel {
-
-    /** Attribute to display. */
-    private UmlAttribute attribute;
+public class AttributeDisplay extends JLabel implements Observer{
 
     /**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -6461229184000932823L;
+
+	/**
      * Constructor.
      * @param attribute Attribute to display
      */
     public AttributeDisplay(UmlAttribute attribute) {
         super();
-        this.attribute = attribute;
-        updateLabel();
-    }
-
-    /**
-     * Gets the represented attribute
-     * @return the attribute that is displayed
-     */
-    public UmlAttribute getAttribute() {
-    	return this.attribute;
+        attribute.addObserver(this);
+        this.setBackground(Uml7JFrame.objectBackgroundColor);
+        
+        this.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new AttributeEditorController(attribute);
+        	}
+        });
+        
+        updateLabel(attribute);
     }
     
     /**
@@ -38,7 +46,7 @@ public class AttributeDisplay extends JLabel {
      * Call this method when you modify an attribute
      * and you want the display to refresh.
      */
-    public void updateLabel() {
+    public void updateLabel(UmlAttribute attribute) {
         StringBuilder str = new StringBuilder();
         switch (attribute.getVisibility()) {
         case PUBLIC:
@@ -50,16 +58,29 @@ public class AttributeDisplay extends JLabel {
         case PROTECTED:
         	str.append("#");
         	break;
+        case PACKAGE:
+        	//Nothing to append
+        	break;
         default:
         	str.append("Exception");
         }
+
+        str.append(attribute.getName() + ": " + attribute.getType());
         if (!attribute.getModifiers().isEmpty()) {
+        	str.append(" { ");
             for (Modifier m : attribute.getModifiers()) {
                 str.append(m.toString() + " ");
             }
+            str.append("}");
         }
-        str.append(attribute.getName() + ": " + attribute.getType());
         this.setText(str.toString());
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof UmlAttribute) {
+			this.updateLabel((UmlAttribute)o);
+		}
+	}
 
 }

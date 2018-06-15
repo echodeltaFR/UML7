@@ -10,6 +10,9 @@ import java.util.Set;
 
 import org.junit.*;
 
+import exception.ExceptionUml;
+import exception.ExceptionMethode;
+
 public class UmlClassTest {
 	
 	private UmlClass umlClass1;
@@ -42,7 +45,7 @@ public class UmlClassTest {
 	
 	@Before
 	public void setUp() {
-		this.visibility = Visibility.PRIVATE;
+		this.visibility = Visibility.PUBLIC;
 		this.visibility2 = Visibility.PACKAGE;
 		
 		this.modifier1 = Modifier.FINAL;
@@ -50,10 +53,9 @@ public class UmlClassTest {
 		
 		this.modifiers = new HashSet<Modifier>();
 		this.modifiers.add(modifier1);
-		this.modifiers.add(modifier2);
 		
 		this.modifiers2 = new HashSet<Modifier>();
-		this.modifiers2.add(modifier1);
+		this.modifiers2.add(modifier2);
 		
 		this.umlMethod1 = new UmlMethod("method1");
 		this.umlMethod2 = new UmlMethod("method2");
@@ -90,7 +92,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization2() {
+	public void testInitialization2() throws ExceptionMethode {
 		this.umlClass2 = new UmlClass("class2", methods);
 		assertNotNull(umlClass2);
 		assertTrue(umlClass2.getName().equals("class2"));
@@ -98,7 +100,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization3() {
+	public void testInitialization3() throws ExceptionUml {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		assertNotNull(umlClass3);
 		assertTrue(umlClass3.getName().equals("class3"));
@@ -107,7 +109,7 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testInitialization4() {
+	public void testInitialization4() throws ExceptionUml {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		assertNotNull(umlClass4);
 		assertTrue(umlClass4.getName().equals("class4"));
@@ -125,21 +127,21 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testSetMethods() {
+	public void testSetMethods() throws ExceptionMethode {
 		this.umlClass2 = new UmlClass("class2", methods);
 		this.umlClass2.setMethodsList(methods2);
 		assertTrue(umlClass2.getMethodsList().equals(methods2));
 	}
 	
 	@Test
-	public void testSetAttributes() {
+	public void testSetAttributes() throws ExceptionUml {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.setAttributesList(attributes2);
 		assertTrue(umlClass3.getAttributesList().equals(attributes2));
 	}
 	
 	@Test
-	public void testSetVisibilityModifiers() {
+	public void testSetVisibilityModifiers() throws ExceptionUml {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.setVisibility(visibility2);
 		this.umlClass4.setModifiers(modifiers2);
@@ -148,14 +150,14 @@ public class UmlClassTest {
 	}
 	
 	@Test
-	public void testClearModifiers() {
+	public void testClearModifiers() throws ExceptionUml {
 		this.umlClass4 = new UmlClass("class4", methods, attributes, visibility, modifiers);
 		this.umlClass4.clearModifiers();
 		assertTrue(umlClass4.getModifiers().isEmpty());
 	}
 	
 	@Test
-	public void testAddRemove() {
+	public void testAddRemove() throws ExceptionUml {
 		this.umlClass3 = new UmlClass("class3", methods, attributes);
 		this.umlClass3.removeAttribute(umlAttribute1);
 		assertTrue(!umlClass3.getAttributesList().contains(umlAttribute1));

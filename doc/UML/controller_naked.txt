@@ -1,0 +1,21 @@
+@startuml
+
+package controller {
+
+    class AttributeEditorController 
+    class ClassEditorController
+    class EditorUtils
+    class Launcher
+    class MethodEditorController
+    
+}
+
+EditorUtils <-- AttributeEditorController : use
+EditorUtils <-- MethodEditorController : use
+
+AttributeEditorController --|> JDialog
+MethodEditorController --|> JDialog
+
+ClassEditorController --|> MouseAdapter
+
+@enduml

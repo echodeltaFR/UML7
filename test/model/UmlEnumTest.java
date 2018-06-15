@@ -4,11 +4,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.*;
+
+import exception.ExceptionUml;
+import exception.ExceptionVisibility;
+import exception.ExceptionMethode;
 
 public class UmlEnumTest {
 	
@@ -36,9 +39,6 @@ public class UmlEnumTest {
 	private Visibility visibility;
 	private Visibility visibility2;
 	
-	private Modifier modifier1;
-	private Modifier modifier2;
-	
 	private Set<Modifier> modifiers;
 	private Set<Modifier> modifiers2;
 	
@@ -63,18 +63,8 @@ public class UmlEnumTest {
 		this.values2.add(value1);
 		this.values2.add(value2);
 		
-		this.visibility = Visibility.PRIVATE;
-		this.visibility2 = Visibility.PACKAGE;
-		
-		this.modifier1 = Modifier.FINAL;
-		this.modifier2 = Modifier.ABSTRACT;
-		
-		this.modifiers = new HashSet<Modifier>();
-		this.modifiers.add(modifier1);
-		this.modifiers.add(modifier2);
-		
-		this.modifiers2 = new HashSet<Modifier>();
-		this.modifiers2.add(modifier1);
+		this.visibility = Visibility.PUBLIC;
+		this.visibility2 = Visibility.PRIVATE;
 		
 		this.umlMethod1 = new UmlMethod("method1");
 		this.umlMethod2 = new UmlMethod("method2");
@@ -119,7 +109,7 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testInitialization3() {
+	public void testInitialization3() throws Exception {
 		this.umlEnum3 = new UmlEnum("enum3", values, methods);
 		assertNotNull(umlEnum3);
 		assertTrue(umlEnum3.getName().equals("enum3"));
@@ -128,7 +118,7 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testInitialization4() {
+	public void testInitialization4() throws Exception {
 		this.umlEnum4 = new UmlEnum("enum4", values, methods, attributes);
 		assertNotNull(umlEnum4);
 		assertTrue(umlEnum4.getName().equals("enum4"));
@@ -138,15 +128,14 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testInitialization5() {
-		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility, modifiers);
+	public void testInitialization5() throws Exception {
+		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility);
 		assertNotNull(umlEnum5);
 		assertTrue(umlEnum5.getName().equals("enum5"));
 		assertTrue(umlEnum5.getValuesList().equals(values));
 		assertTrue(umlEnum5.getMethodsList().equals(methods));
 		assertTrue(umlEnum5.getAttributesList().equals(attributes));
 		assertTrue(umlEnum5.getVisibility().equals(visibility));
-		assertTrue(umlEnum5.getModifiers().equals(modifiers));
 	}
 	
 	@Test
@@ -164,22 +153,22 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testSetMethods() {
+	public void testSetMethods() throws ExceptionMethode {
 		this.umlEnum3 = new UmlEnum("enum3", values, methods);
 		this.umlEnum3.setMethodsList(methods2);
 		assertTrue(umlEnum3.getMethodsList().equals(methods2));
 	}
 	
 	@Test
-	public void testSetAttributes() {
+	public void testSetAttributes() throws Exception {
 		this.umlEnum4 = new UmlEnum("enum4", values, methods, attributes);
 		this.umlEnum4.setAttributesList(attributes2);
 		assertTrue(umlEnum4.getAttributesList().equals(attributes2));
 	}
 	
-	@Test
-	public void testSetVisibilityModifiers() {
-		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility, modifiers);
+	@Test(expected = ExceptionVisibility.class)
+	public void testSetVisibilityModifiers() throws ExceptionUml {
+		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility);
 		this.umlEnum5.setVisibility(visibility2);
 		this.umlEnum5.setModifiers(modifiers2);
 		assertTrue(umlEnum5.getVisibility().equals(visibility2));
@@ -187,14 +176,14 @@ public class UmlEnumTest {
 	}
 	
 	@Test
-	public void testClearModifiers() {
-		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility, modifiers);
+	public void testClearModifiers() throws Exception {
+		this.umlEnum5 = new UmlEnum("enum5", values, methods, attributes, visibility);
 		this.umlEnum5.clearModifiers();
 		assertTrue(umlEnum5.getModifiers().isEmpty());
 	}
 	
 	@Test
-	public void testAddRemove() {
+	public void testAddRemove() throws ExceptionUml {
 		this.umlEnum4 = new UmlEnum("enum4", values,  methods, attributes);
 		this.umlEnum4.removeAttribute(umlAttribute1);
 		assertTrue(!umlEnum4.getAttributesList().contains(umlAttribute1));

@@ -1,69 +1,74 @@
 package model;
 
 import java.util.Set;
+
+import exception.ExceptionModifier;
+import exception.ExceptionVisibility;
+
 import java.util.HashSet;
 
 /**
  * Class which allow to create a method
  * @author fmeslet, echodeltaFR
+ * @see UmlEntity
  * @version 1.3
  */
 public class UmlMethod extends UmlEntity {
+	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -5705911605829253462L;
 
-	/**
-	 * Method parameters.
-	 */
+	/** Method parameters. */
 	private Set<UmlParams> params;
-	/**
-	 * Method return type.
-	 */
+
+	/** Method return type. */
 	private UmlType returnType;
-	/**
-	 * Method name.
-	 */
-	private String name;
 
 	// Constructors
 
 	/**
 	 * Constructor. Creates a method with name.
-	 * @param name method name
+	 * @param name Method name
 	 */
 	public UmlMethod(String name) {
-		super();
-		this.name = name;
+		super(name);
 		this.params = new HashSet<>();
-		this.returnType = null;
+		this.returnType = PrimitiveType.VOID;
 	}
 
 	/** Constructor. Creates a method with several modifiers.
-	 * @param name method name
-	 * @param params method parameters
-	 * @param returnType method return type
-	 * @param visibility method visibility
-	 * @param modifiers method modifiers
+	 * @param name Method name
+	 * @param params Method parameters
+	 * @param returnType Method return type
+	 * @param visibility Method visibility
+	 * @param modifiers Method modifiers
 	 */
 	public UmlMethod(String name,
 			Set<UmlParams> params,
 			UmlType returnType,
 			Visibility visibility,
 			Set<Modifier> modifiers) {
-		super(visibility, modifiers);
-		this.name = name;
+		super(name, visibility, modifiers);
 		if (params == null) {
 			this.params = new HashSet<>();
 		}
 		else {
 			this.params = new HashSet<>(params);
 		}
-		this.returnType = returnType;
+		if (returnType == null) {
+			this.returnType = PrimitiveType.VOID;
+		} else {
+			this.returnType = returnType;
+		}
 	}
 
 	// Methods
 
 	/**
 	 * Add a method parameter.
-	 * @param param the method parameter to add
+	 * @param param The method parameter to add
 	 */
 	public void addParam(UmlParams param) {
 		if (this.params.add(param)) {
@@ -73,7 +78,7 @@ public class UmlMethod extends UmlEntity {
 
 	/**
 	 * Add method parameters.
-	 * @param params the method parameters to add
+	 * @param params The method parameters to add
 	 */
 	public void addParams(Set<UmlParams> params) {
 		if (this.params.addAll(params)) {
@@ -83,7 +88,7 @@ public class UmlMethod extends UmlEntity {
 
 	/**
 	 * Delete a method parameter.
-	 * @param param the method parameter to remove
+	 * @param param The method parameter to remove
 	 */
 	public void removeParam(UmlParams param) {
 		if(this.params.remove(param)) {
@@ -92,7 +97,7 @@ public class UmlMethod extends UmlEntity {
 	}
 	/**
 	 * Delete method parameters.
-	 * @param params the method parameters to delete
+	 * @param params The method parameters to delete
 	 */
 	public void removeParams(Set<UmlParams> params) {
 		if (this.params.removeAll(params)) {
@@ -105,35 +110,18 @@ public class UmlMethod extends UmlEntity {
 
 	/**
 	 * Get return type.
-	 * @return returnType return type
+	 * @return The return type of the method
 	 */
 	public UmlType getReturnType() {
 		return this.returnType;
 	}
 
 	/**
-	 * Get method name.
-	 * @return the method name.
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-	/**
 	 * Get the method parameters.
-	 * @return The method parameters
+	 * @return The parameters of the method
 	 */
 	public Set<UmlParams> getParams(){
 		return this.params;
-	}
-
-	/**
-	 * Set the method name.
-	 * @param name The name of the method
-	 */
-	public void setName(String name) {
-		this.name = name;
-		this.setChangedAndNotify();
 	}
 
 	/**
@@ -141,8 +129,41 @@ public class UmlMethod extends UmlEntity {
 	 * @param returnType The return type
 	 */
 	public void setReturnType(UmlType returnType) {
+		if (returnType == null) throw new IllegalArgumentException("Return type can't be null");
 		this.returnType = returnType;
 		this.setChangedAndNotify();
 	}
+	
+	@Override
+	protected final void checkVisibility(Visibility visibility) throws ExceptionVisibility {
+		
+		
+	}
 
+	@Override
+	protected void checkModifier(Modifier modifier) throws ExceptionModifier {
+	}
+
+	@Override
+	protected void checkModifiers(Set<Modifier> modifiers) throws ExceptionModifier {
+		if(modifiers.contains(Modifier.ABSTRACT) && modifiers.size()>1)
+			throw new ExceptionModifier("Abstract modifiers cannot be used in conjunction with other modifiers");
+		if(modifiers.contains(Modifier.FINAL)&&modifiers.contains(Modifier.VOLATILE))
+			throw new ExceptionModifier("the modifier of attribute conflicts");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlMethod) {
+			UmlMethod m = (UmlMethod) o;
+			if (
+					super.equals(o) &&
+					m.params.equals(this.params) &&
+					m.returnType.equals(this.returnType)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

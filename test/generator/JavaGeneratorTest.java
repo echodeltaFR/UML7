@@ -10,6 +10,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.ExceptionUml;
+import exception.ExceptionModifier;
 import model.Modifier;
 import model.PrimitiveType;
 import model.UmlAttribute;
@@ -20,7 +22,6 @@ import model.UmlEnum;
 import model.UmlInterface;
 import model.UmlMethod;
 import model.UmlParams;
-import model.UmlType;
 import model.Visibility;
 
 public class JavaGeneratorTest {
@@ -31,23 +32,26 @@ public class JavaGeneratorTest {
 	private UmlDiagram diagramClass;
 	private UmlDiagram diagramEnum;
 	private UmlDiagram diagramClassEmpty;
+	private UmlDiagram diagramAbstractClass;
 	
 	private List<UmlRefType> interfaceDiagramComponents;
 	private List<UmlRefType> classDiagramComponents;
 	private List<UmlRefType> emptyClassDiagramComponents;
 	private List<UmlRefType> enumDiagramComponents;
+	private List<UmlRefType> abstractClassDiagramComponents;
 	
 	private UmlRefType interfaceComponent;
 	private UmlRefType classComponent;
 	private UmlRefType emptyClassComponent;
 	private UmlRefType enumComponent;
+	private UmlRefType abstractClassComponent;
 	
 	
 	private String code;
 	private String result;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws ExceptionUml {
 		// Create attributes with modifier and visiblity
 		Set<Modifier> modifierAttribut1 = new HashSet<Modifier>();
 		modifierAttribut1.add(Modifier.FINAL);
@@ -63,6 +67,14 @@ public class JavaGeneratorTest {
 				null);
 		UmlAttribute attribute3 = new UmlAttribute("attribut3",
 				PrimitiveType.DOUBLE, 
+				Visibility.PRIVATE,
+				null);
+		UmlAttribute attributeInterface = new UmlAttribute("attributeInterface",
+				PrimitiveType.DOUBLE, 
+				Visibility.PUBLIC,
+				modifierAttribut1);
+		UmlAttribute attributeAC = new UmlAttribute("attributeAC",
+				PrimitiveType.STRING, 
 				Visibility.PRIVATE,
 				null);
 		
@@ -82,9 +94,15 @@ public class JavaGeneratorTest {
 		Set<Modifier> modifierMethod3 = new HashSet<Modifier>();
 		modifierMethod3.add(Modifier.FINAL);
 		
+		Set<Modifier> modifierAbstract = new HashSet<Modifier>();
+		modifierAbstract.add(Modifier.ABSTRACT);
+		
 		UmlMethod method1 = new UmlMethod("method1", paramsMethod1, PrimitiveType.VOID, Visibility.PUBLIC, null);
 		UmlMethod method2 = new UmlMethod("method2", paramsMethod2, type1, null, null);
 		UmlMethod method3 = new UmlMethod("method3", null, type2, null, modifierMethod3);
+		UmlMethod method4 = new UmlMethod("method4", null, PrimitiveType.VOID, Visibility.PUBLIC, modifierAbstract );
+		UmlMethod methodAC1 = new UmlMethod("methodAC1", paramsMethod2, PrimitiveType.INT, Visibility.PUBLIC, null);
+		UmlMethod methodAC2 = new UmlMethod("methodAC2", null, PrimitiveType.VOID, Visibility.PUBLIC, modifierAbstract);
 		
 		// Create attribute and method component
 		List <UmlAttribute> attributes = new ArrayList<UmlAttribute>();
@@ -92,10 +110,24 @@ public class JavaGeneratorTest {
 		attributes.add(attribute2);
 		attributes.add(attribute3);
 		
+		List <UmlAttribute> attributesInterface = new ArrayList<UmlAttribute>();
+		attributesInterface.add(attributeInterface);
+		
+		List <UmlAttribute> attributesAbstClass = new ArrayList<UmlAttribute>();
+		attributesAbstClass.add(attributeAC);
+		
 		List <UmlMethod> methods = new ArrayList<UmlMethod>();
 		methods.add(method1);
 		methods.add(method2);
 		methods.add(method3);
+		
+		List <UmlMethod> methodsInterface = new ArrayList<UmlMethod>();
+		methodsInterface.add(method4);
+		
+		List <UmlMethod> methodsAbstClass = new ArrayList<UmlMethod>();
+		methodsAbstClass.add(methodAC1);
+		methodsAbstClass.add(methodAC2);
+		
 		
 		List <String> valuesEnum = new ArrayList<String>();
 		valuesEnum.add("INT");
@@ -104,7 +136,7 @@ public class JavaGeneratorTest {
 		
 		// Create components
 		interfaceComponent = new UmlInterface("Interface", 
-				methods, attributes, 
+				methodsInterface, attributesInterface, 
 				Visibility.PUBLIC, null);
 		
 		classComponent = new UmlClass("Class", 
@@ -116,7 +148,11 @@ public class JavaGeneratorTest {
 		
 		enumComponent = new UmlEnum("Enum", 
 				valuesEnum, methods, attributes, 
-				Visibility.PUBLIC, null);
+				Visibility.PUBLIC);
+		
+		abstractClassComponent = new UmlClass("AbstractClass", 
+				methodsAbstClass, attributesAbstClass, 
+				Visibility.PUBLIC, modifierAbstract);
 		
 		// Create diagrams
 		interfaceDiagramComponents = new ArrayList<UmlRefType>();
@@ -131,10 +167,14 @@ public class JavaGeneratorTest {
 		enumDiagramComponents = new ArrayList<UmlRefType>();
 		enumDiagramComponents.add(enumComponent);
 		
+		abstractClassDiagramComponents = new ArrayList<UmlRefType>();
+		abstractClassDiagramComponents.add(abstractClassComponent);
+		
 		diagramInterface = new UmlDiagram("Diagram Interface", interfaceDiagramComponents);
 		diagramClass = new UmlDiagram("Diagram Class", classDiagramComponents);
 		diagramClassEmpty = new UmlDiagram("Diagram Class Empty", emptyClassDiagramComponents);
 		diagramEnum = new UmlDiagram("Diagram Enum", enumDiagramComponents);
+		diagramAbstractClass = new UmlDiagram("Diagram Abstract Class", abstractClassDiagramComponents);
 		
 		// Create generator
 		generator = new JavaGenerator();
@@ -149,12 +189,8 @@ public class JavaGeneratorTest {
 		// Test with no relation
 		// The results objective
 		result = "public interface Interface {\n\n"
-				+ DiagramElementVisitor.TAB + "public static final int CONSTANTE;\n"
-				+ DiagramElementVisitor.TAB + "public String attribut2;\n"
-				+ DiagramElementVisitor.TAB + "private double attribut3;\n\n"
-				+ DiagramElementVisitor.TAB + "public void method1(type2 param2, type1 param1);\n"
-				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1);\n"
-				+ DiagramElementVisitor.TAB + "public final type2 method3();\n\n"
+				+ DiagramElementVisitor.TAB + "public static final double attributeInterface;\n\n"
+				+ DiagramElementVisitor.TAB + "public abstract void method4();\n\n"
 				+ "}\n";
 		
 		generator.setDiagram(diagramInterface);
@@ -177,11 +213,13 @@ public class JavaGeneratorTest {
 				+ DiagramElementVisitor.TAB + "public static final int CONSTANTE;\n"
 				+ DiagramElementVisitor.TAB + "public String attribut2;\n"
 				+ DiagramElementVisitor.TAB + "private double attribut3;\n\n"
-				+ DiagramElementVisitor.TAB + "public void method1(type2 param2, type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + "public void method1(type1 param1, type2 param2) {\n"
 				+ DiagramElementVisitor.TAB + "}\n\n"
 				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return null;\n"
 				+ DiagramElementVisitor.TAB + "}\n\n"
 				+ DiagramElementVisitor.TAB + "public final type2 method3() {\n"
+				+ DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return null;\n"
 				+ DiagramElementVisitor.TAB + "}\n\n"
 				+ "}\n";
 		
@@ -199,7 +237,7 @@ public class JavaGeneratorTest {
 	}
 	
 	@Test
-	public void testGenerationAbstractClass() { 
+	public void testGenerationAbstractEmpty() throws ExceptionModifier { 
 		// The result objective
 		result = "public abstract class ClassEmpty {\n\n" + "}\n";
 		
@@ -207,7 +245,7 @@ public class JavaGeneratorTest {
 		generator.setDiagram(diagramClassEmpty);
 		generator.generateCode();
 		code = generator.getCode().get("ClassEmpty.java");
-		System.out.println(code);
+
 		assertEquals("testGenerationClass: wrong abstract class generation", result, code);
 	}
 	
@@ -224,16 +262,18 @@ public class JavaGeneratorTest {
 				+ DiagramElementVisitor.TAB + "public void method1(type1 param1, type2 param2) {\n"
 				+ DiagramElementVisitor.TAB + "}\n\n"
 				+ DiagramElementVisitor.TAB + "public type1 method2(type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return null;\n"
 				+ DiagramElementVisitor.TAB + "}\n\n"
 				+ DiagramElementVisitor.TAB + "public final type2 method3() {\n"
+				+ DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return null;\n"
 				+ DiagramElementVisitor.TAB + "}\n\n"
 				+ "}\n";
-		
+
 		// Test with no relation
 		generator.setDiagram(diagramEnum);
 		generator.generateCode();
 		code = generator.getCode().get("Enum.java");
-		System.out.println(code);
+
 		assertEquals("testGenerationClass: wrong enum generation", result, code);
 		
 		// Test with extends relation
@@ -243,4 +283,23 @@ public class JavaGeneratorTest {
 		// Test with implement and extend
 	}
 	
+	@Test
+	public void testGenerationAbstractClass() throws ExceptionModifier {
+		// Expected result
+		result = "public abstract class AbstractClass {\n\n"
+				+ DiagramElementVisitor.TAB + "private String attributeAC;\n\n"
+				+ DiagramElementVisitor.TAB + "public int methodAC1(type1 param1) {\n"
+				+ DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"
+				+ DiagramElementVisitor.TAB + "}\n\n"
+				+ DiagramElementVisitor.TAB + "public abstract void methodAC2();\n\n"
+				+ "}\n";
+		
+		// Test with no relation
+		//abstractClassComponent.addModifier(Modifier.ABSTRACT);
+		generator.setDiagram(diagramAbstractClass);
+		generator.generateCode();
+		code = generator.getCode().get("AbstractClass.java");
+		
+		assertEquals("testGenerationClass: wrong abstract class generation", result, code);
+	}
 }

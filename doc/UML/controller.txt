@@ -1,0 +1,71 @@
+@startuml
+
+class AttributeEditorController {
+    -serialVersionUID : long {final} {static}
+    -nameTextField : JTextField
+    -comboBoxType : JComboBox<String>
+    -btnValidate : JButton
+    -comboBoxVisibility : JComboBox<String>
+    -modifiers : Set<Modifier>
+    -chckbxStatic : JCheckBox
+    -chckbxVolatile : JCheckBox
+    -chckbxFinal : JCheckBox
+    
+    +AttributeEditorController(umlRef : UmlRefType)
+    +AttributeEditorController(umlAttr: UmlAttribute)
+}
+
+class ClassEditorController {
+
+    -modificationTarget : UmlRefType
+    
+    +mouseClicked(e : MouseEvent) : void
+    
+    +ClassEditorController(modificationTarget : UmlRefType)
+
+}
+
+class EditorUtils {
+
+    +addItemListenerCheckBox(checkBox : JCheckBox, modifier : Modifier, modifiers : Set<Modifier>) : void {static}
+    +initializeVisibility(combo : JComboBox<String>) : void {static}
+    +initializeType(combo : JComboBox<String>) : void {static}
+}
+
+class Launcher {
+
+    +main(argv : String[]) : void {static}
+
+}
+
+class MethodEditorController {
+    -serialVersionUID : long {final} {static}
+    -umlParams : Set<UmlParams>
+    -umlRefType : UmlRefType
+    -myself : JDialog
+    -model : DefaultTableModel
+    -table : JTable
+    -nameMethodtextField : JTextField
+    -chckbxFinal : JCheckBox
+    -chckbxStatic : JCheckBox
+    -chckbxAbstract : JCheckBox
+    -typeParamComboBox : JComboBox<String>
+    -btnValidate : JButton
+    -returnTypeMethodComboBox : JComboBox<String>
+    -chckbxVolatile : JCheckBox
+    -modifiers : Set<Modifier>
+    -comboBoxVisibility : JComboBox<String>
+    
+    +MethodEditorController(umlMethod : UmlMethod)
+    +MethodEditorController(umlRef : UmlRefType)
+}
+
+EditorUtils <-- AttributeEditorController : use
+EditorUtils <-- MethodEditorController : use
+
+AttributeEditorController --|> JDialog
+MethodEditorController --|> JDialog
+
+ClassEditorController --|> MouseAdapter
+
+@enduml

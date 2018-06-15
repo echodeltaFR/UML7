@@ -1,0 +1,44 @@
+@startuml
+
+title UML7 - Exporter
+
+interface Saver {
+    --
+    + save() : void
+    + setDiagram(UmlDiagram diagram) : void
+}
+
+class DiagramSaver {
+    - diagram : UmlDiagram
+    - jfc : JFileChooser
+    --
+    - {static} buildSaverFrame(JFileChooser jfc) : JFileChooser
+    + save() : void
+    - saveFile(File file) : void
+    - approveSelection(File file) : boolean
+    + setDiagram(diagram : UmlDiagram) : void
+    --
+    + DiagramSaver()
+    + DiagramSaver(diagram : UmlDiagram)
+}
+
+class JavaSaver {
+    - diagram : UmlDiagram
+    - jfc : JFileChooser
+    - generator : JavaGenerator
+    --
+    - {static} buildSaverFrame(JFileChooser jfc) : JFileChooser
+    + save() : void
+    - saveFile(File file) : void
+    - approveSelection(File file) : boolean
+    + setDiagram(diagram : UmlDiagram) : void
+    --
+    + JavaSaver()
+    + JavaSaver(diagram : UmlDiagram)
+}
+
+Saver <|-- DiagramSaver
+Saver <|-- JavaSaver
+
+@enduml
+

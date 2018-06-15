@@ -14,6 +14,11 @@ import model.UmlAggregationLink;
 public class AggregationRelationDisplay extends RelationDisplay {
 	
 	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 1215201257922820791L;
+
+	/**
 	 * Constructor
 	 * @param umlRelation the aggregation relationship
 	 */

@@ -1,0 +1,38 @@
+@startuml
+
+title UML7 - View
+
+package view {
+    abstract RelationDisplay
+    class CompositionRelationDisplay
+    class AssociationRelationDisplay
+    class AggregationRelationDisplay
+    class AggregationRelationDisplay
+    class UmlObjectDisplay
+    class MethodDisplay
+    class AttributeDisplay
+    class ExtendRelationDisplay
+    class DiagramDisplay
+}
+RelationDisplay <|-- CompositionRelationDisplay
+RelationDisplay <|-left- AssociationRelationDisplay
+RelationDisplay <|-down- AggregationRelationDisplay
+RelationDisplay <|-up- ExtendRelationDisplay
+DiagramDisplay *-- RelationDisplay
+DiagramDisplay *-- UmlObjectDisplay
+UmlObjectDisplay *-- MethodDisplay
+UmlObjectDisplay *-- AttributeDisplay
+
+AttributeDisplay <|.left. Observer
+MethodDisplay <|.left. Observer
+UmlObjectDisplay <|.left. Observer
+DiagramDisplay <|.left. Observer
+AttributeDisplay <|-up- JPanel
+MethodDisplay <|-up- JPanel
+UmlObjectDisplay <|-up- JPanel
+RelationDisplay <|-up- JPanel
+
+DiagramDisplay <|-right- JScrollPane
+
+
+@enduml

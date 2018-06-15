@@ -1,11 +1,12 @@
 package view;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JLabel;
-
-import controller.MethodEditorControler;
+import controller.MethodEditorController;
 import model.Modifier;
 import model.UmlMethod;
 import model.UmlParams;
@@ -18,15 +19,29 @@ import model.Visibility;
  */
 public class MethodDisplay extends JLabel implements Observer {
 
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 2430315020346922418L;
+
 	/** Constructor.
 	 * @param method The method to display
 	 */
 	public MethodDisplay(UmlMethod method) {
 		super();
 		if (method == null) throw new IllegalArgumentException("Method can't be null");
+		this.setBackground(Uml7JFrame.objectBackgroundColor);
 		method.addObserver(this);
-		this.addMouseListener(new MethodEditorControler(method));
+
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new MethodEditorController(method);
+			}
+
+		});
 		updateLabel(method);
+
 	}
 
 	/**
@@ -43,6 +58,8 @@ public class MethodDisplay extends JLabel implements Observer {
             str.append("-");
         } else if (method.getVisibility() == Visibility.PROTECTED) {
             str.append("#");
+        } else if (method.getVisibility() == Visibility.PACKAGE) {
+        	//DO NOTHING
         } else {
             str.append("Exception");
         }
@@ -51,10 +68,11 @@ public class MethodDisplay extends JLabel implements Observer {
 			for (UmlParams attr : method.getParams()) {
 				str.append(
 						attr.getName() + ":" + 
-						attr.getType().getTypeName() + ",");
+						attr.getType().getTypeName() + " ; ");
 			}
-
-			String tmp = str.substring(0, str.length()-1);
+			
+			// Remove the last ;
+			String tmp = str.substring(0, str.length()-3);
 			str.setLength(0);
 			str.append(tmp);
 		}
@@ -68,11 +86,11 @@ public class MethodDisplay extends JLabel implements Observer {
 		}
 		
 		if (!method.getModifiers().isEmpty()) {
-			str.append(" {");
+			str.append(" { ");
 			for (Modifier m : method.getModifiers()) {
-				str.append(m.toString() + ",");
+				str.append(m.toString() + " ");
 			}
-			String tmp = str.substring(0,str.length()-1)+"}";
+			String tmp = str.substring(0,str.length()-1)+" }";
 			str.setLength(0);
 			str.append(tmp);
 		}

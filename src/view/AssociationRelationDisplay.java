@@ -12,6 +12,11 @@ import model.UmlAssociationLink;
  */
 public class AssociationRelationDisplay extends RelationDisplay {
 
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 2976428570302289024L;
+	
 		/** Boolean that characterizes an unidirectional relationship **/
 		private boolean unidirectional;
 	

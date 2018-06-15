@@ -1,9 +1,7 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -19,10 +17,16 @@ import model.UmlRelationship;
  */
 public abstract class RelationDisplay extends JPanel {
 	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -4453965006005641784L;
+	
 	protected static final double HEIGHT_TRIANGLE = 10;
 	protected static final double BASE_TRIANGLE = 12;
 	
 	/** Relationship **/
+	@SuppressWarnings("unused")
 	private UmlRelationship umlRelation;
 	
 	/** Start point **/

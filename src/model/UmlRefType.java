@@ -4,168 +4,171 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import exception.ExceptionAttribute;
+import exception.ExceptionUml;
+import exception.ExceptionMethode;
 import generator.DiagramElementVisitor;
 
 /**
- * Abstract class, an UML component, parent of types classes ( UmlClass, UmlEnum, UmlInterface, ...), extends UmlEntity
+ * Abstract class, an UML reference type (e.g. a class, an interface...)
  * @see UmlEnum
  * @see UmlInterface
  * @see UmlClass
  * @see UmlEntity
+ * @see UmlType
  * @author bastien
  *
  */
-public abstract class UmlRefType extends UmlEntity implements UmlType{
+public abstract class UmlRefType extends UmlEntity implements UmlType {
+	
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 5120005105606691065L;
 
-	// Attributes
-	
-	/**
-	 * Name of an uml component
-	 */
-	private String name;
-	
-	/**
-	 * List of the component methods
-	 */
+	/** List of the reference type's methods. */
 	private List<UmlMethod> methodsList;
 	
-	/**
-	 * List of the component attributes
-	 */
+	/** List of the reference type's attributes. */
 	private List<UmlAttribute> attributesList;
 	
 	// Constructor
 	
 	/**
-	 * Constructor with a name
-	 * @param name name of the component
+	 * Constructor with a name.
+	 * @param name Name of the reference type
 	 */
 	public UmlRefType(String name) {
-		super();
-		this.name = name;
+		super(name);
 		methodsList = new ArrayList<>();
 		attributesList = new ArrayList<>();
 	}
 	
 	/**
-	 * Constructor with a name,  a list of methods
-	 * @param name name of the component
-	 * @param methods methods of the component
+	 * Constructor with a name and a list of methods.
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods) {
-		super();
-		this.name = name;
-		methodsList = methods;
-		attributesList = new ArrayList<>();
+		this(name,methods,null);
 	}
 	
 	/**
-	 * Constructor with a name, a list of methods, a list of attributes
-	 * @param name name of the component
-	 * @param methods methods of the component
-	 * @param attributes attributes of the component
+	 * Constructor with a name, a list of methods and a list of attributes.
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
+	 * @param attributes Attributes of the reference type
 	 */
 	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes) {
-		super();
-		this.name = name;
-		methodsList = methods;
-		attributesList = attributes;
+		this(name, methods, attributes, null, null);
 	}
 	
 	/**
-	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers
-	 * @param name name of the component
-	 * @param methods methods of the component
-	 * @param attributes attributes of the component
-	 * @param visibility visibility of the component
-	 * @param modifiers modifiers of the component
+	 * Constructor with a name, a list of methods, a list of attributes, and a visibility.
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
+	 * @param attributes Attributes of the reference type
+	 * @param visibility Visibility of the reference type
+	 * @throws ExceptionUml 
 	 */
-	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
-		super(visibility, modifiers);
-		this.name = name;
-		methodsList = methods;
-		attributesList = attributes;
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility) {
+		this(name, methods, attributes, visibility, null);
 	}
 	
-	
+	/**
+	 * Constructor with a name, a list of methods, a list of attributes, a visibility and a set of modifiers.
+	 * @param name Name of the reference type
+	 * @param methods Methods of the reference type
+	 * @param attributes Attributes of the reference type
+	 * @param visibility Visibility of the reference type
+	 * @param modifiers Modifiers of the reference type
+	 * @throws ExceptionUml 
+	 */
+	public UmlRefType(String name, List<UmlMethod> methods, List<UmlAttribute> attributes, Visibility visibility, Set<Modifier> modifiers) {
+		super(name, visibility, modifiers);
+		if (methods == null) {
+			methodsList = new ArrayList<>();
+		} else {
+			methodsList = methods;
+		}
+		if (attributes == null) {
+			attributesList = new ArrayList<>();
+		} else {
+			attributesList = attributes;
+		}
+	}
+
 	// Methods
 	
 	/**
-	 * Getter name of the component
-	 * @return name of the component
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Setter name of the component
-	 * @param name of the component
-	 */
-	public void setName(String name) {
-		if (name == null) throw new IllegalArgumentException("name can't be null");
-		this.name = name;
-		this.setChangedAndNotify();
-	}
-	
-	/**
-	 * Getter list of methods
-	 * @return ArrayList<UmlMethod> list of methods
+	 * Getter list of methods.
+	 * @return The list of methods
 	 */
 	public List<UmlMethod> getMethodsList() {
 		return methodsList;
 	}
 	
 	/**
-	 * Setter list of methods
-	 * @param methodsList list of methods
+	 * Setter list of methods.
+	 * @param methodsList List of methods
+	 * @throws ExceptionMethode 
+	 * @throws ExceptionUml 
 	 */
-	public void setMethodsList(List<UmlMethod> methodsList) {
+	public final void setMethodsList(List<UmlMethod> methodsList) throws ExceptionMethode  {
+		this.checkMethods(methodsList);
 		this.methodsList = methodsList;
 		this.setChangedAndNotify();
 	}
 
 	/**
-	 * Getter list of attributes
-	 * @return ArrayList<UmlAttribute> list of attributes
+	 * Getter list of attributes.
+	 * @return The list of attributes
 	 */
 	public List<UmlAttribute> getAttributesList() {
 		return attributesList;
 	}
 
 	/**
-	 * Setter list of attributes
-	 * @param attributesList list of attributes
+	 * Setter list of attributes.
+	 * @param attributesList List of attributes
+	 * @throws ExceptionAttribute 
+	 * @throws ExceptionUml 
 	 */
-	public void setAttributesList(List<UmlAttribute> attributesList) {
+	public final void setAttributesList(List<UmlAttribute> attributesList) throws ExceptionAttribute {
+		checkAttributes(attributesList);
 		this.attributesList = attributesList;
 		this.setChangedAndNotify();
 	}
 
 	
 	/**
-	 * Add a method to the methods list
-	 * @param method of a component
+	 * Add a method to the methods list.
+	 * @param method Method of a reference type
+	 * @throws ExceptionMethode 
 	 */
-	public void addMethod(UmlMethod method) {
-		if(this.methodsList.add(method)) {
+	public final void addMethod(UmlMethod method) throws ExceptionMethode {
+		checkMethod(method);
+		if (this.methodsList.add(method)) {
 			this.setChangedAndNotify();
 		}
 	}
 	
 	/**
-	 * Add an attribute to the attributes list 
-	 * @param attribute of a component
+	 * Add an attribute to the attributes list .
+	 * @param attribute Attribute of a reference type
+	 * @throws ExceptionAttribute 
+	 * @throws ExceptionUml 
 	 */
-	public void addAttribute(UmlAttribute attribute) {
+	public final void addAttribute(UmlAttribute attribute) throws ExceptionAttribute {
+		this.checkAttribute(attribute);
 		if (this.attributesList.add(attribute)) {
 			this.setChangedAndNotify();
 		}
 	}
-	
+
 	/**
-	 * Remove a method from the methods list
-	 * @param method method of a component
+	 * Remove a method from the methods list.
+	 * @param method Method of a reference type
 	 */
 	public void removeMethod(UmlMethod method) {
 		if (this.methodsList.remove(method)) {
@@ -174,8 +177,8 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	}
 	
 	/**
-	 * Remove an attribute from the attributes list 
-	 * @param attribute of a component
+	 * Remove an attribute from the attributes list.
+	 * @param attribute Attribute of a reference type
 	 */
 	public void removeAttribute(UmlAttribute attribute) {
 		if (this.attributesList.remove(attribute)) {
@@ -185,14 +188,36 @@ public abstract class UmlRefType extends UmlEntity implements UmlType{
 	
 	@Override
 	public String getTypeName() {
-		return this.name;
+		return this.getName();
 	}
-	
+	/**
+	 * 
+	 * @param attributes
+	 * @throws ExceptionUml
+	 */
+	protected abstract void checkAttribute(UmlAttribute attribute) throws ExceptionAttribute;
+	protected abstract void checkAttributes(List<UmlAttribute> attributes) throws ExceptionAttribute;
+	protected abstract void checkMethod(UmlMethod method) throws ExceptionMethode;
+	protected abstract void checkMethods(List<UmlMethod> methods) throws ExceptionMethode;
 	/**
 	 * Visit accept by the element. 
 	 * @param visitor the visitor of the element
 	 */
 	public abstract void accept(DiagramElementVisitor visitor);
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlRefType) {
+			UmlRefType r = (UmlRefType) o;
+			if (
+					super.equals(r) &&
+					r.attributesList.equals(this.attributesList) &&
+					r.methodsList.equals(this.methodsList)
+					) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 

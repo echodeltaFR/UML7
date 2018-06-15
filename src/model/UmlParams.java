@@ -1,26 +1,29 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Classe which represent a method parameter.
  * @author fmeslet
  * @version 1.0
  */
-public class UmlParams {
+public class UmlParams implements Serializable{
 
 	/**
-	 * Parameter type.
+	 * Generated serial ID
 	 */
+	private static final long serialVersionUID = -685181236554948069L;
+
+	/** Parameter type. */
 	private UmlType type;
 	
-	/**
-	 * Parameter name.
-	 */
+	/** Parameter name. */
 	private String name;
 	
 	/**
 	 * Create a parameter.
-	 * @param type of parameter
-	 * @param name of parameter
+	 * @param type The parameter type
+	 * @param name The parameter name
 	 */
 	public UmlParams(UmlType type, String name) {
 		this.type = type;
@@ -29,7 +32,7 @@ public class UmlParams {
 	
 	/**
 	 * Get the parameter type.
-	 * @return type of parameter
+	 * @return The parameter type
 	 */
 	public UmlType getType() {
 		return type;
@@ -37,7 +40,7 @@ public class UmlParams {
 
 	/**
 	 * Set the parameter type.
-	 * @param type parameter type
+	 * @param type The parameter type
 	 */
 	public void setType(UmlType type) {
 		this.type = type;
@@ -45,7 +48,7 @@ public class UmlParams {
 
 	/**
 	 * Get the parameter name.
-	 * @return parameter name
+	 * @return The parameter name
 	 */
 	public String getName() {
 		return name;
@@ -53,10 +56,22 @@ public class UmlParams {
 
 	/**
 	 * Set the parameter name.
-	 * @param name parameter name
+	 * @param name The parameter name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof UmlParams) {
+			UmlParams p = (UmlParams) o;
+			if (
+					p.name.equals(this.name) &&
+					p.type.equals(this.type)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
