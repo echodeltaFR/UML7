@@ -44,7 +44,11 @@ public abstract class UmlEntity extends Observable implements Serializable {
 	 * @param visibility Visibility of the element
 	 * @param modifiers Set of modifiers of the element
 	 */
-	public UmlEntity(String name, Visibility visibility, Set<Modifier> modifiers) {
+	public UmlEntity(String name, Visibility visibility, Set<Modifier> modifiers) throws IllegalArgumentException{
+		if (name == null) throw new IllegalArgumentException("Name can't be null");
+		if (name.trim().isEmpty()) throw new IllegalArgumentException("Name can't be empty");
+		if (name.contains(" ")) throw new IllegalArgumentException("Name can't contain spaces");
+		this.name = name;
 		this.name = name;
 		if (visibility == null) {
 			this.visibility = Visibility.PUBLIC;
@@ -63,7 +67,7 @@ public abstract class UmlEntity extends Observable implements Serializable {
 	 * @param name Name of the element
 	 * @param modifiers Set modifiers of an element
 	 */
-	public UmlEntity(String name, Set<Modifier> modifiers) {
+	public UmlEntity(String name, Set<Modifier> modifiers) throws IllegalArgumentException {
 		this(name, null, new HashSet<>(modifiers));
 	}
 
@@ -73,7 +77,7 @@ public abstract class UmlEntity extends Observable implements Serializable {
 	 * @param name Name of the element
 	 * @param visibility Visibility of the element
 	 */
-	public UmlEntity(String name, Visibility visibility) {
+	public UmlEntity(String name, Visibility visibility) throws IllegalArgumentException {
 		this(name, visibility, null);
 	}
 	
@@ -82,6 +86,10 @@ public abstract class UmlEntity extends Observable implements Serializable {
 	 * @param name Name of the element
 	 */
 	public UmlEntity(String name) {
+		if (name == null) throw new IllegalArgumentException("Name can't be null");
+		if (name.trim().isEmpty()) throw new IllegalArgumentException("Name can't be empty");
+		if (name.contains(" ")) throw new IllegalArgumentException("Name can't contain spaces");
+		this.name = name;
 		this.name = name;
 		this.visibility = Visibility.PUBLIC;
 		this.modifiers = new HashSet<>();

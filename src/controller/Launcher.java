@@ -81,7 +81,7 @@ public class Launcher {
 		
 		
 		// BUILDING CLASS
-		UmlClass c1 = new UmlClass("Classe 1");
+		UmlClass c1 = new UmlClass("Classe_1");
 		
 		c1.addAttribute(new UmlAttribute("The_Default_letter", PrimitiveType.CHAR));
 		mod = new HashSet<>();
