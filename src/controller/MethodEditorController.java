@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,9 +18,12 @@ import model.PrimitiveType;
 import model.UmlMethod;
 import model.UmlParams;
 import model.UmlRefType;
+import model.UmlType;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -33,18 +35,160 @@ import exception.ExceptionModifier;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JCheckBox;
 
-public class MethodAddController extends JDialog {
+public class MethodEditorController extends JDialog {
 	
 	private Set<UmlParams> umlParams;
 	
-	public MethodAddController(UmlRefType umlRef) {
+	private UmlRefType umlRefType;
+	
+	private JDialog myself;
+	
+	private DefaultTableModel model;
+	
+	private JTable table;
+	
+	private JTextField nameMethodtextField;
+	
+	private JCheckBox chckbxFinal;
+	
+	private JCheckBox chckbxStatic;
+	
+	private JCheckBox chckbxAbstract;
+	
+	private JComboBox<String> typeParamComboBox;
+	
+	private JButton btnValidate;
+	
+	private JComboBox<String> returnTypeMethodComboBox;
+	
+	private JCheckBox chckbxVolatile;
+	
+	private Set<Modifier> modifiers;
+	
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public MethodEditorController(UmlMethod umlMethod) {
+		if (umlMethod == null) {
+			throw new IllegalArgumentException("Modification target can't be null");
+		}
+		this.umlParams = new HashSet<>(umlMethod.getParams());
+		this.umlRefType = null;
+		this.myself = this;
+		initializeNakedGUI();
+		this.btnValidate.setText("Apply and close");
+		this.setTitle("Edit a method");
+				
+		UmlType umlType = umlMethod.getReturnType();
+
+		returnTypeMethodComboBox.setSelectedItem(umlType.toString());
+				
+		Modifier[] modifiersArray = umlMethod.getModifiers().toArray(new Modifier[umlMethod.getModifiers().size()]);
 		
+		this.modifiers = new HashSet<>(umlMethod.getModifiers());
+		
+		for (int i = 0; i < modifiersArray.length; i++) {
+			switch (modifiersArray[i]) {
+				case ABSTRACT:
+					chckbxAbstract.setSelected(true);
+					break;
+				case FINAL:
+					chckbxFinal.setSelected(true);
+					break;
+				case STATIC:
+					chckbxStatic.setSelected(true);
+					break;
+				case VOLATILE:
+					chckbxVolatile.setSelected(true);
+					break;
+				default:
+					break;
+			}
+		}
+		
+		nameMethodtextField.setText(umlMethod.getName());
+				
+		for (UmlParams param : this.umlParams) {
+			model.addRow(new Object[]{param.getName(), param.getType().getTypeName()});				
+		}
+		
+		btnValidate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				umlMethod.setName(nameMethodtextField.getText());
+				
+				umlMethod.removeParams(umlMethod.getParams());
+				umlMethod.addParams(umlParams);
+				
+				try {
+					
+					umlMethod.setModifiers(modifiers);
+					umlMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
+					myself.dispose();
+
+				} catch (ExceptionModifier e1) {
+						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+			
+		});
+		
+	}
+	
+	
+	public MethodEditorController(UmlRefType umlRef) {
+		if (umlRef == null) {
+			throw new IllegalArgumentException("Add target can't be null");
+		}
 		this.umlParams = new HashSet<>();
+		this.umlRefType = umlRef;
+
+		this.myself = this;
+		initializeNakedGUI();
+		this.btnValidate.setText("Add this method");
+		this.setTitle("Add a method");
+		this.modifiers = new HashSet<>();
+
+		btnValidate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UmlMethod newMethod = new UmlMethod(nameMethodtextField.getText());
+				newMethod.addParams(umlParams);
+				
+				try {
+					
+					newMethod.setModifiers(modifiers);
+
+				} catch (ExceptionModifier e1) {
+						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				newMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
+				try {
+					
+					
+					umlRefType.addMethod(newMethod);
+					
+					dispose();
+				} catch (ExceptionMethode e1) {
+					JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add method", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+			
+		});
+		
+	}
+	
+	
+	private void initializeNakedGUI() {
 		
 		JDialog myself = this;
-		
-		this.setTitle("Add a method");
-		
+
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
@@ -90,17 +234,17 @@ public class MethodAddController extends JDialog {
 		JLabel lblName = new JLabel("Name : ");
 		getContentPane().add(lblName, "4, 6, right, default");
 		
-		JTextField nameMethodtextField = new JTextField();
+		nameMethodtextField = new JTextField();
 		getContentPane().add(nameMethodtextField, "8, 6, 3, 1, fill, default");
 		nameMethodtextField.setColumns(10);
 
 		JLabel lblParameters = new JLabel("Parameters : ");
 		getContentPane().add(lblParameters, "4, 10");
 		
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         model.addColumn("Name");
         model.addColumn("Type");
-        JTable table = new JTable(model);
+        table = new JTable(model);
                 
 		JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane, "8, 10, 3, 5, default, default");
@@ -126,20 +270,30 @@ public class MethodAddController extends JDialog {
 		JLabel lblModifiers = new JLabel("Modifiers :");
 		getContentPane().add(lblModifiers, "4, 18");
 		
-		JCheckBox chckbxFinal = new JCheckBox("final");
+		chckbxFinal = new JCheckBox("final");
 		getContentPane().add(chckbxFinal, "8, 18");
 		
-		JCheckBox chckbxStatic = new JCheckBox("static");
+		addItemListenerCheckBox(chckbxFinal, Modifier.FINAL);
+		
+		chckbxStatic = new JCheckBox("static");
 		getContentPane().add(chckbxStatic, "10, 18");
 		
-		JCheckBox chckbxAbstract = new JCheckBox("abstract");
+		addItemListenerCheckBox(chckbxStatic, Modifier.STATIC);
+		
+		chckbxAbstract = new JCheckBox("abstract");
 		getContentPane().add(chckbxAbstract, "8, 20");
 		
+		addItemListenerCheckBox(chckbxAbstract, Modifier.ABSTRACT);
+		
+		chckbxVolatile = new JCheckBox("volatile");
+		getContentPane().add(chckbxVolatile, "10, 20");
+		addItemListenerCheckBox(chckbxVolatile, Modifier.VOLATILE);
+
 		JLabel lblReturnType = new JLabel("Return type :");
 		getContentPane().add(lblReturnType, "4, 22");
 		
-		JComboBox<String> choice = new JComboBox<>();
-		getContentPane().add(choice, "8, 22, 3, 1");
+		returnTypeMethodComboBox = new JComboBox<>();
+		getContentPane().add(returnTypeMethodComboBox, "8, 22, 3, 1");
 		
 		JButton btnCancel = new JButton("Cancel");
 		getContentPane().add(btnCancel, "4, 26");
@@ -153,38 +307,9 @@ public class MethodAddController extends JDialog {
 			
 		});
 		
-		JButton btnAddThisMethod = new JButton("Add this method");
-		getContentPane().add(btnAddThisMethod, "10, 26");
+		btnValidate = new JButton();
 		
-		btnAddThisMethod.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				UmlMethod newMethod = new UmlMethod(nameMethodtextField.getText());
-				newMethod.addParams(umlParams);
-				
-				try {
-					
-					addModifier(chckbxAbstract, newMethod, Modifier.ABSTRACT);
-					addModifier(chckbxStatic, newMethod, Modifier.STATIC);
-					addModifier(chckbxFinal, newMethod, Modifier.FINAL);
-
-				} catch (ExceptionModifier e1) {
-						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
-				}
-				
-				newMethod.setReturnType(PrimitiveType.valueOf((String)choice.getSelectedItem()));
-				try {
-					umlRef.addMethod(newMethod);
-					dispose();
-				} catch (ExceptionMethode e1) {
-					JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add method", JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-			
-		});
-		
+		getContentPane().add(btnValidate, "10, 26");
 		
 		btnAddParams.addActionListener(new ActionListener() {
 			
@@ -225,9 +350,9 @@ public class MethodAddController extends JDialog {
 				JLabel lblType = new JLabel("Type");
 				dialog.getContentPane().add(lblType, "2, 6, right, default");
 				
-				JComboBox<String> typeComboBox = new JComboBox<>();
-				initializeType(typeComboBox);
-				dialog.getContentPane().add(typeComboBox, "6, 6, 5, 1, fill, default");
+				typeParamComboBox = new JComboBox<>();
+				initializeType(typeParamComboBox);
+				dialog.getContentPane().add(typeParamComboBox, "6, 6, 5, 1, fill, default");
 
 				
 				JButton btnCancel = new JButton("Cancel");
@@ -236,7 +361,7 @@ public class MethodAddController extends JDialog {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						dispose();
+						dialog.dispose();
 					}
 					
 				});
@@ -246,7 +371,7 @@ public class MethodAddController extends JDialog {
 				btnAddParam.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						UmlParams umlParam = new UmlParams(PrimitiveType.valueOf((String)typeComboBox.getSelectedItem()), nameTextField.getText());
+						UmlParams umlParam = new UmlParams(PrimitiveType.valueOf((String)typeParamComboBox.getSelectedItem()), nameTextField.getText());
 						umlParams.add(umlParam);
 						model.addRow(new Object[]{umlParam.getName(), umlParam.getType().getTypeName()});				
 						dialog.dispose();
@@ -262,13 +387,11 @@ public class MethodAddController extends JDialog {
 			
 		});
 		
-		initializeType(choice);
-		
+		initializeType(returnTypeMethodComboBox);
 		
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-
 
 	}
 	
@@ -276,12 +399,6 @@ public class MethodAddController extends JDialog {
 	private void initializeType(JComboBox<String> combo) {
 		for (PrimitiveType type : PrimitiveType.values()) {
 			combo.addItem(type.name());
-		}
-	}
-	
-	private void addModifier(JCheckBox checkBox, UmlMethod umlMethod, Modifier modifier) throws ExceptionModifier {
-		if (checkBox.isSelected()) {
-			umlMethod.addModifier(modifier);
 		}
 	}
 	
@@ -304,6 +421,20 @@ public class MethodAddController extends JDialog {
 		}
 		
 		
+	}
+	
+	private void addItemListenerCheckBox(JCheckBox checkBox, Modifier modifier) {
+		checkBox.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+		        if (arg0.getStateChange() == ItemEvent.SELECTED) {
+		            modifiers.add(modifier);
+		        } else {
+		        	modifiers.remove(modifier);
+		        }	
+			}
+		});
 	}
 
 	

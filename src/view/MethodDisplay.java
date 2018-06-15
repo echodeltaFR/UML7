@@ -1,11 +1,12 @@
 package view;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JLabel;
-
-import controller.MethodEditorControler;
+import controller.MethodEditorController;
 import model.Modifier;
 import model.UmlMethod;
 import model.UmlParams;
@@ -25,8 +26,16 @@ public class MethodDisplay extends JLabel implements Observer {
 		super();
 		if (method == null) throw new IllegalArgumentException("Method can't be null");
 		method.addObserver(this);
-		this.addMouseListener(new MethodEditorControler(method));
+
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new MethodEditorController(method);
+			}
+
+		});
 		updateLabel(method);
+
 	}
 
 	/**

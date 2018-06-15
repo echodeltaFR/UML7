@@ -12,7 +12,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
 import controller.ClassEditorController;
-import controller.MethodAddController;
+import controller.MethodEditorController;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -113,7 +113,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						new MethodAddController(umlobject);
+						new MethodEditorController(umlobject);
 					}
 					
 				});
@@ -127,7 +127,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 
 		});
 		
-		classname.setHorizontalAlignment(JLabel.CENTER);;
+		classname.setHorizontalAlignment(JLabel.CENTER);
 		
 		//Creating title area
 		JPanel titleArea = new JPanel(new BorderLayout());
@@ -190,7 +190,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		
 		private JButton deleteButton;
 		
-		SubComponentDeleteWrapper(UmlEntity umlent, UmlRefType umlrt, boolean isMethod){
+		SubComponentDeleteWrapper(UmlEntity umlent, UmlRefType umlrt, boolean isMethod) {
 			super(new BorderLayout());
 			if (isMethod) {
 				this.add(new MethodDisplay((UmlMethod)umlent), BorderLayout.CENTER);
