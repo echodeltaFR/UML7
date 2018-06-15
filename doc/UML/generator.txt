@@ -3,7 +3,7 @@
 title UML7 - Generator
 
 interface DiagramElementVisitor {
-    + TAB : String {static, final}
+    + TAB : String {static} {final}
     --
 	+ visit(umlClass : UmlClass) : void
 	+ visit(umlEnum : UmlEnum) : void
@@ -13,7 +13,7 @@ interface DiagramElementVisitor {
 class JavaGenerator {
 	- code : Map<String, String>
 	- diagram : UmlDiagram
-    --
+
     + generateCode() : void
     + visit(umlEnum : UmlEnum) : void
     + visit(umlClass : UmlClass) : void
@@ -24,7 +24,7 @@ class JavaGenerator {
     - generateMethods(component : UmlComponent, generateBody : boolean) : String
     - generateJavaObject(component : UmlComponent, refType : String, generateBody : boolean) : void
     - convertVisibility(component : UmlEntity) : String
-    --
+
     + JavaGenerator(diagram : UmlDiagram)
     + JavaGenerator()
 }
