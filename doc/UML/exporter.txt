@@ -5,17 +5,17 @@ title UML7 - Exporter
 interface Saver {
     --
     + save() : void
+    + setDiagram(UmlDiagram diagram) : void
 }
 
 class DiagramSaver {
-    - file : File
     - diagram : UmlDiagram
     - jfc : JFileChooser
-    - filter : FileNameExtensionFilter
     --
+    - static buildSaverFrame(JFileChooser jfc) : JFileChooser
     + save() : void
-    - saveFile() : void
-    - approveSelection() : boolean
+    - saveFile(File file) : void
+    - approveSelection(File file) : boolean
     + setDiagram(diagram : UmlDiagram) : void
     --
     + DiagramSaver()
@@ -25,11 +25,12 @@ class DiagramSaver {
 class JavaSaver {
     - diagram : UmlDiagram
     - jfc : JFileChooser
-    - filter : FileNameExtensionFilter
+    - generator : JavaGenerator
     --
+    - static buildSaverFrame(JFileChooser jfc) : JFileChooser
     + save() : void
-    - saveFile() : void
-    - approveSelection() : boolean
+    - saveFile(File file) : void
+    - approveSelection(File file) : boolean
     + setDiagram(diagram : UmlDiagram) : void
     --
     + JavaSaver()
