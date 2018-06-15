@@ -1,11 +1,18 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Classe which represent a method parameter.
  * @author fmeslet
  * @version 1.0
  */
-public class UmlParams {
+public class UmlParams implements Serializable{
+
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = -685181236554948069L;
 
 	/** Parameter type. */
 	private UmlType type;
