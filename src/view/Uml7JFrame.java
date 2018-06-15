@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 import exporter.DiagramSaver;
+import exporter.JavaSaver;
 import importer.DiagramLoader;
 import model.UmlClass;
 import model.UmlDiagram;
@@ -142,8 +143,14 @@ public class Uml7JFrame extends JFrame{
 		JMenuItem load = new JMenuItem("Load diagram");
 		load.addActionListener(new Uml7JFrame.LoadController());
 		
+		JMenuItem export = new JMenuItem("Export diagram");
+		Uml7JFrame.ExportController exportControl = new ExportController();
+		export.addActionListener(exportControl);
+		
 		file.add(load);
 		file.add(save);
+		file.addSeparator();
+		file.add(export);
 		file.addSeparator();
 		file.add(exit);
 		
@@ -185,7 +192,6 @@ public class Uml7JFrame extends JFrame{
 				JOptionPane.showMessageDialog(null, "Error: "+e1.getMessage(), "Error while saving", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		
 	}
 	
 	/**
@@ -214,9 +220,30 @@ public class Uml7JFrame extends JFrame{
 		
 	}
 	
+
 	/**
-	 * Method to build all class listeners.
+	 * 
+	 * Private class which goal is to control the export menu item behavior.
+	 *
 	 */
+	private class ExportController implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JavaSaver saver = new JavaSaver(displayed);
+			try {
+				saver.save();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage(), "Error while exporting", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	
+	/**
+	* Method to build all class listeners.
+	*/
 	private void buildListeners() {
 		this.addClassActionListner = new ActionListener() {
 			@Override
