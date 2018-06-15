@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exception.ExceptionUml;
-import exception.ExceptionInitialization;
 import exception.ExceptionModifier;
 import model.Modifier;
 import model.PrimitiveType;
@@ -216,7 +215,7 @@ public class JavaGeneratorTest {
 	}
 	
 	@Test
-	public void testGenerationAbstractClass() throws ExceptionInitialization, ExceptionModifier { 
+	public void testGenerationAbstractClass() throws ExceptionModifier { 
 		// The result objective
 		result = "public abstract class ClassEmpty {\n\n" + "}\n";
 		

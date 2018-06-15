@@ -12,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exception.ExceptionAttribute;
-import exception.ExceptionComposition;
-import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 import exception.ExceptionModifier;
 import exception.ExceptionUml;

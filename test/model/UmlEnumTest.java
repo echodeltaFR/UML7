@@ -11,7 +11,6 @@ import org.junit.*;
 
 import exception.ExceptionUml;
 import exception.ExceptionVisibility;
-import exception.ExceptionInitialization;
 import exception.ExceptionMethode;
 
 public class UmlEnumTest {
