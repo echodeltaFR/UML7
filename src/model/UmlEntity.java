@@ -100,6 +100,9 @@ public abstract class UmlEntity extends Observable {
 		if (name.trim().isEmpty()) throw new IllegalArgumentException("Name can't be empty");
 		if (name.contains(" ")) throw new IllegalArgumentException("Name can't contain spaces");
 		this.name = name;
+//		String name_ = "class_1";
+//		String pt = "[a-zA-Z_$].[a-zA-Z_$0-9]*";
+//		if(!Pattern.matches(pt, name_))throw new IllegalArgumentException("Does not meet the naming convention");
 		this.setChangedAndNotify();
 	}
 

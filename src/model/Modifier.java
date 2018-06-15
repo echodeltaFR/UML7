@@ -28,7 +28,6 @@ public enum Modifier {
 	Modifier(String name) {
 		this.name = name;
 	}
-	
 	// Methods
 	/**
 	 * Returns the name of the modifier.
@@ -38,5 +37,4 @@ public enum Modifier {
 	public String toString() {
 		return this.name;
 	}	
-	
 }

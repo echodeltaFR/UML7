@@ -146,16 +146,28 @@ public class UmlEnum extends UmlRefType {
 	@Override
 	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
 		// TODO Auto-generated method stub
-		if(method.getVisibility() != Visibility.PUBLIC || method.getModifiers().contains(Modifier.ABSTRACT))
-			throw new ExceptionMethode("Access modifiers can only be public and Non-access modifier cannot be abstract");
+		if(method.getVisibility() != Visibility.PUBLIC )
+			throw new ExceptionMethode("Access modifiers can only be public");
+		if(method.getModifiers().contains(Modifier.STATIC))
+			throw new ExceptionMethode("Non-access modifier cannot be STATIC");
+		if(method.getModifiers().contains(Modifier.VOLATILE))
+			throw new ExceptionMethode("Non-access modifier cannot be VOLATILE");
+		if(method.getModifiers().contains(Modifier.TRANSIENT))
+			throw new ExceptionMethode("Non-access modifier cannot be TRANSIENT");
 	}
 
 	@Override
 	protected void checkMethods(List<UmlMethod> methods) throws ExceptionMethode {
 		// TODO Auto-generated method stub
 		for(int i = 0;i < methods.size();i++) {
-			if(methods.get(i).getVisibility() != Visibility.PUBLIC || methods.get(i).getModifiers().contains(Modifier.ABSTRACT))
-				throw new ExceptionMethode("Access modifiers can only be public and Non-access modifier cannot be abstract");
+			if(methods.get(i).getVisibility() != Visibility.PUBLIC )
+				throw new ExceptionMethode("Access modifiers can only be public");
+			if(methods.get(i).getModifiers().contains(Modifier.STATIC))
+				throw new ExceptionMethode("Non-access modifier cannot be STATIC");
+			if(methods.get(i).getModifiers().contains(Modifier.VOLATILE))
+				throw new ExceptionMethode("Non-access modifier cannot be VOLATILE");
+			if(methods.get(i).getModifiers().contains(Modifier.TRANSIENT))
+				throw new ExceptionMethode("Non-access modifier cannot be TRANSIENT");
 		}
 	}
 
