@@ -26,6 +26,11 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 		this.update(diagram);
 	}
 	
+	public void setDisplayedDiagram(UmlDiagram diagram) {
+		diagram.addObserver(this);
+		this.update(diagram);
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof UmlDiagram) {
@@ -38,6 +43,7 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 		for (UmlRefType refType : o.getUmlElements()) {
 			this.classGrid.add(new UMLObjectDisplay(refType));
 		}
+		this.repaint();
 		this.revalidate();
 	}
 
