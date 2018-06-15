@@ -1,0 +1,13 @@
+@startuml
+
+title UML7 - Exporter
+
+package exporter {
+
+Saver <|-- DiagramSaver
+Saver <|-- JavaSaver
+
+}
+
+@enduml
+

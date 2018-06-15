@@ -1,0 +1,12 @@
+@startuml
+
+title UML7 - Importer
+
+package importer {
+
+Loader <|-- DiagramLoader
+
+}
+
+@enduml
+

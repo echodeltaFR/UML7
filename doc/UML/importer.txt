@@ -1,0 +1,25 @@
+@startuml
+
+title UML7 - Importer
+
+interface Loader {
+    + load() : void
+}
+
+class DiagramLoader {
+    - file : File
+    - diagram : UmlDiagram
+    - jfc : JFileChooser
+    - filter : FileNameExtensionFilter
+    --
+    + load() : void
+    - loadFile() : void
+    + getDiagram() : UmlDiagram
+    --
+    + DiagramLoader()
+}
+
+Loader <|-- DiagramLoader
+
+@enduml
+
