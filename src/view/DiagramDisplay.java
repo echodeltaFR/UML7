@@ -12,6 +12,10 @@ import javax.swing.JScrollPane;
 import model.UmlDiagram;
 import model.UmlRefType;
 
+/**
+ * This class allow to display an UML Diagram and automatically keep up to date.<br>
+ * While this class extends JScrollPane, it is discouraged to use inherited methods.
+ */
 public class DiagramDisplay extends JScrollPane implements Observer{
 	
 	/**
@@ -19,20 +23,23 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 	 */
 	private static final long serialVersionUID = -5448058609418336096L;
 	
-	private JPanel classGrid;
+	/**
+	 * Where the reference type displays are stored.
+	 */
+	private JPanel refTypeDisplayZone;
 	
+	/** 
+	 * Create a view on the given diagram.
+	 * @param diagram
+	 * 		The diagram to display.
+	 */
 	public DiagramDisplay(UmlDiagram diagram){
 		super();
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		diagram.addObserver(this);
-		classGrid = new JPanel(new FlowLayout());
-		this.setViewportView(classGrid);
-		this.update(diagram);
-	}
-	
-	public void setDisplayedDiagram(UmlDiagram diagram) {
-		diagram.addObserver(this);
+		refTypeDisplayZone = new JPanel(new FlowLayout());
+		this.setViewportView(refTypeDisplayZone);
 		this.update(diagram);
 	}
 	
@@ -44,9 +51,9 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 	}
 
 	private void update(UmlDiagram o) {
-		this.classGrid.removeAll();
+		this.refTypeDisplayZone.removeAll();
 		for (UmlRefType refType : o.getUmlElements()) {
-			this.classGrid.add(buildClassDisplayWrapper(refType, o));
+			this.refTypeDisplayZone.add(buildClassDisplayWrapper(refType, o));
 		}
 		this.repaint();
 		this.revalidate();

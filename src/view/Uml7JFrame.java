@@ -136,8 +136,10 @@ public class Uml7JFrame extends JFrame{
 				loader.load();
 				UmlDiagram d = loader.getDiagram();
 				if (d != null) {
+					displayed.deleteObserver(displayer);
 					displayed = d;
-					displayer.setDisplayedDiagram(d);
+					displayed.addObserver(displayer);
+					displayer.update(displayed, null);
 				}
 			} catch (ClassNotFoundException e1) {
 				JOptionPane.showMessageDialog(null, "Error: the file does not seems to be a valid UML7 file", "Error while loading", JOptionPane.ERROR_MESSAGE);
