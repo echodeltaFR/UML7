@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
@@ -16,10 +17,15 @@ import exception.ExceptionModifier;
  * @version 1.2
  *
  */
-public abstract class UmlEntity extends Observable {
+public abstract class UmlEntity extends Observable implements Serializable {
 
 	
 	// Attributes
+
+	/**
+	 * generated serial ID
+	 */
+	private static final long serialVersionUID = 5120529213137305290L;
 
 	/** Name of an element. */
 	private String name;

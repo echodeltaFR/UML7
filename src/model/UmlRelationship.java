@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Uml Relationship
  * @author Charly Courilleau
  */
-public abstract class UmlRelationship {
+public abstract class UmlRelationship implements Serializable {
 	
 	/** Class A **/
 	private UmlClass classA;
