@@ -12,7 +12,7 @@ class DiagramSaver {
     - diagram : UmlDiagram
     - jfc : JFileChooser
     --
-    - static buildSaverFrame(JFileChooser jfc) : JFileChooser
+    - {static} buildSaverFrame(JFileChooser jfc) : JFileChooser
     + save() : void
     - saveFile(File file) : void
     - approveSelection(File file) : boolean
@@ -27,7 +27,7 @@ class JavaSaver {
     - jfc : JFileChooser
     - generator : JavaGenerator
     --
-    - static buildSaverFrame(JFileChooser jfc) : JFileChooser
+    - {static} buildSaverFrame(JFileChooser jfc) : JFileChooser
     + save() : void
     - saveFile(File file) : void
     - approveSelection(File file) : boolean
