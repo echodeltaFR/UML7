@@ -116,22 +116,26 @@ public class MethodEditorController extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				umlMethod.setName(nameMethodtextField.getText());
-				
-				umlMethod.removeParams(umlMethod.getParams());
-				umlMethod.addParams(umlParams);
-				
 				try {
+	
+					umlMethod.setName(nameMethodtextField.getText());
 					
-					umlMethod.setModifiers(modifiers);
-					umlMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
-					myself.dispose();
-
-				} catch (ExceptionModifier e1) {
-						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+					umlMethod.removeParams(umlMethod.getParams());
+					umlMethod.addParams(umlParams);
+	
+					try {
+						
+						umlMethod.setModifiers(modifiers);
+						umlMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
+						myself.dispose();
+	
+					} catch (ExceptionModifier e1) {
+							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Name can't be empty", JOptionPane.ERROR_MESSAGE);
 				}
-				
 			}
 			
 		});
@@ -156,27 +160,33 @@ public class MethodEditorController extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UmlMethod newMethod = new UmlMethod(nameMethodtextField.getText());
-				newMethod.addParams(umlParams);
 				
 				try {
-					
-					newMethod.setModifiers(modifiers);
+					UmlMethod newMethod = new UmlMethod(nameMethodtextField.getText());
 
-				} catch (ExceptionModifier e1) {
-						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+					newMethod.addParams(umlParams);
+					
+					try {
+						
+						newMethod.setModifiers(modifiers);
+
+					} catch (ExceptionModifier e1) {
+							JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add this modifier", JOptionPane.ERROR_MESSAGE);
+					}
+					
+					newMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
+					
+					try {
+						umlRefType.addMethod(newMethod);
+						dispose();
+					} catch (ExceptionMethode e1) {
+						JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add method", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				} catch(IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(myself, "Error: "+ex.getMessage(), "Name can't be empty", JOptionPane.ERROR_MESSAGE);
 				}
 				
-				newMethod.setReturnType(PrimitiveType.valueOf((String)returnTypeMethodComboBox.getSelectedItem()));
-				try {
-					
-					
-					umlRefType.addMethod(newMethod);
-					
-					dispose();
-				} catch (ExceptionMethode e1) {
-					JOptionPane.showMessageDialog(myself, "Error: "+e1.getMessage(), "Can't add method", JOptionPane.ERROR_MESSAGE);
-				}
 				
 			}
 			
