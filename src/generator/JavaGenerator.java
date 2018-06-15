@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.Modifier;
+import model.PrimitiveType;
 import model.UmlAttribute;
 import model.UmlClass;
 import model.UmlInterface;
@@ -133,6 +134,9 @@ public class JavaGenerator implements DiagramElementVisitor {
 			// Add the method modifier
 			if(!method.getModifiers().isEmpty()) {
 				for(Modifier modifier : method.getModifiers()) {
+					if(modifier.equals(Modifier.ABSTRACT)) {
+						generateBody = false;
+					}
 					methodCode.append(modifier.toString() + " ");
 				}
 			}
@@ -163,9 +167,28 @@ public class JavaGenerator implements DiagramElementVisitor {
 			methodCode.append(")");
 
 			if (generateBody) {
-				methodCode.append(" {\n" + DiagramElementVisitor.TAB + "}\n\n");
+				methodCode.append(" {\n");
+				if (method.getReturnType() instanceof PrimitiveType) {
+					PrimitiveType p = (PrimitiveType) method.getReturnType();
+					switch(p.getTypeName()) {
+					case "void" : break;
+					case "int" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"); break;
+					case "double" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"); break;
+					case "float" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"); break;
+					case "byte" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"); break;
+					case "short" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"); break;
+					case "long" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return 0;\n"); break;
+					case "String" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return \"\";\n"); break;
+					case "char" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return '';\n"); break;
+					case "boolean" : methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return false;\n"); break;
+					}
+				}
+				else {
+					methodCode.append(DiagramElementVisitor.TAB + DiagramElementVisitor.TAB + "return null;\n");
+				}
+				methodCode.append(DiagramElementVisitor.TAB + "}\n\n");
 			} else {
-				methodCode.append(";\n");
+				methodCode.append(";\n\n");
 			}
 			methodAbstract = false;
 		}
@@ -181,11 +204,11 @@ public class JavaGenerator implements DiagramElementVisitor {
 	@Override
 	public void visit(UmlClass umlClass) {
 		boolean generateBody = true;
-		for(Modifier modifier : umlClass.getModifiers()) {
-			if(modifier.equals(Modifier.ABSTRACT)) {
-				generateBody = false;
-			}
-		}
+//		for(Modifier modifier : umlClass.getModifiers()) {
+//			if(modifier.equals(Modifier.ABSTRACT)) {
+//				generateBody = false;
+//			}
+//		}
 		this.generateJavaObject(umlClass, "class", generateBody);
 		
 	}
@@ -236,9 +259,9 @@ public class JavaGenerator implements DiagramElementVisitor {
 		// Add the methods
 		if(!component.getMethodsList().isEmpty()) {
 			componentCode.append(this.generateMethods(component, generateBody));
-			if(!generateBody) {
-				componentCode.append("\n");
-			}
+//			if(!generateBody) {
+//				componentCode.append("\n");
+//			}
 		}
 		
 		// Add the close part
