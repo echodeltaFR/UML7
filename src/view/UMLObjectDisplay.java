@@ -5,6 +5,7 @@ import model.UmlMethod;
 import model.UmlAttribute;
 import model.UmlEntity;
 import model.UmlEnum;
+import model.UmlInterface;
 
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -51,6 +52,7 @@ public class UMLObjectDisplay extends JPanel implements Observer {
 		stereotypeMap = new HashMap<>();
 		//stereotypeMap.put(UmlInterface.class, "interface");
 		stereotypeMap.put(UmlEnum.class, "enum");
+		stereotypeMap.put(UmlInterface.class, "interface");
 	}
 	
 	/** The inner label that display the name*/
