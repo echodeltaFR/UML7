@@ -9,7 +9,6 @@ import model.UmlInterface;
 
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.border.Border;
 
 import controller.ClassEditorController;
 import controller.MethodEditorController;
@@ -22,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;

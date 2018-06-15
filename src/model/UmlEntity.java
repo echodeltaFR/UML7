@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
 
-import exception.ExceptionUml;
 import exception.ExceptionVisibility;
 import exception.ExceptionModifier;
 
