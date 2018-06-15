@@ -33,7 +33,7 @@ public class DiagramSaver implements Saver {
 	public DiagramSaver(UmlDiagram diagram) {
 		this.diagram = diagram;
 		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 Format", ".uml7");
+		this.filter = new FileNameExtensionFilter("UML7 Format", "uml7");
 		
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -51,7 +51,7 @@ public class DiagramSaver implements Saver {
 	public DiagramSaver() {
 		this.diagram = new UmlDiagram();
 		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 file", ".uml7");
+		this.filter = new FileNameExtensionFilter("UML7 file", "uml7");
 		
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -73,7 +73,6 @@ public class DiagramSaver implements Saver {
 			returnValue = this.jfc.showDialog(null, "Save");
 			if(returnValue == JFileChooser.APPROVE_OPTION) {
 				this.file = new File(jfc.getSelectedFile().getAbsolutePath());
-				
 				// Absolute path of the file
 				filePath = jfc.getSelectedFile().getAbsolutePath();
 				
@@ -86,7 +85,7 @@ public class DiagramSaver implements Saver {
 			}
 		} while (!overwrite && returnValue == JFileChooser.APPROVE_OPTION);
 		
-		if(returnValue == JFileChooser.APPROVE_OPTION || overwrite) {
+		if(returnValue == JFileChooser.APPROVE_OPTION && overwrite) {
 			saveFile();
 		}
 	}
