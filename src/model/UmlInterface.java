@@ -99,7 +99,7 @@ public class UmlInterface extends UmlRefType {
 	}
 	//check method
 	protected void checkMethod(UmlMethod method) throws ExceptionMethode {
-		if(method.getModifiers() == null ||
+		if(method.getModifiers().isEmpty() ||
 				(method.getModifiers().size()==1 &&
 						method.getModifiers().contains(Modifier.ABSTRACT))) {
 			} else {
@@ -158,7 +158,7 @@ public class UmlInterface extends UmlRefType {
 		if(methods != null) {
 			for(int i=0;i < methods.size(); i++) {
 				//check modifiers of methods
-				if(methods.get(i).getModifiers() == null ||
+				if(methods.get(i).getModifiers().isEmpty() ||
 					(methods.get(i).getModifiers().size()==1 &&
 							methods.get(i).getModifiers().contains(Modifier.ABSTRACT))) {
 				} else {
