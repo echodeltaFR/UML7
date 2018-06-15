@@ -176,4 +176,11 @@ public class UmlDiagram extends Observable implements Serializable{
 		}
 		return false;
 	}
+
+	public void removeUmlElement(UmlRefType rt) {
+		if (this.elements.remove(rt)) {
+			this.setChanged();
+			this.notifyObservers();
+		};
+	}
 }

@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -41,10 +43,26 @@ public class DiagramDisplay extends JScrollPane implements Observer{
 	private void update(UmlDiagram o) {
 		this.classGrid.removeAll();
 		for (UmlRefType refType : o.getUmlElements()) {
-			this.classGrid.add(new UMLObjectDisplay(refType));
+			this.classGrid.add(buildClassDisplayWrapper(refType, o));
 		}
 		this.repaint();
 		this.revalidate();
+	}
+	
+	private JPanel buildClassDisplayWrapper(UmlRefType rt, UmlDiagram d) {
+		JPanel wrapper = new JPanel(new BorderLayout());
+		JPanel wrapperNorth = new JPanel(new BorderLayout());
+		wrapper.add(wrapperNorth,BorderLayout.NORTH);
+		JButton del = new JButton(" - ");
+		del.setBorder(Uml7JFrame.deleteButtonBorder);
+		
+		del.addActionListener(e -> {
+			d.removeUmlElement(rt);
+		});
+		
+		wrapperNorth.add(del,BorderLayout.WEST);
+		wrapper.add(new UMLObjectDisplay(rt),BorderLayout.CENTER);
+		return wrapper;
 	}
 
 }
