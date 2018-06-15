@@ -17,14 +17,20 @@ import model.UmlDiagram;
 /**
  * Class which allow to save a diagram in uml7 format.
  * @author fmeslet
+ * @see UmlDiagram
  * @version 1.0
  */
 public class DiagramSaver implements Saver {
 
-	private File file;
+	/**
+	 * The Umldiagram saved.
+	 */
 	private UmlDiagram diagram;
+	
+	/**
+	 * The box for saving the file.
+	 */
 	private JFileChooser jfc;
-	private FileNameExtensionFilter filter;
 	
 	/**
 	 * Build a diagram saver with a diagram.
@@ -36,11 +42,8 @@ public class DiagramSaver implements Saver {
 		} else {
 			this.diagram = diagram;
 		}
-		
-		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 Format", "uml7");
-		
-		buildSaverFrame(this.jfc, this.filter);
+				
+		this.jfc = buildSaverFrame(this.jfc);
 	}
 	
 	/**
@@ -48,21 +51,25 @@ public class DiagramSaver implements Saver {
 	 */
 	public DiagramSaver() {
 		this.diagram = new UmlDiagram();
-		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 file", "uml7");
-		
-		buildSaverFrame(this.jfc, this.filter);
+		this.jfc = buildSaverFrame(this.jfc);
 	}
 	
-	private static void buildSaverFrame(JFileChooser jfc, FileNameExtensionFilter filter) {
+	/**
+	 * Create the box with specific parameters for saving the diagram.
+	 * @param jfc the box
+	 * @return the box modified
+	 */
+	private static JFileChooser buildSaverFrame(JFileChooser jfc) {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		
 		UIManager.put("FileChooser.acceptAllFileFilterText",
-				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
+				UIManager.get("FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
 		
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("UML7 file", "uml7");
 		jfc.addChoosableFileFilter(filter);
-		jfc.setDialogTitle("Save diagram");
+		jfc.setDialogTitle("Save your diagram");
+		return jfc;
 	}
 	
 	@Override
@@ -70,33 +77,41 @@ public class DiagramSaver implements Saver {
 		int returnValue = 0;
 		boolean overwrite = true;
 		String filePath = "";
+		File file = new File("");
 		
 		do {
 			returnValue = this.jfc.showDialog(null, "Save");
 			if(returnValue == JFileChooser.APPROVE_OPTION) {
-				this.file = new File(jfc.getSelectedFile().getAbsolutePath());
+				file = new File(jfc.getSelectedFile().getAbsolutePath());
 				// Absolute path of the file
 				filePath = jfc.getSelectedFile().getAbsolutePath();
 				
 				// Add the extension if the file doesn't have this extension
 				if(!filePath.endsWith(".uml7")) {
-					this.file = new File(filePath + ".uml7");
+					file = new File(filePath + ".uml7");
 				}
 				
-				overwrite = this.approveSelection();
+				overwrite = this.approveSelection(file);
 			}
 		} while (!overwrite && returnValue == JFileChooser.APPROVE_OPTION);
 		
 		if(returnValue == JFileChooser.APPROVE_OPTION && overwrite) {
-			saveFile();
+			saveFile(file);
 		}
 	}
 	
-    private boolean approveSelection() throws IOException {
-		 if(!this.file.exists() ||
+	/**
+	 * Approve the overwriting of a file.
+	 * @param file the file to save
+	 * @return true if the file does not exist or the user accept the override
+	 * either false
+	 * @throws IOException exception raise in case of I/O Exception
+	 */
+    private boolean approveSelection(File file) throws IOException {
+		 if(!file.exists() ||
 				 JOptionPane.showConfirmDialog( null,
-			                  "File " + this.file.getName() + " already exist, override?",
-			                  "override?",
+			                  "File " + file.getName() + " already exist, override ?",
+			                  "Override?",
 			                  JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			 return true;
 		 } else {
@@ -106,16 +121,17 @@ public class DiagramSaver implements Saver {
     
     /**
      * Save the diagram in a uml7 format.
-     * @throws IOException
+     * @param file the file created
+     * @throws IOException raise in case of I/O Exception
      */
-    private void saveFile() throws IOException {
-    	FileOutputStream fileOut = new FileOutputStream(this.file);
+    private void saveFile(File file) throws IOException {
+    	FileOutputStream fileOut = new FileOutputStream(file);
 		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-		
 		objectOut.writeObject(this.diagram);
 		objectOut.close();
     }
 	
+    @Override
 	public void setDiagram(UmlDiagram diagram) {
 		this.diagram = diagram;
 	}

@@ -73,7 +73,7 @@ public class UmlDiagram extends Observable implements Serializable{
 	 * Build an UML diagram.
 	 */
 	public UmlDiagram() {
-		this.title = null;
+		this.title = "Diagram";
 		this.elements = new ArrayList<>();
 		this.relations = new ArrayList<>();
 		

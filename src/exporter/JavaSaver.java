@@ -1,10 +1,10 @@
 package exporter;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Locale;
+import java.util.Map.Entry;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -12,35 +12,46 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import generator.JavaGenerator;
 import model.UmlDiagram;
 
 /**
  * Class which allow to save a diagram in java format.
  * @author fmeslet
+ * @see JavaGenerator
+ * @see UmlDiagram
  * @version 1.0
  */
 public class JavaSaver implements Saver{
 	
+	/**
+	 * The diagram to save in java file.
+	 */
 	private UmlDiagram diagram;
+	
+	/**
+	 * The box for saving a diagram.
+	 */
 	private JFileChooser jfc;
-	private FileNameExtensionFilter filter;
+	
+	/**
+	 * The java generator.
+	 */
+	private JavaGenerator generator;
 	
 	/**
 	 * Build a java saver with a diagram.
 	 * @param diagram the diagram export in a file .uml7
 	 */
 	public JavaSaver(UmlDiagram diagram) {
-		this.diagram = diagram;
-		this.filter = new FileNameExtensionFilter("Java file", ".java");
+		if(diagram == null) {
+			this.diagram = new UmlDiagram();
+		} else {
+			this.diagram = diagram;
+		}
 		
-		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		
-		UIManager.put("FileChooser.acceptAllFileFilterText",
-				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
-		
-		this.jfc.addChoosableFileFilter(filter);
-		this.jfc.setDialogTitle("Save diagram");
+		this.generator = new JavaGenerator(this.diagram);
+		this.jfc = buildSaverFrame(this.jfc);
 	}
 	
 	/**
@@ -48,52 +59,77 @@ public class JavaSaver implements Saver{
 	 */
 	public JavaSaver() {
 		this.diagram = new UmlDiagram();
-		this.filter = new FileNameExtensionFilter("Java file", ".java");
-		
+		this.jfc = buildSaverFrame(this.jfc);
+	}
+	
+	@SuppressWarnings("serial")
+	private static JFileChooser buildSaverFrame(JFileChooser jfc) {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
-		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()) {
+			@Override
+			public void approveSelection() {
+				if (getSelectedFile().isFile()) {
+					JOptionPane.showMessageDialog(this, "Please choose a directory", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				} else {
+					super.approveSelection();
+				}
+			}
+		};
 		
 		UIManager.put("FileChooser.acceptAllFileFilterText",
 				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
 		
-		this.jfc.addChoosableFileFilter(filter);
-		this.jfc.setDialogTitle("Save diagram");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Java file", "java");
+		
+		jfc.addChoosableFileFilter(filter);
+		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		jfc.setDialogTitle("Choose a directory");
+		jfc.setAcceptAllFileFilterUsed(false);
+		return jfc;
 	}
 	
 	@Override
 	public void save() throws IOException {
 		int returnValue = 0;
-		boolean overwrite = true;
 		File file = new File("");
+		String filePath = "";
 		
-		do {
-			returnValue = this.jfc.showDialog(null, "Save");
-			if(returnValue == JFileChooser.APPROVE_OPTION) {
-				// PArcourir le HashMap
-				file = new File(jfc.getSelectedFile().getAbsolutePath());
+		returnValue = this.jfc.showDialog(null, "Save");
+		
+		if(returnValue == JFileChooser.APPROVE_OPTION) {
+			
+			// Generate java code
+			this.generator.generateCode();
+			
+			for(Entry<String, String> map : this.generator.getCode().entrySet()) {
 				
 				// Absolute path of the file
-				filePath = jfc.getSelectedFile().getAbsolutePath();
+				filePath = jfc.getSelectedFile().getAbsolutePath() + File.separator  + map.getKey();
 				
-				// Add the extension if the file doesn't have this extension
-				if(!filePath.endsWith(".uml7")) {
-					this.file = new File(filePath + ".uml7");
+				// The java file with the extension already add
+				file = new File(filePath);
+				
+				// Autorize the override
+				if(this.approveSelection(file)) {
+					this.saveFile(file, map.getValue());
 				}
-				
-				overwrite = this.approveSelection();
 			}
-		} while (!overwrite && returnValue == JFileChooser.APPROVE_OPTION);
-		
-		if(returnValue == JFileChooser.APPROVE_OPTION || overwrite) {
-			saveFile(file);
 		}
 	}
 	
+	/**
+	 * Approve the overwriting of a file.
+	 * @param file the file to save
+	 * @return true if the file does not exist or the user accept the override
+	 * either false
+	 * @throws IOException exception raise in case of I/O Exception
+	 */
     private boolean approveSelection(File file) throws IOException {
-		 if(file.exists() ||
+		 if(!file.exists() ||
 				 JOptionPane.showConfirmDialog( null,
-			                  "File already exist, override?",
-			                  "override?",
+						 	"File " + file.getName() + " already exist, override ?",
+			                  "Override ?",
 			                  JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			 return true;
 		 } else {
@@ -103,16 +139,17 @@ public class JavaSaver implements Saver{
     
     /**
      * Save the diagram in a java format.
-     * @throws IOException
+     * @param file the file created
+     * @param code the code write in file
+     * @throws IOException exception raise in case of I/O Exception
      */
-    private void saveFile(File file) throws IOException {
-    	FileOutputStream fileOut = new FileOutputStream(file);
-		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-		
-		objectOut.writeObject(this.diagram);
-		objectOut.close();
+    private void saveFile(File file, String code) throws IOException {
+		FileWriter writer = new FileWriter(file);
+		writer.write(code);
+		writer.close();
     }
 	
+    @Override
 	public void setDiagram(UmlDiagram diagram) {
 		this.diagram = diagram;
 	}

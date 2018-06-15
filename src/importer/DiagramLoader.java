@@ -13,17 +13,30 @@ import javax.swing.filechooser.FileSystemView;
 
 import model.UmlDiagram;
 
+/**
+ * Class which allow to build a diagram loader.
+ * @author fmeslet
+ * @see UmlDiagram
+ * @version 1.0
+ */
 public class DiagramLoader implements Loader {
 
-	private File file;
+	/**
+	 * The diagram load.
+	 */
 	private UmlDiagram diagram;
-	private JFileChooser jfc;
-	private FileNameExtensionFilter filter;
 	
+	/**
+	 * The box for loading the file.
+	 */
+	private JFileChooser jfc;
+	
+	/**
+	 * Build a diagram loader.
+	 */
 	public DiagramLoader() {
 		this.diagram = null;
-		this.file = new File("");
-		this.filter = new FileNameExtensionFilter("UML7 Diagram", "uml7");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("UML7 file", "uml7");
 		
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		this.jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -32,7 +45,7 @@ public class DiagramLoader implements Loader {
 				UIManager.get( "FileChooser.acceptAllFileFilterText", Locale.ENGLISH));
 		
 		this.jfc.addChoosableFileFilter(filter);
-		this.jfc.setDialogTitle("Save diagram");
+		this.jfc.setDialogTitle("Import a diagram");
 		jfc.setAcceptAllFileFilterUsed(false);
 	}
 	
@@ -40,23 +53,34 @@ public class DiagramLoader implements Loader {
 	public void load() throws ClassNotFoundException, IOException {
 		int returnValue = 0;
 		String fileName = "";
+		File file = new File("");
 		
 		returnValue = this.jfc.showDialog(null, "Import");
 		if(returnValue == JFileChooser.APPROVE_OPTION) {
 			fileName = jfc.getSelectedFile().getAbsolutePath();
-			this.file = new File(fileName);
-			this.loadFile();
+			file = new File(fileName);
+			this.loadFile(file);
 		}
 	}
 	
-	private void loadFile() throws ClassNotFoundException, IOException {
-	    FileInputStream fileIn = new FileInputStream(this.file);
+	/**
+	 * Load a file.
+	 * @param file the file loaded
+	 * @throws ClassNotFoundException raise if the format is not the format expected
+	 * @throws IOException raise in case of I/O Exception
+	 */
+	private void loadFile(File file) throws ClassNotFoundException, IOException {
+	    FileInputStream fileIn = new FileInputStream(file);
 	    ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 	    this.diagram = (UmlDiagram) objectIn.readObject();
 	    objectIn.close();
 	    fileIn.close();
 	}
 	
+	/**
+	 * Get the diagram loaded.
+	 * @return the diagram loaded
+	 */
 	public UmlDiagram getDiagram() {
 		return this.diagram;
 	}

@@ -22,7 +22,6 @@ import model.UmlEnum;
 import model.UmlInterface;
 import model.UmlMethod;
 import model.UmlParams;
-import model.UmlType;
 import model.Visibility;
 
 public class JavaGeneratorTest {

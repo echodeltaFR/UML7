@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import exception.ExceptionUml;
 import exporter.DiagramSaver;
+import exporter.JavaSaver;
 import model.Modifier;
 import model.PrimitiveType;
 import model.UmlAttribute;
@@ -26,6 +27,18 @@ import model.Visibility;
 /**
  * Class with allow to test the importation and the exportation.
  * @author fmeslet
+ * @see ExceptionUml;
+ * @see DiagramSaver;
+ * @see JavaSaver;
+ * @see Modifier;
+ * @see PrimitiveType;
+ * @see UmlAttribute;
+ * @see UmlClass;
+ * @see UmlDiagram;
+ * @see UmlMethod;
+ * @see UmlParams;
+ * @see UmlRefType;
+ * @see Visibility;
  * @version 1.0
  */
 public class ImporterTest {
@@ -36,7 +49,9 @@ public class ImporterTest {
 
 	private UmlRefType classComponent;
 	
-	private DiagramSaver saver;
+	private DiagramSaver diagramSaver;
+	private JavaSaver javaSaver;
+	
 	private DiagramLoader loader;
 	
 	@Before
@@ -103,22 +118,36 @@ public class ImporterTest {
 				Visibility.PUBLIC, modifierClass);
 		
 		// Create diagrams
+		classDiagramComponents = new ArrayList<UmlRefType>();
+		classDiagramComponents.add(classComponent);
+		
+		// Create diagrams
 		diagramClass = new UmlDiagram("Diagram Class", classDiagramComponents);
 		
 		// Create Loader
 		loader = new DiagramLoader();
 		
 		// Create Saver
-		saver = new DiagramSaver(diagramClass);
+		diagramSaver = new DiagramSaver(diagramClass);
+		javaSaver = new JavaSaver(diagramClass);
 	}
 	
 	@Test
 	public void testLoader() throws ClassNotFoundException, IOException {
-		saver.save();
+		diagramSaver.save();
 		loader.load();
-
-		assertEquals("testGenerationClass: wrong normal class generation", diagramClass, loader.getDiagram());
-		
+		assertEquals("testGenerationClass: wrong normal class generation", 
+				diagramClass, loader.getDiagram());
+	}
+	
+	@Test
+	public void testJavaSaver() {
+		try {
+			javaSaver.save();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
