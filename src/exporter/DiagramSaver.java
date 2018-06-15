@@ -56,8 +56,7 @@ public class DiagramSaver implements Saver {
 	
 	/**
 	 * Create the box with specific parameters for saving the diagram.
-	 * @param jfc the box
-	 * @return the box modified
+	 * @return the box
 	 */
 	private static JFileChooser buildSaverFrame() {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);

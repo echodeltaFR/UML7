@@ -1,10 +1,8 @@
 package exporter;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Locale;
 import java.util.Map.Entry;
 
@@ -64,7 +62,10 @@ public class JavaSaver implements Saver{
 		this.jfc = buildSaverFrame();
 	}
 	
-	@SuppressWarnings("serial")
+	/**
+	 * Create the box with specific parameters for saving the diagram.
+	 * @return the box
+	 */
 	private static JFileChooser buildSaverFrame() {
 		JFileChooser.setDefaultLocale(Locale.ENGLISH);
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
