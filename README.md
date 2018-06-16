@@ -20,6 +20,9 @@ UML7 requires [JGoodies](http://www.jgoodies.com/). Executable JAR files provide
 ## Troubleshooting & Issues
 If you have some problems or find bugs and issues, see the Issues section of Github project. You can also send an email to [our team](mailto:git@hello-community.fr).
 
+## Progress of the project
+At the moment, you can create and edit a diagram with UML7. You can also save your work to continue later (in uml7 file) and generate then export Java code in java files from the diagram you created.
+
 ---
 
 # UML7
@@ -43,4 +46,7 @@ UML7 dépend de [JGoodies](http://www.jgoodies.com/). Les fichiers exécutables 
 
 ## Assistance et problèmes
 Si vous rencontrez des difficultés ou vous détectez des bugs ou autres problèmes, visitez la section "Issues" du projet Github. Vous pouvez aussi envoyer un email à [notre équipe](mailto:git@hello-community.fr).
+
+## Avancement du projet
+Pour le moment, vous pouvez créer et éditer un diagramme dans UML7. Vous pouvez aussi sauvegarder votre travail pour reprendre plus tard (dans un fichier uml7) et générer puis exporter le code Java dans des fichiers java à partir du diagramme que vous avez créé.
 
