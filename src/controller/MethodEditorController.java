@@ -90,12 +90,9 @@ public class MethodEditorController extends JDialog {
 		this.umlParams = new HashSet<>(umlMethod.getParams());
 		this.umlRefType = null;
 		this.myself = this;
-		this.btnValidate.setText("Apply and close");
 		this.setTitle("Edit a method");
 				
 		UmlType umlType = umlMethod.getReturnType();
-
-		returnTypeMethodComboBox.setSelectedItem(umlType.toString());
 				
 		Modifier[] modifiersArray = umlMethod.getModifiers().toArray(new Modifier[umlMethod.getModifiers().size()]);
 		
@@ -121,6 +118,8 @@ public class MethodEditorController extends JDialog {
 		}
 		
 		initializeNakedGUI();
+		this.btnValidate.setText("Apply and close");
+		returnTypeMethodComboBox.setSelectedItem(umlType.toString());
 
 		comboBoxVisibility.setSelectedItem(umlMethod.getVisibility().name());
 		
