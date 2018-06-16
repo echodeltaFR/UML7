@@ -11,6 +11,15 @@ With UML7 you can view and create UML classes diagrams. You can also save your w
 ## Licence
 UML7 is under GPLv3 license. See [LICENSE](LICENSE)
 
+## Use & Installation
+UML7 requires no installation as far as it runs in a JVM. You just have to download the latest JAR file within [versions directory](versions/). Then launch it with Java 8 or above. See the [user's guide](user-guide.pdf) for the use of UML7 app.
+
+## Dependencies
+UML7 requires [JGoodies](http://www.jgoodies.com/). Executable JAR files provided within [versions directory](versions/) are made with it. However you can find it within [dependencies directory](dependencies/).
+
+## Troubleshooting & Issues
+If you have some problems or find bugs and issues, see the Issues section of Github project. You can also send an email to [our team](mailto:git@hello-community.fr).
+
 ---
 
 # UML7
@@ -25,3 +34,13 @@ UML7 permet de visualiser et de créer des diagrammes de classes UML. Il permet 
 
 ## Licence
 UML7 est sous licence GPLv3. Voir [LICENSE](LICENSE)
+
+## Utilisation et installation
+UML7 ne requiert aucune installation étant donné qu'il s'exécute dans une JVM. Il vous suffit de télécharger la dernière version du fichier exécutable JAR dans le dossier [versions](versions/). Ensuite, exécutez-le à l'aide de Java 8 ou supérieur. Lisez le [guide d'utilisateur](guide-utilisateur.pdf) pour plus d'informations quant à l'utilisation d'UML7.
+
+## Dépendances
+UML7 dépend de [JGoodies](http://www.jgoodies.com/). Les fichiers exécutables JAR sont fournis dans le dossier [dependencies](dependencies). Cependant, ils sont inclus dans le JAR UML7.
+
+## Assistance et problèmes
+Si vous rencontrez des difficultés ou vous détectez des bugs ou autres problèmes, visitez la section "Issues" du projet Github. Vous pouvez aussi envoyer un email à [notre équipe](mailto:git@hello-community.fr).
+
