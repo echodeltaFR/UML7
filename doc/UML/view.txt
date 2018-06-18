@@ -104,16 +104,16 @@ DiagramDisplay *-- UmlObjectDisplay
 UmlObjectDisplay *-- MethodDisplay
 UmlObjectDisplay *-- AttributeDisplay
 
-AttributeDisplay <|.down. Observer
-MethodDisplay <|.down. Observer
-UmlObjectDisplay <|.down. Observer
-DiagramDisplay <|.down. Observer
-AttributeDisplay <|-down- JPanel
-MethodDisplay <|-down- JPanel
-UmlObjectDisplay <|-down- JPanel
-RelationDisplay <|-down- JPanel
+AttributeDisplay .down.|> Observer
+MethodDisplay .down.|> Observer
+UmlObjectDisplay .down.|> Observer
+DiagramDisplay .down.|> Observer
+AttributeDisplay -down-|> JPanel
+MethodDisplay -down-|> JPanel
+UmlObjectDisplay -down-|> JPanel
+RelationDisplay -down-|> JPanel
 
-DiagramDisplay <|-right- JScrollPane
+DiagramDisplay -right-|> JScrollPane
 
 
 @enduml

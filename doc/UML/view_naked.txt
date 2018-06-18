@@ -23,16 +23,16 @@ DiagramDisplay *-- UmlObjectDisplay
 UmlObjectDisplay *-- MethodDisplay
 UmlObjectDisplay *-- AttributeDisplay
 
-AttributeDisplay <|.left. Observer
-MethodDisplay <|.left. Observer
-UmlObjectDisplay <|.left. Observer
-DiagramDisplay <|.left. Observer
-AttributeDisplay <|-up- JPanel
-MethodDisplay <|-up- JPanel
-UmlObjectDisplay <|-up- JPanel
-RelationDisplay <|-up- JPanel
+AttributeDisplay .left.|> Observer
+MethodDisplay .left.|> Observer
+UmlObjectDisplay .left.|> Observer
+DiagramDisplay .left.|> Observer
+AttributeDisplay -up-|> JPanel
+MethodDisplay -up-|> JPanel
+UmlObjectDisplay -up-|> JPanel
+RelationDisplay -up-|> JPanel
 
-DiagramDisplay <|-right- JScrollPane
+DiagramDisplay -right-|> JScrollPane
 
 
 @enduml
