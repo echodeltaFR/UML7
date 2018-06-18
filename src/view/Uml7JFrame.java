@@ -247,8 +247,14 @@ public class Uml7JFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = JOptionPane.showInputDialog(null, "What is the name of the class?", "Add class", JOptionPane.PLAIN_MESSAGE);
-				if (name != null) {
-					displayed.addUmlElements(new UmlClass(name));
+				try {
+
+					if (name != null) {
+						displayed.addUmlElements(new UmlClass(name));
+					}
+				
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(null, "Error: "+ex.getMessage(), "Can't create class", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		};
@@ -258,9 +264,17 @@ public class Uml7JFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = JOptionPane.showInputDialog(null, "What is the name of the interface?", "Add interface", JOptionPane.PLAIN_MESSAGE);
-				if (name != null) {
-					displayed.addUmlElements(new UmlInterface(name));
+				
+				try {
+					
+					if (name != null) {
+						displayed.addUmlElements(new UmlInterface(name));
+					}
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(null, "Error: "+ex.getMessage(), "Can't create interface", JOptionPane.ERROR_MESSAGE);
 				}
+
+				
 			}
 		};
 		
@@ -269,8 +283,12 @@ public class Uml7JFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = JOptionPane.showInputDialog(null, "What is the name of the enum?","Add enum",JOptionPane.PLAIN_MESSAGE);
-				if (name != null) {
-					displayed.addUmlElements(new UmlEnum(name));
+				try {
+					if (name != null) {
+						displayed.addUmlElements(new UmlEnum(name));
+					}
+				} catch(IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(null, "Error: "+ex.getMessage(), "Can't create enum", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		};
