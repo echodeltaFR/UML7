@@ -86,7 +86,6 @@ public abstract class UmlEntity extends Observable implements Serializable {
 		if (name.trim().isEmpty()) throw new IllegalArgumentException("Name can't be empty");
 		if (name.contains(" ")) throw new IllegalArgumentException("Name can't contain spaces");
 		this.name = name;
-		this.name = name;
 		this.visibility = Visibility.PUBLIC;
 		this.modifiers = new HashSet<>();
 	}

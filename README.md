@@ -49,4 +49,3 @@ Si vous rencontrez des difficultés ou vous détectez des bugs ou autres problè
 
 ## Avancement du projet
 Pour le moment, vous pouvez créer et éditer un diagramme dans UML7. Vous pouvez aussi sauvegarder votre travail pour reprendre plus tard (dans un fichier .uml7) et générer puis exporter le code Java dans des fichiers .java à partir du diagramme que vous avez créé.
-

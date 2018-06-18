@@ -76,17 +76,14 @@ public class AttributeEditorController extends JDialog {
 		lblModifiers.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblModifiers, "2, 10, right, default");
 		
-		chckbxFinal = new JCheckBox("final");
 		getContentPane().add(chckbxFinal, "4, 10");
 		
 		EditorUtils.addItemListenerCheckBox(chckbxFinal, Modifier.FINAL, modifiers);
 
-		chckbxStatic = new JCheckBox("static");
 		getContentPane().add(chckbxStatic, "6, 10");
 		
 		EditorUtils.addItemListenerCheckBox(chckbxStatic, Modifier.STATIC, modifiers);
 		
-		chckbxVolatile = new JCheckBox("volatile");
 		getContentPane().add(chckbxVolatile, "4, 12");
 		
 		EditorUtils.addItemListenerCheckBox(chckbxVolatile, Modifier.VOLATILE, modifiers);
@@ -144,6 +141,9 @@ public class AttributeEditorController extends JDialog {
 		
 		this.modifiers = new HashSet<>(umlAttr.getModifiers());
 		
+		initializeNakedGUI();
+
+		
 		for (int i = 0; i < modifiersArray.length; i++) {
 			switch (modifiersArray[i]) {
 				case FINAL:
@@ -162,7 +162,6 @@ public class AttributeEditorController extends JDialog {
 		
 		this.setTitle("Update an attribute");
 
-		initializeNakedGUI();
 
 		this.nameTextField.setText(umlAttr.getName());
 		this.comboBoxType.setSelectedItem(umlAttr.getType().toString());
@@ -251,6 +250,11 @@ public class AttributeEditorController extends JDialog {
 		
 		comboBoxVisibility = new JComboBox<>();
 		getContentPane().add(comboBoxVisibility, "4, 8, 3, 1, fill, default");
+		
+		chckbxFinal = new JCheckBox("final");
+		chckbxStatic = new JCheckBox("static");
+		chckbxVolatile = new JCheckBox("volatile");
+
 		
 		EditorUtils.initializeVisibility(comboBoxVisibility);
 		EditorUtils.initializeType(comboBoxType);
